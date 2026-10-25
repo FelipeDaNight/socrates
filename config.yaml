@@ -1,0 +1,28 @@
+# Configuração do Sócrates
+# Troque o provedor do cérebro mudando só a linha "provedor".
+
+nome: Sócrates
+modo_inicial: explicar        # explicar | testar
+historico_max: 20             # quantas mensagens ele lembra na conversa atual
+
+llm:
+  provedor: groq              # groq | gemini | ollama
+  temperatura: 0.6
+
+provedores:
+  groq:
+    base_url: https://api.groq.com/openai/v1
+    chave_env: GROQ_API_KEY
+    modelo: openai/gpt-oss-120b
+  gemini:
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+    chave_env: GEMINI_API_KEY
+    modelo: gemini-flash-latest
+  ollama:                     # roda local; lento sem placa de vídeo
+    base_url: http://localhost:11434/v1
+    chave_env: null
+    modelo: qwen2.5:3b
+
+log:
+  nivel: INFO                 # DEBUG mostra tudo
+  arquivo: socrates.log
