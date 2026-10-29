@@ -23,6 +23,24 @@ provedores:
     chave_env: null
     modelo: qwen2.5:3b
 
+voz:
+  ativa: true                 # false = só texto (igual à fase 0)
+  nome: pt-BR-AntonioNeural   # outras: pt-BR-FranciscaNeural, pt-BR-ThalitaNeural
+  velocidade: "+5%"           # mais rápido: "+15%" | mais devagar: "-10%"
+  saudacao: true              # fala "olá" ao ligar (serve de teste do som)
+
+ouvido:                       # transcrição (Whisper no Groq, grátis)
+  base_url: https://api.groq.com/openai/v1
+  chave_env: GROQ_API_KEY
+  modelo: whisper-large-v3-turbo
+
+microfone:
+  silencio_seg: 1.2           # quanto silêncio encerra sua fala
+  max_seg: 30                 # fala mais longa permitida
+  espera_seg: 8               # quanto espera você começar a falar
+  sensibilidade: 3.0          # se ele não te ouve, diminua (2.0); se dispara à toa, aumente (4.0)
+  dispositivo: null           # null = microfone padrão do Windows
+
 log:
   nivel: INFO                 # DEBUG mostra tudo
   arquivo: socrates.log

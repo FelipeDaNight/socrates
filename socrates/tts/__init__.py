@@ -1,9 +1,21 @@
-"""Voz: texto -> fala. Implementação real chega na fase 1 (edge-tts, voz Antonio)."""
+"""Voz: texto -> fala."""
 
 from abc import ABC, abstractmethod
 
 
 class Voz(ABC):
     @abstractmethod
-    async def falar(self, texto: str) -> None:
-        """Fala o texto em voz alta. Deve poder ser cancelada (interrupção)."""
+    async def sintetizar(self, texto: str) -> bytes:
+        """Transforma texto em áudio (sem tocar). Separado de tocar() para
+        a próxima frase ser gerada enquanto a atual está tocando."""
+
+    @abstractmethod
+    async def tocar(self, audio: bytes) -> None:
+        """Toca o áudio e só retorna quando terminar."""
+
+    def parar(self) -> None:
+        """Interrompe o que estiver tocando."""
+
+
+class ErroVoz(Exception):
+    """Falha ao gerar a fala."""

@@ -1,5 +1,11 @@
 openai>=1.40
 python-dotenv>=1.0
 pyyaml>=6.0
+# voz (fase 1)
+numpy>=2.0
+sounddevice>=0.5
+edge-tts>=7.0
+miniaudio>=1.60
+# testes
 pytest>=8.0
 pytest-asyncio>=0.23

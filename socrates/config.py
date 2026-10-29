@@ -22,11 +22,39 @@ class ConfigLLM:
 
 
 @dataclass
+class ConfigVoz:
+    ativa: bool = True
+    nome: str = "pt-BR-AntonioNeural"
+    velocidade: str = "+0%"
+    saudacao: bool = True
+
+
+@dataclass
+class ConfigOuvido:
+    base_url: str = "https://api.groq.com/openai/v1"
+    chave: str | None = None
+    chave_env: str = "GROQ_API_KEY"
+    modelo: str = "whisper-large-v3-turbo"
+
+
+@dataclass
+class ConfigMic:
+    silencio_seg: float = 1.2
+    max_seg: float = 30.0
+    espera_seg: float = 8.0
+    sensibilidade: float = 3.0
+    dispositivo: int | str | None = None
+
+
+@dataclass
 class Config:
     nome: str
     modo_inicial: str
     historico_max: int
     llm: ConfigLLM
+    voz: ConfigVoz = field(default_factory=ConfigVoz)
+    ouvido: ConfigOuvido = field(default_factory=ConfigOuvido)
+    microfone: ConfigMic = field(default_factory=ConfigMic)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -34,6 +62,12 @@ class Config:
 
 class ErroConfig(Exception):
     """Algo no config.yaml ou no .env está faltando ou errado."""
+
+
+def _preencher(classe, dados: dict | None):
+    """Cria a dataclass só com as chaves que ela conhece (ignora o resto)."""
+    conhecidas = classe.__dataclass_fields__
+    return classe(**{k: v for k, v in (dados or {}).items() if k in conhecidas})
 
 
 def carregar(caminho: Path | str | None = None) -> Config:
@@ -63,12 +97,18 @@ def carregar(caminho: Path | str | None = None) -> Config:
         chave=chave,
         temperatura=float(dados.get("llm", {}).get("temperatura", 0.6)),
     )
+    ouvido = _preencher(ConfigOuvido, dados.get("ouvido"))
+    ouvido.chave = os.getenv(ouvido.chave_env)
+
     log = dados.get("log", {})
     return Config(
         nome=dados.get("nome", "Sócrates"),
         modo_inicial=dados.get("modo_inicial", "explicar"),
         historico_max=int(dados.get("historico_max", 20)),
         llm=llm,
+        voz=_preencher(ConfigVoz, dados.get("voz")),
+        ouvido=ouvido,
+        microfone=_preencher(ConfigMic, dados.get("microfone")),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,
