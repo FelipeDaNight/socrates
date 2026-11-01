@@ -243,3 +243,19 @@ def test_filtro_de_pensamento(pedacos, esperado):
     from socrates.llm.ollama import FiltroPensamento
     f = FiltroPensamento()
     assert "".join(f.alimentar(p) for p in pedacos) + f.fim() == esperado
+
+
+def test_voltar_para_nuvem_mantem_o_resto(tmp_path, monkeypatch):
+    from socrates import instalar_local
+    import yaml
+    monkeypatch.setattr(instalar_local, "RAIZ", tmp_path)
+    arq = tmp_path / "config.local.yaml"
+    arq.write_text("voz:\n  tom: '-8Hz'\ncerebro: local\nlocal:\n  modelo: qwen3.5:2b\n", encoding="utf-8")
+    instalar_local.voltar_para_nuvem(lambda *a, **k: None)
+    cfg = yaml.safe_load(arq.read_text(encoding="utf-8"))
+    assert cfg == {"voz": {"tom": "-8Hz"}, "cerebro": "nuvem", "local": {"modelo": "qwen3.5:2b"}}
+
+
+def test_descricao_do_modelo_escolhido():
+    from socrates.instalar_local import descrever_modelo
+    assert "pouca memória" in descrever_modelo("qwen3.5:2b")

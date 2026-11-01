@@ -8,6 +8,7 @@
     python main.py --pesquisa    testar a pesquisa na internet
     python main.py --provedores  testar cada cérebro grátis do rodízio (Groq, Mistral, Gemini)
     python main.py --local       preparar o cérebro LOCAL (Ollama): tudo pensado no seu PC
+    python main.py --nuvem       voltar a pensar na nuvem (Groq/Mistral/Gemini)
     python main.py --vozes       ouvir as vozes disponíveis e escolher
     python main.py --acoes       testar janelas, texto copiado, bloco de notas e visão da tela
 """
@@ -453,6 +454,7 @@ def main() -> None:
     p.add_argument("--provedores", action="store_true", help="testa cada cérebro grátis do rodízio")
     p.add_argument("--local", action="store_true",
                    help="prepara o cérebro local (Ollama): escolhe, baixa e testa o modelo")
+    p.add_argument("--nuvem", action="store_true", help="volta para o cérebro na nuvem")
     p.add_argument("--modelo", help="com --local: escolher o modelo (ex.: qwen3.5:2b)")
     p.add_argument("--vozes", action="store_true", help="toca as vozes disponíveis para você escolher")
     p.add_argument("--acoes", action="store_true", help="testa janelas, texto copiado, bloco de notas e tela")
@@ -461,6 +463,10 @@ def main() -> None:
     if args.local:   # não precisa de chave nenhuma
         from socrates.instalar_local import instalar
         sys.exit(0 if instalar(modelo=args.modelo) else 1)
+    if args.nuvem:
+        from socrates.instalar_local import voltar_para_nuvem
+        voltar_para_nuvem()
+        sys.exit(0)
 
     try:
         cfg = config.carregar()

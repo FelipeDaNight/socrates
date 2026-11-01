@@ -76,12 +76,23 @@ def baixar(cliente: ClienteOllama, modelo: str, escrever=print) -> None:
     escrever("")
 
 
-def gravar_config_local(modelo: str, caminho: Path | None = None) -> Path:
+def descrever_modelo(modelo: str) -> str:
+    for _, nome, descricao in MODELOS:
+        if nome == modelo:
+            return descricao
+    return "escolhido por você"
+
+
+def gravar_config_local(modelo: str | None, caminho: Path | None = None,
+                        cerebro: str = "local") -> Path:
     caminho = caminho or RAIZ / "config.local.yaml"
     atual = {}
     if caminho.exists():
         atual = yaml.safe_load(caminho.read_text(encoding="utf-8")) or {}
-    novo = mesclar(atual, {"cerebro": "local", "local": {"modelo": modelo}})
+    extra = {"cerebro": cerebro}
+    if modelo:
+        extra["local"] = {"modelo": modelo}
+    novo = mesclar(atual, extra)
     caminho.write_text("# Suas preferências (valem por cima do config.yaml; não vão para o GitHub)\n"
                        + yaml.safe_dump(novo, allow_unicode=True, sort_keys=False), encoding="utf-8")
     return caminho
@@ -134,8 +145,9 @@ def instalar(escrever=print, cliente: ClienteOllama | None = None,
     escrever("     OK, o Ollama está aberto.")
 
     ram = memoria_gb()
-    sugerido, descricao = escolher_modelo(ram)
+    sugerido, _ = escolher_modelo(ram)
     modelo = modelo or sugerido
+    descricao = descrever_modelo(modelo)
     escrever(f"\n2/5  Memória do PC: {ram:.0f} GB  ->  modelo {modelo}: {descricao}")
 
     escrever(f"\n3/5  Baixando {modelo} (só na primeira vez; pode demorar alguns minutos)")
@@ -160,3 +172,11 @@ def instalar(escrever=print, cliente: ClienteOllama | None = None,
     escrever("Rode:  .venv\\Scripts\\python main.py")
     escrever("Para voltar para a nuvem, troque para \"cerebro: nuvem\" no config.local.yaml.")
     return True
+
+
+def voltar_para_nuvem(escrever=print) -> None:
+    """main.py --nuvem: grava "cerebro: nuvem" (o modelo baixado fica no PC)."""
+    caminho = gravar_config_local(None, cerebro="nuvem")
+    escrever(f"Pronto! Gravei \"cerebro: nuvem\" em {caminho.name}.")
+    escrever("O Sócrates volta a pensar no Groq/Mistral/Gemini. Rode:  .venv\\Scripts\\python main.py")
+    escrever("Para usar o local de novo:  .venv\\Scripts\\python main.py --local")
