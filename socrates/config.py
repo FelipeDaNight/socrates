@@ -82,6 +82,7 @@ class Config:
     acoes: bool = True
     programas: dict = field(default_factory=dict)
     visao_modelo: str = "qwen/qwen3.8-27b"
+    claude_enter: bool = True
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -97,6 +98,17 @@ def _preencher(classe, dados: dict | None):
     return classe(**{k: v for k, v in (dados or {}).items() if k in conhecidas})
 
 
+def mesclar(base: dict, extra: dict) -> dict:
+    """Junta o config.local.yaml por cima do config.yaml, seção por seção."""
+    junto = dict(base)
+    for chave, valor in extra.items():
+        if isinstance(valor, dict) and isinstance(junto.get(chave), dict):
+            junto[chave] = mesclar(junto[chave], valor)
+        else:
+            junto[chave] = valor
+    return junto
+
+
 def carregar(caminho: Path | str | None = None) -> Config:
     load_dotenv(RAIZ / ".env")
     caminho = Path(caminho) if caminho else RAIZ / "config.yaml"
@@ -104,6 +116,12 @@ def carregar(caminho: Path | str | None = None) -> Config:
         raise ErroConfig(f"Não achei o arquivo de configuração: {caminho}")
 
     dados = yaml.safe_load(caminho.read_text(encoding="utf-8")) or {}
+    local = caminho.with_name("config.local.yaml")
+    if local.exists():   # suas preferências: não vão para o GitHub nem travam o git pull
+        try:
+            dados = mesclar(dados, yaml.safe_load(local.read_text(encoding="utf-8")) or {})
+        except yaml.YAMLError as e:
+            raise ErroConfig(f"Erro no config.local.yaml: {e}") from e
 
     provedor = dados.get("llm", {}).get("provedor", "groq")
     prov = dados.get("provedores", {}).get(provedor)
@@ -143,6 +161,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         acoes=bool((dados.get("acoes") or {}).get("ativas", True)),
         programas=(dados.get("acoes") or {}).get("programas") or {},
         visao_modelo=(dados.get("visao") or {}).get("modelo", "qwen/qwen3.8-27b"),
+        claude_enter=bool((dados.get("claude") or {}).get("enviar_com_enter", True)),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

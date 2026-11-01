@@ -24,14 +24,17 @@ responder sobre o que viu). Depois de uma ação, confirme em UMA frase curta e 
 (ex.: "Pronto, abri a calculadora."). Se o pedido era para ver ou ler algo (tela, texto
 copiado), responda ao aluno sobre o conteúdo, no seu jeito de professor, usando o quadro
 se houver fórmula ou questão. Nunca diga que fez algo sem ter chamado a ferramenta.
-Se a ferramenta der erro, explique em uma frase."""
+Se a ferramenta der erro, explique em uma frase.
+Se a ferramenta responder AGUARDANDO CONFIRMAÇÃO, a ação ainda NÃO aconteceu: pergunte ao
+aluno, em uma frase curta, se pode fazer (ex.: "Vou mandar para o Claude: ... Posso mandar?")."""
 
 MARCADOR = "executar"   # o modelo responde isso quando percebe um pedido de ação
 
 INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno: abrir e fechar programas,
 trocar de janela, ver o que está na tela, saber quais janelas estão abertas, ler o texto que ele
 copiou, copiar texto, escrever no Bloco de Notas, abrir sites e pastas, tocar no YouTube,
-volume, timer, anotar e bloquear a tela.
+volume, timer, anotar, bloquear a tela, mandar pedidos de mudança para o Claude (quem
+programa você) e se atualizar com a versão nova.
 Se o aluno pedir uma dessas ações, responda APENAS com a palavra EXECUTAR e mais nada.
 Nunca diga que não consegue abrir programas ou mexer no computador."""
 
@@ -58,7 +61,9 @@ _ASSUNTO = re.compile(
     r"|quanto tempo falta|no youtube|minhas anotacoes|meu caderno"
     r"|minha tela|na tela|da tela|nessa tela|o que (?:eu )?(?:estou|to|tou) vendo"
     r"|janelas abertas|o que (?:esta|ta) aberto|quais programas"
-    r"|copiei|copiado|area de transferencia)\b"
+    r"|copiei|copiado|area de transferencia"
+    r"|claude|cloud|cloudy|claudio|claudia|clode|claud"
+    r"|se atualiza|se atualizar|atualiza o socrates|atualizar o socrates|versao nova)\b"
 )
 
 

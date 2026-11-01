@@ -22,7 +22,9 @@ from typing import Callable
 
 import numpy as np
 
+from . import ferramentas
 from .audio import ErroAudio
+from .ferramentas import claude
 from .audio.microfone import para_wav
 from .config import Config
 from .core.comandos import Comando, interpretar
@@ -270,6 +272,16 @@ class Conversa:
                 continue
             self.painel.legenda = pedido
 
+            if ferramentas.pendente_valido():   # "Posso mandar?" -> "sim"
+                resposta = await asyncio.to_thread(ferramentas.resolver_confirmacao, pedido)
+                if resposta is not None:
+                    self.dizer_tela(f"{self.cfg.nome}: {resposta}")
+                    await self.falar(resposta, False)
+                    if claude.REINICIAR.is_set():
+                        break
+                    self.abrir_janela()
+                    continue
+
             if not pedido:                      # disse só "Sócrates"
                 await self.falar("Sim?")
                 self.abrir_janela()
@@ -301,7 +313,8 @@ class Conversa:
             self.abrir_janela()
 
         self.painel.fechar_janela()
-        despedida = "Até a próxima. Bons estudos!"
+        despedida = ("Até já, volto atualizado." if claude.REINICIAR.is_set()
+                     else "Até a próxima. Bons estudos!")
         self.dizer_tela(f"\n{self.cfg.nome}: {despedida}")
         await self.falar(despedida, False)
 

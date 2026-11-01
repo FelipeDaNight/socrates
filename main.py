@@ -48,6 +48,8 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
         computador.adicionar_programas(cfg.programas)
         tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave,
                           modelo=cfg.visao_modelo)
+        from socrates.ferramentas import claude
+        claude.ENVIAR_COM_ENTER = cfg.claude_enter
     cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes)
     return Orquestrador(cerebro, cfg.nome, cfg.modo_inicial, cfg.historico_max,
                         contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
@@ -154,6 +156,15 @@ async def conversar_texto(cfg: config.Config) -> None:
             break
         if not texto:
             continue
+        from socrates import ferramentas
+        if ferramentas.pendente_valido():
+            resposta = await asyncio.to_thread(ferramentas.resolver_confirmacao, texto)
+            if resposta is not None:
+                print(f"{cfg.nome}: {resposta}")
+                from socrates.ferramentas import claude
+                if claude.REINICIAR.is_set():
+                    break
+                continue
         comando = interpretar(texto)
         if comando is Comando.SAIR:
             break
@@ -210,10 +221,11 @@ async def provar_vozes(cfg: config.Config) -> None:
     escolha = (await asyncio.to_thread(input, "\nQual número você prefere? (Enter para nenhuma) ")).strip()
     if escolha.isdigit() and 1 <= int(escolha) <= len(CANDIDATAS):
         c = CANDIDATAS[int(escolha) - 1]
-        print(f"\nPara usar \"{c.rotulo}\", troque no config.yaml a parte da voz por:\n")
+        print(f"\nPara usar \"{c.rotulo}\", crie (ou edite) o arquivo config.local.yaml, "
+              "na pasta do Sócrates, com:\n")
         print(c.config_yaml())
         if c.provedor == "gemini":
-            print("\n(o resto da seção voz pode ficar como está; o Edge vira a voz reserva)")
+            print("\n(o Edge vira a voz reserva automaticamente)")
 
 
 async def testar_acoes(cfg: config.Config) -> None:
@@ -386,6 +398,18 @@ def main() -> None:
             rodar_maos_livres(cfg, com_visor=cfg.visor.ativo and not args.sem_visor)
     except KeyboardInterrupt:
         pass
+    reiniciar_se_atualizou()
+
+
+def reiniciar_se_atualizou() -> None:
+    """Depois de "Sócrates, se atualiza": abre de novo, já com o código novo."""
+    import subprocess
+
+    from socrates.ferramentas import claude
+    if not claude.REINICIAR.is_set():
+        return
+    print("\n[atualização] Reiniciando o Sócrates com a versão nova...\n")
+    sys.exit(subprocess.call([sys.executable, *sys.argv]))
 
 
 if __name__ == "__main__":

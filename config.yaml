@@ -1,5 +1,6 @@
 # Configuração do Sócrates
-# Troque o provedor do cérebro mudando só a linha "provedor".
+# NÃO edite este arquivo para as suas preferências: crie um "config.local.yaml" ao lado
+# só com o que quer mudar (ex.: a voz). Ele vale por cima deste e não trava o git pull.
 
 nome: Sócrates
 modo_inicial: explicar        # explicar | testar
@@ -11,6 +12,9 @@ acoes:
   programas:                  # programas extras: nome falado: caminho do .exe
     # anki: 'C:\Program Files\Anki\anki.exe'
     # obsidian: '%LOCALAPPDATA%\Programs\Obsidian\Obsidian.exe'
+
+claude:                       # "Sócrates, pede pro Claude..." digita no app do Claude
+  enviar_com_enter: true      # false = só cola a mensagem, você confere e aperta Enter
 
 visao:                        # ver a tela (só quando você pede); usa a chave do Groq
   modelo: qwen/qwen3.8-27b

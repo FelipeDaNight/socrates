@@ -33,9 +33,9 @@ def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False) -
             log.warning("pesquisa pedida, mas %s/%s não tem busca embutida", cfg.provedor, cfg.modelo)
     if acoes:
         from .. import ferramentas
-        from ..ferramentas import computador, janelas, tela  # registram as ações
+        from ..ferramentas import claude, computador, janelas, tela  # registram as ações
         from .acoes import CerebroComAcoes
-        modulos = {computador.__name__, janelas.__name__, tela.__name__}
+        modulos = {computador.__name__, janelas.__name__, tela.__name__, claude.__name__}
         nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos]
         cerebro = CerebroComAcoes(cerebro, base, nomes)
         log.info("ações no PC: %s", ", ".join(nomes))

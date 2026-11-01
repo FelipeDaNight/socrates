@@ -102,6 +102,31 @@ acoes:
     anki: 'C:\Program Files\Anki\anki.exe'
 ```
 
+### O Sócrates pede mudanças ao Claude e se atualiza
+
+1. **"Sócrates, pede pro Claude deixar a voz mais grave."**
+2. Ele confirma: *"Vou mandar para o Claude: ... Posso mandar?"*. Responda **"sim"**.
+3. Ele traz o app do Claude para a frente, cola o pedido na conversa aberta e aperta Enter
+   (depois devolve o que você tinha copiado). O Claude muda o código e manda para o GitHub.
+4. Quando o Claude terminar: **"Sócrates, se atualiza"** → **"sim"**. Ele baixa a versão
+   nova, instala o que mudou e **reinicia sozinho**.
+
+Deixe aberta no app do Claude a conversa onde o Sócrates é desenvolvido. Para só colar,
+sem enviar, use `enviar_com_enter: false`. Ações assim (mandar ao Claude, se atualizar)
+**sempre pedem confirmação**; qualquer outra resposta que não seja "sim" cancela.
+
+### Suas preferências: `config.local.yaml`
+
+Não edite o `config.yaml`: crie um `config.local.yaml` na mesma pasta só com o que quer
+mudar. Ele vale por cima do outro, não vai para o GitHub e não trava a atualização.
+
+```yaml
+voz:
+  tom: "-8Hz"
+visor:
+  escala: 1.5
+```
+
 ### Quadro branco
 
 Quando a explicação pede algo visual (fórmula, conta passo a passo, gráfico, ou a
@@ -149,7 +174,7 @@ toda vez: `palavra_ativacao: false`.
 
 ### A voz
 
-Rode o provador: ele fala a mesma frase em cada voz e diz o que colocar no `config.yaml`.
+Rode o provador: ele fala a mesma frase em cada voz e diz o que colocar no `config.local.yaml`.
 
 ```powershell
 .venv\Scripts\python main.py --vozes
@@ -234,6 +259,7 @@ socrates/
   ferramentas/computador.py  as ações no PC (programas, sites, volume, timer, anotações)
   ferramentas/janelas.py   janelas, área de transferência e bloco de notas (via PowerShell)
   ferramentas/tela.py      print da tela + modelo de visão
+  ferramentas/claude.py    pedir mudanças ao Claude e se atualizar (git pull + reinício)
   core/quadro_fluxo.py     separa o quadro branco da fala
   visor/quadro.py          desenha o quadro (fórmulas, gráficos com avaliação segura)
   tts/gemini.py            voz do Gemini; tts/reserva.py troca para o Edge se falhar
@@ -245,7 +271,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     235 testes, rodam sem microfone nem internet
+tests/                     267 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
