@@ -70,6 +70,8 @@ class Config:
     microfone: ConfigMic = field(default_factory=ConfigMic)
     escuta: ConfigEscuta = field(default_factory=ConfigEscuta)
     visor: ConfigVisor = field(default_factory=ConfigVisor)
+    local: str | None = None
+    pesquisa: bool = True
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -126,6 +128,8 @@ def carregar(caminho: Path | str | None = None) -> Config:
         microfone=_preencher(ConfigMic, dados.get("microfone")),
         escuta=_preencher(ConfigEscuta, dados.get("escuta")),
         visor=_preencher(ConfigVisor, dados.get("visor")),
+        local=dados.get("local"),
+        pesquisa=bool((dados.get("pesquisa") or {}).get("ativa", True)),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

@@ -4,6 +4,11 @@
 nome: Sócrates
 modo_inicial: explicar        # explicar | testar
 historico_max: 20             # quantas mensagens ele lembra na conversa atual
+local: Morrinhos, Goiás       # usado para clima e perguntas sobre "aqui"
+
+pesquisa:
+  ativa: true                 # pesquisa na internet quando a pergunta é sobre algo atual
+                              # (só no Groq com modelo gpt-oss)
 
 llm:
   provedor: groq              # groq | gemini | ollama

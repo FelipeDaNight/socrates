@@ -25,3 +25,7 @@ class Cerebro(ABC):
 
 class ErroCerebro(Exception):
     """Falha ao falar com o provedor (rede, chave, limite, modelo)."""
+
+
+class ErroPesquisa(Exception):
+    """A pesquisa na internet falhou (o resto do Sócrates continua funcionando)."""

@@ -14,8 +14,10 @@ log = logging.getLogger("socrates.orquestrador")
 
 class Orquestrador:
     def __init__(self, cerebro: Cerebro, nome: str = "Sócrates",
-                 modo: str = "explicar", historico_max: int = 20):
+                 modo: str = "explicar", historico_max: int = 20,
+                 contexto: Callable[[], str] | None = None):
         self.cerebro = cerebro
+        self.contexto = contexto   # data, hora, cidade: recalculado a cada pergunta
         self.nome = nome
         self.historico_max = historico_max
         self.historico: list[Mensagem] = []
@@ -50,7 +52,10 @@ class Orquestrador:
     # ---------- conversa ----------
     def _mensagens(self) -> list[Mensagem]:
         recentes = self.historico[-self.historico_max:]
-        return [{"role": "system", "content": self._sistema}, *recentes]
+        sistema = self._sistema
+        if self.contexto:
+            sistema += "\n\n" + self.contexto()
+        return [{"role": "system", "content": sistema}, *recentes]
 
     async def conversar(self, texto: str) -> AsyncIterator[str]:
         """Recebe o que o aluno disse e devolve a resposta em pedaços."""

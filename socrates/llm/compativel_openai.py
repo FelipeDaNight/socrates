@@ -12,7 +12,7 @@ from typing import AsyncIterator
 import openai
 from openai import AsyncOpenAI
 
-from .base import Cerebro, ErroCerebro, Mensagem
+from .base import Cerebro, ErroCerebro, ErroPesquisa, Mensagem
 
 log = logging.getLogger("socrates.llm")
 
@@ -20,12 +20,41 @@ log = logging.getLogger("socrates.llm")
 class CerebroCompativelOpenAI(Cerebro):
     def __init__(self, base_url: str, chave: str, modelo: str,
                  temperatura: float = 0.6, nome: str = "openai-compat",
-                 tentativas: int = 3):
+                 tentativas: int = 3, http_client=None):
         self.nome = nome
         self.modelo = modelo
         self.temperatura = temperatura
         self.tentativas = tentativas
-        self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave)
+        self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client)
+
+    async def pesquisar(self, mensagens: list[Mensagem]) -> str:
+        """Responde usando a busca na internet que roda nos servidores do Groq.
+
+        Só funciona nos modelos gpt-oss do Groq. Não usa streaming: a busca
+        acontece inteira do lado deles e volta uma resposta pronta.
+        """
+        try:
+            r = await self._cliente.chat.completions.create(
+                model=self.modelo,
+                messages=mensagens,
+                tools=[{"type": "browser_search"}],
+                tool_choice="required",
+                reasoning_effort="low",   # recomendação do Groq: buscas mais curtas
+                temperature=0.3,
+                stream=False,
+            )
+        except openai.RateLimitError as e:
+            raise ErroPesquisa("Limite de pesquisas atingido. Espere um pouco.") from e
+        except openai.AuthenticationError as e:
+            raise ErroCerebro("Chave de API inválida. Confira o arquivo .env.") from e
+        except openai.APIConnectionError as e:
+            raise ErroPesquisa("Sem conexão para pesquisar. Verifique a internet.") from e
+        except openai.APIStatusError as e:
+            log.warning("pesquisa recusada (%s): %s", e.status_code, e.message)
+            raise ErroPesquisa(f"O Groq recusou a pesquisa ({e.status_code}): {e.message}") from e
+        texto = (r.choices[0].message.content or "") if r.choices else ""
+        log.info("pesquisa: %d caracteres", len(texto))
+        return texto
 
     async def responder(self, mensagens: list[Mensagem]) -> AsyncIterator[str]:
         espera = 2.0

@@ -5,7 +5,8 @@ de Sócrates: em vez de só entregar respostas, ele **pergunta** até você apre
 
 <p align="center"><img src="docs/visor.gif" width="330" alt="Visor do Sócrates"></p>
 
-> Status: **fase 1.5** — mãos livres: diga "Sócrates" e fale. Visor laranja que pulsa
+> Status: **fase 1.6** — mãos livres: diga "Sócrates" e fale. Pesquisa na internet e
+> sabe a data de hoje. Visor laranja que pulsa
 > com a voz dele.
 
 ## Como rodar (Windows)
@@ -57,6 +58,24 @@ também funciona.
 | "obrigado"          | `/dormir`   | Encerra o assunto; volta a esperar o nome           |
 | "encerrar"          | `/sair`     | Desliga o Sócrates                                  |
 
+### Perguntas do dia a dia
+
+O modelo foi treinado até 2024, mas o Sócrates sabe a **data, a hora e a sua cidade**
+(`local:` no `config.yaml`) e **pesquisa na internet** quando a pergunta é sobre algo atual:
+
+- "Sócrates, qual a cotação do dólar hoje?"
+- "Sócrates, vai chover amanhã?" (usa a sua cidade)
+- "Sócrates, quando sai o edital da PRF?"
+- "Sócrates, pesquisa o horário da farmácia do centro."
+
+Ele avisa "Vou pesquisar isso." e responde citando a fonte pelo nome. Perguntas de
+estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
+`browser_search` do Groq. Para conferir se a sua conta tem acesso:
+
+```powershell
+.venv\Scripts\python main.py --pesquisa
+```
+
 ### O visor
 
 | Estado     | Como fica                                         |
@@ -81,6 +100,8 @@ toda vez: `palavra_ativacao: false`.
 | Não reconhece o nome                     | Rode `--diagnostico`: a etapa 5 mostra como o Whisper escreveu |
 | A conversa "fecha" rápido demais         | Aumente `janela_seg`                                          |
 | Fala rápido ou devagar demais            | `velocidade: "-10%"` ou `"+15%"`                              |
+| "Não consegui pesquisar agora"           | Rode `--pesquisa` e veja o motivo; para desligar: `pesquisa: ativa: false` |
+| Pesquisa quando não precisava (ou o contrário) | Me conte a frase: as regras ficam em `socrates/llm/pesquisa.py` |
 | "Tkinter não encontrado"                 | Reinstale o Python marcando *tcl/tk and IDLE*, ou use `--sem-visor` |
 | "modelo não encontrado"                  | `main.py --modelos` e copie um nome para `config.yaml`        |
 
@@ -98,6 +119,7 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 |--------------|----------------------------------------------|-----------------------|
 | Ouvido       | Whisper large-v3-turbo no Groq               | grátis (com limites)  |
 | Cérebro      | gpt-oss-120b no Groq (troca no config)       | grátis (com limites)  |
+| Pesquisa     | browser_search do Groq (só com gpt-oss)      | depende da sua conta  |
 | Voz          | edge-tts, voz pt-BR-AntonioNeural            | grátis                |
 | Som          | sounddevice + miniaudio                      | local                 |
 | Visor        | Tkinter (já vem com o Python)                | local                 |
@@ -115,6 +137,8 @@ socrates/
   core/orquestrador.py     máquina de estados e histórico
   core/persona.py          a personalidade e os modos (explicar / testar)
   core/despertar.py        reconhece "Sócrates" no começo ou no fim da frase
+  core/contexto.py         data, hora e cidade em cada pergunta
+  llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
   core/narrador.py         fala frase a frase, sintetizando a próxima em paralelo
   core/comandos.py         comandos falados ou digitados
   audio/escuta.py          microfone sempre ligado, numa thread, com pausa
@@ -123,7 +147,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     67 testes, rodam sem microfone nem internet
+tests/                     95 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -131,6 +155,7 @@ tests/                     67 testes, rodam sem microfone nem internet
 - [x] **Fase 0** — fundação, configuração, cérebro com streaming, modos, testes
 - [x] **Fase 1** — microfone, Whisper (ouvido), voz Antonio frase a frase, comandos por voz
 - [x] **Fase 1.5** — mãos livres com o nome "Sócrates", janela de conversa, visor laranja
+- [x] **Fase 1.6** — sabe data, hora e cidade; pesquisa na internet quando precisa
 - [ ] **Fase 2** — interromper enquanto ele fala, ferramentas (hora, lembretes, timer de estudo)
 - [ ] **Fase 3** — memória de longo prazo (o que você errou, o que já estudou)
 
