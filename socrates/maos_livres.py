@@ -248,7 +248,8 @@ class Conversa:
             aquecer = asyncio.create_task(asyncio.to_thread(_aquecer_quadro))
             self._desenhos.add(aquecer)
             aquecer.add_done_callback(self._desenhos.discard)
-        self.dizer_tela(f"\n{self.cfg.nome} pronto ({self.cfg.llm.provedor} / {self.cfg.llm.modelo}).")
+        from .config import descricao_cerebro
+        self.dizer_tela(f"\n{self.cfg.nome} pronto ({descricao_cerebro(self.cfg)}).")
         self.dizer_tela(AJUDA)
         if self.cfg.voz.saudacao:
             await self.falar(f"Olá! Eu sou o {self.cfg.nome}. "

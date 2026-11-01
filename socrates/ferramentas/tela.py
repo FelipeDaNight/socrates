@@ -76,6 +76,15 @@ def ver_tela(pergunta: str = "") -> str:
     except Exception as e:
         log.exception("print da tela falhou")
         return f"Erro: não consegui tirar o print da tela ({e})."
+    if VISAO.get("local") is not None:   # o mesmo modelo do Ollama, no seu PC
+        try:
+            pedido = ((pergunta or "Descreva o que está na tela.") +
+                      " Responda em português do Brasil. Se houver uma questão, transcreva-a "
+                      "por completo, com as alternativas.")
+            return "O que está na tela:\n" + VISAO["local"].descrever_imagem(jpeg, pedido)
+        except Exception as e:
+            log.warning("visão local falhou: %s", e)
+            return f"Erro: o modelo local não conseguiu ver a tela ({e})."
     if not VISOES:
         try:
             return "O que está na tela:\n" + descrever(jpeg, pergunta)

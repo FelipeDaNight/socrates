@@ -7,6 +7,18 @@ modo_inicial: explicar        # explicar | testar
 historico_max: 12             # quantas mensagens ele lembra na conversa atual
 local: Morrinhos, Goiás       # usado para clima e perguntas sobre "aqui"
 
+# Onde o Sócrates PENSA:
+#   nuvem: rodízio grátis (Groq, Mistral, Gemini); mais inteligente, precisa de internet
+#   local: no seu computador, com o Ollama; sem limite e sem chave (configure com main.py --local)
+# A voz (Edge) e o ouvido (Whisper no Groq) continuam iguais nos dois modos.
+cerebro: nuvem
+
+local:                        # usado quando cerebro: local
+  modelo: qwen3.5:4b          # 2b se o PC tiver pouca memória; o --local escolhe sozinho
+  url: http://localhost:11434
+  contexto: 6144              # memória da conversa (mais = mais RAM)
+  pesquisa: true              # pesquisa no DuckDuckGo (sem chave); o resumo é feito no PC
+
 acoes:
   ativas: true                # abrir programas e sites, volume, timer, anotações
   programas:                  # programas extras: nome falado: caminho do .exe

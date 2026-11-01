@@ -40,9 +40,14 @@ def compactar(historico: list[Mensagem]) -> list[Mensagem]:
 class Orquestrador:
     def __init__(self, cerebro: Cerebro, nome: str = "Sócrates",
                  modo: str = "explicar", historico_max: int = 20,
-                 contexto: Callable[[], str] | None = None):
+                 contexto: Callable[[], str] | None = None, contexto_no_fim: bool = False,
+                 extra_sistema: str = ""):
         self.cerebro = cerebro
         self.contexto = contexto   # data, hora, cidade: recalculado a cada pergunta
+        # No modelo local, o começo do pedido precisa ser SEMPRE igual para o Ollama
+        # reaproveitar o que já leu; por isso a data (que muda) vai para o fim.
+        self.contexto_no_fim = contexto_no_fim
+        self.extra_sistema = extra_sistema
         self.nome = nome
         self.historico_max = historico_max
         self.historico: list[Mensagem] = []
@@ -77,7 +82,10 @@ class Orquestrador:
     # ---------- conversa ----------
     def _mensagens(self) -> list[Mensagem]:
         recentes = compactar(self.historico[-self.historico_max:])
-        sistema = self._sistema
+        sistema = self._sistema + (f"\n\n{self.extra_sistema}" if self.extra_sistema else "")
+        if self.contexto and self.contexto_no_fim:
+            agora = {"role": "system", "content": self.contexto()}
+            return [{"role": "system", "content": sistema}, *recentes[:-1], agora, *recentes[-1:]]
         if self.contexto:
             sistema += "\n\n" + self.contexto()
         return [{"role": "system", "content": sistema}, *recentes]

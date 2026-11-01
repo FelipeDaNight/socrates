@@ -216,6 +216,8 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 | "Não conheço o programa"                 | Adicione em `acoes: programas:` no `config.yaml`              |
 | Abriu programa quando era pergunta       | Me conte a frase: as regras ficam em `socrates/llm/acoes.py`  |
 | Voz do Gemini falha                      | Ele usa o Antonio sozinho; rode `--vozes` para ver o erro      |
+| "O Ollama não está aberto"               | Abra o Ollama (ícone de lhama perto do relógio) ou instale: `winget install Ollama.Ollama` |
+| Modo local lento demais                  | `main.py --local --modelo qwen3.5:2b` (menor e mais rápido) |
 | "Tkinter não encontrado"                 | Reinstale o Python marcando *tcl/tk and IDLE*, ou use `--sem-visor` |
 | "modelo não encontrado"                  | `main.py --modelos` e copie um nome para `config.yaml`        |
 
@@ -240,6 +242,26 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 | Voz          | edge-tts (Antonio) ou Gemini TTS             | grátis / plano grátis |
 | Som          | sounddevice + miniaudio                      | local                 |
 | Visor        | Tkinter (já vem com o Python)                | local                 |
+
+### Cérebro local: tudo pensado no seu computador
+
+Com `cerebro: local`, o Sócrates pensa no **seu PC**, com o [Ollama](https://ollama.com):
+sem chave, sem limite e sem mandar a conversa para ninguém. Um só modelo (**Qwen 3.5**) faz
+a conversa, as ações no PC e a visão da tela. A pesquisa na internet usa o DuckDuckGo (sem
+conta) e o resumo é feito no PC. A voz (Edge) e o ouvido (Whisper) continuam como estão.
+
+```powershell
+winget install Ollama.Ollama
+.venv\Scripts\python main.py --local
+```
+
+O `--local` mede a memória do PC, escolhe o modelo (4B com 12 GB de RAM ou mais, 2B com
+menos), baixa, testa a velocidade e se ele usa as ferramentas, e grava `cerebro: local` no
+`config.local.yaml`. Para voltar para a nuvem: `cerebro: nuvem` no mesmo arquivo.
+
+Sem placa de vídeo, conte com uns segundos até ele começar a falar, e respostas mais simples
+que as do modelo da nuvem. Para ficar rápido, o começo do pedido (persona e ferramentas) é
+sempre igual, então o Ollama não o relê a cada pergunta, e a data vai no fim.
 
 ### Cérebros grátis em rodízio
 
@@ -293,6 +315,9 @@ socrates/
   llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
   llm/acoes.py             decide quando é ação e faz o vaivém com as ferramentas
   llm/rodizio.py           rodízio de cérebros grátis (Groq, Mistral, Gemini)
+  llm/ollama.py            cérebro local (Ollama): streaming, ferramentas e visão no seu PC
+  ferramentas/busca.py     pesquisa no DuckDuckGo, sem chave (modo local)
+  instalar_local.py        main.py --local: escolhe, baixa e testa o modelo local
   ferramentas/computador.py  as ações no PC (programas, sites, volume, timer, anotações)
   ferramentas/janelas.py   janelas, área de transferência e bloco de notas (via PowerShell)
   ferramentas/tela.py      print da tela + modelo de visão
@@ -308,7 +333,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     287 testes, rodam sem microfone nem internet
+tests/                     305 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

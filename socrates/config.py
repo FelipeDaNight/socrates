@@ -68,6 +68,14 @@ class ConfigVisor:
 
 
 @dataclass
+class ConfigLocal:
+    modelo: str = "qwen3.5:4b"
+    url: str = "http://localhost:11434"
+    contexto: int = 6144
+    pesquisa: bool = True
+
+
+@dataclass
 class Config:
     nome: str
     modo_inicial: str
@@ -87,10 +95,18 @@ class Config:
     programas: dict = field(default_factory=dict)
     visao_modelo: str = "qwen/qwen3.8-27b"
     visoes: list = field(default_factory=list)   # [{nome, base_url, chave, modelo}] em ordem
+    cerebro: str = "nuvem"                       # nuvem (Groq/Mistral/Gemini) | local (Ollama)
+    local_cfg: ConfigLocal = field(default_factory=ConfigLocal)
     claude_enter: bool = True
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
+
+
+def descricao_cerebro(cfg: "Config") -> str:
+    if cfg.cerebro == "local":
+        return f"local / {cfg.local_cfg.modelo}"
+    return f"{cfg.llm.provedor} / {cfg.llm.modelo}"
 
 
 class ErroConfig(Exception):
@@ -161,6 +177,9 @@ def carregar(caminho: Path | str | None = None) -> Config:
     rodizio = [montar(n) for n in nomes]
     rodizio_acoes = [montar(n) for n in (llm_cfg.get("rodizio_acoes") or [])]
     com_chave = [c for c in rodizio if c.chave]
+    modo_cerebro = str(dados.get("cerebro", "nuvem")).lower()
+    if modo_cerebro == "local" and not com_chave:   # no modo local a nuvem é opcional
+        com_chave = [ConfigLLM("ollama", "http://localhost:11434/v1", "local", "ollama")]
     if not com_chave:
         faltam = ", ".join(sorted({provedores[c.provedor].get("chave_env") for c in rodizio
                                     if provedores[c.provedor].get("chave_env")}))
@@ -191,6 +210,8 @@ def carregar(caminho: Path | str | None = None) -> Config:
         visao_modelo=(dados.get("visao") or {}).get("modelo", "qwen/qwen3.8-27b"),
         claude_enter=bool((dados.get("claude") or {}).get("enviar_com_enter", True)),
         visoes=_visoes(dados, provedores),
+        cerebro=modo_cerebro,
+        local_cfg=_preencher(ConfigLocal, dados.get("local")),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

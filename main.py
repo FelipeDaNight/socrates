@@ -7,6 +7,7 @@
     python main.py --modelos     listar modelos do provedor configurado
     python main.py --pesquisa    testar a pesquisa na internet
     python main.py --provedores  testar cada cérebro grátis do rodízio (Groq, Mistral, Gemini)
+    python main.py --local       preparar o cérebro LOCAL (Ollama): tudo pensado no seu PC
     python main.py --vozes       ouvir as vozes disponíveis e escolher
     python main.py --acoes       testar janelas, texto copiado, bloco de notas e visão da tela
 """
@@ -35,8 +36,40 @@ AJUDA_TEXTO = """Comandos:
   /sair      encerra"""
 
 
+def criar_socrates_local(cfg: config.Config) -> Orquestrador:
+    """Tudo pensado no seu PC: o modelo do Ollama com as ferramentas no mesmo pedido."""
+    from socrates import ferramentas
+    from socrates.core import contexto
+    from socrates.ferramentas import claude, computador, janelas, tela
+    from socrates.llm.ollama import ClienteOllama, CerebroLocal
+
+    modulos = {computador.__name__, janelas.__name__, tela.__name__, claude.__name__}
+    if cfg.local_cfg.pesquisa:
+        from socrates.ferramentas import busca
+        modulos.add(busca.__name__)
+    nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos] \
+        if cfg.acoes else []
+    esquemas = [ferramentas.REGISTRO[n].esquema() for n in nomes]
+
+    async def executar(nome: str, args: dict) -> str:
+        return await asyncio.to_thread(ferramentas.executar, nome, args)
+
+    computador.adicionar_programas(cfg.programas)
+    claude.ENVIAR_COM_ENTER = cfg.claude_enter
+    cerebro = CerebroLocal(cfg.local_cfg.modelo, ClienteOllama(cfg.local_cfg.url), esquemas,
+                           executar, cfg.local_cfg.contexto, cfg.llm.temperatura)
+    tela.VISAO["local"] = cerebro
+    threading.Thread(target=cerebro.aquecer, daemon=True).start()   # já carrega na memória
+    print(f"[cérebro] local: {cfg.local_cfg.modelo} no seu computador ({len(nomes)} ferramentas)")
+    return Orquestrador(cerebro, cfg.nome, cfg.modo_inicial, cfg.historico_max,
+                        contexto=lambda: contexto.data_e_lugar(cfg.local),
+                        contexto_no_fim=True, extra_sistema=contexto.INSTRUCAO_LOCAL)
+
+
 def criar_socrates(cfg: config.Config) -> Orquestrador:
     """Cérebro (com ações no PC e pesquisa) + data, hora e cidade a cada pergunta."""
+    if cfg.cerebro == "local":
+        return criar_socrates_local(cfg)
     from socrates.core import contexto
     from socrates.llm import pesquisa_disponivel
 
@@ -152,7 +185,7 @@ async def conversar_texto(cfg: config.Config) -> None:
     from socrates.core.quadro_fluxo import separar_quadro
 
     soc = criar_socrates(cfg)
-    print(f"\n{cfg.nome} pronto ({cfg.llm.provedor} / {cfg.llm.modelo}, texto).")
+    print(f"\n{cfg.nome} pronto ({config.descricao_cerebro(cfg)}, texto).")
     print(AJUDA_TEXTO)
     while True:
         try:
@@ -418,9 +451,16 @@ def main() -> None:
     p.add_argument("--modelos", action="store_true", help="lista os modelos do provedor")
     p.add_argument("--pesquisa", action="store_true", help="testa a pesquisa na internet")
     p.add_argument("--provedores", action="store_true", help="testa cada cérebro grátis do rodízio")
+    p.add_argument("--local", action="store_true",
+                   help="prepara o cérebro local (Ollama): escolhe, baixa e testa o modelo")
+    p.add_argument("--modelo", help="com --local: escolher o modelo (ex.: qwen3.5:2b)")
     p.add_argument("--vozes", action="store_true", help="toca as vozes disponíveis para você escolher")
     p.add_argument("--acoes", action="store_true", help="testa janelas, texto copiado, bloco de notas e tela")
     args = p.parse_args()
+
+    if args.local:   # não precisa de chave nenhuma
+        from socrates.instalar_local import instalar
+        sys.exit(0 if instalar(modelo=args.modelo) else 1)
 
     try:
         cfg = config.carregar()

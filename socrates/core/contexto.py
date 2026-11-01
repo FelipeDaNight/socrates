@@ -49,3 +49,22 @@ def montar(local: str | None, pesquisa: bool, momento: datetime | None = None,
         from ..llm.acoes import INSTRUCAO_MARCADOR
         partes.append(INSTRUCAO_MARCADOR)
     return "\n".join(partes)
+
+
+INSTRUCAO_LOCAL = """Você tem ferramentas. Use-as SÓ quando precisar:
+- pesquisar_na_internet: fatos atuais (notícias, preços, cotações, clima, editais, resultados).
+  Depois responda citando o site pelo nome.
+- ferramentas do computador: só quando o aluno pedir uma ação (abrir, fechar, tocar, volume,
+  timer, anotar, escrever no bloco de notas, ver a tela, ler o que copiou, falar com o Claude).
+- Para matéria de estudo e conversa, responda direto, SEM ferramentas.
+Se uma ferramenta responder AGUARDANDO CONFIRMAÇÃO, a ação ainda não aconteceu: pergunte ao
+aluno, em uma frase, se pode fazer. Depois de uma ação, confirme em uma frase curta."""
+
+
+def data_e_lugar(local: str | None, momento: datetime | None = None) -> str:
+    """Só o que muda: vai no fim do pedido no modo local."""
+    momento = momento or agora()
+    texto = f"Agora é {data_por_extenso(momento)} (horário de Brasília)."
+    if local:
+        texto += f" O aluno mora em {local}."
+    return texto
