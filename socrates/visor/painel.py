@@ -40,6 +40,19 @@ class Painel:
         self._env: np.ndarray | None = None
         self._env_inicio = 0.0
         self._env_fim = 0.0
+        # quadro branco
+        self.tem_visor = False                    # o visor está aberto para mostrar o quadro
+        self.quadro_tamanho = (760, 640)          # o visor informa o tamanho real
+        self.quadro_png: bytes | None = None
+        self.quadro_versao = 0
+
+    def mostrar_quadro(self, png: bytes) -> None:
+        self.quadro_png = png
+        self.quadro_versao += 1
+
+    def limpar_quadro(self) -> None:
+        self.quadro_png = None
+        self.quadro_versao += 1
 
     # ---------- escrito pelo Sócrates ----------
     def mic(self, rms: float) -> None:

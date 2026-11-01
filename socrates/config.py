@@ -24,9 +24,15 @@ class ConfigLLM:
 @dataclass
 class ConfigVoz:
     ativa: bool = True
-    nome: str = "pt-BR-AntonioNeural"
+    provedor: str = "edge"                  # edge | gemini
+    nome: str = "pt-BR-AntonioNeural"       # voz do Edge
     velocidade: str = "+0%"
+    tom: str = "+0Hz"
     saudacao: bool = True
+    gemini_voz: str = "Sadaltager"
+    gemini_modelo: str = "gemini-3.8-flash-tts"
+    gemini_estilo: str = ("calmo, pausado e acolhedor, como um professor sábio e experiente, "
+                          "em português do Brasil")
 
 
 @dataclass
@@ -57,6 +63,7 @@ class ConfigEscuta:
 class ConfigVisor:
     ativo: bool = True
     sempre_no_topo: bool = False
+    escala: float = 1.25
 
 
 @dataclass
@@ -72,6 +79,8 @@ class Config:
     visor: ConfigVisor = field(default_factory=ConfigVisor)
     local: str | None = None
     pesquisa: bool = True
+    acoes: bool = True
+    programas: dict = field(default_factory=dict)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -130,6 +139,8 @@ def carregar(caminho: Path | str | None = None) -> Config:
         visor=_preencher(ConfigVisor, dados.get("visor")),
         local=dados.get("local"),
         pesquisa=bool((dados.get("pesquisa") or {}).get("ativa", True)),
+        acoes=bool((dados.get("acoes") or {}).get("ativas", True)),
+        programas=(dados.get("acoes") or {}).get("programas") or {},
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

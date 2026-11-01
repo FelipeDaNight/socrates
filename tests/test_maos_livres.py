@@ -211,3 +211,51 @@ async def test_microfone_volta_depois_de_cada_fala():
     o = s.ouvido
     await _rodar(conversa, [o.fala("Sócrates, o que é crase?")])
     assert s.escuta.pausas >= 2 and not s.escuta.pausada
+
+
+# ---------- quadro e avisos ----------
+
+QUADRO = ("Veja no quadro. [QUADRO]# Bhaskara\n$$ x = \\frac{-b}{2a} $$[/QUADRO] Entendeu?")
+
+
+@pytest.mark.asyncio
+async def test_quadro_vai_para_o_visor_e_nao_e_falado():
+    conversa, s, painel, cerebro, tela = _montar(CerebroFalso(QUADRO))
+    painel.tem_visor = True
+    painel.quadro_tamanho = (400, 300)
+    await _rodar(conversa, [s.ouvido.fala("Sócrates, me explica Bhaskara")], espera_entre=0.5)
+    await asyncio.gather(*conversa._desenhos)
+    assert painel.quadro_png and painel.quadro_png[:4] == b"\x89PNG"
+    faladas = " ".join(s.voz.faladas)
+    assert "frac" not in faladas and "Bhaskara" not in faladas and "Entendeu?" in faladas
+    assert any("[quadro: Bhaskara]" in t for t in tela)
+
+
+@pytest.mark.asyncio
+async def test_sem_visor_o_quadro_aparece_no_terminal():
+    conversa, s, painel, cerebro, tela = _montar(CerebroFalso(QUADRO))
+    await _rodar(conversa, ["me explica Bhaskara"])
+    assert any("┌─ quadro" in t and "\\frac{-b}{2a}" in t for t in tela)
+    assert painel.quadro_png is None
+
+
+@pytest.mark.asyncio
+async def test_apagar_quadro():
+    conversa, s, painel, cerebro, tela = _montar()
+    painel.mostrar_quadro(b"png")
+    await _rodar(conversa, [s.ouvido.fala("Sócrates, apaga o quadro.")])
+    assert painel.quadro_png is None and "Quadro apagado." in s.voz.faladas
+
+
+@pytest.mark.asyncio
+async def test_aviso_do_timer_e_falado():
+    from socrates.maos_livres import Aviso
+    conversa, s, painel, cerebro, tela = _montar()
+    fila = asyncio.Queue()
+    tarefa = asyncio.create_task(conversa.rodar(fila))
+    fila.put_nowait(Aviso("Seu tempo de estudo acabou! Hora de fazer uma pausa."))
+    await asyncio.sleep(0.5)
+    assert "Seu tempo de estudo acabou! Hora de fazer uma pausa." in s.voz.faladas
+    assert painel.em_janela()   # pode responder ao aviso sem dizer o nome
+    fila.put_nowait(None)
+    await asyncio.wait_for(tarefa, 5)

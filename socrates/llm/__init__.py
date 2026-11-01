@@ -12,8 +12,11 @@ def pesquisa_disponivel(cfg: ConfigLLM) -> bool:
     return cfg.provedor == "groq" and "gpt-oss" in cfg.modelo
 
 
-def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False) -> Cerebro:
-    """Fábrica: lê o config e devolve o cérebro certo."""
+def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False) -> Cerebro:
+    """Fábrica: lê o config e devolve o cérebro certo.
+
+    Camadas: ações no PC  ->  pesquisa na internet  ->  cérebro base
+    """
     base = CerebroCompativelOpenAI(
         base_url=cfg.base_url,
         chave=cfg.chave or "",
@@ -21,13 +24,22 @@ def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False) -> Cerebro:
         temperatura=cfg.temperatura,
         nome=cfg.provedor,
     )
-    if not pesquisa:
-        return base
-    if not pesquisa_disponivel(cfg):
-        log.warning("pesquisa pedida, mas %s/%s não tem busca embutida", cfg.provedor, cfg.modelo)
-        return base
-    from .pesquisa import CerebroComPesquisa
-    return CerebroComPesquisa(base)
+    cerebro: Cerebro = base
+    if pesquisa:
+        if pesquisa_disponivel(cfg):
+            from .pesquisa import CerebroComPesquisa
+            cerebro = CerebroComPesquisa(base)
+        else:
+            log.warning("pesquisa pedida, mas %s/%s não tem busca embutida", cfg.provedor, cfg.modelo)
+    if acoes:
+        from .. import ferramentas
+        from ..ferramentas import computador  # noqa: F401  (registra as ações)
+        from .acoes import CerebroComAcoes
+        nomes = [n for n, f in ferramentas.REGISTRO.items()
+                 if f.funcao.__module__ == computador.__name__]
+        cerebro = CerebroComAcoes(cerebro, base, nomes)
+        log.info("ações no PC: %s", ", ".join(nomes))
+    return cerebro
 
 
 __all__ = ["Cerebro", "ErroCerebro", "ErroPesquisa", "Mensagem", "criar_cerebro",

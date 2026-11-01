@@ -6,6 +6,7 @@ Groq, Gemini e Ollama aceitam esse formato, então uma classe cobre os três.
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 from typing import AsyncIterator
 
@@ -26,6 +27,48 @@ class CerebroCompativelOpenAI(Cerebro):
         self.temperatura = temperatura
         self.tentativas = tentativas
         self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client)
+
+    async def com_ferramentas(self, mensagens: list[Mensagem], esquemas: list[dict],
+                              executar, max_rodadas: int = 4) -> str:
+        """O cérebro escolhe ferramentas; `executar(nome, args)` roda no seu PC.
+
+        Repete até o cérebro responder em texto (ou até max_rodadas).
+        """
+        msgs: list = [dict(m) for m in mensagens]
+        extra = {"reasoning_effort": "low"} if "gpt-oss" in self.modelo else {}
+        for _ in range(max_rodadas):
+            try:
+                r = await self._cliente.chat.completions.create(
+                    model=self.modelo, messages=msgs, tools=esquemas, tool_choice="auto",
+                    temperature=0.2, stream=False, **extra,
+                )
+            except openai.RateLimitError as e:
+                raise ErroCerebro("Limite do plano grátis atingido. Espere um minuto.") from e
+            except openai.AuthenticationError as e:
+                raise ErroCerebro("Chave de API inválida. Confira o arquivo .env.") from e
+            except openai.APIConnectionError as e:
+                raise ErroCerebro("Sem conexão com o provedor. Verifique a internet.") from e
+            except openai.APIStatusError as e:
+                raise ErroCerebro(f"O provedor recusou o pedido ({e.status_code}).") from e
+            msg = r.choices[0].message
+            chamadas = msg.tool_calls or []
+            if not chamadas:
+                return msg.content or ""
+            msgs.append({
+                "role": "assistant", "content": msg.content or "",
+                "tool_calls": [{"id": c.id, "type": "function",
+                                "function": {"name": c.function.name,
+                                             "arguments": c.function.arguments or "{}"}}
+                               for c in chamadas],
+            })
+            for c in chamadas:
+                try:
+                    args = json.loads(c.function.arguments or "{}")
+                except json.JSONDecodeError:
+                    args = {}
+                resultado = await executar(c.function.name, args)
+                msgs.append({"role": "tool", "tool_call_id": c.id, "content": resultado})
+        return "Fiz o que pude, mas não consegui terminar o pedido."
 
     async def pesquisar(self, mensagens: list[Mensagem]) -> str:
         """Responde usando a busca na internet que roda nos servidores do Groq.

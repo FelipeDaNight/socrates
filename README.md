@@ -5,9 +5,8 @@ de Sócrates: em vez de só entregar respostas, ele **pergunta** até você apre
 
 <p align="center"><img src="docs/visor.gif" width="330" alt="Visor do Sócrates"></p>
 
-> Status: **fase 1.6** — mãos livres: diga "Sócrates" e fale. Pesquisa na internet e
-> sabe a data de hoje. Visor laranja que pulsa
-> com a voz dele.
+> Status: **fase 2** — mãos livres: diga "Sócrates" e fale. Mexe no seu computador,
+> desenha fórmulas e gráficos num quadro branco, pesquisa na internet e sabe a data de hoje.
 
 ## Como rodar (Windows)
 
@@ -54,9 +53,47 @@ também funciona.
 |---------------------|-------------|-----------------------------------------------------|
 | "modo explicar"     | `/explicar` | Explica o assunto e confere se você entendeu        |
 | "modo prova"        | `/testar`   | Vira examinador: perguntas estilo banca, com pistas |
-| "limpar conversa"   | `/limpar`   | Esquece a conversa atual                            |
+| "limpar conversa"   | `/limpar`   | Esquece a conversa atual e apaga o quadro           |
+| "apaga o quadro"    | `/apagar`   | Apaga só o quadro branco                            |
 | "obrigado"          | `/dormir`   | Encerra o assunto; volta a esperar o nome           |
 | "encerrar"          | `/sair`     | Desliga o Sócrates                                  |
+
+### Ações no computador
+
+Sem nenhuma API: quem executa é o próprio Windows. O Groq só entende o pedido.
+
+| Exemplo                                         | O que ele faz                               |
+|-------------------------------------------------|---------------------------------------------|
+| "Sócrates, abre a calculadora"                  | Abre programas: Word, Excel, Chrome, Spotify, bloco de notas... |
+| "Sócrates, abre o qconcursos.com"               | Abre sites                                  |
+| "Sócrates, toca lo-fi pra estudar no YouTube"   | Abre a busca no YouTube (ou no Google)      |
+| "Sócrates, inicia um pomodoro de 25 minutos"    | Timer que **avisa falando** quando acaba    |
+| "Sócrates, quanto tempo falta?"                 | Consulta ou cancela o timer                 |
+| "Sócrates, aumenta o volume"                    | Volume: aumentar, diminuir, mudo            |
+| "Sócrates, anota que a prova é dia 10"          | Caderno em `Documentos\Socrates\anotacoes.md` |
+| "Sócrates, abre a pasta downloads"              | Abre pastas                                 |
+| "Sócrates, bloqueia a tela"                     | Bloqueia o Windows                          |
+
+Ações que apagam arquivos ou desligam o PC ficaram de fora de propósito. Programas
+que ele não conhece entram no `config.yaml`:
+
+```yaml
+acoes:
+  programas:
+    anki: 'C:\Program Files\Anki\anki.exe'
+```
+
+### Quadro branco
+
+Quando a explicação pede algo visual (fórmula, conta passo a passo, gráfico, ou a
+questão com as alternativas no modo prova), o quadro abre ao lado do visor. A fórmula
+**não é lida em voz alta**: ele explica falando e diz "veja no quadro".
+
+<p align="center"><img src="docs/quadro.png" width="700" alt="Quadro branco do Sócrates"></p>
+
+- "Sócrates, me explica a fórmula de Bhaskara"
+- "Sócrates, desenha o gráfico de seno de x"
+- "Sócrates, apaga o quadro"
 
 ### Perguntas do dia a dia
 
@@ -86,9 +123,36 @@ estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
 | Pensando   | Os anéis giram rápido                             |
 | Falando    | O núcleo e as barras pulsam com a voz dele        |
 
-Sem a janela: `main.py --sem-visor`. Por cima das outras janelas:
+Tamanho: `escala:` no `config.yaml` (1.0 pequeno, 1.25 médio, 1.5 grande).
+Sem a janela: `main.py --sem-visor` (o quadro aparece como texto no terminal). Por cima das outras janelas:
 `sempre_no_topo: true` no `config.yaml`. Estudando sozinho e não quer dizer o nome
 toda vez: `palavra_ativacao: false`.
+
+### A voz
+
+Rode o provador: ele fala a mesma frase em cada voz e diz o que colocar no `config.yaml`.
+
+```powershell
+.venv\Scripts\python main.py --vozes
+```
+
+| Opção                         | Como é                                      | Precisa de          |
+|-------------------------------|---------------------------------------------|---------------------|
+| Antonio (Edge)                | A voz atual; dá para deixar mais grave com `tom: "-8Hz"` | nada        |
+| Andrew, Brian, Florian (Edge) | Vozes multilíngues, falam português com sotaque leve | nada       |
+| Gemini (Sadaltager, Charon, Gacrux...) | As mais naturais, com estilo de "professor calmo" | `GEMINI_API_KEY` |
+
+A chave do Gemini é grátis em <https://aistudio.google.com/apikey>; grave no `.env`
+do mesmo jeito que a do Groq, com `Add-Content` no lugar de `Set-Content`:
+
+```powershell
+$k = Read-Host "Cole a chave do Gemini"
+Add-Content .env "GEMINI_API_KEY=$k"
+cls
+```
+
+Com o Gemini, o Antonio fica de **reserva automática**: se o Gemini falhar ou bater o
+limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 
 ### Se algo não funcionar
 
@@ -102,6 +166,9 @@ toda vez: `palavra_ativacao: false`.
 | Fala rápido ou devagar demais            | `velocidade: "-10%"` ou `"+15%"`                              |
 | "Não consegui pesquisar agora"           | Rode `--pesquisa` e veja o motivo; para desligar: `pesquisa: ativa: false` |
 | Pesquisa quando não precisava (ou o contrário) | Me conte a frase: as regras ficam em `socrates/llm/pesquisa.py` |
+| "Não conheço o programa"                 | Adicione em `acoes: programas:` no `config.yaml`              |
+| Abriu programa quando era pergunta       | Me conte a frase: as regras ficam em `socrates/llm/acoes.py`  |
+| Voz do Gemini falha                      | Ele usa o Antonio sozinho; rode `--vozes` para ver o erro      |
 | "Tkinter não encontrado"                 | Reinstale o Python marcando *tcl/tk and IDLE*, ou use `--sem-visor` |
 | "modelo não encontrado"                  | `main.py --modelos` e copie um nome para `config.yaml`        |
 
@@ -120,7 +187,9 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 | Ouvido       | Whisper large-v3-turbo no Groq               | grátis (com limites)  |
 | Cérebro      | gpt-oss-120b no Groq (troca no config)       | grátis (com limites)  |
 | Pesquisa     | browser_search do Groq (só com gpt-oss)      | depende da sua conta  |
-| Voz          | edge-tts, voz pt-BR-AntonioNeural            | grátis                |
+| Ações no PC  | Python + Windows (os.startfile, teclas de volume) | local            |
+| Quadro       | matplotlib (fórmulas em LaTeX e gráficos)    | local                 |
+| Voz          | edge-tts (Antonio) ou Gemini TTS             | grátis / plano grátis |
 | Som          | sounddevice + miniaudio                      | local                 |
 | Visor        | Tkinter (já vem com o Python)                | local                 |
 
@@ -139,6 +208,11 @@ socrates/
   core/despertar.py        reconhece "Sócrates" no começo ou no fim da frase
   core/contexto.py         data, hora e cidade em cada pergunta
   llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
+  llm/acoes.py             decide quando é ação e faz o vaivém com as ferramentas
+  ferramentas/computador.py  as ações no PC (programas, sites, volume, timer, anotações)
+  core/quadro_fluxo.py     separa o quadro branco da fala
+  visor/quadro.py          desenha o quadro (fórmulas, gráficos com avaliação segura)
+  tts/gemini.py            voz do Gemini; tts/reserva.py troca para o Edge se falhar
   core/narrador.py         fala frase a frase, sintetizando a próxima em paralelo
   core/comandos.py         comandos falados ou digitados
   audio/escuta.py          microfone sempre ligado, numa thread, com pausa
@@ -147,7 +221,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     95 testes, rodam sem microfone nem internet
+tests/                     178 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -156,7 +230,8 @@ tests/                     95 testes, rodam sem microfone nem internet
 - [x] **Fase 1** — microfone, Whisper (ouvido), voz Antonio frase a frase, comandos por voz
 - [x] **Fase 1.5** — mãos livres com o nome "Sócrates", janela de conversa, visor laranja
 - [x] **Fase 1.6** — sabe data, hora e cidade; pesquisa na internet quando precisa
-- [ ] **Fase 2** — interromper enquanto ele fala, ferramentas (hora, lembretes, timer de estudo)
+- [x] **Fase 2** — ações no computador, quadro branco com fórmulas e gráficos, visor maior, vozes novas
+- [ ] **Fase 2.5** — interromper enquanto ele fala
 - [ ] **Fase 3** — memória de longo prazo (o que você errou, o que já estudou)
 
 ## Testes

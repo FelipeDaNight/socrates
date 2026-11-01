@@ -1,4 +1,4 @@
-"""Janela do visor, estilo HUD do Jarvis, em laranja.
+"""Janela do visor, estilo HUD do Jarvis, em laranja, com quadro branco ao lado.
 
 Feito com Tkinter, que já vem com o Python do Windows: nada a instalar.
 Os desenhos são criados uma vez e só mudam de posição e cor a cada quadro,
@@ -9,10 +9,13 @@ para gastar pouca CPU.
   ouvindo   as barras seguem a SUA voz
   pensando  os anéis giram rápido
   falando   o núcleo e as barras pulsam com a voz DELE
+
+Quando o Sócrates escreve no quadro, a janela se alarga e o quadro aparece à direita.
 """
 
 from __future__ import annotations
 
+import base64
 import math
 import time
 import tkinter as tk
@@ -23,18 +26,12 @@ from .painel import Painel
 FUNDO = "#05070a"
 LARANJA = "#ff8a1c"
 BRILHO = "#ffd9a0"
-
-LARGURA, ALTURA = 440, 540
-CX, CY = LARGURA // 2, 228
 QPS = 30                     # quadros por segundo
 
+# Medidas na escala 1 (a janela inteira multiplica por `escala`)
+BASE_LARGURA, BASE_ALTURA = 440, 540
 N_MARCAS = 72
 N_BARRAS = 64
-R_MARCAS = 190
-R_ANEL = 158
-R_ANEL_INTERNO = 132
-R_BARRAS = 84
-BARRA_MAX = 40
 
 INTENSIDADE = {"dormindo": 0.32, "atento": 0.8, "ouvindo": 0.95, "pensando": 0.85, "falando": 1.0}
 GIRO = {"dormindo": 6, "atento": 18, "ouvindo": 24, "pensando": 140, "falando": 30}  # graus/s
@@ -68,55 +65,76 @@ def nivel_alvo(visual: str, painel: Painel, t: float, agora: float) -> float:
     return painel.nivel_mic * 0.25
 
 
-def tamanho_barra(i: int, t: float, nivel: float) -> float:
+def tamanho_barra(i: int, t: float, nivel: float, maximo: float = 40) -> float:
     """Comprimento da barra i: varia em volta do círculo, como um espectro."""
     onda = (0.55 + 0.25 * math.sin(i * 0.83 + t * 7.0)
             + 0.20 * math.sin(i * 2.31 - t * 11.0))
-    return 2.0 + nivel * BARRA_MAX * onda
+    return 2.0 + nivel * maximo * onda
 
 
-def _polar(r: float, ang_graus: float) -> tuple[float, float]:
-    a = math.radians(ang_graus)
-    return CX + r * math.cos(a), CY - r * math.sin(a)
-
-
-def _caixa(r: float) -> tuple[float, float, float, float]:
-    return CX - r, CY - r, CX + r, CY + r
+def medidas(escala: float, largura_tela: int) -> dict:
+    """Tamanho do HUD e do quadro, cabendo na tela (ex.: notebook 1366 px)."""
+    hud_l, hud_a = int(BASE_LARGURA * escala), int(BASE_ALTURA * escala)
+    quadro_l = int(hud_a * 1.18)
+    sobra = largura_tela - hud_l - 40
+    quadro_l = max(420, min(quadro_l, sobra))
+    return {"hud_l": hud_l, "hud_a": hud_a, "quadro_l": quadro_l,
+            "quadro_img": (quadro_l - 32, hud_a - 66)}
 
 
 class Visor:
     def __init__(self, raiz: tk.Tk, painel: Painel, nome: str = "Sócrates",
-                 sempre_no_topo: bool = False):
+                 sempre_no_topo: bool = False, escala: float = 1.25):
         self.raiz = raiz
         self.painel = painel
         self.nome = nome
         self.nivel = 0.0
         self.t0 = time.monotonic()
+        self.e = escala
+        self.m = medidas(escala, raiz.winfo_screenwidth())
+        self.cx, self.cy = self.m["hud_l"] // 2, int(228 * escala)
+        self._versao_quadro = -1
+        self._foto = None
+        self.quadro_visivel = False
+
+        painel.tem_visor = True
+        painel.quadro_tamanho = self.m["quadro_img"]
 
         raiz.title(nome)
         raiz.configure(bg=FUNDO)
-        raiz.geometry(f"{LARGURA}x{ALTURA}")
+        raiz.geometry(f"{self.m['hud_l']}x{self.m['hud_a']}")
         raiz.resizable(False, False)
         raiz.attributes("-topmost", sempre_no_topo)
         raiz.protocol("WM_DELETE_WINDOW", self.fechar)
 
-        self.c = tk.Canvas(raiz, width=LARGURA, height=ALTURA, bg=FUNDO, highlightthickness=0)
-        self.c.pack()
+        largura_max = self.m["hud_l"] + self.m["quadro_l"]
+        self.c = tk.Canvas(raiz, width=largura_max, height=self.m["hud_a"], bg=FUNDO,
+                           highlightthickness=0)
+        self.c.place(x=0, y=0)
         familias = set(tkfont.families())
         fonte = next((f for f in ("Segoe UI", "Bahnschrift", "DejaVu Sans") if f in familias),
                      "TkDefaultFont")
         self._criar(fonte)
 
+    # ---------- geometria ----------
+    def _polar(self, r: float, ang: float) -> tuple[float, float]:
+        a = math.radians(ang)
+        return self.cx + r * self.e * math.cos(a), self.cy - r * self.e * math.sin(a)
+
+    def _caixa(self, r: float) -> tuple[float, float, float, float]:
+        r *= self.e
+        return self.cx - r, self.cy - r, self.cx + r, self.cy + r
+
     # ---------- criação (uma vez) ----------
     def _criar(self, fonte: str) -> None:
-        c = self.c
-        self.marcas = [c.create_line(0, 0, 0, 0, width=2) for _ in range(N_MARCAS)]
-        self.circulo_fino = c.create_oval(*_caixa(R_ANEL + 16), width=1)
-        self.arcos = [c.create_arc(*_caixa(R_ANEL), style="arc", width=7, extent=52)
+        c, e = self.c, self.e
+        self.marcas = [c.create_line(0, 0, 0, 0, width=max(2, round(2 * e))) for _ in range(N_MARCAS)]
+        self.circulo_fino = c.create_oval(*self._caixa(174), width=1)
+        self.arcos = [c.create_arc(*self._caixa(158), style="arc", width=round(7 * e), extent=52)
                       for _ in range(4)]
-        self.arcos_internos = [c.create_arc(*_caixa(R_ANEL_INTERNO), style="arc", width=2,
+        self.arcos_internos = [c.create_arc(*self._caixa(132), style="arc", width=max(2, round(2 * e)),
                                             extent=78) for _ in range(3)]
-        self.barras = [c.create_line(0, 0, 0, 0, width=3, capstyle="round")
+        self.barras = [c.create_line(0, 0, 0, 0, width=round(3 * e), capstyle="round")
                        for _ in range(N_BARRAS)]
         self.brilhos = [c.create_oval(0, 0, 0, 0, width=0) for _ in range(4)]
         self.anel_nucleo = c.create_oval(0, 0, 0, 0, width=2)
@@ -124,12 +142,50 @@ class Visor:
         self.centro = c.create_oval(0, 0, 0, 0, width=0)
 
         letras = "  ".join(self.nome.upper())
-        self.titulo = c.create_text(CX, 448, text=letras, font=(fonte, 15, "bold"))
-        self.status = c.create_text(CX, 478, text="", font=(fonte, 11))
-        self.fala = c.create_text(CX, 508, text="", font=(fonte, 10, "italic"),
-                                  width=LARGURA - 40)
+        self.titulo = c.create_text(self.cx, 448 * e, text=letras, font=(fonte, round(15 * e), "bold"))
+        self.status = c.create_text(self.cx, 478 * e, text="", font=(fonte, round(11 * e)))
+        self.fala = c.create_text(self.cx, 508 * e, text="", font=(fonte, round(10 * e), "italic"),
+                                  width=self.m["hud_l"] - 40)
 
-    # ---------- cada quadro ----------
+        # Quadro (escondido até ter conteúdo)
+        x0 = self.m["hud_l"]
+        self.moldura = c.create_rectangle(x0 + 6, 14, x0 + self.m["quadro_l"] - 8,
+                                          self.m["hud_a"] - 14, outline=misturar(LARANJA, FUNDO, 0.5),
+                                          width=2, state="hidden")
+        self.rotulo_quadro = c.create_text(x0 + 20, 30, text="Q U A D R O", anchor="w",
+                                           font=(fonte, round(9 * e), "bold"),
+                                           fill=misturar(LARANJA, FUNDO, 0.7), state="hidden")
+        self.imagem = c.create_image(x0 + 14, 46, anchor="nw", state="hidden")
+
+    # ---------- quadro ----------
+    def _atualizar_quadro(self) -> None:
+        p = self.painel
+        if p.quadro_versao == self._versao_quadro:
+            return
+        self._versao_quadro = p.quadro_versao
+        png = p.quadro_png
+        if png is None:
+            self._mostrar_quadro(False)
+            return
+        self._foto = tk.PhotoImage(data=base64.b64encode(png).decode())   # PNG direto no Tk
+        self.c.itemconfigure(self.imagem, image=self._foto)
+        self._mostrar_quadro(True)
+
+    def _mostrar_quadro(self, mostrar: bool) -> None:
+        if mostrar == self.quadro_visivel:
+            return
+        self.quadro_visivel = mostrar
+        estado = "normal" if mostrar else "hidden"
+        for item in (self.moldura, self.rotulo_quadro, self.imagem):
+            self.c.itemconfigure(item, state=estado)
+        largura = self.m["hud_l"] + (self.m["quadro_l"] if mostrar else 0)
+        x, y = self.raiz.winfo_x(), self.raiz.winfo_y()
+        tela = self.raiz.winfo_screenwidth()
+        if x + largura > tela:                     # não deixa o quadro sair da tela
+            x = max(0, tela - largura - 8)
+        self.raiz.geometry(f"{largura}x{self.m['hud_a']}+{x}+{y}")
+
+    # ---------- cada quadro de animação ----------
     def _quadro(self) -> None:
         if self.painel.encerrado:
             self.raiz.destroy()
@@ -139,6 +195,7 @@ class Visor:
         p = self.painel
         visual = p.visual(agora)
         luz = INTENSIDADE[visual]
+        self._atualizar_quadro()
 
         alvo = nivel_alvo(visual, p, t, agora)
         sobe = 0.55 if alvo > self.nivel else 0.18   # sobe rápido, desce suave
@@ -153,8 +210,8 @@ class Visor:
         for i, item in enumerate(self.marcas):
             ang = i * 360 / N_MARCAS + giro * 0.25
             longa = i % 6 == 0
-            x0, y0 = _polar(R_MARCAS - (11 if longa else 5), ang)
-            x1, y1 = _polar(R_MARCAS, ang)
+            x0, y0 = self._polar(190 - (11 if longa else 5), ang)
+            x1, y1 = self._polar(190, ang)
             c.coords(item, x0, y0, x1, y1)
             c.itemconfigure(item, fill=cor_marca_forte if longa else cor_marca)
 
@@ -170,28 +227,26 @@ class Visor:
         for i, item in enumerate(self.barras):
             ang = i * 360 / N_BARRAS + 90
             tam = tamanho_barra(i, t, nivel)
-            x0, y0 = _polar(R_BARRAS, ang)
-            x1, y1 = _polar(R_BARRAS + tam, ang)
+            x0, y0 = self._polar(84, ang)
+            x1, y1 = self._polar(84 + tam, ang)
             c.coords(item, x0, y0, x1, y1)
-            forca = 0.35 + 0.65 * min(1.0, tam / BARRA_MAX)
+            forca = 0.35 + 0.65 * min(1.0, tam / 40)
             c.itemconfigure(item, fill=misturar(LARANJA, FUNDO, forca * luz))
 
         r = 50 + 16 * nivel + 2 * respira
         for i, item in enumerate(self.brilhos):     # halo: círculos cada vez mais fracos
-            rb = r + 26 - i * 7
-            c.coords(item, *_caixa(rb))
-            c.itemconfigure(item, fill=misturar(LARANJA, FUNDO, (0.07 + i * 0.06) * luz * (0.6 + 0.4 * nivel)))
-        c.coords(self.anel_nucleo, *_caixa(r + 6))
+            c.coords(item, *self._caixa(r + 26 - i * 7))
+            c.itemconfigure(item, fill=misturar(LARANJA, FUNDO,
+                                                (0.07 + i * 0.06) * luz * (0.6 + 0.4 * nivel)))
+        c.coords(self.anel_nucleo, *self._caixa(r + 6))
         c.itemconfigure(self.anel_nucleo, outline=misturar(BRILHO, FUNDO, 0.6 * luz))
-        c.coords(self.nucleo, *_caixa(r))
+        c.coords(self.nucleo, *self._caixa(r))
         c.itemconfigure(self.nucleo, fill=misturar(LARANJA, FUNDO, (0.75 + 0.25 * nivel) * luz))
-        rc = r * (0.42 + 0.18 * nivel)
-        c.coords(self.centro, *_caixa(rc))
+        c.coords(self.centro, *self._caixa(r * (0.42 + 0.18 * nivel)))
         c.itemconfigure(self.centro, fill=misturar(BRILHO, FUNDO, (0.7 + 0.3 * nivel) * luz))
 
         c.itemconfigure(self.titulo, fill=misturar(LARANJA, FUNDO, 0.85 * max(luz, 0.5)))
-        c.itemconfigure(self.status, text=LEGENDA[visual],
-                        fill=misturar(BRILHO, FUNDO, 0.55))
+        c.itemconfigure(self.status, text=LEGENDA[visual], fill=misturar(BRILHO, FUNDO, 0.55))
         legenda = p.legenda if len(p.legenda) <= 90 else p.legenda[:87] + "..."
         c.itemconfigure(self.fala, text=f"“{legenda}”" if legenda else "",
                         fill=misturar(BRILHO, FUNDO, 0.35))
@@ -200,6 +255,7 @@ class Visor:
 
     def fechar(self) -> None:
         self.painel.fechou = True
+        self.painel.tem_visor = False
         if self.painel.ao_fechar:
             self.painel.ao_fechar()
         self.raiz.destroy()
@@ -212,11 +268,12 @@ class Visor:
             self.fechar()
 
 
-def abrir(painel: Painel, nome: str = "Sócrates", sempre_no_topo: bool = False) -> None:
+def abrir(painel: Painel, nome: str = "Sócrates", sempre_no_topo: bool = False,
+          escala: float = 1.25) -> None:
     """Abre o visor e só volta quando ele fechar. Precisa rodar na thread principal."""
     try:   # nitidez em telas com escala (125%, 150%) no Windows
         import ctypes
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
     except Exception:
         pass
-    Visor(tk.Tk(), painel, nome, sempre_no_topo).rodar()
+    Visor(tk.Tk(), painel, nome, sempre_no_topo, escala).rodar()

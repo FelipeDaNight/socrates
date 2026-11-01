@@ -6,6 +6,12 @@ modo_inicial: explicar        # explicar | testar
 historico_max: 20             # quantas mensagens ele lembra na conversa atual
 local: Morrinhos, Goiás       # usado para clima e perguntas sobre "aqui"
 
+acoes:
+  ativas: true                # abrir programas e sites, volume, timer, anotações
+  programas:                  # programas extras: nome falado: caminho do .exe
+    # anki: 'C:\Program Files\Anki\anki.exe'
+    # obsidian: '%LOCALAPPDATA%\Programs\Obsidian\Obsidian.exe'
+
 pesquisa:
   ativa: true                 # pesquisa na internet quando a pergunta é sobre algo atual
                               # (só no Groq com modelo gpt-oss)
@@ -28,10 +34,14 @@ provedores:
     chave_env: null
     modelo: qwen2.5:3b
 
-voz:
+voz:                          # rode "main.py --vozes" para ouvir as opções e escolher
   ativa: true                 # false = só texto (igual à fase 0)
-  nome: pt-BR-AntonioNeural   # outras: pt-BR-FranciscaNeural, pt-BR-ThalitaNeural
+  provedor: edge              # edge (grátis, sem chave) | gemini (mais natural, GEMINI_API_KEY)
+  nome: pt-BR-AntonioNeural   # voz do Edge
   velocidade: "+5%"           # mais rápido: "+15%" | mais devagar: "-10%"
+  tom: "+0Hz"                 # mais grave: "-8Hz"
+  gemini_voz: Sadaltager      # voz do Gemini: Sadaltager, Charon, Gacrux, Algenib, Iapetus...
+  gemini_modelo: gemini-3.8-flash-tts
   saudacao: true              # fala "olá" ao ligar (serve de teste do som)
 
 escuta:                       # mãos livres: ele fica ouvindo o tempo todo
@@ -43,6 +53,7 @@ escuta:                       # mãos livres: ele fica ouvindo o tempo todo
 visor:
   ativo: true                 # janela laranja estilo Jarvis
   sempre_no_topo: false       # true = fica por cima das outras janelas
+  escala: 1.25                # tamanho do visor: 1.0 pequeno, 1.25 médio, 1.5 grande
 
 ouvido:                       # transcrição (Whisper no Groq, grátis)
   base_url: https://api.groq.com/openai/v1

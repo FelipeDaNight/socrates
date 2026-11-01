@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import threading
+from dataclasses import dataclass
 from typing import Callable
 
 import numpy as np
@@ -33,6 +34,12 @@ from .visor.painel import Painel
 
 log = logging.getLogger("socrates.conversa")
 
+
+@dataclass
+class Aviso:
+    """Algo que o Sócrates precisa falar por conta própria (ex.: o timer acabou)."""
+    texto: str
+
 ECO_SEG = 0.3   # espera o som do alto-falante sumir da sala antes de reabrir o microfone
 
 AJUDA = """Como usar:
@@ -44,6 +51,7 @@ Comandos (falados ou digitados):
   "modo explicar"    /explicar   explica e confere se você entendeu
   "modo prova"       /testar     perguntas estilo banca
   "limpar conversa"  /limpar     esquece a conversa atual
+  "apaga o quadro"   /apagar     limpa o quadro branco
   "obrigado"         /dormir     encerra o assunto; ele volta a esperar o nome
   "encerrar"         /sair       desliga o Sócrates"""
 
@@ -52,6 +60,7 @@ FALAS = {
     Comando.TESTAR: "Modo prova. Me diga o assunto e eu começo as perguntas.",
     Comando.LIMPAR: "Pronto, esqueci a conversa. Vamos do zero.",
     Comando.DORMIR: "Por nada. É só me chamar.",
+    Comando.APAGAR_QUADRO: "Quadro apagado.",
     Comando.AJUDA: "Diga Sócrates e o seu pedido. Os comandos estão na tela.",
 }
 
@@ -65,6 +74,7 @@ class Conversa:
         self.painel = painel
         self.escrever = escrever or (lambda t: print(t, end="", flush=True))
         self._cache: dict[str, bytes] = {}
+        self._desenhos: set[asyncio.Task] = set()
 
     def dizer_tela(self, texto: str = "") -> None:
         self.escrever(texto + "\n")
@@ -96,10 +106,34 @@ class Conversa:
             await asyncio.sleep(ECO_SEG)
             self.s.escuta.retomar()
 
+    # ---------- quadro branco ----------
+    def _ao_quadro(self, conteudo: str) -> None:
+        titulo = next((l.lstrip("# ").strip() for l in conteudo.splitlines() if l.strip()), "")
+        if not self.painel.tem_visor:
+            self.escrever(f"\n┌─ quadro ─────────\n{conteudo}\n└──────────────────\n")
+            return
+        self.escrever(f" [quadro: {titulo}] ")
+        tarefa = asyncio.create_task(self._desenhar(conteudo))
+        self._desenhos.add(tarefa)
+        tarefa.add_done_callback(self._desenhos.discard)
+
+    async def _desenhar(self, conteudo: str) -> None:
+        from .visor.quadro import renderizar
+        try:
+            png = await asyncio.to_thread(renderizar, conteudo, *self.painel.quadro_tamanho)
+        except Exception:   # nunca derrubar a conversa por causa de um desenho
+            log.exception("quadro falhou")
+            self.escrever(f"\n[quadro] não consegui desenhar. Conteúdo:\n{conteudo}\n")
+            return
+        self.painel.mostrar_quadro(png)
+
     async def responder(self, texto: str) -> None:
+        from .core.quadro_fluxo import separar_quadro
+
         self.painel.estado = "pensando"
         self.escrever(f"{self.cfg.nome}: ")
-        pedacos = ecoar(self.soc.conversar(texto), self.escrever)
+        fala = separar_quadro(self.soc.conversar(texto), self._ao_quadro)
+        pedacos = ecoar(fala, self.escrever)
 
         async def tarefa():
             try:
@@ -161,6 +195,10 @@ class Conversa:
     # ---------- laço principal ----------
     async def rodar(self, fila: asyncio.Queue) -> None:
         palavra = self.cfg.escuta.palavra_ativacao
+        if self.painel.tem_visor:   # carrega o desenhista já: o 1º quadro sai sem demora
+            aquecer = asyncio.create_task(asyncio.to_thread(_aquecer_quadro))
+            self._desenhos.add(aquecer)
+            aquecer.add_done_callback(self._desenhos.discard)
         self.dizer_tela(f"\n{self.cfg.nome} pronto ({self.cfg.llm.provedor} / {self.cfg.llm.modelo}).")
         self.dizer_tela(AJUDA)
         if self.cfg.voz.saudacao:
@@ -174,6 +212,11 @@ class Conversa:
                 break
             if isinstance(item, ErroAudio):
                 self.dizer_tela(f"[microfone] {item} Você ainda pode digitar.")
+                continue
+            if isinstance(item, Aviso):
+                self.dizer_tela(f"\n{self.cfg.nome}: {item.texto}")
+                await self.falar(item.texto, False)
+                self.abrir_janela()
                 continue
 
             pedido = await self._pedido(item)
@@ -196,6 +239,9 @@ class Conversa:
                     self.soc.mudar_modo(comando.value)
                 if comando is Comando.LIMPAR:
                     self.soc.limpar()
+                    self.painel.limpar_quadro()
+                if comando is Comando.APAGAR_QUADRO:
+                    self.painel.limpar_quadro()
                 self.dizer_tela(FALAS[comando])
                 await self.falar(FALAS[comando])
                 if comando is Comando.DORMIR:
@@ -212,6 +258,14 @@ class Conversa:
         despedida = "Até a próxima. Bons estudos!"
         self.dizer_tela(f"\n{self.cfg.nome}: {despedida}")
         await self.falar(despedida, False)
+
+
+def _aquecer_quadro() -> None:
+    try:
+        from .visor.quadro import renderizar
+        renderizar("# .\n$$ x $$", 200, 120)
+    except Exception:
+        log.exception("não consegui preparar o quadro")
 
 
 def ler_teclado(loop: asyncio.AbstractEventLoop, fila: asyncio.Queue) -> None:

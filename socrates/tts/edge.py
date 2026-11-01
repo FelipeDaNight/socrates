@@ -12,9 +12,10 @@ log = logging.getLogger("socrates.voz")
 
 class VozEdge(Voz):
     def __init__(self, voz: str = "pt-BR-AntonioNeural", velocidade: str = "+0%",
-                 alto_falante: AltoFalante | None = None):
+                 alto_falante: AltoFalante | None = None, tom: str = "+0Hz"):
         self.voz = voz
         self.velocidade = velocidade
+        self.tom = tom                      # "-8Hz" deixa a voz mais grave
         self.alto_falante = alto_falante or AltoFalante()
 
     async def sintetizar(self, texto: str) -> bytes:
@@ -22,7 +23,7 @@ class VozEdge(Voz):
 
         partes: list[bytes] = []
         try:
-            fala = edge_tts.Communicate(texto, self.voz, rate=self.velocidade)
+            fala = edge_tts.Communicate(texto, self.voz, rate=self.velocidade, pitch=self.tom)
             async for pedaco in fala.stream():
                 if pedaco["type"] == "audio":
                     partes.append(pedaco["data"])
