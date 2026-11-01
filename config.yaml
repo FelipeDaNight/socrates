@@ -29,6 +29,16 @@ voz:
   velocidade: "+5%"           # mais rápido: "+15%" | mais devagar: "-10%"
   saudacao: true              # fala "olá" ao ligar (serve de teste do som)
 
+escuta:                       # mãos livres: ele fica ouvindo o tempo todo
+  palavra_ativacao: true      # true = só responde quando você diz "Sócrates"
+                              # false = responde a tudo que ouvir (estudando sozinho no quarto)
+  janela_seg: 15              # depois da resposta, quanto tempo você pode falar sem dizer o nome
+  janela_prova_seg: 45        # no modo prova é maior: tempo para pensar na resposta
+
+visor:
+  ativo: true                 # janela laranja estilo Jarvis
+  sempre_no_topo: false       # true = fica por cima das outras janelas
+
 ouvido:                       # transcrição (Whisper no Groq, grátis)
   base_url: https://api.groq.com/openai/v1
   chave_env: GROQ_API_KEY

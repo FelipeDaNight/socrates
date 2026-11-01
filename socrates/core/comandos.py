@@ -16,6 +16,7 @@ class Comando(Enum):
     TESTAR = "testar"
     LIMPAR = "limpar"
     AJUDA = "ajuda"
+    DORMIR = "dormir"   # encerra a conversa atual, mas continua esperando o nome
     SAIR = "sair"
 
 
@@ -24,6 +25,7 @@ _DIGITADOS = {
     "/testar": Comando.TESTAR,
     "/limpar": Comando.LIMPAR,
     "/ajuda": Comando.AJUDA,
+    "/dormir": Comando.DORMIR,
     "/help": Comando.AJUDA,
     "/sair": Comando.SAIR,
     "sair": Comando.SAIR,
@@ -37,6 +39,8 @@ _FALADOS = {
     Comando.LIMPAR: ["limpar conversa", "limpa a conversa", "esquece a conversa",
                      "esquecer conversa", "nova conversa"],
     Comando.AJUDA: ["ajuda", "quais sao os comandos"],
+    Comando.DORMIR: ["obrigado", "obrigada", "valeu", "so isso", "e so isso", "por enquanto e so",
+                     "pode descansar", "pode dormir", "dormir", "descansar"],
     Comando.SAIR: ["encerrar", "encerra", "desligar", "desliga", "tchau socrates",
                    "ate logo", "pode encerrar"],
 }

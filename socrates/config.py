@@ -47,6 +47,19 @@ class ConfigMic:
 
 
 @dataclass
+class ConfigEscuta:
+    palavra_ativacao: bool = True
+    janela_seg: float = 15.0
+    janela_prova_seg: float = 45.0
+
+
+@dataclass
+class ConfigVisor:
+    ativo: bool = True
+    sempre_no_topo: bool = False
+
+
+@dataclass
 class Config:
     nome: str
     modo_inicial: str
@@ -55,6 +68,8 @@ class Config:
     voz: ConfigVoz = field(default_factory=ConfigVoz)
     ouvido: ConfigOuvido = field(default_factory=ConfigOuvido)
     microfone: ConfigMic = field(default_factory=ConfigMic)
+    escuta: ConfigEscuta = field(default_factory=ConfigEscuta)
+    visor: ConfigVisor = field(default_factory=ConfigVisor)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -109,6 +124,8 @@ def carregar(caminho: Path | str | None = None) -> Config:
         voz=_preencher(ConfigVoz, dados.get("voz")),
         ouvido=ouvido,
         microfone=_preencher(ConfigMic, dados.get("microfone")),
+        escuta=_preencher(ConfigEscuta, dados.get("escuta")),
+        visor=_preencher(ConfigVisor, dados.get("visor")),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

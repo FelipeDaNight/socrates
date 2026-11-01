@@ -1,4 +1,4 @@
-"""Toca o áudio MP3 que a voz gera."""
+"""Toca o áudio que a voz gera e avisa o visor do volume, para ele pulsar junto."""
 
 from __future__ import annotations
 
@@ -21,16 +21,23 @@ def decodificar_mp3(mp3: bytes, taxa: int = TAXA_VOZ) -> np.ndarray:
 
 
 class AltoFalante:
-    def __init__(self, dispositivo: int | str | None = None):
+    def __init__(self, dispositivo: int | str | None = None, painel=None):
         self.dispositivo = dispositivo
+        self.painel = painel
 
     def _tocar_bloqueando(self, amostras: np.ndarray, taxa: int) -> None:
         sd = importar_sounddevice()
+        if self.painel is not None:
+            from ..visor.painel import envelope
+            self.painel.iniciar_fala(envelope(amostras, taxa))
         try:
             sd.play(amostras, taxa, device=self.dispositivo)
             sd.wait()
         except sd.PortAudioError as e:
             raise ErroAudio(f"Problema com o alto-falante: {e}") from e
+        finally:
+            if self.painel is not None:
+                self.painel.fim_fala()
 
     async def tocar_mp3(self, mp3: bytes) -> None:
         amostras = decodificar_mp3(mp3)

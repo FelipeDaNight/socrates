@@ -35,6 +35,7 @@ class AjustesMic:
     espera_seg: float = 8.0       # quanto espera você começar a falar
     sensibilidade: float = 3.0    # fala = sinal X vezes acima do ruído ambiente
     limiar_minimo: float = 200.0  # piso, para salas muito silenciosas
+    min_fala_seg: float = 0.35    # sons mais curtos (tosse, batida) são ignorados
 
 
 def rms(bloco: np.ndarray) -> float:
@@ -99,6 +100,84 @@ class DetectorDeFala:
         if not self._gravado:
             return np.zeros(0, dtype=np.int16)
         return np.concatenate(self._gravado).astype(np.int16)
+
+
+class Segmentador:
+    """Versão contínua do detector: fica ouvindo para sempre e entrega cada fala.
+
+    Ao contrário do DetectorDeFala, não desiste por tempo e vai reaprendendo o
+    ruído da sala (ventilador ligou, janela abriu). O ruído de fundo é o nível
+    dos momentos mais baixos dos últimos 4 s: a fala tem pausas entre as
+    palavras, o ventilador não, então ele vira "fundo" e a fala não.
+    """
+
+    CALIBRAGEM_BLOCOS = 10
+    INICIO_BLOCOS = 3
+    PRE_ROLL_BLOCOS = 10
+    HISTORICO_BLOCOS = 133    # 4 s
+    PERCENTIL_FUNDO = 10
+
+    def __init__(self, ajustes: AjustesMic | None = None):
+        self.aj = ajustes or AjustesMic()
+        self.bloco_seg = BLOCO_MS / 1000
+        self.piso: float | None = None
+        self._calibragem: list[float] = []
+        self._historico: deque[float] = deque(maxlen=self.HISTORICO_BLOCOS)
+        self.reiniciar()
+
+    @property
+    def limiar(self) -> float | None:
+        if self.piso is None:
+            return None
+        return max(self.piso * self.aj.sensibilidade, self.aj.limiar_minimo)
+
+    def reiniciar(self) -> None:
+        """Descarta o que estava sendo gravado (mantém o que aprendeu do ruído)."""
+        self._antes: deque[np.ndarray] = deque(maxlen=self.PRE_ROLL_BLOCOS)
+        self._gravado: list[np.ndarray] = []
+        self._alto = 0
+        self._silencio = 0
+        self.falando = False
+
+    def alimentar(self, bloco: np.ndarray) -> np.ndarray | None:
+        """Recebe 30 ms de áudio. Devolve a fala inteira quando ela termina."""
+        bloco = bloco.reshape(-1)
+        nivel = rms(bloco)
+        self._historico.append(nivel)
+
+        if self.piso is None:
+            self._calibragem.append(nivel)
+            self._antes.append(bloco)
+            if len(self._calibragem) >= self.CALIBRAGEM_BLOCOS:
+                self.piso = max(float(np.median(self._calibragem)), 1.0)
+                log.debug("ruído inicial %.0f, limiar %.0f", self.piso, self.limiar)
+            return None
+
+        if len(self._historico) >= self.CALIBRAGEM_BLOCOS * 3:
+            self.piso = max(float(np.percentile(self._historico, self.PERCENTIL_FUNDO)), 1.0)
+
+        alto = nivel > self.limiar
+        if not self.falando:
+            self._antes.append(bloco)
+            self._alto = self._alto + 1 if alto else 0
+            if self._alto >= self.INICIO_BLOCOS:
+                self.falando = True
+                self._gravado = list(self._antes)
+            return None
+
+        self._gravado.append(bloco)
+        self._silencio = 0 if alto else self._silencio + 1
+        terminou = self._silencio * self.bloco_seg >= self.aj.silencio_seg
+        estourou = len(self._gravado) * self.bloco_seg >= self.aj.max_seg
+        if not (terminou or estourou):
+            return None
+
+        com_voz = (len(self._gravado) - self._silencio) * self.bloco_seg
+        audio = np.concatenate(self._gravado).astype(np.int16)
+        self.reiniciar()
+        if com_voz < self.aj.min_fala_seg + self.PRE_ROLL_BLOCOS * self.bloco_seg:
+            return None   # barulho curto demais para ser fala
+        return audio
 
 
 def para_wav(amostras: np.ndarray, taxa: int = TAXA_MIC) -> bytes:
