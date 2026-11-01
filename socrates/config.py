@@ -72,7 +72,10 @@ class Config:
     nome: str
     modo_inicial: str
     historico_max: int
-    llm: ConfigLLM
+    llm: ConfigLLM                                          # o primeiro do rodízio
+    rodizio: list = field(default_factory=list)              # conversa, em ordem
+    rodizio_acoes: list = field(default_factory=list)        # ações no PC, em ordem
+    sem_chave: list = field(default_factory=list)            # provedores pulados
     voz: ConfigVoz = field(default_factory=ConfigVoz)
     ouvido: ConfigOuvido = field(default_factory=ConfigOuvido)
     microfone: ConfigMic = field(default_factory=ConfigMic)
@@ -83,6 +86,7 @@ class Config:
     acoes: bool = True
     programas: dict = field(default_factory=dict)
     visao_modelo: str = "qwen/qwen3.8-27b"
+    visoes: list = field(default_factory=list)   # [{nome, base_url, chave, modelo}] em ordem
     claude_enter: bool = True
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
@@ -110,6 +114,21 @@ def mesclar(base: dict, extra: dict) -> dict:
     return junto
 
 
+def _visoes(dados: dict, provedores: dict) -> list[dict]:
+    """Groq (qwen) primeiro e depois as reservas que tiverem chave."""
+    visao = dados.get("visao") or {}
+    pedidos = [("groq", visao.get("modelo", "qwen/qwen3.8-27b"))]
+    pedidos += list((visao.get("reservas") or {}).items())
+    saida = []
+    for nome, modelo in pedidos:
+        prov = provedores.get(nome)
+        chave = os.getenv(prov.get("chave_env") or "") if prov else None
+        if prov and chave:
+            saida.append({"nome": nome, "base_url": prov["base_url"], "chave": chave,
+                          "modelo": modelo})
+    return saida
+
+
 def carregar(caminho: Path | str | None = None) -> Config:
     load_dotenv(RAIZ / ".env")
     caminho = Path(caminho) if caminho else RAIZ / "config.yaml"
@@ -124,26 +143,30 @@ def carregar(caminho: Path | str | None = None) -> Config:
         except yaml.YAMLError as e:
             raise ErroConfig(f"Erro no config.local.yaml: {e}") from e
 
-    provedor = dados.get("llm", {}).get("provedor", "groq")
-    prov = dados.get("provedores", {}).get(provedor)
-    if prov is None:
-        raise ErroConfig(f"Provedor '{provedor}' não está em 'provedores' no config.yaml.")
+    llm_cfg = dados.get("llm", {}) or {}
+    provedores = dados.get("provedores", {}) or {}
+    temperatura = float(llm_cfg.get("temperatura", 0.6))
 
-    chave_env = prov.get("chave_env")
-    chave = os.getenv(chave_env) if chave_env else "ollama"
-    if chave_env and not chave:
-        raise ErroConfig(
-            f"Falta a chave {chave_env}. Copie .env.exemplo para .env e cole sua chave lá."
-        )
+    def montar(nome: str) -> ConfigLLM:
+        prov = provedores.get(nome)
+        if prov is None:
+            raise ErroConfig(f"Provedor '{nome}' não está em 'provedores' no config.yaml.")
+        chave_env = prov.get("chave_env")
+        return ConfigLLM(provedor=nome, base_url=prov["base_url"], modelo=prov["modelo"],
+                         chave=(os.getenv(chave_env) if chave_env else "ollama") or None,
+                         temperatura=temperatura, modelo_acoes=prov.get("modelo_acoes"))
 
-    llm = ConfigLLM(
-        provedor=provedor,
-        base_url=prov["base_url"],
-        modelo=prov["modelo"],
-        chave=chave,
-        temperatura=float(dados.get("llm", {}).get("temperatura", 0.6)),
-        modelo_acoes=prov.get("modelo_acoes"),
-    )
+    # Rodízio: a ordem em que os serviços grátis são tentados. Sem chave = pulado.
+    nomes = llm_cfg.get("rodizio") or [llm_cfg.get("provedor", "groq")]
+    rodizio = [montar(n) for n in nomes]
+    rodizio_acoes = [montar(n) for n in (llm_cfg.get("rodizio_acoes") or [])]
+    com_chave = [c for c in rodizio if c.chave]
+    if not com_chave:
+        faltam = ", ".join(sorted({provedores[c.provedor].get("chave_env") for c in rodizio
+                                    if provedores[c.provedor].get("chave_env")}))
+        raise ErroConfig(f"Nenhuma chave encontrada ({faltam}). Coloque pelo menos a "
+                         "GROQ_API_KEY no arquivo .env.")
+    llm = com_chave[0]
     ouvido = _preencher(ConfigOuvido, dados.get("ouvido"))
     ouvido.chave = os.getenv(ouvido.chave_env)
 
@@ -153,6 +176,9 @@ def carregar(caminho: Path | str | None = None) -> Config:
         modo_inicial=dados.get("modo_inicial", "explicar"),
         historico_max=int(dados.get("historico_max", 20)),
         llm=llm,
+        rodizio=[c for c in rodizio if c.chave],
+        rodizio_acoes=[c for c in rodizio_acoes if c.chave],
+        sem_chave=[c.provedor for c in rodizio + rodizio_acoes if not c.chave],
         voz=_preencher(ConfigVoz, dados.get("voz")),
         ouvido=ouvido,
         microfone=_preencher(ConfigMic, dados.get("microfone")),
@@ -164,6 +190,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         programas=(dados.get("acoes") or {}).get("programas") or {},
         visao_modelo=(dados.get("visao") or {}).get("modelo", "qwen/qwen3.8-27b"),
         claude_enter=bool((dados.get("claude") or {}).get("enviar_com_enter", True)),
+        visoes=_visoes(dados, provedores),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

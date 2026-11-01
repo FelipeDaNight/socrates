@@ -6,6 +6,7 @@
     python main.py --diagnostico testar microfone, voz e transcrição
     python main.py --modelos     listar modelos do provedor configurado
     python main.py --pesquisa    testar a pesquisa na internet
+    python main.py --provedores  testar cada cérebro grátis do rodízio (Groq, Mistral, Gemini)
     python main.py --vozes       ouvir as vozes disponíveis e escolher
     python main.py --acoes       testar janelas, texto copiado, bloco de notas e visão da tela
 """
@@ -39,18 +40,22 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
     from socrates.core import contexto
     from socrates.llm import pesquisa_disponivel
 
-    pesquisa = cfg.pesquisa and pesquisa_disponivel(cfg.llm)
+    pesquisa = cfg.pesquisa and pesquisa_disponivel(cfg.rodizio or [cfg.llm])
     if cfg.pesquisa and not pesquisa:
-        print(f"[pesquisa] Indisponível com {cfg.llm.provedor}/{cfg.llm.modelo} "
-              "(só no Groq com modelo gpt-oss). Seguindo sem internet.")
+        print("[pesquisa] Nenhum provedor com busca (só o Groq com gpt-oss). Seguindo sem internet.")
     if cfg.acoes:
         from socrates.ferramentas import computador, tela
         computador.adicionar_programas(cfg.programas)
         tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave,
                           modelo=cfg.visao_modelo)
+        tela.VISOES[:] = cfg.visoes
         from socrates.ferramentas import claude
         claude.ENVIAR_COM_ENTER = cfg.claude_enter
-    cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes)
+    cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes,
+                            rodizio=cfg.rodizio, rodizio_acoes=cfg.rodizio_acoes)
+    usados = " > ".join(f"{c.provedor}" for c in cfg.rodizio) or cfg.llm.provedor
+    print(f"[cérebros] {usados}" + (f"  (sem chave, pulados: {', '.join(sorted(set(cfg.sem_chave)))})"
+                                    if cfg.sem_chave else ""))
     return Orquestrador(cerebro, cfg.nome, cfg.modo_inicial, cfg.historico_max,
                         contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
 
@@ -233,6 +238,7 @@ async def testar_acoes(cfg: config.Config) -> None:
     from socrates.ferramentas import janelas, tela
 
     tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave, modelo=cfg.visao_modelo)
+    tela.VISOES[:] = cfg.visoes
     print("=== Teste das ações no computador ===")
 
     def etapa(numero, titulo, funcao, *args):
@@ -258,6 +264,44 @@ async def testar_acoes(cfg: config.Config) -> None:
         print("     " + tela.ver_tela("Descreva em 2 frases o que está na tela.").replace("\n", "\n     "))
     except Exception as e:
         print(f"     FALHOU: {e}")
+
+
+ONDE_PEGAR_CHAVE = {
+    "GROQ_API_KEY": "console.groq.com/keys",
+    "MISTRAL_API_KEY": "console.mistral.ai/api-keys (plano Experiment, grátis)",
+    "GEMINI_API_KEY": "aistudio.google.com/apikey",
+}
+
+
+async def testar_provedores(cfg: config.Config) -> None:
+    """Manda um pedido mínimo a cada serviço do rodízio e mostra quem está ok."""
+    import time as _t
+
+    from socrates.llm import membro
+
+    print("=== Cérebros grátis do rodízio ===\n")
+    vistos = set()
+    for c in [*cfg.rodizio, *cfg.rodizio_acoes]:
+        if (c.provedor, c.modelo) in vistos:
+            continue
+        vistos.add((c.provedor, c.modelo))
+        inicio = _t.monotonic()
+        try:
+            r = await membro(c)._criar(messages=[{"role": "user", "content": "Responda só: ok"}],
+                                       max_tokens=200, stream=False)
+            texto = (r.choices[0].message.content or "").strip()[:30]
+            print(f"  OK     {c.provedor:13s} {c.modelo:28s} {_t.monotonic() - inicio:4.1f} s  \"{texto}\"")
+        except Exception as e:
+            print(f"  FALHOU {c.provedor:13s} {c.modelo:28s} {str(e)[:90]}")
+    faltam = {}
+    provs = cfg.bruto.get("provedores", {})
+    for nome in sorted(set(cfg.sem_chave)):
+        env = (provs.get(nome) or {}).get("chave_env")
+        if env:
+            faltam.setdefault(env, []).append(nome)
+    for env, nomes in faltam.items():
+        print(f"  --     {', '.join(nomes):13s} sem {env} no .env  ->  {ONDE_PEGAR_CHAVE.get(env, '')}")
+    print("\nVisão da tela:", " > ".join(f"{v['nome']}:{v['modelo']}" for v in cfg.visoes) or "nenhuma")
 
 
 async def listar_modelos(cfg: config.Config) -> None:
@@ -341,13 +385,16 @@ async def testar_pesquisa(cfg: config.Config, recuo: str = "") -> bool:
     if not cfg.pesquisa:
         print(f"{recuo}Desligada no config.yaml (pesquisa: ativa: false).")
         return False
-    if not pesquisa_disponivel(cfg.llm):
+    grupo = [c for c in (cfg.rodizio or [cfg.llm]) if pesquisa_disponivel(c)]
+    if not grupo:
         print(f"{recuo}Indisponível com {cfg.llm.provedor}/{cfg.llm.modelo}: "
               "só funciona no Groq com modelo gpt-oss.")
         return False
     pergunta = "Qual a cotação do dólar hoje?"
     print(f"{recuo}Perguntando: \"{pergunta}\" (pode levar uns segundos)")
-    cerebro = criar_cerebro(cfg.llm)
+    from socrates.llm import membro
+    from socrates.llm.rodizio import CerebroRodizio
+    cerebro = CerebroRodizio([membro(c) for c in grupo]) if len(grupo) > 1 else membro(grupo[0])
     mensagens = _com_instrucao([{"role": "system", "content": contexto.montar(cfg.local, True)},
                                 {"role": "user", "content": pergunta}])
     try:
@@ -370,6 +417,7 @@ def main() -> None:
     p.add_argument("--diagnostico", action="store_true", help="testa microfone, voz e transcrição")
     p.add_argument("--modelos", action="store_true", help="lista os modelos do provedor")
     p.add_argument("--pesquisa", action="store_true", help="testa a pesquisa na internet")
+    p.add_argument("--provedores", action="store_true", help="testa cada cérebro grátis do rodízio")
     p.add_argument("--vozes", action="store_true", help="toca as vozes disponíveis para você escolher")
     p.add_argument("--acoes", action="store_true", help="testa janelas, texto copiado, bloco de notas e tela")
     args = p.parse_args()
@@ -386,6 +434,8 @@ def main() -> None:
             asyncio.run(listar_modelos(cfg))
         elif args.pesquisa:
             asyncio.run(testar_pesquisa(cfg))
+        elif args.provedores:
+            asyncio.run(testar_provedores(cfg))
         elif args.vozes:
             asyncio.run(provar_vozes(cfg))
         elif args.acoes:

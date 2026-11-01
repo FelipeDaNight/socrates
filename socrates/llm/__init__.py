@@ -1,52 +1,68 @@
 import logging
 
 from ..config import ConfigLLM
-from .base import Cerebro, ErroCerebro, ErroPesquisa, Mensagem
+from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, Mensagem
 from .compativel_openai import CerebroCompativelOpenAI
 
 log = logging.getLogger("socrates.llm")
 
 
-def pesquisa_disponivel(cfg: ConfigLLM) -> bool:
+def pesquisa_disponivel(cfg: ConfigLLM | list[ConfigLLM]) -> bool:
     """A busca embutida só existe no Groq, nos modelos gpt-oss."""
-    return cfg.provedor == "groq" and "gpt-oss" in cfg.modelo
+    lista = cfg if isinstance(cfg, list) else [cfg]
+    return any(c.provedor.startswith("groq") and "gpt-oss" in c.modelo for c in lista)
 
 
-def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False) -> Cerebro:
-    """Fábrica: lê o config e devolve o cérebro certo.
+def membro(cfg: ConfigLLM, reserva: str | None = None) -> CerebroCompativelOpenAI:
+    return CerebroCompativelOpenAI(base_url=cfg.base_url, chave=cfg.chave or "", modelo=cfg.modelo,
+                                   temperatura=cfg.temperatura, nome=cfg.provedor,
+                                   modelo_reserva=reserva)
 
-    Camadas: ações no PC  ->  pesquisa na internet  ->  cérebro base
+
+def _juntar(cfgs: list[ConfigLLM]):
+    """Um só cérebro, ou o rodízio de vários."""
+    from .rodizio import CerebroRodizio
+    membros = [membro(c) for c in cfgs]
+    return membros[0] if len(membros) == 1 else CerebroRodizio(membros)
+
+
+def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False,
+                  rodizio: list[ConfigLLM] | None = None,
+                  rodizio_acoes: list[ConfigLLM] | None = None) -> Cerebro:
+    """Fábrica. Camadas: ações no PC -> pesquisa na internet -> cérebro (ou rodízio).
+
+    Sem `rodizio`, usa só `cfg` (com o modelo_acoes como reserva, se houver).
     """
-    base = CerebroCompativelOpenAI(
-        base_url=cfg.base_url,
-        chave=cfg.chave or "",
-        modelo=cfg.modelo,
-        temperatura=cfg.temperatura,
-        nome=cfg.provedor,
-        modelo_reserva=cfg.modelo_acoes,
-    )
+    if rodizio:
+        base = _juntar(rodizio)
+    else:
+        base = membro(cfg, reserva=cfg.modelo_acoes)
+
     cerebro: Cerebro = base
     if pesquisa:
-        if pesquisa_disponivel(cfg):
+        if getattr(base, "pesquisa_ok", False):
             from .pesquisa import CerebroComPesquisa
             cerebro = CerebroComPesquisa(base)
         else:
-            log.warning("pesquisa pedida, mas %s/%s não tem busca embutida", cfg.provedor, cfg.modelo)
+            log.warning("pesquisa pedida, mas nenhum cérebro tem busca embutida")
     if acoes:
         from .. import ferramentas
         from ..ferramentas import claude, computador, janelas, tela  # registram as ações
         from .acoes import CerebroComAcoes
         modulos = {computador.__name__, janelas.__name__, tela.__name__, claude.__name__}
         nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos]
-        maos = base   # quem escolhe as ferramentas: modelo próprio, com o principal de reserva
-        if cfg.modelo_acoes and cfg.modelo_acoes != cfg.modelo:
+        if rodizio_acoes:
+            maos = _juntar(rodizio_acoes)
+        elif not rodizio and cfg.modelo_acoes and cfg.modelo_acoes != cfg.modelo:
             maos = CerebroCompativelOpenAI(base_url=cfg.base_url, chave=cfg.chave or "",
                                            modelo=cfg.modelo_acoes, nome=f"{cfg.provedor}-acoes",
                                            modelo_reserva=cfg.modelo)
+        else:
+            maos = base
         cerebro = CerebroComAcoes(cerebro, maos, nomes)
         log.info("ações no PC: %s", ", ".join(nomes))
     return cerebro
 
 
-__all__ = ["Cerebro", "ErroCerebro", "ErroPesquisa", "Mensagem", "criar_cerebro",
-           "pesquisa_disponivel"]
+__all__ = ["Cerebro", "ErroCerebro", "ErroLimite", "ErroPesquisa", "Mensagem", "criar_cerebro",
+           "pesquisa_disponivel", "membro"]

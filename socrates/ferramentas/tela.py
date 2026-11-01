@@ -18,6 +18,8 @@ log = logging.getLogger("socrates.tela")
 
 # Preenchido pelo main.py a partir do config.yaml
 VISAO = {"base_url": "https://api.groq.com/openai/v1", "chave": None, "modelo": "qwen/qwen3.8-27b"}
+# Reservas de visão (rodízio): [{"nome", "base_url", "chave", "modelo"}, ...]
+VISOES: list[dict] = []
 
 LARGURA_MAX = 1600
 
@@ -42,20 +44,22 @@ def _sem_pensamento(texto: str) -> str:
     return re.sub(r"<think>.*?</think>", "", texto or "", flags=re.DOTALL).strip()
 
 
-def descrever(jpeg: bytes, pergunta: str, cliente=None) -> str:
+def descrever(jpeg: bytes, pergunta: str, cliente=None, modelo: str | None = None) -> str:
     from openai import OpenAI
 
+    modelo = modelo or VISAO["modelo"]
     if cliente is None:
         if not VISAO["chave"]:
             return "Erro: falta a chave do Groq para ver a tela."
-        cliente = OpenAI(base_url=VISAO["base_url"], api_key=VISAO["chave"], timeout=40)
+        cliente = OpenAI(base_url=VISAO["base_url"], api_key=VISAO["chave"], timeout=40,
+                         max_retries=0)
     dados = base64.b64encode(jpeg).decode()
     pedido = ("Esta é a tela do computador de um estudante. "
               f"{pergunta or 'Descreva o que está na tela.'}\n"
               "Responda em português do Brasil. Se houver uma questão ou exercício, "
               "transcreva o texto dela por completo, com as alternativas.")
     r = cliente.chat.completions.create(
-        model=VISAO["modelo"], temperature=0.2, max_tokens=1200,
+        model=modelo, temperature=0.2, max_tokens=1200,
         messages=[{"role": "user", "content": [
             {"type": "text", "text": pedido},
             {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{dados}"}}]}])
@@ -72,8 +76,19 @@ def ver_tela(pergunta: str = "") -> str:
     except Exception as e:
         log.exception("print da tela falhou")
         return f"Erro: não consegui tirar o print da tela ({e})."
-    try:
-        return "O que está na tela:\n" + descrever(jpeg, pergunta)
-    except Exception as e:
-        log.exception("visão falhou")
-        return f"Erro: o modelo de visão não respondeu ({e})."
+    if not VISOES:
+        try:
+            return "O que está na tela:\n" + descrever(jpeg, pergunta)
+        except Exception as e:
+            log.exception("visão falhou")
+            return f"Erro: o modelo de visão não respondeu ({e})."
+    from openai import OpenAI
+    erros = []
+    for v in VISOES:   # rodízio: se um serviço bater no limite, tenta o próximo
+        try:
+            cliente = OpenAI(base_url=v["base_url"], api_key=v["chave"], timeout=40, max_retries=0)
+            return "O que está na tela:\n" + descrever(jpeg, pergunta, cliente, v["modelo"])
+        except Exception as e:
+            log.warning("visão no %s falhou: %s", v["nome"], e)
+            erros.append(f"{v['nome']}: {str(e)[:80]}")
+    return "Erro: nenhum modelo de visão respondeu (" + "; ".join(erros) + ")."

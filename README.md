@@ -210,7 +210,7 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 | Fala rápido ou devagar demais            | `velocidade: "-10%"` ou `"+15%"`                              |
 | "Não consegui pesquisar agora"           | Rode `--pesquisa` e veja o motivo; para desligar: `pesquisa: ativa: false` |
 | Pesquisa quando não precisava (ou o contrário) | Me conte a frase: as regras ficam em `socrates/llm/pesquisa.py` |
-| "Bati no limite grátis do Groq"          | Espere uns segundos; o limite é por minuto. Se for o do dia, renova amanhã |
+| "Bati no limite grátis"                  | Adicione a chave do Mistral (veja "Cérebros grátis em rodízio") e rode `--provedores` |
 | Quadro não aparece                       | Rode `pip install -r requirements.txt` de novo (ele precisa do matplotlib) |
 | Ver a tela ou fechar programa falha      | Rode `--acoes`: mostra qual parte falhou e por quê             |
 | "Não conheço o programa"                 | Adicione em `acoes: programas:` no `config.yaml`              |
@@ -241,11 +241,40 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 | Som          | sounddevice + miniaudio                      | local                 |
 | Visor        | Tkinter (já vem com o Python)                | local                 |
 
-**Limites do plano grátis do Groq:** cada modelo aceita cerca de 8 mil tokens por minuto
-e 200 mil por dia. Por isso o Sócrates divide o trabalho: a conversa usa o `gpt-oss-120b`,
-as ações no PC usam o `gpt-oss-20b` (cada um com o seu limite), e um é reserva do outro.
-Os pedidos vão enxutos (histórico antigo resumido). Se mesmo assim estourar, ele diz o
-motivo ("bati no limite grátis, espere uns segundos").
+### Cérebros grátis em rodízio
+
+Cada serviço grátis tem um limite. O Sócrates usa vários em fila: se um bate no limite
+(ou cai), o pedido vai para o próximo sozinho, e quem estourou "descansa" até liberar.
+
+| Ordem | Serviço | Limite grátis | Chave no `.env` |
+|-------|---------|---------------|-----------------|
+| 1 | Groq `gpt-oss-120b` | ~8 mil tokens/min, 200 mil/dia | `GROQ_API_KEY` (obrigatória) |
+| 2 | **Mistral** `mistral-medium` | **~1 bilhão de tokens/mês**, 1 pedido/s | `MISTRAL_API_KEY` |
+| 3 | Gemini Flash | ~15 pedidos/min | `GEMINI_API_KEY` |
+| 4 | Groq `gpt-oss-20b` | outros 8 mil/min e 200 mil/dia | (a mesma do Groq) |
+
+As ações no PC usam outra fila (`gpt-oss-20b` → `mistral-small` → Gemini → `gpt-oss-120b`),
+para não disputar o limite da conversa. A pesquisa na internet usa os dois modelos do Groq;
+a visão da tela tenta Groq → Mistral → Gemini. Serviço sem chave é simplesmente pulado.
+
+**Com o Mistral no rodízio, o limite deixa de ser problema.** Para criar as chaves (grátis,
+sem cartão), grave cada uma sem ela aparecer na tela:
+
+1. **Mistral:** entre em <https://console.mistral.ai>, escolha o plano **Experiment** (grátis;
+   ele confirma pelo celular), vá em **API Keys** → **Create new key**. Em *Settings → Privacy*,
+   desligue o uso dos seus dados para treino, se preferir.
+2. **Gemini:** <https://aistudio.google.com/apikey> → **Create API key**.
+
+```powershell
+$k = Read-Host "Cole a chave do Mistral"
+Add-Content .env "MISTRAL_API_KEY=$k"
+$k = Read-Host "Cole a chave do Gemini"
+Add-Content .env "GEMINI_API_KEY=$k"
+cls
+.venv\Scripts\python main.py --provedores
+```
+
+O `--provedores` testa cada serviço e mostra quem está OK e qual chave falta.
 
 Cada fala que o microfone separa vai para o Whisper, mesmo sem o nome. Num lugar
 com muita conversa ou TV ligada, isso gasta o limite grátis do Groq mais rápido.
@@ -263,6 +292,7 @@ socrates/
   core/contexto.py         data, hora e cidade em cada pergunta
   llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
   llm/acoes.py             decide quando é ação e faz o vaivém com as ferramentas
+  llm/rodizio.py           rodízio de cérebros grátis (Groq, Mistral, Gemini)
   ferramentas/computador.py  as ações no PC (programas, sites, volume, timer, anotações)
   ferramentas/janelas.py   janelas, área de transferência e bloco de notas (via PowerShell)
   ferramentas/tela.py      print da tela + modelo de visão
@@ -278,7 +308,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     274 testes, rodam sem microfone nem internet
+tests/                     287 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

@@ -16,29 +16,45 @@ acoes:
 claude:                       # "Sócrates, pede pro Claude..." digita no app do Claude
   enviar_com_enter: true      # false = só cola a mensagem, você confere e aperta Enter
 
-visao:                        # ver a tela (só quando você pede); usa a chave do Groq
-  modelo: qwen/qwen3.8-27b
+visao:                        # ver a tela (só quando você pede); tenta na ordem
+  modelo: qwen/qwen3.8-27b      # no Groq
+  reservas:                     # provedor: modelo (pulado se não tiver chave)
+    mistral: mistral-medium-latest
+    gemini: gemini-flash-latest
 
 pesquisa:
   ativa: true                 # pesquisa na internet quando a pergunta é sobre algo atual
                               # (só no Groq com modelo gpt-oss)
 
 llm:
-  provedor: groq              # groq | gemini | ollama
   temperatura: 0.6
+  # Rodízio de cérebros GRÁTIS: tenta na ordem; se um bater no limite, vai para o próximo.
+  # Provedor sem chave no .env é pulado (dá para criar as contas aos poucos).
+  rodizio: [groq, mistral, gemini, groq_leve]
+  rodizio_acoes: [groq_leve, mistral_leve, gemini, groq]   # quem mexe no PC
 
 provedores:
-  groq:
+  groq:                         # rápido; tem pesquisa na internet e visão
     base_url: https://api.groq.com/openai/v1
     chave_env: GROQ_API_KEY
-    modelo: openai/gpt-oss-120b         # conversa, explicações e pesquisa
-    modelo_acoes: openai/gpt-oss-20b    # ações no PC; também é a reserva quando o 120b
-                                        # bate no limite grátis (cada modelo tem o seu)
-  gemini:
+    modelo: openai/gpt-oss-120b
+  groq_leve:                    # outro modelo = outro limite grátis
+    base_url: https://api.groq.com/openai/v1
+    chave_env: GROQ_API_KEY
+    modelo: openai/gpt-oss-20b
+  mistral:                      # ~1 bilhão de tokens/mês grátis (console.mistral.ai)
+    base_url: https://api.mistral.ai/v1
+    chave_env: MISTRAL_API_KEY
+    modelo: mistral-medium-latest
+  mistral_leve:
+    base_url: https://api.mistral.ai/v1
+    chave_env: MISTRAL_API_KEY
+    modelo: mistral-small-latest
+  gemini:                       # grátis com a conta Google (aistudio.google.com/apikey)
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
     chave_env: GEMINI_API_KEY
     modelo: gemini-flash-latest
-  ollama:                     # roda local; lento sem placa de vídeo
+  ollama:                       # roda no seu PC, sem internet; lento sem placa de vídeo
     base_url: http://localhost:11434/v1
     chave_env: null
     modelo: qwen2.5:3b

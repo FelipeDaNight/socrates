@@ -29,3 +29,12 @@ class ErroCerebro(Exception):
 
 class ErroPesquisa(Exception):
     """A pesquisa na internet falhou (o resto do Sócrates continua funcionando)."""
+
+
+class ErroLimite(ErroCerebro):
+    """O provedor bateu no limite grátis (429). O rodízio passa para o próximo."""
+
+    def __init__(self, mensagem: str, espera: float | None = None, do_dia: bool = False):
+        super().__init__(mensagem)
+        self.espera = espera
+        self.do_dia = do_dia

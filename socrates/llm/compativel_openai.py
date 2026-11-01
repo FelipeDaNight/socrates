@@ -18,7 +18,7 @@ from typing import AsyncIterator
 import openai
 from openai import AsyncOpenAI
 
-from .base import Cerebro, ErroCerebro, ErroPesquisa, Mensagem
+from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, Mensagem
 
 log = logging.getLogger("socrates.llm")
 
@@ -53,6 +53,9 @@ class CerebroCompativelOpenAI(Cerebro):
         self.temperatura = temperatura
         self.tentativas = tentativas
         self._reserva_ate = 0.0       # até quando usar a reserva (o principal estourou)
+        self.descansar_ate = 0.0      # usado pelo rodízio quando este cérebro estoura
+        # a busca embutida (browser_search) só existe nos gpt-oss do Groq
+        self.pesquisa_ok = "gpt-oss" in modelo and "groq.com" in base_url
         # max_retries=0: quem decide esperar ou trocar de modelo é o _criar (a biblioteca
         # sozinha esperaria em silêncio o tempo todo do retry-after)
         self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client,
@@ -88,14 +91,15 @@ class CerebroCompativelOpenAI(Cerebro):
                     modelo = self.modelo_reserva
                     log.warning("usando o modelo reserva %s", modelo)
                     continue
-                raise ErroCerebro(mensagem_de_limite(e, espera)) from e
+                texto = str(e).lower()
+                do_dia = "per day" in texto or "tpd" in texto or "rpd" in texto
+                raise ErroLimite(mensagem_de_limite(e, espera), espera, do_dia) from e
             except openai.AuthenticationError as e:
-                raise ErroCerebro("Chave de API inválida. Confira o arquivo .env.") from e
+                raise ErroCerebro(f"Chave do {self.nome} inválida. Confira o arquivo .env.") from e
             except openai.NotFoundError as e:
-                raise ErroCerebro(f"Modelo '{modelo}' não encontrado. Rode "
-                                  "'python main.py --modelos' para ver os disponíveis.") from e
+                raise ErroCerebro(f"Modelo '{modelo}' não encontrado no {self.nome}.") from e
             except openai.APIConnectionError as e:
-                raise ErroCerebro("Sem conexão com o provedor. Verifique a internet.") from e
+                raise ErroCerebro("Sem conexão com a internet (ou o serviço caiu).") from e
 
     # ---------- ferramentas ----------
     async def com_ferramentas(self, mensagens: list[Mensagem], esquemas: list[dict],
@@ -105,14 +109,21 @@ class CerebroCompativelOpenAI(Cerebro):
         Repete até o cérebro responder em texto (ou até max_rodadas).
         """
         msgs: list = [dict(m) for m in mensagens]
+        feitos: list[str] = []
         for _ in range(max_rodadas):
             modelo = self.modelo_da_vez()
             try:
                 r = await self._criar(messages=msgs, tools=esquemas, tool_choice="auto",
                                       temperature=0.2, stream=False, **self._extras(modelo))
+            except ErroLimite:
+                if feitos:   # a ação JÁ foi feita: não deixar outro cérebro repetir
+                    return feitos[-1]
+                raise
             except openai.APIStatusError as e:
-                log.warning("ferramentas recusadas (%s): %s", e.status_code, e.message)
-                raise ErroCerebro(f"O Groq recusou o pedido ({e.status_code}).") from e
+                log.warning("ferramentas recusadas no %s (%s): %s", self.nome, e.status_code, e.message)
+                if feitos:
+                    return feitos[-1]
+                raise ErroCerebro(f"O {self.nome} recusou o pedido ({e.status_code}).") from e
             msg = r.choices[0].message
             chamadas = msg.tool_calls or []
             if not chamadas:
@@ -130,6 +141,7 @@ class CerebroCompativelOpenAI(Cerebro):
                 except json.JSONDecodeError:
                     args = {}
                 resultado = await executar(c.function.name, args)
+                feitos.append(resultado)
                 msgs.append({"role": "tool", "tool_call_id": c.id, "content": resultado})
         return "Fiz o que pude, mas não consegui terminar o pedido."
 
@@ -174,8 +186,8 @@ class CerebroCompativelOpenAI(Cerebro):
             fluxo = await self._criar(messages=mensagens, temperature=self.temperatura,
                                       stream=True)
         except openai.APIStatusError as e:
-            log.warning("pedido recusado (%s): %s", e.status_code, e.message)
-            raise ErroCerebro(f"O Groq recusou o pedido ({e.status_code}).") from e
+            log.warning("pedido recusado no %s (%s): %s", self.nome, e.status_code, e.message)
+            raise ErroCerebro(f"O {self.nome} recusou o pedido ({e.status_code}).") from e
         try:
             async for pedaco in fluxo:
                 if pedaco.choices and pedaco.choices[0].delta.content:
