@@ -93,7 +93,9 @@ def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:
                                       and _norm(m["content"]).startswith(MARCADOR)
                                       and len(m["content"]) < 20)]
     if copia and copia[0]["role"] == "system":
-        copia[0]["content"] = copia[0]["content"].replace(INSTRUCAO_PESQUISA, "").rstrip()
+        from .acoes import INSTRUCAO_MARCADOR
+        copia[0]["content"] = (copia[0]["content"].replace(INSTRUCAO_PESQUISA, "")
+                               .replace(INSTRUCAO_MARCADOR, "").rstrip())
         copia[0]["content"] += "\n\n" + INSTRUCAO
     else:
         copia.insert(0, {"role": "system", "content": INSTRUCAO})

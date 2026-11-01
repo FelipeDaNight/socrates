@@ -259,3 +259,54 @@ async def test_aviso_do_timer_e_falado():
     assert painel.em_janela()   # pode responder ao aviso sem dizer o nome
     fila.put_nowait(None)
     await asyncio.wait_for(tarefa, 5)
+
+
+class CerebroEmSequencia(CerebroFalso):
+    """Responde cada chamada com o próximo texto da lista."""
+    def __init__(self, *respostas):
+        super().__init__("")
+        self.respostas = list(respostas)
+
+    async def responder(self, mensagens):
+        self.recebido.append(list(mensagens))
+        for palavra in self.respostas.pop(0).split(" "):
+            yield palavra + " "
+
+
+@pytest.mark.asyncio
+async def test_pede_o_quadro_quando_o_modelo_esquece():
+    cerebro = CerebroEmSequencia(
+        "A fórmula de Bhaskara serve para equações do segundo grau. Entendeu?",
+        "[QUADRO]\n# Bhaskara\n$$ x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a} $$\n[/QUADRO]")
+    conversa, s, painel, _, tela = _montar(cerebro)
+    painel.tem_visor = True
+    painel.quadro_tamanho = (400, 300)
+    await _rodar(conversa, [s.ouvido.fala("Sócrates, me mostre a fórmula de básquet")],
+                 espera_entre=0.6)
+    await asyncio.gather(*conversa._desenhos)
+    assert painel.quadro_png is not None
+    assert "somente o quadro" in cerebro.recebido[1][-1]["content"]
+    assert len([m for m in conversa.soc.historico if m["role"] == "user"]) == 1
+    assert "[QUADRO]" in conversa.soc.historico[-1]["content"]
+    assert "frac" not in " ".join(s.voz.faladas)
+
+
+@pytest.mark.asyncio
+async def test_conversa_comum_nao_pede_quadro():
+    cerebro = CerebroEmSequencia("Tudo ótimo, e com você?")
+    conversa, s, painel, _, _ = _montar(cerebro)
+    painel.tem_visor = True
+    await _rodar(conversa, [s.ouvido.fala("Sócrates, tudo bem?")])
+    assert len(cerebro.recebido) == 1 and painel.quadro_png is None
+
+
+@pytest.mark.parametrize("pedido,esperado", [
+    ("me mostre a fórmula de básquet", True),
+    ("desenha o gráfico de seno", True),
+    ("resolve essa equação passo a passo", True),
+    ("o que é crase?", False),
+    ("tudo bem?", False),
+])
+def test_pede_quadro(pedido, esperado):
+    from socrates.maos_livres import pede_quadro
+    assert pede_quadro(pedido) is esperado

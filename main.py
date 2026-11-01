@@ -47,7 +47,7 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
         computador.adicionar_programas(cfg.programas)
     cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes)
     return Orquestrador(cerebro, cfg.nome, cfg.modo_inicial, cfg.historico_max,
-                        contexto=lambda: contexto.montar(cfg.local, pesquisa))
+                        contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
 
 
 class Sentidos:

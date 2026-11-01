@@ -7,6 +7,7 @@ Programas fora da lista podem ser adicionados em config.yaml (acoes: programas:)
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 import threading
@@ -58,12 +59,50 @@ def _norm(texto: str) -> str:
     return t
 
 
+# Onde os programas costumam ficar, se o Windows não achar pelo nome
+CAMINHOS = {
+    "chrome": [r"%ProgramFiles%\Google\Chrome\Application\chrome.exe",
+               r"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe",
+               r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"],
+    "msedge": [r"%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe",
+               r"%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"],
+    "firefox": [r"%ProgramFiles%\Mozilla Firefox\firefox.exe",
+                r"%ProgramFiles(x86)%\Mozilla Firefox\firefox.exe"],
+    "code": [r"%LOCALAPPDATA%\Programs\Microsoft VS Code\Code.exe",
+             r"%ProgramFiles%\Microsoft VS Code\Code.exe"],
+    "spotify:": [r"%APPDATA%\Spotify\Spotify.exe"],
+}
+NAVEGADORES = {"chrome", "msedge", "firefox"}
+
+
+def _candidatos(alvo: str) -> list[str]:
+    """Jeitos de achar o programa, do mais simples ao mais insistente."""
+    opcoes = [alvo]
+    if not any(c in alvo for c in ":\\/."):
+        opcoes.append(alvo + ".exe")             # o Windows registra "chrome.exe"
+    achado = shutil.which(alvo)
+    if achado:
+        opcoes.append(achado)
+    for caminho in CAMINHOS.get(alvo, []):
+        caminho = os.path.expandvars(caminho)
+        if os.path.exists(caminho):
+            opcoes.append(caminho)
+    return opcoes
+
+
 def _iniciar(alvo: str) -> None:
     """Pede ao sistema para abrir algo (programa, link, pasta)."""
     if WINDOWS:
         # O Windows acha programas registrados (chrome, winword...), links e pastas.
         # Sem passar pelo cmd: um link com "&" não vira outro comando.
-        os.startfile(alvo)
+        ultimo_erro: OSError | None = None
+        for opcao in _candidatos(alvo):
+            try:
+                os.startfile(opcao)
+                return
+            except OSError as e:
+                ultimo_erro = e
+        raise FileNotFoundError(f"o Windows não encontrou '{alvo}' neste computador") from ultimo_erro
     elif alvo.startswith(("http://", "https://")):
         webbrowser.open(alvo)
     else:
@@ -91,7 +130,14 @@ def abrir_programa(nome: str) -> str:
     if alvo is None:
         return (f"Não conheço o programa '{nome}'. Ele pode ser adicionado em config.yaml, "
                 f"em acoes: programas:. Conheço: {', '.join(sorted(set(PROGRAMAS)))}.")
-    _iniciar(alvo)
+    try:
+        _iniciar(alvo)
+    except FileNotFoundError:
+        if alvo in NAVEGADORES:      # sem esse navegador: usa o navegador padrão
+            webbrowser.open("https://www.google.com")
+            return f"Não achei o {nome} instalado; abri o seu navegador padrão."
+        return (f"O {nome} não foi encontrado neste computador. Se ele estiver instalado, "
+                "adicione o caminho do .exe em config.yaml, em acoes: programas:.")
     return f"Abri {nome}."
 
 

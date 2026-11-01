@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import re
 import threading
+import unicodedata
 from dataclasses import dataclass
 from typing import Callable
 
@@ -65,6 +67,22 @@ FALAS = {
 }
 
 
+PEDIDO_QUADRO = (
+    "Escreva AGORA somente o quadro branco do que você acabou de explicar, entre [QUADRO] e "
+    "[/QUADRO], seguindo o formato do quadro (título com #, fórmulas em $$ ... $$, itens com -, "
+    "e 'grafico:' se couber um gráfico). Nada fora do quadro.")
+
+_PEDE_QUADRO = re.compile(
+    r"\b(quadro|formula|formulas|grafico|graficos|desenh\w*|mostr\w*|escrev\w*|equac\w*"
+    r"|calcul\w*|resolv\w*|passo a passo|demonstr\w*|teorema|funcao|derivada|integral)\b")
+
+
+def pede_quadro(pedido: str) -> bool:
+    """O aluno pediu algo visual? (aí o quadro tem que aparecer)"""
+    t = unicodedata.normalize("NFKD", pedido).encode("ascii", "ignore").decode().lower()
+    return bool(_PEDE_QUADRO.search(t))
+
+
 class Conversa:
     def __init__(self, cfg: Config, soc: Orquestrador, sentidos, painel: Painel,
                  escrever: Callable[[str], None] | None = None):
@@ -75,6 +93,7 @@ class Conversa:
         self.escrever = escrever or (lambda t: print(t, end="", flush=True))
         self._cache: dict[str, bytes] = {}
         self._desenhos: set[asyncio.Task] = set()
+        self._quadros_nesta = 0
 
     def dizer_tela(self, texto: str = "") -> None:
         self.escrever(texto + "\n")
@@ -108,6 +127,7 @@ class Conversa:
 
     # ---------- quadro branco ----------
     def _ao_quadro(self, conteudo: str) -> None:
+        self._quadros_nesta += 1
         titulo = next((l.lstrip("# ").strip() for l in conteudo.splitlines() if l.strip()), "")
         if not self.painel.tem_visor:
             self.escrever(f"\n┌─ quadro ─────────\n{conteudo}\n└──────────────────\n")
@@ -127,10 +147,34 @@ class Conversa:
             return
         self.painel.mostrar_quadro(png)
 
+    async def _quadro_extra(self) -> None:
+        """O aluno pediu algo visual e o modelo respondeu sem quadro: pede só o quadro."""
+        from .core.quadro_fluxo import ABRE, FECHA, separar_quadro
+
+        log.info("resposta sem quadro; pedindo o quadro à parte")
+        self.painel.estado = "pensando"
+        try:
+            texto = await self.soc.complemento(PEDIDO_QUADRO)
+        except ErroCerebro as e:
+            self.dizer_tela(f"[quadro] não consegui montar o quadro: {e}")
+            return
+        if ABRE.lower() not in texto.lower():
+            texto = f"{ABRE}\n{texto}\n{FECHA}"   # o modelo esqueceu as marcas
+
+        async def unico():
+            yield texto
+
+        async for _ in separar_quadro(unico(), self._ao_quadro):
+            pass
+        if self._quadros_nesta:
+            inicio = texto.lower().find(ABRE.lower())
+            self.soc.anexar_a_ultima_resposta(texto[inicio:])
+
     async def responder(self, texto: str) -> None:
         from .core.quadro_fluxo import separar_quadro
 
         self.painel.estado = "pensando"
+        self._quadros_nesta = 0
         self.escrever(f"{self.cfg.nome}: ")
         fala = separar_quadro(self.soc.conversar(texto), self._ao_quadro)
         pedacos = ecoar(fala, self.escrever)
@@ -140,6 +184,8 @@ class Conversa:
                 await narrar(pedacos, self.s.voz,
                              ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"))
                 self.dizer_tela()
+                if not self._quadros_nesta and pede_quadro(texto):
+                    await self._quadro_extra()
             except ErroCerebro as e:
                 self.dizer_tela(f"\n[erro] {e}")
                 await self._falar("Tive um problema para pensar. Tente de novo.", True)

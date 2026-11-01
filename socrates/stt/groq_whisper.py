@@ -27,7 +27,9 @@ ALUCINACOES = {
 }
 
 # Ajuda o Whisper a escrever certo os nomes que mais aparecem.
-DICA = "Conversa com Sócrates, assistente de estudo para concursos e vestibulares."
+DICA = ("Conversa com Sócrates, assistente de estudo para concursos e vestibulares. "
+        "Fórmula de Bhaskara, teorema de Pitágoras, delta, seno, cosseno, logaritmo, "
+        "crase, concordância, regência, Constituição, PRF, CBMGO, Fuvest, ENEM, pomodoro, quadro.")
 
 
 def _normalizar(texto: str) -> str:

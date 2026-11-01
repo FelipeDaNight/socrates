@@ -37,11 +37,15 @@ def data_por_extenso(momento: datetime) -> str:
             f"de {momento.year}, {momento.hour:02d}:{momento.minute:02d}")
 
 
-def montar(local: str | None, pesquisa: bool, momento: datetime | None = None) -> str:
+def montar(local: str | None, pesquisa: bool, momento: datetime | None = None,
+           acoes: bool = False) -> str:
     momento = momento or agora()
     partes = [f"Agora é {data_por_extenso(momento)} (horário de Brasília)."]
     if local:
         partes.append(f"O aluno mora em {local}. Use esse lugar quando ele perguntar "
                       "sobre clima ou algo \"aqui\" sem dizer a cidade.")
     partes.append(INSTRUCAO_PESQUISA if pesquisa else INSTRUCAO_SEM_PESQUISA)
+    if acoes:
+        from ..llm.acoes import INSTRUCAO_MARCADOR
+        partes.append(INSTRUCAO_MARCADOR)
     return "\n".join(partes)

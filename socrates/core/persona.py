@@ -23,6 +23,10 @@ grafico: expressão em x | x mínimo | x máximo      (ex.: grafico: x^2 - 4 | -
 LaTeX simples apenas: \frac, \sqrt, ^, _, \pm, \cdot, \times, \le, \ge, letras gregas. Nada de \begin.
 O quadro NÃO é falado. Fora dele, explique falando de forma natural e diga "veja no quadro"
 em vez de ler fórmulas símbolo por símbolo. No máximo um quadro por resposta, até 10 linhas.
+Se o aluno pedir para MOSTRAR, ESCREVER ou DESENHAR algo, ou se a resposta tiver qualquer
+fórmula ou conta, o quadro é OBRIGATÓRIO.
+Se o aluno falar um nome estranho (a fala vem de transcrição e pode ter erros, como
+"básquet" no lugar de "Bhaskara"), entenda o que ele quis dizer e siga normalmente.
 Para conversa simples, sem nada visual, não use o quadro."""
 
 MODOS = {

@@ -23,11 +23,24 @@ Use a ferramenta certa para o pedido. Depois confirme em UMA frase curta e natur
 o que você fez (ex.: "Pronto, abri a calculadora."). Nunca diga que fez algo sem
 ter chamado a ferramenta. Se a ferramenta der erro, explique em uma frase."""
 
-# Verbos de ação no começo da frase
+MARCADOR = "executar"   # o modelo responde isso quando percebe um pedido de ação
+
+INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno (abrir programas, sites e
+pastas, tocar no YouTube, volume, timer, anotar, bloquear a tela).
+Se o aluno pedir uma dessas ações, responda APENAS com a palavra EXECUTAR e mais nada.
+Nunca diga que não consegue abrir programas ou mexer no computador."""
+
+# Jeitos educados de pedir, antes do verbo: "você pode abrir...", "quero que você toque..."
+_CORTESIA = (r"(?:(?:voce|vc|tu)\s+)?(?:pode|poderia|podia|consegue|conseguiria|da pra|da para"
+             r"|quero que (?:voce |vc )?|preciso que (?:voce |vc )?|tem como|me ajuda a|faz o favor de)?\s*")
+# Verbos de ação no começo da frase (imperativo ou infinitivo)
 _VERBO = re.compile(
-    r"^(abre|abra|abrir|abri|toca|toque|tocar|coloca|coloque|bota|bote|poe|ponha"
-    r"|aumenta|aumente|abaixa|abaixe|diminui|diminua|baixa|baixe|muta|silencia|tira o som"
-    r"|anota|anote|salva|salve|bloqueia|bloqueie|cancela|cancele|para o timer|pare o timer)\b"
+    r"^" + _CORTESIA +
+    r"(abre|abra|abrir|abri|toca|toque|tocar|coloca|coloque|colocar|bota|bote|botar|poe|ponha"
+    r"|aumenta|aumente|aumentar|abaixa|abaixe|abaixar|diminui|diminua|diminuir|baixa|baixe"
+    r"|muta|silencia|silenciar|tira o som|anota|anote|anotar|salva|salve|bloqueia|bloqueie|bloquear"
+    r"|cancela|cancele|cancelar|para o timer|pare o timer|inicia|inicie|iniciar|comeca|comece"
+    r"|liga|ligue|ligar|executa|execute|executar|roda|rode|rodar)\b"
 )
 # Assuntos que são sempre ação, em qualquer parte da frase
 _ASSUNTO = re.compile(
@@ -48,8 +61,12 @@ def pede_acao(pergunta: str) -> bool:
 
 
 def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:
-    copia = [dict(m) for m in mensagens]
+    """Tira a regra "responda EXECUTAR" (senão o modelo responde isso em vez de
+    usar a ferramenta) e põe a de usar as ferramentas."""
+    copia = [dict(m) for m in mensagens
+             if not (m["role"] == "assistant" and _norm(m["content"]) == MARCADOR)]
     if copia and copia[0]["role"] == "system":
+        copia[0]["content"] = copia[0]["content"].replace(INSTRUCAO_MARCADOR, "").rstrip()
         copia[0]["content"] += "\n\n" + INSTRUCAO
     else:
         copia.insert(0, {"role": "system", "content": INSTRUCAO})
@@ -76,11 +93,33 @@ class CerebroComAcoes(Cerebro):
 
     async def responder(self, mensagens: list[Mensagem]) -> AsyncIterator[str]:
         pergunta = next((m["content"] for m in reversed(mensagens) if m["role"] == "user"), "")
-        if not pede_acao(pergunta):
-            async for p in self.interno.responder(mensagens):
-                yield p
+        if pede_acao(pergunta):
+            log.info("ação: %r", pergunta[:60])
+            yield await self._agir(mensagens)
             return
-        log.info("ação: %r", pergunta[:60])
+
+        # Espia o começo: se o modelo respondeu EXECUTAR, era uma ação que o filtro não pegou
+        inicio = ""
+        fluxo = self.interno.responder(mensagens).__aiter__()
+        async for pedaco in fluxo:
+            inicio += pedaco
+            if len(inicio.strip()) >= 12:
+                break
+        if _norm(inicio).startswith(MARCADOR):
+            log.info("o modelo pediu ação: %r", pergunta[:60])
+            async for _ in fluxo:
+                pass
+            yield await self._agir(mensagens)
+            return
+        if inicio:
+            yield inicio
+        async for pedaco in fluxo:
+            yield pedaco
+
+    async def _agir(self, mensagens: list[Mensagem]) -> str:
         texto = await self.base.com_ferramentas(_com_instrucao(mensagens), self.esquemas(),
                                                 _executar)
-        yield texto.strip() or "Pronto."
+        texto = texto.strip()
+        if not texto or _norm(texto) == MARCADOR:
+            return "Não consegui fazer isso agora. Tente pedir de outro jeito."
+        return texto

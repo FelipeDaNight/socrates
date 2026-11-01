@@ -165,3 +165,65 @@ async def test_pergunta_normal_nao_usa_ferramentas():
     cerebro = CerebroComAcoes(interno, SemFerramentas())
     msgs = [{"role": "user", "content": "O que é crase?"}]
     assert "".join([p async for p in cerebro.responder(msgs)]).strip() == "Crase é a fusão."
+
+
+# ---------- bug real: "você pode abrir o Chrome?" não virava ação ----------
+
+@pytest.mark.parametrize("frase", [
+    "Você pode abrir o Chrome?",
+    "Consegue abrir o Google Chrome pra mim?",
+    "Quero que você toque uma música no YouTube",
+    "Abrir o Word",
+    "Pode aumentar o volume?",
+    "Dá pra iniciar um timer de 10 minutos?",
+])
+def test_pedidos_educados_sao_acao(frase):
+    assert pede_acao(frase)
+
+
+@pytest.mark.parametrize("frase", [
+    "Por que a crase é usada antes de palavra feminina?",
+    "Você pode me explicar crase?",
+    "Pode me testar em regência?",
+])
+def test_perguntas_nao_viram_acao(frase):
+    assert not pede_acao(frase)
+
+
+@pytest.mark.asyncio
+async def test_modelo_avisa_executar_e_vira_acao():
+    class Base(CerebroFalso):
+        async def com_ferramentas(self, mensagens, esquemas, executar):
+            self.msgs_acao = mensagens
+            return "Pronto, abri o Chrome."
+
+    base = Base("")
+    cerebro = CerebroComAcoes(CerebroFalso("EXECUTAR"), base, ["abrir_programa"])
+    msgs = [{"role": "system", "content": "persona\n\n" + __import__(
+        "socrates.llm.acoes", fromlist=["x"]).INSTRUCAO_MARCADOR},
+            {"role": "user", "content": "Será que dá pro senhor abrir o navegador?"}]
+    texto = "".join([p async for p in cerebro.responder(msgs)])
+    assert texto == "Pronto, abri o Chrome."
+    assert "responda APENAS com a palavra EXECUTAR" not in base.msgs_acao[0]["content"]
+
+
+def test_chrome_nao_achado_abre_navegador_padrao(monkeypatch):
+    abertos = []
+    monkeypatch.setattr(pc, "_iniciar", lambda alvo: (_ for _ in ()).throw(FileNotFoundError(alvo)))
+    monkeypatch.setattr(pc.webbrowser, "open", abertos.append)
+    assert "navegador padrão" in pc.abrir_programa("Chrome")
+    assert abertos == ["https://www.google.com"]
+
+
+def test_programa_nao_instalado_explica(monkeypatch):
+    monkeypatch.setattr(pc, "_iniciar", lambda alvo: (_ for _ in ()).throw(FileNotFoundError(alvo)))
+    assert "não foi encontrado" in pc.abrir_programa("Spotify")
+
+
+def test_windows_tenta_varios_jeitos(monkeypatch, tmp_path):
+    exe = tmp_path / "chrome.exe"
+    exe.write_text("")
+    monkeypatch.setitem(pc.CAMINHOS, "chrome", [str(exe)])
+    monkeypatch.setattr(pc.shutil, "which", lambda a: None)
+    assert pc._candidatos("chrome") == ["chrome", "chrome.exe", str(exe)]
+    assert pc._candidatos("https://g1.globo.com") == ["https://g1.globo.com"]

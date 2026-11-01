@@ -81,4 +81,17 @@ class Orquestrador:
 
         if resposta:
             self.historico.append({"role": "assistant", "content": resposta.strip()})
-        log.info("aluno: %r | %s: %d caracteres", texto[:60], self.nome, len(resposta))
+        log.info("aluno: %r | %s respondeu (%d caracteres): %r", texto[:80], self.nome,
+                 len(resposta), resposta[:600])
+
+    async def complemento(self, pedido: str) -> str:
+        """Pede algo extra sobre a última resposta, sem virar uma pergunta nova
+        no histórico (usado para pedir o quadro quando o modelo esqueceu)."""
+        mensagens = self._mensagens() + [{"role": "user", "content": pedido}]
+        texto = "".join([p async for p in self.cerebro.responder(mensagens)])
+        log.info("complemento %r -> %r", pedido[:50], texto[:600])
+        return texto
+
+    def anexar_a_ultima_resposta(self, texto: str) -> None:
+        if self.historico and self.historico[-1]["role"] == "assistant":
+            self.historico[-1]["content"] += "\n" + texto
