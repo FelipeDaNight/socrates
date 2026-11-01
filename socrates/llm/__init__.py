@@ -33,10 +33,10 @@ def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False) -
             log.warning("pesquisa pedida, mas %s/%s não tem busca embutida", cfg.provedor, cfg.modelo)
     if acoes:
         from .. import ferramentas
-        from ..ferramentas import computador  # noqa: F401  (registra as ações)
+        from ..ferramentas import computador, janelas, tela  # registram as ações
         from .acoes import CerebroComAcoes
-        nomes = [n for n, f in ferramentas.REGISTRO.items()
-                 if f.funcao.__module__ == computador.__name__]
+        modulos = {computador.__name__, janelas.__name__, tela.__name__}
+        nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos]
         cerebro = CerebroComAcoes(cerebro, base, nomes)
         log.info("ações no PC: %s", ", ".join(nomes))
     return cerebro

@@ -81,6 +81,7 @@ class Config:
     pesquisa: bool = True
     acoes: bool = True
     programas: dict = field(default_factory=dict)
+    visao_modelo: str = "qwen/qwen3.8-27b"
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -141,6 +142,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         pesquisa=bool((dados.get("pesquisa") or {}).get("ativa", True)),
         acoes=bool((dados.get("acoes") or {}).get("ativas", True)),
         programas=(dados.get("acoes") or {}).get("programas") or {},
+        visao_modelo=(dados.get("visao") or {}).get("modelo", "qwen/qwen3.8-27b"),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

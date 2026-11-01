@@ -1,0 +1,81 @@
+"""Ver a tela: tira um print e pede a um modelo de visão para descrever.
+
+O print só é tirado quando o aluno pede ("o que tem na minha tela?", "resolve a
+questão que está na tela") e vai para o Groq (modelo de visão), nada fica salvo.
+"""
+
+from __future__ import annotations
+
+import base64
+import io
+import logging
+import re
+import sys
+
+from . import ferramenta
+
+log = logging.getLogger("socrates.tela")
+
+# Preenchido pelo main.py a partir do config.yaml
+VISAO = {"base_url": "https://api.groq.com/openai/v1", "chave": None, "modelo": "qwen/qwen3.8-27b"}
+
+LARGURA_MAX = 1600
+
+
+def capturar_tela() -> bytes:
+    """Print da tela principal, reduzido, em JPEG."""
+    from PIL import ImageGrab
+    img = ImageGrab.grab()
+    return preparar(img)
+
+
+def preparar(img) -> bytes:
+    img = img.convert("RGB")
+    if img.width > LARGURA_MAX:
+        img = img.resize((LARGURA_MAX, round(img.height * LARGURA_MAX / img.width)))
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=75)
+    return buf.getvalue()
+
+
+def _sem_pensamento(texto: str) -> str:
+    return re.sub(r"<think>.*?</think>", "", texto or "", flags=re.DOTALL).strip()
+
+
+def descrever(jpeg: bytes, pergunta: str, cliente=None) -> str:
+    from openai import OpenAI
+
+    if cliente is None:
+        if not VISAO["chave"]:
+            return "Erro: falta a chave do Groq para ver a tela."
+        cliente = OpenAI(base_url=VISAO["base_url"], api_key=VISAO["chave"], timeout=40)
+    dados = base64.b64encode(jpeg).decode()
+    pedido = ("Esta é a tela do computador de um estudante. "
+              f"{pergunta or 'Descreva o que está na tela.'}\n"
+              "Responda em português do Brasil. Se houver uma questão ou exercício, "
+              "transcreva o texto dela por completo, com as alternativas.")
+    r = cliente.chat.completions.create(
+        model=VISAO["modelo"], temperature=0.2, max_tokens=1200,
+        messages=[{"role": "user", "content": [
+            {"type": "text", "text": pedido},
+            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{dados}"}}]}])
+    return _sem_pensamento(r.choices[0].message.content)
+
+
+@ferramenta("Olha a tela do computador do aluno (tira um print) e descreve o que tem nela. "
+            "Use para 'o que tem na minha tela', 'lê isso pra mim', 'resolve a questão que está "
+            "na tela', 'o que é esse erro'.",
+            params={"pergunta": "O que você quer saber da tela, ex.: 'transcreva a questão'"})
+def ver_tela(pergunta: str = "") -> str:
+    if sys.platform != "win32" and VISAO.get("captura") is None:
+        return "Ver a tela só funciona no Windows."
+    try:
+        jpeg = (VISAO.get("captura") or capturar_tela)()
+    except Exception as e:
+        log.exception("print da tela falhou")
+        return f"Erro: não consegui tirar o print da tela ({e})."
+    try:
+        return "O que está na tela:\n" + descrever(jpeg, pergunta)
+    except Exception as e:
+        log.exception("visão falhou")
+        return f"Erro: o modelo de visão não respondeu ({e})."

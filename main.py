@@ -7,6 +7,7 @@
     python main.py --modelos     listar modelos do provedor configurado
     python main.py --pesquisa    testar a pesquisa na internet
     python main.py --vozes       ouvir as vozes disponíveis e escolher
+    python main.py --acoes       testar janelas, texto copiado, bloco de notas e visão da tela
 """
 
 from __future__ import annotations
@@ -43,8 +44,10 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
         print(f"[pesquisa] Indisponível com {cfg.llm.provedor}/{cfg.llm.modelo} "
               "(só no Groq com modelo gpt-oss). Seguindo sem internet.")
     if cfg.acoes:
-        from socrates.ferramentas import computador
+        from socrates.ferramentas import computador, tela
         computador.adicionar_programas(cfg.programas)
+        tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave,
+                          modelo=cfg.visao_modelo)
     cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes)
     return Orquestrador(cerebro, cfg.nome, cfg.modo_inicial, cfg.historico_max,
                         contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
@@ -213,6 +216,38 @@ async def provar_vozes(cfg: config.Config) -> None:
             print("\n(o resto da seção voz pode ficar como está; o Edge vira a voz reserva)")
 
 
+async def testar_acoes(cfg: config.Config) -> None:
+    """Testa no Windows de verdade as ações que dependem do sistema."""
+    from socrates.ferramentas import janelas, tela
+
+    tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave, modelo=cfg.visao_modelo)
+    print("=== Teste das ações no computador ===")
+
+    def etapa(numero, titulo, funcao, *args):
+        print(f"\n{numero}/4  {titulo}")
+        try:
+            resultado = funcao(*args)
+        except Exception as e:
+            print(f"     FALHOU: {e}")
+            return
+        for linha in str(resultado).splitlines()[:12]:
+            print(f"     {linha}")
+
+    etapa(1, "Janelas abertas", janelas.janelas_abertas)
+    etapa(2, "Texto copiado (copie qualquer texto antes, com Ctrl+C)",
+          janelas.ler_area_de_transferencia)
+    etapa(3, "Escrever no Bloco de Notas (deve abrir uma nota de teste)",
+          janelas.escrever_no_bloco_de_notas,
+          "Teste do Sócrates: se você está lendo isto, escrever no Bloco de Notas funciona.",
+          "teste do socrates")
+    print("\n4/4  Ver a tela (tira um print agora e manda para o modelo de visão)")
+    await asyncio.sleep(1.5)
+    try:
+        print("     " + tela.ver_tela("Descreva em 2 frases o que está na tela.").replace("\n", "\n     "))
+    except Exception as e:
+        print(f"     FALHOU: {e}")
+
+
 async def listar_modelos(cfg: config.Config) -> None:
     cerebro = criar_cerebro(cfg.llm)
     print(f"Modelos disponíveis no {cfg.llm.provedor}:")
@@ -324,6 +359,7 @@ def main() -> None:
     p.add_argument("--modelos", action="store_true", help="lista os modelos do provedor")
     p.add_argument("--pesquisa", action="store_true", help="testa a pesquisa na internet")
     p.add_argument("--vozes", action="store_true", help="toca as vozes disponíveis para você escolher")
+    p.add_argument("--acoes", action="store_true", help="testa janelas, texto copiado, bloco de notas e tela")
     args = p.parse_args()
 
     try:
@@ -340,6 +376,8 @@ def main() -> None:
             asyncio.run(testar_pesquisa(cfg))
         elif args.vozes:
             asyncio.run(provar_vozes(cfg))
+        elif args.acoes:
+            asyncio.run(testar_acoes(cfg))
         elif args.diagnostico:
             asyncio.run(diagnostico(cfg))
         elif args.texto or not cfg.voz.ativa:

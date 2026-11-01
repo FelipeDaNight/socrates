@@ -37,8 +37,16 @@ def _normalizar(texto: str) -> str:
     return re.sub(r"[^a-z ]", "", sem_acento.lower()).strip()
 
 
+# Créditos de legenda que o Whisper "ouve" no silêncio ("Legenda por Sônia Ruberti")
+_PREFIXOS_ALUCINADOS = ("legenda por", "legendas por", "legendado por", "legendas pela",
+                        "transcricao e legendas", "traducao e legendas", "subtitles by")
+
+
 def filtrar_alucinacao(texto: str) -> str:
-    return "" if _normalizar(texto) in ALUCINACOES else texto.strip()
+    n = _normalizar(texto)
+    if n in ALUCINACOES or n.startswith(_PREFIXOS_ALUCINADOS):
+        return ""
+    return texto.strip()
 
 
 class OuvidoWhisper(Ouvido):

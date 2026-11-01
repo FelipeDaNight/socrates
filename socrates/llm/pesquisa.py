@@ -43,7 +43,7 @@ _ATUAL = re.compile(
     r"|placar|quem ganhou|resultado do jogo|jogo do|jogo de hoje|tabela do"
     r"|edital|inscricoes|inscricao|data da prova|concurso da|concurso do|vagas"
     r"|lancamento|lancou|lancaram|eleicao|eleito|presidente atual"
-    r"|horario de funcionamento|esta aberto|ta aberto)\b"
+    r"|horario de funcionamento)\b"
 )
 
 # "hoje"/"agora" sozinhos não bastam quando é pedido de estudo

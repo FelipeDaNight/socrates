@@ -273,7 +273,8 @@ def cancelar_timer() -> str:
 
 # ---------------- anotações ----------------
 
-@ferramenta("Anota algo no caderno de anotações do aluno (um arquivo no computador).",
+@ferramenta("Anota um lembrete curto no caderno de anotações do aluno (lista com data). "
+            "Para escrever um texto e MOSTRAR no Bloco de Notas, use escrever_no_bloco_de_notas.",
             params={"texto": "O que anotar, já organizado e escrito corretamente"})
 def anotar(texto: str) -> str:
     PASTA_SOCRATES.mkdir(parents=True, exist_ok=True)
@@ -289,8 +290,9 @@ def abrir_anotacoes() -> str:
     arquivo = PASTA_SOCRATES / "anotacoes.md"
     if not arquivo.exists():
         return "Você ainda não tem anotações."
-    _iniciar(str(arquivo))
-    return "Abri suas anotações."
+    from .janelas import abrir_no_bloco_de_notas
+    abrir_no_bloco_de_notas(arquivo)
+    return "Abri suas anotações no Bloco de Notas."
 
 
 # ---------------- tela ----------------

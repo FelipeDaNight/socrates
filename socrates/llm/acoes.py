@@ -19,14 +19,19 @@ from .base import Cerebro, Mensagem
 log = logging.getLogger("socrates.acoes")
 
 INSTRUCAO = """Você pode controlar o computador do aluno usando as ferramentas.
-Use a ferramenta certa para o pedido. Depois confirme em UMA frase curta e natural
-o que você fez (ex.: "Pronto, abri a calculadora."). Nunca diga que fez algo sem
-ter chamado a ferramenta. Se a ferramenta der erro, explique em uma frase."""
+Use a ferramenta certa para o pedido; pode usar várias em sequência (ex.: ver_tela e depois
+responder sobre o que viu). Depois de uma ação, confirme em UMA frase curta e natural
+(ex.: "Pronto, abri a calculadora."). Se o pedido era para ver ou ler algo (tela, texto
+copiado), responda ao aluno sobre o conteúdo, no seu jeito de professor, usando o quadro
+se houver fórmula ou questão. Nunca diga que fez algo sem ter chamado a ferramenta.
+Se a ferramenta der erro, explique em uma frase."""
 
 MARCADOR = "executar"   # o modelo responde isso quando percebe um pedido de ação
 
-INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno (abrir programas, sites e
-pastas, tocar no YouTube, volume, timer, anotar, bloquear a tela).
+INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno: abrir e fechar programas,
+trocar de janela, ver o que está na tela, saber quais janelas estão abertas, ler o texto que ele
+copiou, copiar texto, escrever no Bloco de Notas, abrir sites e pastas, tocar no YouTube,
+volume, timer, anotar e bloquear a tela.
 Se o aluno pedir uma dessas ações, responda APENAS com a palavra EXECUTAR e mais nada.
 Nunca diga que não consegue abrir programas ou mexer no computador."""
 
@@ -40,12 +45,20 @@ _VERBO = re.compile(
     r"|aumenta|aumente|aumentar|abaixa|abaixe|abaixar|diminui|diminua|diminuir|baixa|baixe"
     r"|muta|silencia|silenciar|tira o som|anota|anote|anotar|salva|salve|bloqueia|bloqueie|bloquear"
     r"|cancela|cancele|cancelar|para o timer|pare o timer|inicia|inicie|iniciar|comeca|comece"
-    r"|liga|ligue|ligar|executa|execute|executar|roda|rode|rodar)\b"
+    r"|liga|ligue|ligar|executa|execute|executar|roda|rode|rodar"
+    r"|fecha|feche|fechar|copia|copie|copiar|digita|digite|digitar|minimiza|minimize)\b"
 )
+# Verbos que são ação em qualquer lugar da frase ("o teste não deu certo, fecha o bloco de notas")
+_VERBO_SOLTO = re.compile(r"\b(fecha|feche|fechar|digita|digite|digitar|minimiza|minimize)\b")
+# Escrever é ação quando o destino é o Bloco de Notas (no quadro é explicação)
+_ESCREVER = re.compile(r"\b(escreve|escreva|escrever|cria|crie|criar|faz|faca|fazer)\b.*\bbloco de notas\b")
 # Assuntos que são sempre ação, em qualquer parte da frase
 _ASSUNTO = re.compile(
     r"\b(volume|timer|cronometro|pomodoro|alarme|me avisa daqui|me avise daqui|me lembra daqui"
-    r"|quanto tempo falta|no youtube|minhas anotacoes|meu caderno)\b"
+    r"|quanto tempo falta|no youtube|minhas anotacoes|meu caderno"
+    r"|minha tela|na tela|da tela|nessa tela|o que (?:eu )?(?:estou|to|tou) vendo"
+    r"|janelas abertas|o que (?:esta|ta) aberto|quais programas"
+    r"|copiei|copiado|area de transferencia)\b"
 )
 
 
@@ -57,7 +70,8 @@ def _norm(texto: str) -> str:
 
 def pede_acao(pergunta: str) -> bool:
     t = _norm(pergunta)
-    return bool(_VERBO.search(t) or _ASSUNTO.search(t))
+    return bool(_VERBO.search(t) or _ASSUNTO.search(t) or _VERBO_SOLTO.search(t)
+                or _ESCREVER.search(t))
 
 
 def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:

@@ -73,6 +73,25 @@ Sem nenhuma API: quem executa é o próprio Windows. O Groq só entende o pedido
 | "Sócrates, anota que a prova é dia 10"          | Caderno em `Documentos\Socrates\anotacoes.md` |
 | "Sócrates, abre a pasta downloads"              | Abre pastas                                 |
 | "Sócrates, bloqueia a tela"                     | Bloqueia o Windows                          |
+| "Sócrates, fecha o bloco de notas"              | Fecha programas do jeito normal (pergunta se há algo sem salvar) |
+| "Sócrates, volta pro Chrome"                    | Traz uma janela para a frente               |
+| "Sócrates, escreve um resumo de crase no bloco de notas" | Escreve e **abre** no Bloco de Notas |
+| "Sócrates, resolve a questão que eu copiei"     | Lê o que você copiou com Ctrl+C             |
+| "Sócrates, copia esse resumo pra mim"           | Põe o texto na área de transferência        |
+
+### Noção da tela
+
+- **"Sócrates, o que está aberto?"**: ele lista as janelas abertas. É rápido e não manda nada para a internet.
+- **"Sócrates, o que tem na minha tela?"**, **"resolve a questão que está na tela"**,
+  **"o que é esse erro?"**: ele tira um print, manda para o modelo de visão do Groq
+  (`qwen/qwen3.8-27b`, com a mesma chave) e responde sobre o que viu. O print só é tirado
+  quando você pede e não fica salvo.
+
+Ele nunca fecha o terminal nem a própria janela. Para testar tudo isso de uma vez:
+
+```powershell
+.venv\Scripts\python main.py --acoes
+```
 
 Ações que apagam arquivos ou desligam o PC ficaram de fora de propósito. Programas
 que ele não conhece entram no `config.yaml`:
@@ -166,6 +185,8 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 | Fala rápido ou devagar demais            | `velocidade: "-10%"` ou `"+15%"`                              |
 | "Não consegui pesquisar agora"           | Rode `--pesquisa` e veja o motivo; para desligar: `pesquisa: ativa: false` |
 | Pesquisa quando não precisava (ou o contrário) | Me conte a frase: as regras ficam em `socrates/llm/pesquisa.py` |
+| Quadro não aparece                       | Rode `pip install -r requirements.txt` de novo (ele precisa do matplotlib) |
+| Ver a tela ou fechar programa falha      | Rode `--acoes`: mostra qual parte falhou e por quê             |
 | "Não conheço o programa"                 | Adicione em `acoes: programas:` no `config.yaml`              |
 | Abriu programa quando era pergunta       | Me conte a frase: as regras ficam em `socrates/llm/acoes.py`  |
 | Voz do Gemini falha                      | Ele usa o Antonio sozinho; rode `--vozes` para ver o erro      |
@@ -188,6 +209,7 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 | Cérebro      | gpt-oss-120b no Groq (troca no config)       | grátis (com limites)  |
 | Pesquisa     | browser_search do Groq (só com gpt-oss)      | depende da sua conta  |
 | Ações no PC  | Python + Windows (os.startfile, teclas de volume) | local            |
+| Visão da tela| qwen3.8-27b no Groq (só quando você pede)    | grátis (com limites)  |
 | Quadro       | matplotlib (fórmulas em LaTeX e gráficos)    | local                 |
 | Voz          | edge-tts (Antonio) ou Gemini TTS             | grátis / plano grátis |
 | Som          | sounddevice + miniaudio                      | local                 |
@@ -210,6 +232,8 @@ socrates/
   llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
   llm/acoes.py             decide quando é ação e faz o vaivém com as ferramentas
   ferramentas/computador.py  as ações no PC (programas, sites, volume, timer, anotações)
+  ferramentas/janelas.py   janelas, área de transferência e bloco de notas (via PowerShell)
+  ferramentas/tela.py      print da tela + modelo de visão
   core/quadro_fluxo.py     separa o quadro branco da fala
   visor/quadro.py          desenha o quadro (fórmulas, gráficos com avaliação segura)
   tts/gemini.py            voz do Gemini; tts/reserva.py troca para o Edge se falhar
@@ -221,7 +245,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     178 testes, rodam sem microfone nem internet
+tests/                     235 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

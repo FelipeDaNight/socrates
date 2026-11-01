@@ -7,6 +7,9 @@ numpy>=2.0
 sounddevice>=0.5
 edge-tts>=7.0
 miniaudio>=1.60
+# quadro branco e visão da tela
+matplotlib>=3.9
+pillow>=10.0
 # testes
 pytest>=8.0
 pytest-asyncio>=0.23

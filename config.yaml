@@ -12,6 +12,9 @@ acoes:
     # anki: 'C:\Program Files\Anki\anki.exe'
     # obsidian: '%LOCALAPPDATA%\Programs\Obsidian\Obsidian.exe'
 
+visao:                        # ver a tela (só quando você pede); usa a chave do Groq
+  modelo: qwen/qwen3.8-27b
+
 pesquisa:
   ativa: true                 # pesquisa na internet quando a pergunta é sobre algo atual
                               # (só no Groq com modelo gpt-oss)
