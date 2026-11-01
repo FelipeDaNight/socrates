@@ -189,8 +189,9 @@ class Conversa:
                 if not self._quadros_nesta and pede_quadro(texto):
                     await self._quadro_extra()
             except ErroCerebro as e:
+                log.warning("cérebro falhou: %s", e)
                 self.dizer_tela(f"\n[erro] {e}")
-                await self._falar("Tive um problema para pensar. Tente de novo.", True)
+                await self._falar(str(e), False)   # diz o motivo de verdade
             except ErroAudio as e:
                 self.dizer_tela(f"\n[som] {e}")
             finally:

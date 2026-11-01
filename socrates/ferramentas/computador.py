@@ -118,9 +118,7 @@ def _tecla(codigo: int, vezes: int = 1) -> None:
 
 # ---------------- programas e sites ----------------
 
-@ferramenta("Abre um programa do computador.",
-            params={"nome": "Nome do programa, como o aluno falou. Ex.: calculadora, "
-                            "bloco de notas, chrome, word, excel, spotify, configurações."})
+@ferramenta("Abre um programa.", params={"nome": "Ex.: calculadora, word, chrome, spotify"})
 def abrir_programa(nome: str) -> str:
     chave = _norm(nome)
     alvo = PROGRAMAS.get(chave)
@@ -141,8 +139,7 @@ def abrir_programa(nome: str) -> str:
     return f"Abri {nome}."
 
 
-@ferramenta("Abre um site no navegador.",
-            params={"endereco": "Endereço do site, ex.: g1.globo.com, gmail.com, qconcursos.com"})
+@ferramenta("Abre um site.", params={"endereco": "Ex.: g1.globo.com"})
 def abrir_site(endereco: str) -> str:
     endereco = endereco.strip().replace(" ", "")
     if not endereco.startswith(("http://", "https://")):
@@ -153,10 +150,8 @@ def abrir_site(endereco: str) -> str:
     return f"Abri {endereco}."
 
 
-@ferramenta("Pesquisa no Google ou no YouTube e abre os resultados no navegador. "
-            "Use para 'toca tal música', 'abre vídeo de tal assunto', 'procura no Google'.",
-            params={"termo": "O que procurar", "onde": "Onde procurar"},
-            opcoes={"onde": ["google", "youtube"]})
+@ferramenta("Busca no Google ou no YouTube e abre os resultados (ex.: tocar uma música).",
+            params={"termo": "O que buscar"}, opcoes={"onde": ["google", "youtube"]})
 def buscar_no_navegador(termo: str, onde: str = "google") -> str:
     q = urllib.parse.quote_plus(termo.strip())
     if onde == "youtube":
@@ -166,8 +161,7 @@ def buscar_no_navegador(termo: str, onde: str = "google") -> str:
     return f"Abri o Google procurando por {termo}."
 
 
-@ferramenta("Abre uma pasta do computador.",
-            params={"nome": "Qual pasta"},
+@ferramenta("Abre uma pasta.",
             opcoes={"nome": ["documentos", "downloads", "area de trabalho", "imagens",
                              "musicas", "videos", "anotacoes"]})
 def abrir_pasta(nome: str) -> str:
@@ -185,9 +179,7 @@ def abrir_pasta(nome: str) -> str:
 
 # ---------------- volume ----------------
 
-@ferramenta("Aumenta, diminui ou silencia o volume do computador.",
-            params={"acao": "O que fazer com o volume",
-                    "quanto": "Quantos degraus (cada um é 2%). Padrão 5 = 10%."},
+@ferramenta("Muda o volume.", params={"quanto": "Degraus de 2% (padrão 5)"},
             opcoes={"acao": ["aumentar", "diminuir", "mudo"]})
 def volume(acao: str, quanto: int = 5) -> str:
     if not WINDOWS:
@@ -247,9 +239,8 @@ def _minutos_falados(seg: float) -> str:
     return f"{m} minutos" if m else f"{s} segundos"
 
 
-@ferramenta("Inicia um timer (por exemplo um pomodoro de estudo). Avisa em voz alta quando acabar.",
-            params={"minutos": "Duração em minutos. Pomodoro = 25.",
-                    "motivo": "Para que é o timer, ex.: estudo, pausa, revisão"})
+@ferramenta("Inicia um timer que avisa falando (pomodoro = 25).",
+            params={"minutos": "Minutos", "motivo": "Ex.: estudo"})
 def iniciar_timer(minutos: float, motivo: str = "") -> str:
     minutos = float(minutos)
     if not 0 < minutos <= 600:
@@ -258,7 +249,7 @@ def iniciar_timer(minutos: float, motivo: str = "") -> str:
     return f"Timer de {_minutos_falados(minutos * 60)} iniciado."
 
 
-@ferramenta("Diz quanto tempo falta no timer.")
+@ferramenta("Diz quanto falta no timer.")
 def consultar_timer() -> str:
     resta = TIMER.restante()
     if resta is None:
@@ -266,16 +257,14 @@ def consultar_timer() -> str:
     return f"Faltam {_minutos_falados(resta)}."
 
 
-@ferramenta("Cancela o timer ativo.")
+@ferramenta("Cancela o timer.")
 def cancelar_timer() -> str:
     return "Timer cancelado." if TIMER.cancelar() else "Não havia timer ativo."
 
 
 # ---------------- anotações ----------------
 
-@ferramenta("Anota um lembrete curto no caderno de anotações do aluno (lista com data). "
-            "Para escrever um texto e MOSTRAR no Bloco de Notas, use escrever_no_bloco_de_notas.",
-            params={"texto": "O que anotar, já organizado e escrito corretamente"})
+@ferramenta("Anota um lembrete curto no caderno do aluno.", params={"texto": "O lembrete"})
 def anotar(texto: str) -> str:
     PASTA_SOCRATES.mkdir(parents=True, exist_ok=True)
     arquivo = PASTA_SOCRATES / "anotacoes.md"
@@ -285,7 +274,7 @@ def anotar(texto: str) -> str:
     return "Anotado no seu caderno."
 
 
-@ferramenta("Abre o caderno de anotações do aluno.")
+@ferramenta("Abre o caderno de anotações.")
 def abrir_anotacoes() -> str:
     arquivo = PASTA_SOCRATES / "anotacoes.md"
     if not arquivo.exists():
@@ -297,7 +286,7 @@ def abrir_anotacoes() -> str:
 
 # ---------------- tela ----------------
 
-@ferramenta("Bloqueia a tela do computador (precisa da senha para voltar).")
+@ferramenta("Bloqueia a tela do PC.")
 def bloquear_tela() -> str:
     if not WINDOWS:
         return "Bloquear a tela só funciona no Windows."

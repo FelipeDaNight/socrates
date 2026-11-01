@@ -19,6 +19,7 @@ class ConfigLLM:
     modelo: str
     chave: str | None
     temperatura: float = 0.6
+    modelo_acoes: str | None = None   # outro modelo = outro limite grátis por minuto
 
 
 @dataclass
@@ -141,6 +142,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         modelo=prov["modelo"],
         chave=chave,
         temperatura=float(dados.get("llm", {}).get("temperatura", 0.6)),
+        modelo_acoes=prov.get("modelo_acoes"),
     )
     ouvido = _preencher(ConfigOuvido, dados.get("ouvido"))
     ouvido.chave = os.getenv(ouvido.chave_env)

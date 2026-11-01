@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import AsyncIterator, Callable
 
 from ..llm import Cerebro, Mensagem
@@ -10,6 +11,30 @@ from . import persona
 from .estados import TRANSICOES, Estado, TransicaoInvalida
 
 log = logging.getLogger("socrates.orquestrador")
+
+
+_QUADRO = re.compile(r"\[QUADRO\](.*?)(?:\[/QUADRO\]|$)", re.S | re.I)
+CORTE_ANTIGAS = 600
+
+
+def _resumo_quadro(m: re.Match) -> str:
+    titulo = next((l.lstrip("# ").strip() for l in m.group(1).splitlines() if l.strip()), "")
+    return f"[quadro mostrado: {titulo}]"
+
+
+def compactar(historico: list[Mensagem]) -> list[Mensagem]:
+    """Mensagens antigas ficam curtas (o plano grátis conta cada token): o quadro
+    vira uma linha e o texto longo é cortado. As 2 últimas ficam inteiras."""
+    saida = []
+    for i, m in enumerate(historico):
+        if i >= len(historico) - 2 or m["role"] != "assistant":
+            saida.append(m)
+            continue
+        texto = _QUADRO.sub(_resumo_quadro, m["content"])
+        if len(texto) > CORTE_ANTIGAS:
+            texto = texto[:CORTE_ANTIGAS] + "..."
+        saida.append({"role": m["role"], "content": texto})
+    return saida
 
 
 class Orquestrador:
@@ -51,7 +76,7 @@ class Orquestrador:
 
     # ---------- conversa ----------
     def _mensagens(self) -> list[Mensagem]:
-        recentes = self.historico[-self.historico_max:]
+        recentes = compactar(self.historico[-self.historico_max:])
         sistema = self._sistema
         if self.contexto:
             sistema += "\n\n" + self.contexto()

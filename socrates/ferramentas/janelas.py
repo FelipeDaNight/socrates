@@ -88,8 +88,7 @@ def achar_janelas(nome: str, janelas: list[dict]) -> list[dict]:
     return [j for j in achadas if not _protegida(j)]
 
 
-@ferramenta("Lista os programas e janelas abertos agora no computador do aluno "
-            "(rápido, não tira print). Use para saber o que ele está fazendo.")
+@ferramenta("Lista as janelas abertas no PC (rápido, sem print).")
 def janelas_abertas() -> str:
     janelas = [j for j in listar_janelas() if not _protegida(j)]
     if not janelas:
@@ -98,9 +97,8 @@ def janelas_abertas() -> str:
     return "Janelas abertas:\n" + "\n".join(linhas)
 
 
-@ferramenta("Fecha um programa ou janela aberta, do jeito normal (se houver algo sem salvar, "
-            "o próprio programa pergunta).",
-            params={"nome": "Programa ou parte do título da janela. Ex.: bloco de notas, chrome, word"})
+@ferramenta("Fecha um programa aberto, do jeito normal.",
+            params={"nome": "Programa ou título. Ex.: bloco de notas, chrome"})
 def fechar_programa(nome: str) -> str:
     alvos = achar_janelas(nome, listar_janelas())
     if not alvos:
@@ -112,8 +110,7 @@ def fechar_programa(nome: str) -> str:
     return f"Pedi para fechar: {titulos}."
 
 
-@ferramenta("Traz uma janela aberta para a frente da tela.",
-            params={"nome": "Programa ou parte do título da janela"})
+@ferramenta("Traz uma janela aberta para a frente.", params={"nome": "Programa ou título"})
 def mostrar_janela(nome: str) -> str:
     alvos = achar_janelas(nome, listar_janelas())
     if not alvos:
@@ -125,8 +122,7 @@ def mostrar_janela(nome: str) -> str:
 
 # ---------------- área de transferência ----------------
 
-@ferramenta("Lê o texto que o aluno copiou (Ctrl+C). Use quando ele disser 'o que eu copiei', "
-            "'a questão que eu copiei', 'explica isso que copiei'.")
+@ferramenta("Lê o texto que o aluno copiou (Ctrl+C).")
 def ler_area_de_transferencia() -> str:
     texto = _powershell("Get-Clipboard -Raw")
     if not texto:
@@ -134,8 +130,7 @@ def ler_area_de_transferencia() -> str:
     return "Texto copiado pelo aluno:\n" + texto[:6000]
 
 
-@ferramenta("Copia um texto para a área de transferência, para o aluno colar (Ctrl+V).",
-            params={"texto": "O texto a copiar"})
+@ferramenta("Copia um texto para o aluno colar.", params={"texto": "O texto"})
 def copiar_texto(texto: str) -> str:
     _powershell(f"Set-Clipboard -Value {_literal(texto)}")
     return "Copiei. É só colar com Ctrl+V."
@@ -146,10 +141,8 @@ def copiar_texto(texto: str) -> str:
 PASTA_NOTAS = Path.home() / "Documents" / "Socrates" / "notas"
 
 
-@ferramenta("Escreve um texto num arquivo novo e abre no Bloco de Notas para o aluno ver. "
-            "Use quando ele pedir para escrever, criar uma nota ou um resumo no bloco de notas.",
-            params={"texto": "O texto completo, já escrito e organizado",
-                    "titulo": "Nome curto para o arquivo, ex.: resumo crase"})
+@ferramenta("Escreve um texto e abre no Bloco de Notas.",
+            params={"texto": "Texto completo", "titulo": "Nome curto do arquivo"})
 def escrever_no_bloco_de_notas(texto: str, titulo: str = "") -> str:
     PASTA_NOTAS.mkdir(parents=True, exist_ok=True)
     nome = "".join(c for c in (titulo or "nota") if c.isalnum() or c in " -_").strip()[:50] or "nota"

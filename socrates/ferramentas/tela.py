@@ -62,10 +62,8 @@ def descrever(jpeg: bytes, pergunta: str, cliente=None) -> str:
     return _sem_pensamento(r.choices[0].message.content)
 
 
-@ferramenta("Olha a tela do computador do aluno (tira um print) e descreve o que tem nela. "
-            "Use para 'o que tem na minha tela', 'lê isso pra mim', 'resolve a questão que está "
-            "na tela', 'o que é esse erro'.",
-            params={"pergunta": "O que você quer saber da tela, ex.: 'transcreva a questão'"})
+@ferramenta("Tira um print e descreve a tela do aluno (questão, erro, o que está aberto).",
+            params={"pergunta": "O que saber da tela"})
 def ver_tela(pergunta: str = "") -> str:
     if sys.platform != "win32" and VISAO.get("captura") is None:
         return "Ver a tela só funciona no Windows."

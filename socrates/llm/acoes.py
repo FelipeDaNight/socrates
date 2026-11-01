@@ -79,17 +79,28 @@ def pede_acao(pergunta: str) -> bool:
                 or _ESCREVER.search(t))
 
 
+ESTILO_CURTO = """Você é o Sócrates, assistente de estudo por voz, em português do Brasil.
+Responda em frases curtas, para serem faladas, sem markdown. Se precisar mostrar fórmula ou
+questão, escreva entre [QUADRO] e [/QUADRO]."""
+
+HISTORICO_ACOES = 6     # só o fim da conversa: o plano grátis conta cada token
+CORTE_MENSAGEM = 500
+
+
 def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:
-    """Tira a regra "responda EXECUTAR" (senão o modelo responde isso em vez de
-    usar a ferramenta) e põe a de usar as ferramentas."""
-    copia = [dict(m) for m in mensagens
-             if not (m["role"] == "assistant" and _norm(m["content"]) == MARCADOR)]
-    if copia and copia[0]["role"] == "system":
-        copia[0]["content"] = copia[0]["content"].replace(INSTRUCAO_MARCADOR, "").rstrip()
-        copia[0]["content"] += "\n\n" + INSTRUCAO
-    else:
-        copia.insert(0, {"role": "system", "content": INSTRUCAO})
-    return copia
+    """Pedido ENXUTO para escolher ferramentas: estilo curto + data/cidade + fim da
+    conversa. Sem a regra "responda EXECUTAR" (senão o modelo responde isso em vez
+    de usar a ferramenta). Cerca de 1/3 do tamanho do pedido normal."""
+    sistema = mensagens[0]["content"] if mensagens and mensagens[0]["role"] == "system" else ""
+    contexto = [l for l in sistema.splitlines() if l.startswith(("Agora é", "O aluno mora"))]
+    conversa = [dict(m) for m in mensagens if m["role"] in ("user", "assistant")
+                and not (m["role"] == "assistant" and _norm(m["content"]) == MARCADOR)]
+    conversa = conversa[-HISTORICO_ACOES:]
+    for m in conversa[:-1]:
+        if len(m["content"]) > CORTE_MENSAGEM:
+            m["content"] = m["content"][:CORTE_MENSAGEM] + "..."
+    topo = "\n\n".join([ESTILO_CURTO, *contexto, INSTRUCAO])
+    return [{"role": "system", "content": topo}, *conversa]
 
 
 async def _executar(nome: str, args: dict) -> str:

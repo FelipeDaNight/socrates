@@ -4,7 +4,7 @@
 
 nome: Sócrates
 modo_inicial: explicar        # explicar | testar
-historico_max: 20             # quantas mensagens ele lembra na conversa atual
+historico_max: 12             # quantas mensagens ele lembra na conversa atual
 local: Morrinhos, Goiás       # usado para clima e perguntas sobre "aqui"
 
 acoes:
@@ -31,7 +31,9 @@ provedores:
   groq:
     base_url: https://api.groq.com/openai/v1
     chave_env: GROQ_API_KEY
-    modelo: openai/gpt-oss-120b
+    modelo: openai/gpt-oss-120b         # conversa, explicações e pesquisa
+    modelo_acoes: openai/gpt-oss-20b    # ações no PC; também é a reserva quando o 120b
+                                        # bate no limite grátis (cada modelo tem o seu)
   gemini:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
     chave_env: GEMINI_API_KEY

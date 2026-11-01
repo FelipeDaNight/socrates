@@ -199,7 +199,7 @@ async def test_erro_no_cerebro_avisa_por_voz_e_continua():
     conversa, s, painel, cerebro, tela = _montar(Quebrado())
     o = s.ouvido
     await _rodar(conversa, [o.fala("Sócrates, o que é crase?"), o.fala("Sócrates, tenta de novo")])
-    assert "Tive um problema para pensar. Tente de novo." in s.voz.faladas
+    assert "Limite do plano grátis atingido." in s.voz.faladas   # fala o motivo de verdade
     assert "Agora funcionou." in s.voz.faladas
     assert any("Limite do plano grátis" in t for t in tela)
     assert painel.estado == "ocioso"

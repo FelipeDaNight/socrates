@@ -210,6 +210,7 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 | Fala rápido ou devagar demais            | `velocidade: "-10%"` ou `"+15%"`                              |
 | "Não consegui pesquisar agora"           | Rode `--pesquisa` e veja o motivo; para desligar: `pesquisa: ativa: false` |
 | Pesquisa quando não precisava (ou o contrário) | Me conte a frase: as regras ficam em `socrates/llm/pesquisa.py` |
+| "Bati no limite grátis do Groq"          | Espere uns segundos; o limite é por minuto. Se for o do dia, renova amanhã |
 | Quadro não aparece                       | Rode `pip install -r requirements.txt` de novo (ele precisa do matplotlib) |
 | Ver a tela ou fechar programa falha      | Rode `--acoes`: mostra qual parte falhou e por quê             |
 | "Não conheço o programa"                 | Adicione em `acoes: programas:` no `config.yaml`              |
@@ -239,6 +240,12 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 | Voz          | edge-tts (Antonio) ou Gemini TTS             | grátis / plano grátis |
 | Som          | sounddevice + miniaudio                      | local                 |
 | Visor        | Tkinter (já vem com o Python)                | local                 |
+
+**Limites do plano grátis do Groq:** cada modelo aceita cerca de 8 mil tokens por minuto
+e 200 mil por dia. Por isso o Sócrates divide o trabalho: a conversa usa o `gpt-oss-120b`,
+as ações no PC usam o `gpt-oss-20b` (cada um com o seu limite), e um é reserva do outro.
+Os pedidos vão enxutos (histórico antigo resumido). Se mesmo assim estourar, ele diz o
+motivo ("bati no limite grátis, espere uns segundos").
 
 Cada fala que o microfone separa vai para o Whisper, mesmo sem o nome. Num lugar
 com muita conversa ou TV ligada, isso gasta o limite grátis do Groq mais rápido.
@@ -271,7 +278,7 @@ socrates/
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     267 testes, rodam sem microfone nem internet
+tests/                     274 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

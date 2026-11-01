@@ -57,12 +57,9 @@ def _resumo_pedido(args: dict) -> str:
     return f'mandar para o Claude: "{args.get("pedido", "")}"'
 
 
-@ferramenta("Manda uma mensagem para o Claude (o assistente que programa o Sócrates), "
-            "digitando no app do Claude aberto no computador. Use quando o aluno pedir para "
-            "mudar, melhorar ou consertar o próprio Sócrates ('pede pro Claude...', "
-            "'manda pro Claude...'). Precisa de confirmação.",
-            params={"pedido": "A mensagem para o Claude, clara e completa, em português, "
-                              "descrevendo a mudança que o aluno quer no Sócrates"},
+@ferramenta("Manda ao Claude (quem programa o Sócrates) um pedido de mudança no "
+            "Sócrates, digitando no app do Claude.",
+            params={"pedido": "O pedido, claro e completo"},
             confirmar=True, resumo=_resumo_pedido)
 def pedir_ao_claude(pedido: str) -> str:
     if not WINDOWS:
@@ -88,9 +85,7 @@ def _git(*args: str, timeout: float = 120) -> subprocess.CompletedProcess:
                           timeout=timeout, encoding="utf-8", errors="ignore")
 
 
-@ferramenta("Atualiza o Sócrates com a versão mais nova do GitHub (o que o Claude fez) e "
-            "reinicia. Use para 'se atualiza', 'atualiza o Sócrates', 'baixa a versão nova'. "
-            "Precisa de confirmação.",
+@ferramenta("Baixa a versão nova do Sócrates e reinicia.",
             confirmar=True, resumo=lambda a: "baixar a versão nova e reiniciar")
 def atualizar_socrates() -> str:
     antes = _git("rev-parse", "HEAD")
