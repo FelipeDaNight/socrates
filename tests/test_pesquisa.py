@@ -103,7 +103,7 @@ async def test_pergunta_atual_vai_direto_para_a_pesquisa():
     texto = await _texto(CerebroComPesquisa(base), "Qual a cotação do dólar hoje?")
     assert texto == AVISO + "O dólar está em R$ 5,42, segundo o g1."
     assert base.recebido == []   # nem tentou responder sem pesquisar
-    assert "pesquisar na internet" in base.pesquisas[0][0]["content"]
+    assert "browser_search" in base.pesquisas[0][0]["content"]
     assert base.pesquisas[0][0]["content"].startswith("persona")
 
 
@@ -184,3 +184,58 @@ async def test_groq_recusando_a_pesquisa_explica_o_motivo():
 
     with pytest.raises(ErroPesquisa, match="free tier"):
         await _groq(responder).pesquisar([{"role": "user", "content": "dólar?"}])
+
+
+# ---------- bug real: o modelo respondia "PESQUISAR" em vez de buscar ----------
+
+def test_pedido_de_pesquisa_nao_leva_a_regra_do_marcador():
+    from socrates.llm.pesquisa import _com_instrucao
+    sistema = "persona\n\n" + contexto.montar("Morrinhos, Goiás", True, datetime(2026, 11, 1, 10, 5))
+    msgs = _com_instrucao([{"role": "system", "content": sistema},
+                           {"role": "user", "content": "Quem é o técnico da seleção?"},
+                           {"role": "assistant", "content": "PESQUISAR"},
+                           {"role": "user", "content": "E o dólar?"}])
+    conteudo = msgs[0]["content"]
+    assert "responda APENAS com a palavra PESQUISAR" not in conteudo
+    assert "browser_search" in conteudo and "Morrinhos" in conteudo and "persona" in conteudo
+    assert all(m["content"] != "PESQUISAR" for m in msgs)
+
+
+def _erro_tool_use_failed():
+    return httpx.Response(400, json={"error": {
+        "message": "Tool choice is required, but model did not call a tool",
+        "type": "invalid_request_error", "code": "tool_use_failed",
+        "failed_generation": "PESQUISAR"}})
+
+
+def _ok(texto):
+    return httpx.Response(200, json={
+        "id": "1", "object": "chat.completion", "created": 0, "model": "openai/gpt-oss-120b",
+        "choices": [{"index": 0, "finish_reason": "stop",
+                     "message": {"role": "assistant", "content": texto}}]})
+
+
+@pytest.mark.asyncio
+async def test_tenta_de_novo_quando_o_modelo_nao_usa_a_busca():
+    pedidos = []
+
+    def responder(req):
+        pedidos.append(json.loads(req.content))
+        return _erro_tool_use_failed() if len(pedidos) == 1 else _ok("O dólar está em R$ 5,40, segundo o g1.")
+
+    texto = await _groq(responder).pesquisar([{"role": "user", "content": "dólar?"}])
+    assert texto == "O dólar está em R$ 5,40, segundo o g1."
+    assert [p["tool_choice"] for p in pedidos] == ["required", "auto"]
+
+
+@pytest.mark.asyncio
+async def test_se_falhar_duas_vezes_explica():
+    with pytest.raises(ErroPesquisa, match="400"):
+        await _groq(lambda req: _erro_tool_use_failed()).pesquisar([{"role": "user", "content": "x"}])
+
+
+@pytest.mark.asyncio
+async def test_marcador_nunca_e_falado():
+    base = BaseFalsa("x", pesquisa="PESQUISAR")
+    texto = await _texto(CerebroComPesquisa(base), "Qual a cotação do dólar?")
+    assert "PESQUISAR" not in texto and "não trouxe nada útil" in texto

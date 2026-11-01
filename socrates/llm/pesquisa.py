@@ -25,8 +25,9 @@ MARCADOR = "pesquisar"
 AVISO = "Vou pesquisar isso. "
 ESPIAR = 12   # quantos caracteres olhar antes de decidir se é o marcador
 
-INSTRUCAO = """Você acabou de pesquisar na internet para responder.
-Responda em no máximo 4 frases curtas, para serem FALADAS em voz alta.
+INSTRUCAO = """AGORA você está no modo de pesquisa: use a ferramenta de busca na internet
+(browser_search) para encontrar a resposta. Não responda "PESQUISAR".
+Depois de pesquisar, responda em no máximo 4 frases curtas, para serem FALADAS em voz alta.
 Diga a fonte pelo nome (por exemplo: "segundo o g1"), nunca leia links.
 Se a pesquisa não trouxer a resposta, diga isso com franqueza."""
 
@@ -82,8 +83,17 @@ def limpar_resposta(texto: str) -> str:
 
 
 def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:
+    """Prepara as mensagens para a pesquisa: tira a regra "responda PESQUISAR"
+    (senão o modelo obedece a ela em vez de usar a busca) e põe a de pesquisar."""
+    from ..core.contexto import INSTRUCAO_PESQUISA
+
     copia = [dict(m) for m in mensagens]
+    # respostas antigas "PESQUISAR" no histórico também confundem o modelo
+    copia = [m for m in copia if not (m["role"] == "assistant"
+                                      and _norm(m["content"]).startswith(MARCADOR)
+                                      and len(m["content"]) < 20)]
     if copia and copia[0]["role"] == "system":
+        copia[0]["content"] = copia[0]["content"].replace(INSTRUCAO_PESQUISA, "").rstrip()
         copia[0]["content"] += "\n\n" + INSTRUCAO
     else:
         copia.insert(0, {"role": "system", "content": INSTRUCAO})
@@ -107,7 +117,9 @@ class CerebroComPesquisa(Cerebro):
             log.warning("pesquisa falhou: %s", e)
             yield f"Não consegui pesquisar agora. {e}"
             return
-        yield texto or "A pesquisa não trouxe nada útil. Tente perguntar de outro jeito."
+        if not texto or _norm(texto).startswith(MARCADOR):
+            texto = "A pesquisa não trouxe nada útil. Tente perguntar de outro jeito."
+        yield texto
 
     async def responder(self, mensagens: list[Mensagem]) -> AsyncIterator[str]:
         pergunta = next((m["content"] for m in reversed(mensagens) if m["role"] == "user"), "")

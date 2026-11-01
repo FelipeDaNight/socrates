@@ -70,6 +70,17 @@ class CerebroCompativelOpenAI(Cerebro):
                 msgs.append({"role": "tool", "tool_call_id": c.id, "content": resultado})
         return "Fiz o que pude, mas não consegui terminar o pedido."
 
+    async def _pedir_pesquisa(self, mensagens: list[Mensagem], escolha: str):
+        return await self._cliente.chat.completions.create(
+            model=self.modelo,
+            messages=mensagens,
+            tools=[{"type": "browser_search"}],
+            tool_choice=escolha,
+            reasoning_effort="low",   # recomendação do Groq: buscas mais curtas
+            temperature=0.3,
+            stream=False,
+        )
+
     async def pesquisar(self, mensagens: list[Mensagem]) -> str:
         """Responde usando a busca na internet que roda nos servidores do Groq.
 
@@ -77,15 +88,14 @@ class CerebroCompativelOpenAI(Cerebro):
         acontece inteira do lado deles e volta uma resposta pronta.
         """
         try:
-            r = await self._cliente.chat.completions.create(
-                model=self.modelo,
-                messages=mensagens,
-                tools=[{"type": "browser_search"}],
-                tool_choice="required",
-                reasoning_effort="low",   # recomendação do Groq: buscas mais curtas
-                temperature=0.3,
-                stream=False,
-            )
+            try:
+                r = await self._pedir_pesquisa(mensagens, "required")
+            except openai.BadRequestError as e:
+                # O modelo respondeu sem usar a busca: tenta mais uma vez, deixando livre
+                if "tool_use_failed" not in str(e):
+                    raise
+                log.warning("modelo não usou a busca; tentando de novo")
+                r = await self._pedir_pesquisa(mensagens, "auto")
         except openai.RateLimitError as e:
             raise ErroPesquisa("Limite de pesquisas atingido. Espere um pouco.") from e
         except openai.AuthenticationError as e:

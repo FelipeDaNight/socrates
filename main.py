@@ -289,7 +289,7 @@ async def testar_pesquisa(cfg: config.Config, recuo: str = "") -> bool:
     """Faz uma pesquisa de verdade para ver se a sua conta do Groq tem acesso."""
     from socrates.core import contexto
     from socrates.llm import ErroPesquisa, pesquisa_disponivel
-    from socrates.llm.pesquisa import INSTRUCAO, limpar_resposta
+    from socrates.llm.pesquisa import _com_instrucao, limpar_resposta
 
     if not cfg.pesquisa:
         print(f"{recuo}Desligada no config.yaml (pesquisa: ativa: false).")
@@ -301,8 +301,8 @@ async def testar_pesquisa(cfg: config.Config, recuo: str = "") -> bool:
     pergunta = "Qual a cotação do dólar hoje?"
     print(f"{recuo}Perguntando: \"{pergunta}\" (pode levar uns segundos)")
     cerebro = criar_cerebro(cfg.llm)
-    mensagens = [{"role": "system", "content": contexto.montar(cfg.local, True) + "\n\n" + INSTRUCAO},
-                 {"role": "user", "content": pergunta}]
+    mensagens = _com_instrucao([{"role": "system", "content": contexto.montar(cfg.local, True)},
+                                {"role": "user", "content": pergunta}])
     try:
         resposta = limpar_resposta(await cerebro.pesquisar(mensagens))
     except (ErroPesquisa, ErroCerebro) as e:
