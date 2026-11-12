@@ -21,7 +21,19 @@ VISAO = {"base_url": "https://api.groq.com/openai/v1", "chave": None, "modelo": 
 # Reservas de visão (rodízio): [{"nome", "base_url", "chave", "modelo"}, ...]
 VISOES: list[dict] = []
 
-LARGURA_MAX = 1600
+LARGURA_MAX = 1920        # tela Full HD vai inteira: texto pequeno reduzido vira borrão
+QUALIDADE_JPEG = 88
+MAX_TOKENS = 700          # o plano grátis do Groq dá 1000 tokens de resposta por minuto
+                          # neste modelo; pedir 1200 fazia o pedido ser recusado
+
+PEDIDO = """Esta é a tela do computador de um estudante.
+Pergunta: {pergunta}
+Regras:
+- Responda em português do Brasil, com base SOMENTE no que está visível na imagem.
+- Seja fiel: não invente nem complete texto. Se algo estiver pequeno ou ilegível, diga isso.
+- Se a pergunta for sobre uma questão ou exercício, transcreva o enunciado e as alternativas
+  UMA única vez, do jeito que estão escritos.
+- No máximo 180 palavras. Não repita trechos."""
 
 
 def capturar_tela() -> bytes:
@@ -36,12 +48,26 @@ def preparar(img) -> bytes:
     if img.width > LARGURA_MAX:
         img = img.resize((LARGURA_MAX, round(img.height * LARGURA_MAX / img.width)))
     buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=75)
+    img.save(buf, format="JPEG", quality=QUALIDADE_JPEG)
     return buf.getvalue()
 
 
 def _sem_pensamento(texto: str) -> str:
     return re.sub(r"<think>.*?</think>", "", texto or "", flags=re.DOTALL).strip()
+
+
+def sem_repeticao(texto: str) -> str:
+    """Modelo de visão às vezes entra em laço e repete o mesmo bloco várias vezes:
+    cada linha (com mais de 25 letras) fica só na primeira vez em que aparece."""
+    vistas, saida = set(), []
+    for linha in texto.splitlines():
+        chave = re.sub(r"\W+", "", linha.lower())
+        if len(chave) > 25:
+            if chave in vistas:
+                continue
+            vistas.add(chave)
+        saida.append(linha)
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(saida)).strip()
 
 
 def descrever(jpeg: bytes, pergunta: str, cliente=None, modelo: str | None = None) -> str:
@@ -54,16 +80,13 @@ def descrever(jpeg: bytes, pergunta: str, cliente=None, modelo: str | None = Non
         cliente = OpenAI(base_url=VISAO["base_url"], api_key=VISAO["chave"], timeout=40,
                          max_retries=0)
     dados = base64.b64encode(jpeg).decode()
-    pedido = ("Esta é a tela do computador de um estudante. "
-              f"{pergunta or 'Descreva o que está na tela.'}\n"
-              "Responda em português do Brasil. Se houver uma questão ou exercício, "
-              "transcreva o texto dela por completo, com as alternativas.")
+    pedido = PEDIDO.format(pergunta=pergunta or "O que está na tela?")
     r = cliente.chat.completions.create(
-        model=modelo, temperature=0.2, max_tokens=1200,
+        model=modelo, temperature=0.1, max_tokens=MAX_TOKENS,
         messages=[{"role": "user", "content": [
             {"type": "text", "text": pedido},
             {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{dados}"}}]}])
-    return _sem_pensamento(r.choices[0].message.content)
+    return sem_repeticao(_sem_pensamento(r.choices[0].message.content))
 
 
 @ferramenta("Tira um print e descreve a tela do aluno (questão, erro, o que está aberto).",
@@ -78,10 +101,9 @@ def ver_tela(pergunta: str = "") -> str:
         return f"Erro: não consegui tirar o print da tela ({e})."
     if VISAO.get("local") is not None:   # o mesmo modelo do Ollama, no seu PC
         try:
-            pedido = ((pergunta or "Descreva o que está na tela.") +
-                      " Responda em português do Brasil. Se houver uma questão, transcreva-a "
-                      "por completo, com as alternativas.")
-            return "O que está na tela:\n" + VISAO["local"].descrever_imagem(jpeg, pedido)
+            pedido = PEDIDO.format(pergunta=pergunta or "O que está na tela?")
+            return "O que está na tela:\n" + sem_repeticao(
+                VISAO["local"].descrever_imagem(jpeg, pedido))
         except Exception as e:
             log.warning("visão local falhou: %s", e)
             return f"Erro: o modelo local não conseguiu ver a tela ({e})."

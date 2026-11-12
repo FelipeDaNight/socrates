@@ -12,6 +12,7 @@ from __future__ import annotations
 import inspect
 import logging
 import re
+import threading
 import time
 import unicodedata
 from dataclasses import dataclass, field
@@ -59,6 +60,48 @@ class Ferramenta:
 REGISTRO: dict[str, Ferramenta] = {}
 
 
+# ---------------- memória curta ----------------
+# O que ele acabou de VER (a tela, o texto copiado) fica disponível por alguns minutos,
+# para as perguntas seguintes ("e qual é a última palavra?") não ficarem sem resposta.
+
+LEMBRAR = {"ver_tela": "a tela do aluno", "ler_area_de_transferencia": "o texto que o aluno copiou"}
+VALIDADE_LEMBRANCA_SEG = 300
+CORTE_LEMBRANCA = 1500
+
+
+@dataclass
+class Lembranca:
+    o_que: str
+    texto: str
+    quando: float
+
+
+LEMBRANCA: Lembranca | None = None
+
+
+def lembranca_valida() -> Lembranca | None:
+    if LEMBRANCA and time.monotonic() - LEMBRANCA.quando <= VALIDADE_LEMBRANCA_SEG:
+        return LEMBRANCA
+    return None
+
+
+def texto_da_lembranca() -> str:
+    """Uma linha para o cérebro: o que ele viu há pouco (ou "" se não viu nada)."""
+    m = lembranca_valida()
+    if m is None:
+        return ""
+    minutos = int((time.monotonic() - m.quando) // 60)
+    quando = "agora há pouco" if minutos < 1 else f"há {minutos} min"
+    conteudo = " / ".join(l.strip() for l in m.texto.splitlines() if l.strip())[:CORTE_LEMBRANCA]
+    return (f"Há pouco você viu {m.o_que} ({quando}): {conteudo} "
+            "(Use isso se ele perguntar a respeito; para olhar de novo, use a ferramenta.)")
+
+
+# Depois de abrir um vídeo ou uma música, o som do PC entra pelo microfone. A conversa
+# vê este aviso e volta a exigir o nome "Sócrates", para não responder ao vídeo.
+SOM_LIGADO = threading.Event()
+
+
 def ferramenta(descricao: str, confirmar: bool = False,
                params: dict[str, str] | None = None, opcoes: dict[str, list[str]] | None = None,
                resumo: Callable[[dict], str] | None = None):
@@ -86,21 +129,35 @@ class Pendente:
 
 PENDENTE: Pendente | None = None
 
-# Uma resposta é "sim" se só tiver palavras de concordância ("sim, pode mandar por favor")
-_PALAVRAS_SIM = {"sim", "pode", "podes", "mandar", "manda", "confirma", "confirmo", "confirmado",
-                 "isso", "mesmo", "claro", "ok", "okay", "beleza", "bora", "vai", "faz", "faca",
-                 "fazer", "atualiza", "atualizar", "envia", "enviar", "certo", "certeza", "com",
-                 "por", "favor", "socrates", "ai", "la", "e", "yes", "positivo", "perfeito"}
-_PALAVRAS_NAO = {"nao", "cancela", "cancelar", "cancelado", "esquece", "deixa", "negativo", "para"}
+# "Sim" de verdade costuma vir com mais palavras: "Sim, coloque no chat dele, muda a cor".
+# Vale como sim a frase que COMEÇA concordando; vale como não a que traz um "não".
+_COMECO_SIM = {"sim", "pode", "claro", "isso", "manda", "mande", "mandar", "confirmo", "confirma",
+               "confirmado", "ok", "okay", "beleza", "positivo", "perfeito", "exato", "exatamente",
+               "bora", "envia", "envie", "enviar", "certo", "correto", "faz", "faca", "vai",
+               "aham", "uhum", "yes", "atualiza", "atualize", "atualizar", "quero", "isso mesmo"}
+_PALAVRAS_SIM = _COMECO_SIM | {"podes", "mesmo", "fazer", "certeza", "com", "por", "favor",
+                               "socrates", "ai", "la", "e", "ta", "bom", "tudo", "bem", "que", "agora"}
+_COMECO_NAO = {"nao", "cancela", "cancelar", "cancele", "cancelado", "esquece", "esqueca",
+               "deixa", "negativo", "espera", "pera", "para", "pare", "nunca"}
+_NAO_NO_MEIO = {"nao", "cancela", "cancelar", "cancele", "esquece", "esqueca"}   # "pode não"
+_ENFEITES = {"socrates", "ah", "eh", "entao", "bom", "olha", "ei", "opa"}   # antes da resposta
 
 
 def _concorda(resposta: str) -> bool | None:
+    """True = sim, False = não, None = falou de outra coisa."""
     palavras = resposta.split()
-    if not palavras or len(palavras) > 8:
+    while palavras and palavras[0] in _ENFEITES:
+        palavras = palavras[1:]
+    if not palavras:
         return None
-    if any(p in _PALAVRAS_NAO for p in palavras):
+    if palavras[0] in _COMECO_NAO or any(p in _NAO_NO_MEIO for p in palavras[:6]):
         return False
-    if all(p in _PALAVRAS_SIM for p in palavras) and set(palavras) - {"por", "favor", "socrates", "e", "com", "ai", "la"}:
+    if "mas" in palavras[:3]:              # "sim, mas muda o texto": não é um sim limpo
+        return None
+    if palavras[0] in _COMECO_SIM:
+        return True
+    enfeite = {"por", "favor", "socrates", "e", "com", "ai", "la", "que", "agora"}
+    if len(palavras) <= 8 and all(p in _PALAVRAS_SIM for p in palavras) and set(palavras) - enfeite:
         return True
     return None
 
@@ -157,5 +214,18 @@ def executar(nome: str, argumentos: dict, confirmado: bool = False) -> str:
     except Exception as e:   # a ação falhou no computador
         log.exception("ferramenta %s falhou", nome)
         return f"Erro ao executar {nome}: {e}"
+    global LEMBRANCA
+    if nome in LEMBRAR and not str(resultado).startswith("Erro"):
+        LEMBRANCA = Lembranca(LEMBRAR[nome], str(resultado), time.monotonic())
     log.info("ferramenta %s(%s) -> %s", nome, argumentos, resultado)
     return str(resultado)
+
+
+def nomes_das_acoes(com_busca: bool = False, extras: tuple[str, ...] = ()) -> list[str]:
+    """As ferramentas que o cérebro pode usar (importar o módulo registra as dele)."""
+    import importlib
+    modulos = ["computador", "janelas", "tela", "claude", "aparencia", *extras]
+    if com_busca:
+        modulos.append("busca")
+    nomes_mod = {importlib.import_module(f"{__name__}.{m}").__name__ for m in modulos}
+    return [n for n, f in REGISTRO.items() if f.funcao.__module__ in nomes_mod]

@@ -47,10 +47,8 @@ def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False,
             log.warning("pesquisa pedida, mas nenhum cérebro tem busca embutida")
     if acoes:
         from .. import ferramentas
-        from ..ferramentas import claude, computador, janelas, tela  # registram as ações
         from .acoes import CerebroComAcoes
-        modulos = {computador.__name__, janelas.__name__, tela.__name__, claude.__name__}
-        nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos]
+        nomes = ferramentas.nomes_das_acoes()
         if rodizio_acoes:
             maos = _juntar(rodizio_acoes)
         elif not rodizio and cfg.modelo_acoes and cfg.modelo_acoes != cfg.modelo:

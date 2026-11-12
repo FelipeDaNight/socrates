@@ -46,8 +46,12 @@ def montar(local: str | None, pesquisa: bool, momento: datetime | None = None,
                       "sobre clima ou algo \"aqui\" sem dizer a cidade.")
     partes.append(INSTRUCAO_PESQUISA if pesquisa else INSTRUCAO_SEM_PESQUISA)
     if acoes:
+        from .. import ferramentas
         from ..llm.acoes import INSTRUCAO_MARCADOR
         partes.append(INSTRUCAO_MARCADOR)
+        visto = ferramentas.texto_da_lembranca()   # a tela que ele olhou há pouco
+        if visto:
+            partes.append(visto)
     return "\n".join(partes)
 
 

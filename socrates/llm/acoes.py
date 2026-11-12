@@ -32,9 +32,9 @@ MARCADOR = "executar"   # o modelo responde isso quando percebe um pedido de aç
 
 INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno: abrir e fechar programas,
 trocar de janela, ver o que está na tela, saber quais janelas estão abertas, ler o texto que ele
-copiou, copiar texto, escrever no Bloco de Notas, abrir sites e pastas, tocar no YouTube,
-volume, timer, anotar, bloquear a tela, mandar pedidos de mudança para o Claude (quem
-programa você) e se atualizar com a versão nova.
+copiou, copiar texto, escrever no Bloco de Notas, abrir sites e pastas, tocar no YouTube ou no
+Spotify, passar ou pausar a música, volume, timer, anotar, bloquear a tela, mudar a cor do seu
+visor, mandar pedidos de mudança para o Claude (quem programa você) e se atualizar.
 Se o aluno pedir uma dessas ações, responda APENAS com a palavra EXECUTAR e mais nada.
 Nunca diga que não consegue abrir programas ou mexer no computador."""
 
@@ -58,7 +58,12 @@ _ESCREVER = re.compile(r"\b(escreve|escreva|escrever|cria|crie|criar|faz|faca|fa
 # Assuntos que são sempre ação, em qualquer parte da frase
 _ASSUNTO = re.compile(
     r"\b(volume|timer|cronometro|pomodoro|alarme|me avisa daqui|me avise daqui|me lembra daqui"
-    r"|quanto tempo falta|no youtube|minhas anotacoes|meu caderno"
+    r"|quanto tempo falta|no youtube|no spotify|minhas anotacoes|meu caderno"
+    r"|no chrome|no navegador|no edge|no firefox|numa aba|nova aba"
+    r"|(?:passa|passe|pula|pule|troca|troque|volta|volte|pausa|pause|pausar|para|pare|continua|retoma)"
+    r" (?:a |essa |de |pra |para a |o )?(?:musica|faixa|som|video)|proxima musica|musica anterior"
+    r"|cor do visor|sua cor|cor (?:pra|para) (?:azul|verde|roxo|vermelho|laranja|ciano|rosa|branco)"
+    r"|visor (?:azul|verde|roxo|vermelho|laranja|ciano|rosa|branco)"
     r"|minha tela|na tela|da tela|nessa tela|o que (?:eu )?(?:estou|to|tou) vendo"
     r"|janelas abertas|o que (?:esta|ta) aberto|quais programas"
     r"|copiei|copiado|area de transferencia"
@@ -92,7 +97,8 @@ def _com_instrucao(mensagens: list[Mensagem]) -> list[Mensagem]:
     conversa. Sem a regra "responda EXECUTAR" (senão o modelo responde isso em vez
     de usar a ferramenta). Cerca de 1/3 do tamanho do pedido normal."""
     sistema = mensagens[0]["content"] if mensagens and mensagens[0]["role"] == "system" else ""
-    contexto = [l for l in sistema.splitlines() if l.startswith(("Agora é", "O aluno mora"))]
+    contexto = [l for l in sistema.splitlines()
+                if l.startswith(("Agora é", "O aluno mora", "Há pouco você viu"))]
     conversa = [dict(m) for m in mensagens if m["role"] in ("user", "assistant")
                 and not (m["role"] == "assistant" and _norm(m["content"]) == MARCADOR)]
     conversa = conversa[-HISTORICO_ACOES:]

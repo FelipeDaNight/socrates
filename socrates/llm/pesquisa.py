@@ -34,10 +34,11 @@ Se a pesquisa não trouxer a resposta, diga isso com franqueza."""
 # Pedidos diretos: "pesquisa...", "procura na internet..."
 _PEDIDO = re.compile(r"^(pesquis|procur|busc)\w*\b|\b(na internet|no google|na web)\b")
 
-# Assuntos que quase sempre dependem de informação atual
+# Assuntos que quase sempre dependem de informação atual. "Hoje" e "agora" sozinhos
+# NÃO entram: "coloque no quadro agora a lei de Newton" e "o que eu reviso hoje?" são
+# estudo. Se o assunto for mesmo atual, o modelo responde PESQUISAR (ver contexto.py).
 _ATUAL = re.compile(
-    r"\b(hoje|agora|atualmente|neste momento|esta semana|essa semana|este mes|esse mes|ontem|amanha"
-    r"|noticia|noticias|aconteceu|acontecendo|ultimas"
+    r"\b(noticia|noticias|acontecendo|ultimas|aconteceu (?:hoje|ontem|agora|essa semana|esta semana)"
     r"|previsao do tempo|como esta o tempo|como ta o tempo|vai chover|chovendo|temperatura"
     r"|cotacao|dolar|euro|bitcoin|preco|quanto custa|quanto ta custando"
     r"|placar|quem ganhou|resultado do jogo|jogo do|jogo de hoje|tabela do"
@@ -46,8 +47,9 @@ _ATUAL = re.compile(
     r"|horario de funcionamento)\b"
 )
 
-# "hoje"/"agora" sozinhos não bastam quando é pedido de estudo
-_ESTUDO = re.compile(r"\b(me testa|me explica|explica|exercicio|questao|questoes|revisar|estudar)\b")
+# Pedido de estudo nunca vira pesquisa, mesmo citando "edital" ou "prova"
+_ESTUDO = re.compile(r"\b(me testa|me explica|explica|explique|exercicio|questao|questoes|revisar"
+                     r"|revisao|estudar|no quadro|lacunas|lei seca|artigo|simulado)\b")
 
 
 def _norm(texto: str) -> str:

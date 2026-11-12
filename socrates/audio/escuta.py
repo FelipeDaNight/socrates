@@ -9,6 +9,8 @@ from __future__ import annotations
 import asyncio
 import logging
 import threading
+import time
+from dataclasses import dataclass
 
 import numpy as np
 
@@ -16,6 +18,15 @@ from . import TAXA_MIC, ErroAudio, importar_sounddevice
 from .microfone import BLOCO_MS, AjustesMic, Segmentador, rms
 
 log = logging.getLogger("socrates.escuta")
+
+
+@dataclass
+class Fala:
+    """Uma fala inteira do microfone e QUANDO ela começou. A conversa decide pelo
+    começo se você ainda estava no tempo de falar sem dizer o nome: quem começa a
+    falar dentro do tempo não pode ser ignorado só porque a frase foi longa."""
+    audio: np.ndarray
+    inicio: float      # relógio time.monotonic()
 
 
 class Escuta:
@@ -50,7 +61,7 @@ class Escuta:
             pendentes = []
             while not self.fila.empty():
                 item = self.fila.get_nowait()
-                if not isinstance(item, np.ndarray):
+                if not isinstance(item, (np.ndarray, Fala)):
                     pendentes.append(item)   # mantém texto digitado e avisos
             for item in pendentes:
                 self.fila.put_nowait(item)
@@ -71,6 +82,8 @@ class Escuta:
         fala = self.seg.alimentar(bloco)
         if self.painel:
             self.painel.ouvindo = self.seg.falando
+            if self.seg.falando:
+                self.painel.segurar_janela()   # não "dorme" no meio da sua frase
         return fala
 
     def _entregar(self, item) -> None:
@@ -87,8 +100,9 @@ class Escuta:
                     bloco, _ = fluxo.read(tamanho)
                     fala = self.processar(bloco)
                     if fala is not None:
-                        log.debug("fala de %.1f s", len(fala) / TAXA_MIC)
-                        self._entregar(fala)
+                        duracao = len(fala) / TAXA_MIC
+                        log.debug("fala de %.1f s", duracao)
+                        self._entregar(Fala(fala, time.monotonic() - duracao))
         except Exception as e:   # microfone desconectado, permissão negada...
             log.exception("escuta caiu")
             self._entregar(ErroAudio(f"O microfone parou: {e}"))

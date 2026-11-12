@@ -85,17 +85,11 @@ def descrever_modelo(modelo: str) -> str:
 
 def gravar_config_local(modelo: str | None, caminho: Path | None = None,
                         cerebro: str = "local") -> Path:
-    caminho = caminho or RAIZ / "config.local.yaml"
-    atual = {}
-    if caminho.exists():
-        atual = yaml.safe_load(caminho.read_text(encoding="utf-8")) or {}
+    from .config import gravar_local
     extra = {"cerebro": cerebro}
     if modelo:
         extra["local"] = {"modelo": modelo}
-    novo = mesclar(atual, extra)
-    caminho.write_text("# Suas preferências (valem por cima do config.yaml; não vão para o GitHub)\n"
-                       + yaml.safe_dump(novo, allow_unicode=True, sort_keys=False), encoding="utf-8")
-    return caminho
+    return gravar_local(extra, caminho or RAIZ / "config.local.yaml")
 
 
 async def _testar(cerebro: CerebroLocal, escrever=print) -> None:

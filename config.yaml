@@ -91,6 +91,8 @@ visor:
   ativo: true                 # janela laranja estilo Jarvis
   sempre_no_topo: false       # true = fica por cima das outras janelas
   escala: 1.25                # tamanho do visor: 1.0 pequeno, 1.25 médio, 1.5 grande
+  cor: laranja                # laranja, azul, ciano, verde, roxo, rosa, vermelho, branco
+                              # (ou diga "Sócrates, muda a cor do visor para azul")
 
 ouvido:                       # transcrição (Whisper no Groq, grátis)
   base_url: https://api.groq.com/openai/v1

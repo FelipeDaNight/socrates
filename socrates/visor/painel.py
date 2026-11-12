@@ -30,10 +30,13 @@ def envelope(amostras: np.ndarray, taxa: int, passo: float = PASSO_ENVELOPE) -> 
 class Painel:
     def __init__(self) -> None:
         self.estado = "ocioso"        # ocioso | pensando
+        self.cor = "laranja"          # cor do visor (muda por voz)
+        self.interromper = None       # o visor chama isto ao clicar / apertar Espaço
         self.legenda = ""             # última coisa que você disse
         self.ouvindo = False          # o microfone detectou alguém falando agora
         self.nivel_mic = 0.0          # 0..1
         self.janela_ate = 0.0         # até quando ele aceita fala sem o nome
+        self._janela_teto = 0.0       # o máximo que uma fala em andamento pode esticar a janela
         self.fechou = False           # você fechou a janela do visor
         self.encerrado = False        # o Sócrates terminou; o visor deve fechar
         self.ao_fechar = None         # chamado quando você fecha a janela
@@ -66,11 +69,20 @@ class Painel:
         self._env = None
         self._env_fim = time.monotonic()
 
+    ESTICAR_MAX = 20.0   # música tocando sem parar não pode manter a janela aberta para sempre
+
     def abrir_janela(self, segundos: float) -> None:
         self.janela_ate = time.monotonic() + segundos
+        self._janela_teto = self.janela_ate + self.ESTICAR_MAX
 
     def fechar_janela(self) -> None:
-        self.janela_ate = 0.0
+        self.janela_ate = self._janela_teto = 0.0
+
+    def segurar_janela(self, segundos: float = 2.5) -> None:
+        """Você está falando agora: se a janela estava aberta, ela não fecha no meio."""
+        agora = time.monotonic()
+        if agora < self.janela_ate:
+            self.janela_ate = min(max(self.janela_ate, agora + segundos), self._janela_teto)
 
     # ---------- lido pelo visor ----------
     def nivel_voz(self, agora: float | None = None) -> float:

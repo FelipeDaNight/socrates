@@ -24,6 +24,7 @@ import numpy as np
 
 from . import ferramentas
 from .audio import ErroAudio
+from .audio.escuta import Fala
 from .ferramentas import claude
 from .audio.microfone import para_wav
 from .config import Config
@@ -96,6 +97,15 @@ class Conversa:
         self._cache: dict[str, bytes] = {}
         self._desenhos: set[asyncio.Task] = set()
         self._quadros_nesta = 0
+        self._falando: asyncio.Task | None = None
+        self.interrompido = False
+        painel.interromper = self._pedir_interrupcao
+
+    def _pedir_interrupcao(self) -> None:
+        """Chamado pelo visor (outra thread): clique ou Espaço calam a fala."""
+        tarefa = self._falando
+        if tarefa is not None and not tarefa.done():
+            tarefa.get_loop().call_soon_threadsafe(tarefa.cancel)
 
     def dizer_tela(self, texto: str = "") -> None:
         self.escrever(texto + "\n")
@@ -197,7 +207,24 @@ class Conversa:
             finally:
                 self.painel.estado = "ocioso"
 
-        await self._com_microfone_pausado(tarefa())
+        self.interrompido = False
+        self._falando = asyncio.ensure_future(tarefa())
+        try:
+            await self._com_microfone_pausado(self._esperar_fala())
+        finally:
+            self._falando = None
+
+    async def _esperar_fala(self) -> None:
+        try:
+            await self._falando
+        except asyncio.CancelledError:
+            if asyncio.current_task().cancelling():
+                raise                   # o Sócrates inteiro está fechando
+            self.s.voz.parar()
+            self.interrompido = True
+            self.painel.estado = "ocioso"
+            self.dizer_tela(" [interrompido]")
+            log.info("fala interrompida pelo aluno")
 
     # ---------- janela de conversa ----------
     def _janela(self) -> float:
@@ -207,15 +234,21 @@ class Conversa:
     def abrir_janela(self) -> None:
         self.painel.abrir_janela(self._janela())
 
-    def em_janela(self) -> bool:
-        return not self.cfg.escuta.palavra_ativacao or self.painel.em_janela()
+    def em_janela(self, quando: float | None = None) -> bool:
+        return not self.cfg.escuta.palavra_ativacao or self.painel.em_janela(quando)
 
     # ---------- entrada ----------
-    async def _transcrever(self, fala: np.ndarray) -> str:
-        em_janela = self.em_janela()
+    def dica_do_ouvido(self) -> str | None:
+        """Vocabulário que o ouvido deve esperar agora (o treino troca)."""
+        return None
+
+    async def _transcrever(self, fala: np.ndarray, em_janela: bool) -> str:
         if em_janela:
             self.painel.estado = "pensando"
         try:
+            dica = self.dica_do_ouvido()
+            if dica:
+                return await self.s.ouvido.transcrever(para_wav(fala), dica)
             return await self.s.ouvido.transcrever(para_wav(fala))
         except ErroOuvido as e:
             if em_janela:
@@ -228,14 +261,18 @@ class Conversa:
         """Transforma o que chegou da fila num pedido. None = não era para ele."""
         if isinstance(item, str):
             return item.strip()
-        texto = await self._transcrever(item)
+        if isinstance(item, Fala):   # vale o momento em que você COMEÇOU a falar
+            audio, em_janela = item.audio, self.em_janela(item.inicio)
+        else:
+            audio, em_janela = item, self.em_janela()
+        texto = await self._transcrever(audio, em_janela)
         if not texto:
             return None
         foi_chamado, pedido = chamou(texto)
         if foi_chamado:
             self.dizer_tela(f"\nVocê: {pedido or '(chamou)'}")
             return pedido
-        if self.em_janela():
+        if em_janela:
             self.dizer_tela(f"\nVocê: {texto}")
             return texto
         log.info("ignorado (sem o nome): %r", texto)
@@ -312,6 +349,13 @@ class Conversa:
                 continue
 
             await self.responder(pedido)
+            if ferramentas.SOM_LIGADO.is_set():
+                # Abriu vídeo ou música: o som do PC entra no microfone. Para não
+                # responder ao vídeo, volta a esperar o nome "Sócrates".
+                ferramentas.SOM_LIGADO.clear()
+                self.painel.fechar_janela()
+                self.dizer_tela('(som tocando: me chame pelo nome, "Sócrates", para continuar)')
+                continue
             self.abrir_janela()
 
         self.painel.fechar_janela()

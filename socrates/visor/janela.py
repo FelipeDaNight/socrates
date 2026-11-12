@@ -21,6 +21,7 @@ import time
 import tkinter as tk
 from tkinter import font as tkfont
 
+from . import cores
 from .painel import Painel
 
 FUNDO = "#05070a"
@@ -94,6 +95,8 @@ class Visor:
         self.m = medidas(escala, raiz.winfo_screenwidth())
         self.cx, self.cy = self.m["hud_l"] // 2, int(228 * escala)
         self._versao_quadro = -1
+        self._cor_nome = None
+        self.laranja, self.brilho = cores.resolver(painel.cor)
         self._foto = None
         self.quadro_visivel = False
 
@@ -106,6 +109,8 @@ class Visor:
         raiz.resizable(False, False)
         raiz.attributes("-topmost", sempre_no_topo)
         raiz.protocol("WM_DELETE_WINDOW", self.fechar)
+        raiz.bind("<space>", self._interromper)        # cala o Sócrates no meio da fala
+        raiz.bind("<Escape>", self._interromper)
 
         largura_max = self.m["hud_l"] + self.m["quadro_l"]
         self.c = tk.Canvas(raiz, width=largura_max, height=self.m["hud_a"], bg=FUNDO,
@@ -115,6 +120,11 @@ class Visor:
         fonte = next((f for f in ("Segoe UI", "Bahnschrift", "DejaVu Sans") if f in familias),
                      "TkDefaultFont")
         self._criar(fonte)
+        self.c.bind("<Button-1>", self._interromper)
+
+    def _interromper(self, _evento=None) -> None:
+        if self.painel.interromper and self.painel.falando():
+            self.painel.interromper()
 
     # ---------- geometria ----------
     def _polar(self, r: float, ang: float) -> tuple[float, float]:
@@ -195,6 +205,11 @@ class Visor:
         p = self.painel
         visual = p.visual(agora)
         luz = INTENSIDADE[visual]
+        if p.cor != self._cor_nome:
+            self._cor_nome = p.cor
+            self.laranja, self.brilho = cores.resolver(p.cor)
+            self.c.itemconfigure(self.moldura, outline=misturar(self.laranja, FUNDO, 0.5))
+            self.c.itemconfigure(self.rotulo_quadro, fill=misturar(self.laranja, FUNDO, 0.7))
         self._atualizar_quadro()
 
         alvo = nivel_alvo(visual, p, t, agora)
@@ -205,8 +220,8 @@ class Visor:
         giro = t * GIRO[visual]
         c = self.c
 
-        cor_marca = misturar(LARANJA, FUNDO, 0.30 * luz)
-        cor_marca_forte = misturar(LARANJA, FUNDO, 0.65 * luz)
+        cor_marca = misturar(self.laranja, FUNDO, 0.30 * luz)
+        cor_marca_forte = misturar(self.laranja, FUNDO, 0.65 * luz)
         for i, item in enumerate(self.marcas):
             ang = i * 360 / N_MARCAS + giro * 0.25
             longa = i % 6 == 0
@@ -215,12 +230,12 @@ class Visor:
             c.coords(item, x0, y0, x1, y1)
             c.itemconfigure(item, fill=cor_marca_forte if longa else cor_marca)
 
-        c.itemconfigure(self.circulo_fino, outline=misturar(LARANJA, FUNDO, 0.22 * luz))
+        c.itemconfigure(self.circulo_fino, outline=misturar(self.laranja, FUNDO, 0.22 * luz))
 
-        cor_arco = misturar(LARANJA, FUNDO, (0.55 + 0.35 * nivel) * luz * (0.7 + 0.3 * respira))
+        cor_arco = misturar(self.laranja, FUNDO, (0.55 + 0.35 * nivel) * luz * (0.7 + 0.3 * respira))
         for i, item in enumerate(self.arcos):
             c.itemconfigure(item, start=(i * 90 + giro) % 360, outline=cor_arco)
-        cor_interna = misturar(BRILHO, FUNDO, 0.45 * luz)
+        cor_interna = misturar(self.brilho, FUNDO, 0.45 * luz)
         for i, item in enumerate(self.arcos_internos):
             c.itemconfigure(item, start=(i * 120 - giro * 1.6) % 360, outline=cor_interna)
 
@@ -231,25 +246,25 @@ class Visor:
             x1, y1 = self._polar(84 + tam, ang)
             c.coords(item, x0, y0, x1, y1)
             forca = 0.35 + 0.65 * min(1.0, tam / 40)
-            c.itemconfigure(item, fill=misturar(LARANJA, FUNDO, forca * luz))
+            c.itemconfigure(item, fill=misturar(self.laranja, FUNDO, forca * luz))
 
         r = 50 + 16 * nivel + 2 * respira
         for i, item in enumerate(self.brilhos):     # halo: círculos cada vez mais fracos
             c.coords(item, *self._caixa(r + 26 - i * 7))
-            c.itemconfigure(item, fill=misturar(LARANJA, FUNDO,
+            c.itemconfigure(item, fill=misturar(self.laranja, FUNDO,
                                                 (0.07 + i * 0.06) * luz * (0.6 + 0.4 * nivel)))
         c.coords(self.anel_nucleo, *self._caixa(r + 6))
-        c.itemconfigure(self.anel_nucleo, outline=misturar(BRILHO, FUNDO, 0.6 * luz))
+        c.itemconfigure(self.anel_nucleo, outline=misturar(self.brilho, FUNDO, 0.6 * luz))
         c.coords(self.nucleo, *self._caixa(r))
-        c.itemconfigure(self.nucleo, fill=misturar(LARANJA, FUNDO, (0.75 + 0.25 * nivel) * luz))
+        c.itemconfigure(self.nucleo, fill=misturar(self.laranja, FUNDO, (0.75 + 0.25 * nivel) * luz))
         c.coords(self.centro, *self._caixa(r * (0.42 + 0.18 * nivel)))
-        c.itemconfigure(self.centro, fill=misturar(BRILHO, FUNDO, (0.7 + 0.3 * nivel) * luz))
+        c.itemconfigure(self.centro, fill=misturar(self.brilho, FUNDO, (0.7 + 0.3 * nivel) * luz))
 
-        c.itemconfigure(self.titulo, fill=misturar(LARANJA, FUNDO, 0.85 * max(luz, 0.5)))
-        c.itemconfigure(self.status, text=LEGENDA[visual], fill=misturar(BRILHO, FUNDO, 0.55))
+        c.itemconfigure(self.titulo, fill=misturar(self.laranja, FUNDO, 0.85 * max(luz, 0.5)))
+        c.itemconfigure(self.status, text=LEGENDA[visual], fill=misturar(self.brilho, FUNDO, 0.55))
         legenda = p.legenda if len(p.legenda) <= 90 else p.legenda[:87] + "..."
         c.itemconfigure(self.fala, text=f"“{legenda}”" if legenda else "",
-                        fill=misturar(BRILHO, FUNDO, 0.35))
+                        fill=misturar(self.brilho, FUNDO, 0.35))
 
         self.raiz.after(int(1000 / QPS), self._quadro)
 

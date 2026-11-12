@@ -41,15 +41,10 @@ def criar_socrates_local(cfg: config.Config) -> Orquestrador:
     """Tudo pensado no seu PC: o modelo do Ollama com as ferramentas no mesmo pedido."""
     from socrates import ferramentas
     from socrates.core import contexto
-    from socrates.ferramentas import claude, computador, janelas, tela
+    from socrates.ferramentas import claude, computador, tela
     from socrates.llm.ollama import ClienteOllama, CerebroLocal
 
-    modulos = {computador.__name__, janelas.__name__, tela.__name__, claude.__name__}
-    if cfg.local_cfg.pesquisa:
-        from socrates.ferramentas import busca
-        modulos.add(busca.__name__)
-    nomes = [n for n, f in ferramentas.REGISTRO.items() if f.funcao.__module__ in modulos] \
-        if cfg.acoes else []
+    nomes = ferramentas.nomes_das_acoes(com_busca=cfg.local_cfg.pesquisa) if cfg.acoes else []
     esquemas = [ferramentas.REGISTRO[n].esquema() for n in nomes]
 
     async def executar(nome: str, args: dict) -> str:
@@ -131,8 +126,10 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
         await conversar_texto(cfg)
         return
 
-    from socrates.ferramentas import computador
+    from socrates.ferramentas import aparencia, computador
     from socrates.maos_livres import Aviso
+
+    aparencia.PAINEL = painel
 
     soc = criar_socrates(cfg)
     fila: asyncio.Queue = asyncio.Queue()
@@ -151,6 +148,7 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
 
 def rodar_maos_livres(cfg: config.Config, com_visor: bool) -> None:
     painel = Painel()
+    painel.cor = cfg.visor.cor
     tem_tk = importlib.util.find_spec("tkinter") is not None
     if com_visor and not tem_tk:
         print("[visor] Tkinter não encontrado; seguindo sem a janela.")

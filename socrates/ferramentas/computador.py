@@ -19,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
-from . import ferramenta
+from . import SOM_LIGADO, ferramenta
 
 WINDOWS = sys.platform == "win32"
 
@@ -136,6 +136,8 @@ def abrir_programa(nome: str) -> str:
             return f"Não achei o {nome} instalado; abri o seu navegador padrão."
         return (f"O {nome} não foi encontrado neste computador. Se ele estiver instalado, "
                 "adicione o caminho do .exe em config.yaml, em acoes: programas:.")
+    if alvo.startswith("spotify"):
+        SOM_LIGADO.set()
     return f"Abri {nome}."
 
 
@@ -150,13 +152,22 @@ def abrir_site(endereco: str) -> str:
     return f"Abri {endereco}."
 
 
-@ferramenta("Busca no Google ou no YouTube e abre os resultados (ex.: tocar uma música).",
-            params={"termo": "O que buscar"}, opcoes={"onde": ["google", "youtube"]})
+@ferramenta("Abre a busca no Google, no YouTube ou no Spotify (ex.: tocar uma música, "
+            "achar uma prova antiga).",
+            params={"termo": "O que buscar"}, opcoes={"onde": ["google", "youtube", "spotify"]})
 def buscar_no_navegador(termo: str, onde: str = "google") -> str:
     q = urllib.parse.quote_plus(termo.strip())
     if onde == "youtube":
         _iniciar(f"https://www.youtube.com/results?search_query={q}")
+        SOM_LIGADO.set()
         return f"Abri o YouTube procurando por {termo}."
+    if onde == "spotify":
+        try:
+            _iniciar("spotify:search:" + urllib.parse.quote(termo.strip()))
+        except FileNotFoundError:
+            _iniciar(f"https://open.spotify.com/search/{urllib.parse.quote(termo.strip())}")
+        SOM_LIGADO.set()
+        return f"Abri o Spotify procurando por {termo}. É só clicar para tocar."
     _iniciar(f"https://www.google.com/search?q={q}")
     return f"Abri o Google procurando por {termo}."
 
@@ -197,6 +208,26 @@ def volume(acao: str, quanto: int = 5) -> str:
     return "Ação de volume desconhecida."
 
 
+# ---------------- música ----------------
+
+_TECLAS_MIDIA = {"pausar_ou_tocar": 0xB3, "proxima": 0xB0, "anterior": 0xB1}
+
+
+@ferramenta("Controla a música ou o vídeo que está tocando (Spotify, YouTube...).",
+            opcoes={"acao": ["pausar_ou_tocar", "proxima", "anterior"]})
+def musica(acao: str) -> str:
+    if not WINDOWS:
+        return "Controlar a música só funciona no Windows."
+    codigo = _TECLAS_MIDIA.get(acao)
+    if codigo is None:
+        return "Ação de música desconhecida."
+    _tecla(codigo)
+    if acao != "pausar_ou_tocar":
+        SOM_LIGADO.set()
+    return {"pausar_ou_tocar": "Pausei ou voltei a tocar.", "proxima": "Passei para a próxima.",
+            "anterior": "Voltei para a anterior."}[acao]
+
+
 # ---------------- timer / pomodoro ----------------
 
 class _Timer:
@@ -204,25 +235,39 @@ class _Timer:
         self.timer: threading.Timer | None = None
         self.fim = 0.0
         self.motivo = ""
+        self.ao_terminar: Callable[[], str | None] | None = None
 
-    def iniciar(self, minutos: float, motivo: str) -> None:
+    def iniciar(self, minutos: float, motivo: str,
+                ao_terminar: Callable[[], str | None] | None = None) -> None:
+        """`ao_terminar` roda quando o tempo acaba e pode devolver o que falar
+        (o pomodoro usa isso para registrar os minutos estudados)."""
         self.cancelar()
         self.fim = time.monotonic() + minutos * 60
         self.motivo = motivo
+        self.ao_terminar = ao_terminar
         self.timer = threading.Timer(minutos * 60, self._tocar)
         self.timer.daemon = True
         self.timer.start()
 
     def _tocar(self) -> None:
         motivo = f" de {self.motivo}" if self.motivo else ""
+        funcao, self.ao_terminar = self.ao_terminar, None
         self.timer = None
-        avisar(f"Seu tempo{motivo} acabou! Hora de fazer uma pausa.")
+        texto = None
+        if funcao:
+            try:
+                texto = funcao()
+            except Exception:   # o aviso sai mesmo se o registro falhar
+                import logging
+                logging.getLogger("socrates.timer").exception("ao_terminar falhou")
+        avisar(texto or f"Seu tempo{motivo} acabou! Hora de fazer uma pausa.")
 
     def cancelar(self) -> bool:
         ativo = self.timer is not None
         if self.timer:
             self.timer.cancel()
         self.timer = None
+        self.ao_terminar = None
         return ativo
 
     def restante(self) -> float | None:

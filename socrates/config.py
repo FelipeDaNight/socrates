@@ -65,6 +65,7 @@ class ConfigVisor:
     ativo: bool = True
     sempre_no_topo: bool = False
     escala: float = 1.25
+    cor: str = "laranja"
 
 
 @dataclass
@@ -128,6 +129,18 @@ def mesclar(base: dict, extra: dict) -> dict:
         else:
             junto[chave] = valor
     return junto
+
+
+def gravar_local(extra: dict, caminho: Path | None = None) -> Path:
+    """Guarda uma preferência no config.local.yaml, mantendo o que já estava lá."""
+    caminho = caminho or RAIZ / "config.local.yaml"
+    atual = {}
+    if caminho.exists():
+        atual = yaml.safe_load(caminho.read_text(encoding="utf-8")) or {}
+    novo = mesclar(atual, extra)
+    caminho.write_text("# Suas preferências (valem por cima do config.yaml; não vão para o GitHub)\n"
+                       + yaml.safe_dump(novo, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    return caminho
 
 
 def _visoes(dados: dict, provedores: dict) -> list[dict]:

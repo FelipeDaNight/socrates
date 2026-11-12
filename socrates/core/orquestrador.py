@@ -106,7 +106,7 @@ class Orquestrador:
                     self._ir_para(Estado.FALANDO)
                 resposta += pedaco
                 yield pedaco
-        except Exception:
+        except BaseException:      # erro ou interrompido no meio
             self.historico.pop()   # não guarda pergunta sem resposta
             raise
         finally:
