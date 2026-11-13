@@ -117,7 +117,7 @@ Sem internet, os registros ficam guardados e vão depois.
 
 ### Trilhas da PRF: aulas, direção e o que você aprendeu
 
-O Sócrates tem seis **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
+O Sócrates tem oito **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
 com as leis conferidas nas fontes oficiais até novembro de 2026:
 
 | Trilha | Tópicos | O que tem |
@@ -125,12 +125,14 @@ com as leis conferidas nas fontes oficiais até novembro de 2026:
 | Legislação de Trânsito | 15 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973; e as resoluções do CONTRAN em vigor (pesos e dimensões com a tolerância de 12,5% por eixo, tacógrafo, videomonitoramento, radares, placas, vidros, amarração de carga) |
 | Direito Constitucional | 10 | conferida na CF atualizada (13/11/2026): poder constituinte, art. 5º com as teses do STF (domicílio, reunião, confisco), remédios, direitos sociais e greve de policial, nacionalidade pela EC 131/2023, direitos políticos, competências (trânsito é privativa da União), Executivo (posse em 5 de janeiro), segurança pública com a PEC 18/2025 aguardando promulgação, estados de defesa e sítio, ordem social |
 | Direito Administrativo | 9 | organização, ato administrativo (Lei 9.784), agentes públicos e PAD (Lei 8.112), carreira de PRF (Lei 9.654 e Decreto 8.282: 120, 150 e 360 horas de cursos para promoção), poderes e poder de polícia (STF, Tema 532), licitações pela Lei 14.133, controle, responsabilidade civil (Tema 940) e princípios (SV 13) |
+| Ética e Cidadania | 7 | ética e moral, ética na função pública, Código de Ética (Decreto 1.171/1994), Sistema de Gestão da Ética (Decreto 6.029/2007), LAI e Decreto 7.724 (com o Decreto 11.527/2023), conflito de interesses (Lei 12.813) e nepotismo (Decreto 7.203), governança (Decreto 9.203/2017) |
+| Direitos Humanos | 4 | teoria e dimensões, a CF e os tratados (status de emenda e supralegal, SV 25, ADI 4275), DUDH e Pacto de São José (Decreto 678/1992) |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 72 tópicos, 455 pontos-chave e 373 itens de fixação com gabarito e justificativa, e as questões
-reais da PRF 2021 (os 26 itens de trânsito e os itens 100 a 115) entram no tópico certo. Questão de
+São 83 tópicos, 519 pontos-chave e 430 itens de fixação com gabarito e justificativa, e as questões
+reais da PRF 2021 (os 26 itens de trânsito e os itens 46 a 50 e 86 a 120) entram no tópico certo. Questão de
 prova cuja lei mudou depois (ex.: item 82, tolerância por eixo) é treinada pelo gabarito de hoje, e
 o Sócrates explica que a prova antiga cobrava a regra anterior. Isso importa porque os modelos de IA
 ainda trazem leis velhas: o furto passou a 1 a 6 anos (Lei 15.397/2026), a Lei Antifacção criou o
@@ -510,7 +512,7 @@ socrates/
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     560 testes, rodam sem microfone nem internet
+tests/                     582 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -529,7 +531,8 @@ tests/                     560 testes, rodam sem microfone nem internet
   ficam com a prova; questão com lei alterada depois da prova treina a regra de hoje
 - [x] **Fase 7** — trilha de Direito Constitucional; tela de Resumos no app
 - [x] **Fase 8** — trilha de Direito Administrativo (com a carreira de PRF)
-- [ ] **Próximo** — Ética e Direitos Humanos; depois Português, RLM, Informática, Física e Geopolítica
+- [x] **Fase 9** — trilhas de Ética e Cidadania e de Direitos Humanos: todo o bloco jurídico do edital da PRF
+- [ ] **Próximo** — Português, RLM, Informática, Física e Geopolítica; depois CBMGO
 
 ## Testes
 

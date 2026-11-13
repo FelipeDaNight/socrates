@@ -1,0 +1,230 @@
+{
+  "id": "prf-etica",
+  "materia": "Ética e Cidadania",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Decretos 1.171/1994, 6.029/2007, 7.203/2010, 7.724/2012 (com o 11.527/2023) e 9.203/2017; Leis 12.527/2011 e 12.813/2013 (textos da Câmara dos Deputados e compilações conferidas em 13/11/2026); CF, arts. 1º e 37.",
+  "atualizado": "2026-11-13",
+  "apelidos": ["etica e cidadania", "etica no servico publico", "etica"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "etica-moral",
+      "bloco": "Ética e moral",
+      "titulo": "Ética, moral, princípios e valores",
+      "edital": "1 a 3 Ética e moral; ética e democracia; cidadania",
+      "peso": 2,
+      "artigos": ["CF 1"],
+      "palavras": ["etica e moral", "diferenca entre etica e moral", "moral", "valores", "virtude", "virtudes", "etica e democracia", "cidadania", "o que e etica"],
+      "pontos": [
+        "Moral é o conjunto de normas, costumes e valores que orientam o comportamento de um grupo em determinado tempo e lugar — é prática, concreta e variável. Ética é a reflexão teórica, filosófica, sobre a moral: estuda os fundamentos do agir correto e busca princípios mais universais. A moral diz o que fazer; a ética pergunta por quê.",
+        "Valores são o que uma pessoa ou sociedade considera importante (honestidade, justiça, solidariedade); princípios são regras gerais de conduta que nascem desses valores; virtudes são disposições do caráter adquiridas pelo hábito — para Aristóteles, a virtude é o justo meio entre dois extremos.",
+        "Ética não se confunde com Direito: a norma jurídica é coercitiva e imposta pelo Estado; a norma moral depende da adesão da consciência. Nem tudo que é legal é moral, e o Código de Ética do servidor pede que ele escolha entre o honesto e o desonesto, não só entre o legal e o ilegal.",
+        "Ética e democracia: a democracia depende de valores compartilhados — liberdade, igualdade, tolerância, participação, respeito à diversidade — e do controle do poder pelos cidadãos; a ética pública dá legitimidade às instituições.",
+        "Cidadania é o exercício de direitos e deveres civis, políticos e sociais. A cidadania e a dignidade da pessoa humana estão entre os fundamentos da República (CF, art. 1º, II e III)."
+      ],
+      "pegadinhas": [
+        "Moral é a prática (os costumes de um grupo); ética é a reflexão teórica sobre a moral.",
+        "O que é legal nem sempre é moral: o servidor decide também entre o honesto e o desonesto."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A moral corresponde ao conjunto de normas e costumes que regulam o comportamento em uma sociedade, enquanto a ética é a reflexão teórica sobre esses comportamentos.", "r": "C", "j": "Doutrina."},
+        {"t": "A norma moral, assim como a jurídica, é imposta coercitivamente pelo Estado.", "r": "E", "j": "Doutrina: a norma moral depende da adesão da consciência; a coerção estatal é da norma jurídica."},
+        {"t": "A cidadania e a dignidade da pessoa humana estão entre os fundamentos da República Federativa do Brasil.", "r": "C", "j": "CF, art. 1º, II e III."},
+        {"t": "Os valores morais são universais e imutáveis, não variando entre sociedades e épocas.", "r": "E", "j": "Doutrina: a moral é histórica e variável."},
+        {"t": "Para o Código de Ética do servidor federal, basta ao servidor decidir entre o legal e o ilegal.", "r": "E", "j": "Decreto 1.171/1994, Anexo, II: principalmente entre o honesto e o desonesto."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "etica-funcao-publica",
+      "bloco": "Ética e moral",
+      "titulo": "Ética e função pública",
+      "edital": "4 Ética e função pública",
+      "peso": 1,
+      "artigos": ["CF 37"],
+      "palavras": ["etica na funcao publica", "etica no servico publico", "etica publica", "moralidade administrativa", "sistema de etica", "servidor publico para fins eticos"],
+      "pontos": [
+        "Ética na função pública é o compromisso do agente com o interesse público acima de interesses pessoais: o cargo é um encargo a serviço da sociedade, não um privilégio. Liga-se aos princípios da moralidade, da impessoalidade e da eficiência (CF, art. 37).",
+        "A moralidade administrativa é princípio jurídico: o ato imoral é inválido mesmo que formalmente legal, e a improbidade gera suspensão dos direitos políticos, perda da função pública, indisponibilidade dos bens e ressarcimento ao erário (CF, art. 37, § 4º).",
+        "O sistema de ética do Executivo federal combina normas de conduta (Código de Ética do Decreto 1.171/1994 e Código de Conduta da Alta Administração Federal), órgãos de ética (Comissão de Ética Pública e comissões setoriais, Decreto 6.029/2007), regras de conflito de interesses (Lei 12.813/2013), transparência (Lei 12.527/2011) e governança e integridade (Decreto 9.203/2017).",
+        "Para a apuração ética, servidor público é todo aquele que, por lei, contrato ou qualquer ato jurídico, presta serviço de natureza permanente, temporária ou excepcional, ainda que sem retribuição financeira, ligado direta ou indiretamente a órgão do poder estatal (Decreto 1.171/1994, Anexo, XXIV) — um conceito amplo.",
+        "As responsabilidades são independentes: a mesma conduta pode gerar censura ética, sanção disciplinar (Lei 8.112/1990), indenização e pena criminal; a comissão de ética pode encaminhar o caso ao sistema correcional (Decreto 6.029/2007, art. 12, § 5º)."
+      ],
+      "pegadinhas": [
+        "Para a ética, 'servidor' inclui quem presta serviço temporário, excepcional ou sem remuneração.",
+        "A censura ética não impede o processo disciplinar pela mesma conduta."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A moralidade é princípio expresso da administração pública, e o ato imoral pode ser invalidado ainda que formalmente legal.", "r": "C", "j": "CF, art. 37, caput."},
+        {"t": "Para fins de apuração ética, só é considerado servidor público quem ocupa cargo efetivo remunerado.", "r": "E", "j": "Decreto 1.171/1994, Anexo, XXIV: inclui serviço temporário ou excepcional, ainda que sem retribuição."},
+        {"t": "A responsabilização ética do servidor impede a apuração da mesma conduta na esfera disciplinar.", "r": "E", "j": "Decreto 6.029/2007, art. 12, § 5º: a comissão pode encaminhar o caso ao sistema correcional; as esferas são independentes."},
+        {"t": "Os atos de improbidade importam a suspensão dos direitos políticos, a perda da função pública, a indisponibilidade dos bens e o ressarcimento ao erário.", "r": "C", "j": "CF, art. 37, § 4º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "codigo-etica",
+      "bloco": "Normas de ética do Executivo federal",
+      "titulo": "Código de Ética do servidor (Decreto 1.171/1994)",
+      "edital": "5 Decreto 1.171/1994",
+      "peso": 3,
+      "artigos": ["D1171 1-3"],
+      "palavras": ["codigo de etica", "decreto 1171", "codigo de etica do servidor", "regras deontologicas", "deveres eticos", "vedacoes eticas", "pena de censura", "censura etica", "pena da comissao de etica", "punicao da comissao de etica", "ausencia injustificada"],
+      "pontos": [
+        "O Decreto 1.171/1994 aprova o Código de Ética Profissional do Servidor Público Civil do Poder Executivo Federal (Anexo): regras deontológicas (I a XIII), deveres (XIV), vedações (XV) e comissões de ética (XVI a XXV, em parte revogados pelo Decreto 6.029/2007).",
+        "Regras deontológicas: dignidade, decoro, zelo, eficácia e consciência dos princípios morais norteiam o servidor (I); ele decide não só entre o legal e o ilegal, mas principalmente entre o honesto e o desonesto (II); a moralidade não se limita à distinção entre o bem e o mal — o fim é sempre o bem comum, e o equilíbrio entre a legalidade e a finalidade consolida a moralidade do ato (III).",
+        "A publicidade de qualquer ato administrativo é requisito de eficácia e moralidade, salvo nos casos de segurança nacional, investigações policiais ou interesse superior do Estado e da Administração, em processo previamente declarado sigiloso (VII).",
+        "Tratar mal quem paga tributos causa dano moral (IX); deixar alguém à espera, permitindo longas filas ou atraso no serviço, é grave dano moral aos usuários (X). Toda ausência INJUSTIFICADA do servidor de seu local de trabalho é fator de desmoralização do serviço público, o que quase sempre conduz à desordem nas relações humanas (XII).",
+        "Deveres (XIV), entre outros: desempenhar a tempo as atribuições; ser probo, reto, leal e justo, escolhendo sempre a opção mais vantajosa para o bem comum; respeitar a hierarquia, sem temor de representar contra comprometimento indevido; resistir a pressões de superiores, contratantes e interessados que busquem vantagens indevidas e denunciá-las; abster-se de exercer a função com finalidade estranha ao interesse público, mesmo observando as formalidades legais.",
+        "Vedações (XV), entre outras: usar o cargo, amizades, tempo, posição e influências para obter favorecimento para si ou para outrem; ser conivente com erro ou infração por espírito de solidariedade; usar artifícios para procrastinar ou dificultar o exercício regular de direito; permitir que perseguições, simpatias, antipatias ou interesses pessoais interfiram no trato com o público ou com os colegas; pleitear ou receber qualquer vantagem para cumprir sua missão.",
+        "A pena aplicável pela Comissão de Ética é a de CENSURA, fundamentada em parecer assinado por todos os integrantes, com ciência do faltoso (XXII)."
+      ],
+      "pegadinhas": [
+        "É a ausência INJUSTIFICADA que desmoraliza o serviço público (XII) — a PRF 2021 (item 46) tirou o 'injustificada' e o gabarito foi Errado.",
+        "Comissão de Ética aplica CENSURA; advertência, suspensão e demissão são da Lei 8.112.",
+        "Publicidade é a regra; o sigilo vale para segurança nacional, investigação policial ou interesse superior, em processo previamente declarado sigiloso."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Segundo o Código de Ética, toda ausência do servidor de seu local de trabalho é fator de desmoralização do serviço público.", "r": "E", "j": "Decreto 1.171/1994, Anexo, XII: toda ausência injustificada."},
+        {"t": "A pena aplicável ao servidor pela Comissão de Ética é a de censura.", "r": "C", "j": "Decreto 1.171/1994, Anexo, XXII."},
+        {"t": "A publicidade de qualquer ato administrativo constitui requisito de eficácia e moralidade, ressalvados casos como os de segurança nacional e investigações policiais.", "r": "C", "j": "Decreto 1.171/1994, Anexo, VII."},
+        {"t": "É dever do servidor resistir às pressões de superiores hierárquicos que visem obter vantagens indevidas em decorrência de ações imorais, ilegais ou aéticas e denunciá-las.", "r": "C", "j": "Decreto 1.171/1994, Anexo, XIV, i."},
+        {"t": "O espírito de solidariedade autoriza o servidor a ser conivente com erro de colega, desde que não haja prejuízo ao erário.", "r": "E", "j": "Decreto 1.171/1994, Anexo, XV, c: é vedado ser conivente."},
+        {"t": "Deixar o cidadão à espera, permitindo a formação de longas filas, caracteriza grave dano moral aos usuários dos serviços públicos.", "r": "C", "j": "Decreto 1.171/1994, Anexo, X."}
+      ],
+      "questoes": ["prf-2021-p1|item 46"]
+    },
+    {
+      "id": "gestao-etica",
+      "bloco": "Normas de ética do Executivo federal",
+      "titulo": "Sistema de Gestão da Ética (Decreto 6.029/2007)",
+      "edital": "5 Decreto 6.029/2007",
+      "peso": 2,
+      "artigos": ["D6029 1-28"],
+      "palavras": ["sistema de gestao da etica", "decreto 6029", "comissao de etica publica", "cep", "comissao de etica", "comissoes de etica", "processo etico", "investigado na comissao de etica", "vista dos autos"],
+      "pontos": [
+        "O Decreto 6.029/2007 institui o Sistema de Gestão da Ética do Poder Executivo Federal, integrado pela Comissão de Ética Pública (CEP), pelas comissões de ética do Decreto 1.171/1994 e pelas demais comissões de ética e equivalentes dos órgãos e entidades.",
+        "CEP (art. 3º): sete brasileiros de idoneidade moral, reputação ilibada e notória experiência em administração pública, designados pelo Presidente da República, com mandato de três anos, permitida uma única recondução; a atuação não é remunerada e é considerada prestação de relevante serviço público.",
+        "Comissões de ética dos órgãos (art. 5º): três membros titulares e três suplentes, escolhidos entre servidores e empregados do quadro permanente e designados pelo dirigente máximo, com mandatos não coincidentes de três anos. Os trabalhos nas comissões têm prioridade sobre as atribuições dos cargos de seus membros (art. 19).",
+        "Processo (art. 12): instaurado de ofício ou por denúncia fundamentada; o investigado é notificado para se manifestar por escrito em 10 dias. O procedimento fica com a chancela de 'reservado' até ser concluído (art. 13).",
+        "Direitos do investigado (art. 14): saber o que lhe é imputado, conhecer o teor da acusação e ter vista dos autos no recinto das comissões, MESMO QUE AINDA NÃO TENHA SIDO NOTIFICADO da existência do procedimento; inclui obter cópia dos autos e certidão do seu teor.",
+        "Conclusão: verificada a falta ética, a comissão pode, conforme o caso, sugerir a exoneração de cargo ou função de confiança ou a devolução ao órgão de origem, encaminhar o caso à CGU ou ao sistema correcional e recomendar procedimento administrativo (art. 12, § 5º). As decisões viram ementas, sem o nome do investigado, divulgadas no sítio do órgão (art. 18), e ninguém pode alegar sigilo para deixar de informar às comissões (art. 20)."
+      ],
+      "pegadinhas": [
+        "Vista dos autos mesmo ANTES de ser notificado, com direito a cópia (PRF 2021, item 48).",
+        "O procedimento é 'reservado' até a conclusão; depois, deixa de ser.",
+        "Comissão setorial: 3 titulares e 3 suplentes, do quadro permanente, com mandato de 3 anos."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "À pessoa investigada é assegurado ter vista dos autos no recinto das comissões de ética, mesmo que ainda não tenha sido notificada do procedimento, com direito a cópia.", "r": "C", "j": "Decreto 6.029/2007, art. 14."},
+        {"t": "A Comissão de Ética Pública é integrada por sete brasileiros designados pelo Presidente da República, com mandato de três anos.", "r": "C", "j": "Decreto 6.029/2007, art. 3º."},
+        {"t": "As comissões de ética dos órgãos são compostas por cinco membros titulares, ocupantes de cargos em comissão.", "r": "E", "j": "Decreto 6.029/2007, art. 5º: três titulares e três suplentes, do quadro permanente."},
+        {"t": "O procedimento de apuração ética é público desde a sua instauração.", "r": "E", "j": "Decreto 6.029/2007, art. 13: fica com a chancela de reservado até a conclusão."},
+        {"t": "Os trabalhos nas comissões de ética têm prioridade sobre as atribuições próprias dos cargos de seus membros.", "r": "C", "j": "Decreto 6.029/2007, art. 19."}
+      ],
+      "questoes": ["prf-2021-p1|item 48"]
+    },
+    {
+      "id": "lai",
+      "bloco": "Transparência",
+      "titulo": "Lei de Acesso à Informação e Decreto 7.724/2012",
+      "edital": "5 Lei 12.527/2011",
+      "peso": 2,
+      "artigos": ["L12527 1-47"],
+      "palavras": ["lei de acesso a informacao", "acesso a informacao", "lai", "lei 12527", "transparencia ativa", "transparencia passiva", "pedido de informacao", "sigilo da informacao", "informacao ultrassecreta", "informacao secreta", "informacao reservada", "decreto 7724", "sic"],
+      "pontos": [
+        "A Lei 12.527/2011 (LAI) regula o acesso a informações públicas (CF, art. 5º, XXXIII): a publicidade é a regra e o sigilo, a exceção. Transparência ativa: os órgãos divulgam na internet, sem pedido, informações de interesse coletivo — inclusive procedimentos licitatórios, com editais e resultados, e os contratos celebrados (art. 8º, § 1º, IV). Municípios de até 10 mil habitantes estão dispensados da divulgação na internet, mas não da execução orçamentária em tempo real (§ 4º).",
+        "Transparência passiva: qualquer interessado pode pedir informação por qualquer meio legítimo, com identificação e especificação do que quer (art. 10); são vedadas exigências relativas aos motivos do pedido (§ 3º). O serviço é gratuito, salvo o custo de reprodução, do qual é isento quem não puder pagar sem prejuízo do sustento (art. 12).",
+        "Prazos (art. 11): acesso imediato à informação disponível; não sendo possível, até 20 dias, prorrogáveis por mais 10 com justificativa. Se a informação já estiver disponível ao público, o órgão indica por escrito o lugar e a forma de consultá-la (§ 6º).",
+        "Recurso (art. 15): em 10 dias da ciência da negativa, à autoridade hierarquicamente superior à que decidiu, que se manifesta em 5 dias. No Executivo federal, cabe ainda recurso à Controladoria-Geral da União (art. 16) e há a Comissão Mista de Reavaliação de Informações.",
+        "Sigilo (art. 24): ultrassecreta, 25 anos; secreta, 15 anos; reservada, 5 anos, contados da produção. Informações pessoais ligadas à intimidade, vida privada, honra e imagem têm acesso restrito por até 100 anos, independentemente de classificação (art. 31).",
+        "No Executivo federal (Decreto 7.724/2012, com o Decreto 11.527/2023), o pedido é feito em formulário padrão, por sistema eletrônico mantido pela CGU ou presencialmente no Serviço de Informação ao Cidadão (SIC); é FACULTADO ao órgão receber pedidos por telefone ou correspondência, se atenderem aos requisitos (art. 11, § 3º). Não são atendidos pedidos genéricos, desproporcionais ou que exijam trabalho adicional de análise ou consolidação de dados (art. 13).",
+        "Condutas ilícitas (art. 32): negar, retardar deliberadamente ou fornecer de forma incorreta a informação; ocultar ou destruir informação; divulgar indevidamente informação sigilosa ou pessoal; impor sigilo para obter proveito pessoal ou ocultar ato ilegal. Para o servidor federal, a punição mínima é a suspensão, e a conduta pode ser improbidade."
+      ],
+      "pegadinhas": [
+        "Não se exige o MOTIVO do pedido (art. 10, § 3º).",
+        "Licitações e contratos são de transparência ATIVA: o servidor indica onde estão publicados; e receber pedido por telefone é faculdade do órgão, não dever (PRF 2021, item 49).",
+        "Sigilo: 25 (ultrassecreta), 15 (secreta), 5 (reservada); informações pessoais, até 100 anos."
+      ],
+      "novidades": [
+        "Decreto 11.527/2023: o pedido no Executivo federal passou a ser feito pelo sistema eletrônico da CGU ou presencialmente, e o requerente identificado pode pedir a preservação da sua identidade perante o órgão."
+      ],
+      "itens": [
+        {"t": "São vedadas quaisquer exigências relativas aos motivos determinantes da solicitação de informações de interesse público.", "r": "C", "j": "Lei 12.527/2011, art. 10, § 3º."},
+        {"t": "Não sendo possível o acesso imediato, o órgão tem até vinte dias para atender ao pedido, prorrogáveis por mais dez, mediante justificativa expressa.", "r": "C", "j": "Lei 12.527/2011, art. 11, §§ 1º e 2º."},
+        {"t": "A informação classificada como secreta tem prazo máximo de restrição de acesso de vinte e cinco anos.", "r": "E", "j": "Lei 12.527/2011, art. 24, § 1º: secreta, 15 anos; ultrassecreta, 25."},
+        {"t": "O serviço de busca e de fornecimento de informação é gratuito, salvo o ressarcimento do custo de reprodução.", "r": "C", "j": "Lei 12.527/2011, art. 12."},
+        {"t": "No Poder Executivo federal, os órgãos são obrigados a receber pedidos de acesso à informação feitos por telefone.", "r": "E", "j": "Decreto 7.724/2012, art. 11, § 3º: o recebimento por outros meios é facultado."}
+      ],
+      "questoes": ["prf-2021-p1|item 49"]
+    },
+    {
+      "id": "conflito-interesses",
+      "bloco": "Integridade",
+      "titulo": "Conflito de interesses e nepotismo",
+      "edital": "5 Lei 12.813/2013 e Decreto 7.203/2010",
+      "peso": 2,
+      "artigos": ["L12813 1-14", "D7203 1-7"],
+      "palavras": ["conflito de interesses", "lei 12813", "informacao privilegiada", "quarentena", "decreto 7203", "nepotismo no executivo federal", "familiar do agente publico", "contratar empresa de parente", "empresa do primo", "empresa do meu primo", "parente ate terceiro grau"],
+      "pontos": [
+        "Conflito de interesses é a situação gerada pelo confronto entre interesses públicos e privados que possa comprometer o interesse coletivo ou influenciar, de maneira imprópria, o desempenho da função pública. Informação privilegiada é a que trata de assunto sigiloso ou relevante para decisão do Executivo federal, com repercussão econômica ou financeira, e não é de amplo conhecimento público (Lei 12.813/2013, art. 3º).",
+        "Alcance (art. 2º): Ministros de Estado; cargos de natureza especial; presidentes, vice-presidentes e diretores de autarquias, fundações, empresas públicas e sociedades de economia mista; ocupantes de DAS 6 e 5 ou equivalentes; e quem tem acesso a informação privilegiada capaz de trazer vantagem econômica.",
+        "Configuram conflito no exercício (art. 5º), entre outros: divulgar ou usar informação privilegiada; prestar serviço ou manter negócio com quem tenha interesse em decisão do agente; atuar, ainda que informalmente, como intermediário de interesses privados nos órgãos públicos; praticar ato em benefício de pessoa jurídica de que participe o agente, seu cônjuge, companheiro ou parentes até o terceiro grau; receber presente de quem tenha interesse em sua decisão, fora dos limites do regulamento.",
+        "Após o exercício (art. 6º): a qualquer tempo, é vedado divulgar ou usar informação privilegiada; por 6 meses (quarentena), salvo autorização da CEP ou da CGU, é vedado, entre outros, prestar serviço a quem teve relacionamento relevante com o agente em razão do cargo e aceitar cargo de administrador ou conselheiro em entidade que atue na área de competência do cargo ocupado.",
+        "Fiscalização (art. 8º): a Comissão de Ética Pública cuida da alta administração (ministros, natureza especial, dirigentes e DAS 6 e 5); a CGU, dos demais agentes. A prática configura improbidade administrativa (art. 11 da Lei 8.429/1992) e sujeita o agente à demissão (art. 12).",
+        "Nepotismo no Executivo federal (Decreto 7.203/2010): familiar é o cônjuge, o companheiro ou o parente em linha reta ou colateral, por consanguinidade ou afinidade, até o terceiro grau (art. 2º, III). É vedado nomear familiar para cargo em comissão ou função de confiança, inclusive por designações recíprocas, e contratar diretamente, sem licitação, empresa cujo administrador ou sócio com poder de direção seja familiar de ocupante de cargo em comissão ou função de confiança da área contratante ou de autoridade superior a ele (art. 3º, § 3º).",
+        "Primo é parente colateral de QUARTO grau: fica fora do conceito de familiar. Por isso o diretor-geral da PRF pode, cumpridos os requisitos legais, contratar diretamente empresa da qual um primo seja sócio (PRF 2021, item 50)."
+      ],
+      "pegadinhas": [
+        "Familiar vai até o TERCEIRO grau; primo é de QUARTO grau.",
+        "Quarentena de 6 meses depois de deixar o cargo; a vedação de usar informação privilegiada é PARA SEMPRE.",
+        "CEP cuida da alta administração; CGU, dos demais agentes."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Após deixar o cargo, o agente alcançado pela Lei 12.813/2013 fica impedido, por seis meses, de aceitar cargo de administrador ou conselheiro em entidade que atue na área de competência do cargo ocupado, salvo autorização.", "r": "C", "j": "Lei 12.813/2013, art. 6º, II."},
+        {"t": "A vedação de divulgar ou usar informação privilegiada obtida no cargo cessa seis meses após o desligamento.", "r": "E", "j": "Lei 12.813/2013, art. 6º, I: a qualquer tempo."},
+        {"t": "Para o Decreto 7.203/2010, familiar é o cônjuge, o companheiro ou o parente em linha reta ou colateral, por consanguinidade ou afinidade, até o terceiro grau.", "r": "C", "j": "Decreto 7.203/2010, art. 2º, III."},
+        {"t": "O diretor-geral da PRF, satisfeitos os requisitos legais, pode contratar diretamente empresa da qual seja sócio um primo seu.", "r": "C", "j": "Decreto 7.203/2010, arts. 2º, III, e 3º, § 3º: o primo é parente de quarto grau. PRF 2021, item 50."},
+        {"t": "A prática de ato que configure conflito de interesses constitui improbidade administrativa e sujeita o agente à pena de demissão.", "r": "C", "j": "Lei 12.813/2013, art. 12."}
+      ],
+      "questoes": ["prf-2021-p1|item 50"]
+    },
+    {
+      "id": "governanca",
+      "bloco": "Integridade",
+      "titulo": "Governança pública (Decreto 9.203/2017)",
+      "edital": "5 Decreto 9.203/2017",
+      "peso": 1,
+      "artigos": ["D9203 1-20"],
+      "palavras": ["governanca publica", "governanca", "decreto 9203", "valor publico", "gestao de riscos", "programa de integridade", "mecanismos de governanca", "lideranca estrategia e controle"],
+      "pontos": [
+        "O Decreto 9.203/2017 trata da política de governança da administração pública federal direta, autárquica e fundacional (art. 1º). Governança pública é o conjunto de mecanismos de liderança, estratégia e controle postos em prática para avaliar, direcionar e monitorar a gestão, com vistas à condução de políticas públicas e à prestação de serviços de interesse da sociedade (art. 2º, I).",
+        "Valor público: produtos e resultados gerados, preservados ou entregues pelas atividades da organização que representem respostas efetivas e úteis às necessidades de interesse público (art. 2º, II). Gestão de riscos: processo de natureza permanente, estabelecido, direcionado e monitorado pela alta administração (art. 2º, IV).",
+        "Princípios (art. 3º): capacidade de resposta; integridade; confiabilidade; melhoria regulatória; prestação de contas e responsabilidade; transparência.",
+        "Mecanismos (art. 5º): liderança — práticas de natureza humana ou comportamental exercidas nos principais cargos (integridade, competência, responsabilidade e motivação); estratégia — definição de diretrizes, objetivos, planos e ações, com critérios de priorização e alinhamento, para que os serviços alcancem o resultado pretendido; controle — processos estruturados para mitigar os riscos e assegurar a execução ordenada, ética, econômica, eficiente e eficaz das atividades.",
+        "Programa de integridade (art. 19), em quatro eixos: comprometimento e apoio da alta administração; unidade responsável pela implementação; análise, avaliação e gestão dos riscos de integridade; e monitoramento contínuo do programa."
+      ],
+      "pegadinhas": [
+        "Os mecanismos de governança são TRÊS: liderança, estratégia e controle.",
+        "'Estratégia' é definir diretrizes, objetivos, planos e ações (PRF 2021, item 47).",
+        "O decreto vale para a administração direta, autárquica e fundacional — não para as estatais."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Segundo o Decreto 9.203/2017, os mecanismos para o exercício da governança pública são a liderança, a estratégia e o controle.", "r": "C", "j": "Decreto 9.203/2017, art. 5º."},
+        {"t": "A estratégia compreende a definição de diretrizes, objetivos, planos e ações, para que os serviços da organização alcancem o resultado pretendido.", "r": "C", "j": "Decreto 9.203/2017, art. 5º, II."},
+        {"t": "A transparência e a prestação de contas e responsabilidade estão entre os princípios da governança pública.", "r": "C", "j": "Decreto 9.203/2017, art. 3º."},
+        {"t": "O Decreto 9.203/2017 aplica-se às empresas públicas e às sociedades de economia mista federais.", "r": "E", "j": "Decreto 9.203/2017, art. 1º: administração direta, autárquica e fundacional."},
+        {"t": "A gestão de riscos é processo eventual, conduzido exclusivamente pelos servidores de nível operacional.", "r": "E", "j": "Decreto 9.203/2017, art. 2º, IV: processo permanente, direcionado e monitorado pela alta administração."}
+      ],
+      "questoes": ["prf-2021-p1|item 47"]
+    }
+  ]
+}

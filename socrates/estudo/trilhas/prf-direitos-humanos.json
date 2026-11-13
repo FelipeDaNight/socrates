@@ -1,0 +1,137 @@
+{
+  "id": "prf-direitos-humanos",
+  "materia": "Direitos Humanos",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "CF (art. 5º, §§ 2º a 4º; art. 109, § 5º); Convenção Americana (Decreto 678/1992, texto conferido em 13/11/2026); DUDH (1948); Declaração de Viena (1993); STF (RE 466.343, SV 25, ADI 4275, ADO 26, Temas 280 e 855).",
+  "atualizado": "2026-11-13",
+  "apelidos": ["direitos humanos"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "dh-teoria",
+      "bloco": "Teoria geral",
+      "titulo": "Teoria geral dos direitos humanos",
+      "edital": "Direitos humanos: conceito, características, gerações",
+      "peso": 2,
+      "artigos": ["CF 1"],
+      "palavras": ["teoria dos direitos humanos", "o que sao direitos humanos", "caracteristicas dos direitos humanos", "geracoes de direitos", "dimensoes de direitos", "primeira geracao", "segunda geracao", "terceira geracao", "universalidade", "indivisibilidade dos direitos humanos", "eficacia horizontal", "vedacao do retrocesso", "conferencia de viena"],
+      "pontos": [
+        "Direitos humanos são direitos essenciais à vida digna, reconhecidos a toda pessoa pelo simples fato de ser humana; positivados na Constituição, costumam ser chamados de direitos fundamentais. O fundamento comum é a dignidade da pessoa humana (CF, art. 1º, III).",
+        "Características: universalidade (valem para todos); indivisibilidade e interdependência (civis, políticos, sociais, econômicos e culturais formam um todo — Declaração de Viena, 1993); inalienabilidade, irrenunciabilidade e imprescritibilidade; historicidade (surgem e se ampliam ao longo da história); relatividade (podem ser limitados quando colidem com outros direitos); vedação do retrocesso.",
+        "Dimensões: 1ª — direitos civis e políticos, liberdades diante do Estado (liberdade); 2ª — direitos sociais, econômicos e culturais, que exigem prestações do Estado (igualdade); 3ª — direitos difusos, como paz, desenvolvimento e meio ambiente (fraternidade ou solidariedade). Parte da doutrina fala em 4ª e 5ª dimensões. Prefere-se 'dimensões' porque uma não substitui a anterior.",
+        "Eficácia: vertical (entre o Estado e o particular) e horizontal (entre particulares) — o STF aplica os direitos fundamentais também às relações privadas, como na exclusão de associado sem direito de defesa (RE 201.819).",
+        "Sistemas de proteção: global (ONU — DUDH de 1948 e os Pactos de 1966 sobre direitos civis e políticos e sobre direitos econômicos, sociais e culturais) e regionais (nas Américas, a OEA, com a Convenção Americana, a Comissão e a Corte Interamericanas). Os sistemas se complementam e prevalece a norma mais favorável à pessoa (princípio pro homine)."
+      ],
+      "pegadinhas": [
+        "1ª dimensão = liberdade; 2ª = igualdade; 3ª = fraternidade ou solidariedade.",
+        "As dimensões se somam: a nova não substitui a anterior.",
+        "Direitos humanos são relativos: podem ser limitados quando colidem com outros direitos."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Os direitos de segunda dimensão relacionam-se ao valor da igualdade e exigem prestações positivas do Estado.", "r": "C", "j": "Doutrina."},
+        {"t": "Os direitos humanos são absolutos, não admitindo qualquer limitação.", "r": "E", "j": "Doutrina: são relativos e podem ser limitados quando colidem com outros direitos."},
+        {"t": "A Declaração de Viena de 1993 afirma que todos os direitos humanos são universais, indivisíveis, interdependentes e inter-relacionados.", "r": "C", "j": "Doutrina: Declaração e Programa de Ação de Viena (1993), § 5º."},
+        {"t": "O direito ao meio ambiente ecologicamente equilibrado é exemplo de direito de primeira dimensão.", "r": "E", "j": "Doutrina: é direito de terceira dimensão (solidariedade)."},
+        {"t": "Segundo o STF, os direitos fundamentais também se aplicam às relações entre particulares.", "r": "C", "j": "STF, RE 201.819 (eficácia horizontal)."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "dh-cf-tratados",
+      "bloco": "Direitos humanos no Brasil",
+      "titulo": "A Constituição e os tratados de direitos humanos",
+      "edital": "1 CF e tratados internacionais",
+      "peso": 3,
+      "artigos": ["CF 5"],
+      "palavras": ["tratados de direitos humanos", "tratado de direitos humanos", "status dos tratados", "supralegal", "supralegalidade", "equivalente a emenda", "convencao sobre os direitos das pessoas com deficiencia", "depositario infiel", "tribunal penal internacional", "incidente de deslocamento de competencia", "pessoa trans", "nome social", "transfobia"],
+      "pontos": [
+        "Os direitos e garantias da Constituição não excluem outros decorrentes do regime e dos princípios por ela adotados ou dos tratados internacionais de que o Brasil seja parte (CF, art. 5º, § 2º).",
+        "Hierarquia dos tratados: (1) os de direitos humanos aprovados em cada Casa do Congresso, em dois turnos, por três quintos dos votos dos membros, equivalem às emendas constitucionais (§ 3º, EC 45/2004); (2) os demais tratados de direitos humanos têm status supralegal — abaixo da Constituição e acima das leis (STF, RE 466.343); (3) os tratados comuns equivalem a lei ordinária.",
+        "Já aprovados com status de emenda: a Convenção sobre os Direitos das Pessoas com Deficiência e seu Protocolo Facultativo (Decreto 6.949/2009), o Tratado de Marraqueche, sobre acesso a obras publicadas por pessoas cegas ou com deficiência visual (Decreto 9.522/2018), e a Convenção Interamericana contra o Racismo e formas correlatas de intolerância (Decreto 10.932/2022). Nenhum tratado é 'supraconstitucional'.",
+        "Pelo status supralegal do Pacto de São José, a prisão civil do depositário infiel tornou-se ilícita, qualquer que seja a modalidade do depósito (Súmula Vinculante 25); resta só a do devedor de alimentos.",
+        "O Brasil se submete à jurisdição do Tribunal Penal Internacional a cuja criação tenha manifestado adesão (§ 4º). Nas hipóteses de grave violação de direitos humanos, o Procurador-Geral da República pode suscitar, perante o STJ, o incidente de deslocamento de competência para a Justiça Federal (art. 109, § 5º).",
+        "STF: a pessoa trans pode alterar prenome e gênero no registro civil sem cirurgia e sem tratamentos hormonais ou patologizantes, diretamente no cartório (ADI 4275); homofobia e transfobia se enquadram na Lei do Racismo até que o Congresso legisle (ADO 26 e MI 4733); ingresso em domicílio sem mandado exige fundadas razões de flagrante (Tema 280); e o aviso prévio do direito de reunião não é pedido de autorização (Tema 855)."
+      ],
+      "pegadinhas": [
+        "A Convenção sobre os Direitos das Pessoas com Deficiência tem status de EMENDA constitucional, não supraconstitucional (PRF 2021, item 120).",
+        "Tratado de direitos humanos sem o rito do § 3º: SUPRALEGAL (abaixo da CF, acima das leis).",
+        "Pessoa trans altera nome e gênero sem cirurgia e sem laudo (item 118)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Os tratados e convenções internacionais sobre direitos humanos aprovados, em cada Casa do Congresso Nacional, em dois turnos, por três quintos dos votos dos respectivos membros, serão equivalentes às emendas constitucionais.", "r": "C", "j": "CF, art. 5º, § 3º."},
+        {"t": "A Convenção Internacional sobre os Direitos das Pessoas com Deficiência tem status supraconstitucional no ordenamento brasileiro.", "r": "E", "j": "CF, art. 5º, § 3º: equivale a emenda constitucional (Decreto 6.949/2009)."},
+        {"t": "Segundo o STF, os tratados de direitos humanos não aprovados pelo rito do § 3º do art. 5º da Constituição têm status supralegal.", "r": "C", "j": "STF, RE 466.343."},
+        {"t": "É lícita a prisão civil do depositário infiel, desde que o depósito seja judicial.", "r": "E", "j": "STF, Súmula Vinculante 25: é ilícita qualquer que seja a modalidade do depósito."},
+        {"t": "Segundo o STF, a pessoa trans pode alterar prenome e gênero no registro civil independentemente de cirurgia de redesignação ou de tratamentos hormonais.", "r": "C", "j": "STF, ADI 4275."},
+        {"t": "O incidente de deslocamento de competência é suscitado pelo Procurador-Geral da República perante o STF.", "r": "E", "j": "CF, art. 109, § 5º: perante o STJ."}
+      ],
+      "questoes": ["prf-2021-p1|item 116", "prf-2021-p1|item 117", "prf-2021-p1|item 118", "prf-2021-p1|item 120"]
+    },
+    {
+      "id": "dudh",
+      "bloco": "Sistema global",
+      "titulo": "Declaração Universal dos Direitos Humanos",
+      "edital": "2 Declaração Universal (1948)",
+      "peso": 2,
+      "artigos": ["CF 5"],
+      "palavras": ["declaracao universal dos direitos humanos", "declaracao universal", "dudh", "onu 1948", "direito de asilo"],
+      "pontos": [
+        "A Declaração Universal dos Direitos Humanos foi proclamada pela Assembleia Geral da ONU em 10 de dezembro de 1948, em Paris (Resolução 217 A). É uma resolução, não um tratado — não foi ratificada pelos Estados —, mas é a base do sistema global e é vista como expressão do costume internacional.",
+        "Tem 30 artigos e põe a dignidade da pessoa humana no centro: 'Todos os seres humanos nascem livres e iguais em dignidade e em direitos' (art. 1º). Foi um dos primeiros instrumentos gerais de direitos humanos adotados por uma organização internacional e reúne direitos civis e políticos e direitos econômicos, sociais e culturais.",
+        "Direitos civis e políticos, por exemplo: vida, liberdade e segurança pessoal (art. 3º); proibição da escravidão (4º) e da tortura e de penas cruéis (5º); ninguém será arbitrariamente preso, detido ou exilado (9º); presunção de inocência (11); liberdade de locomoção (13); asilo contra perseguição, salvo por crime comum (14); direito a uma nacionalidade (15); liberdade de pensamento, consciência e religião (18) e de opinião e expressão (19); reunião e associação pacíficas, sem obrigação de se associar (20); participar do governo e votar (21).",
+        "Direitos econômicos, sociais e culturais: seguridade social (22); trabalho, com igual remuneração por igual trabalho (23); repouso e lazer (24); padrão de vida digno (25); educação gratuita ao menos nos graus elementares e fundamentais (26); vida cultural (27).",
+        "Deveres e limites (art. 29): toda pessoa tem deveres para com a comunidade, e os direitos só sofrem as limitações da lei para assegurar os direitos dos outros e as justas exigências da moral, da ordem pública e do bem-estar numa sociedade democrática. Nenhuma disposição pode ser interpretada para destruir os direitos nela previstos (art. 30)."
+      ],
+      "pegadinhas": [
+        "A DUDH é RESOLUÇÃO da Assembleia Geral (1948), não tratado ratificado.",
+        "Asilo não protege quem é perseguido por crime comum (art. 14).",
+        "Ninguém é obrigado a fazer parte de associação (art. 20)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A Declaração Universal dos Direitos Humanos foi adotada pela Assembleia Geral da ONU em 1948, sob a forma de resolução, e não de tratado.", "r": "C", "j": "Doutrina: Resolução 217 A (III), de 10/12/1948."},
+        {"t": "A Declaração Universal dos Direitos Humanos põe a dignidade da pessoa humana como fundamento da liberdade, da justiça e da paz no mundo.", "r": "C", "j": "Doutrina: DUDH, preâmbulo e art. 1º."},
+        {"t": "Segundo a Declaração Universal, o direito de asilo pode ser invocado em caso de perseguição motivada por crime de direito comum.", "r": "E", "j": "Doutrina: DUDH, art. 14.2."},
+        {"t": "A Declaração Universal prevê que a instrução será gratuita, ao menos nos graus elementares e fundamentais.", "r": "C", "j": "Doutrina: DUDH, art. 26."},
+        {"t": "A Declaração Universal contempla apenas direitos civis e políticos.", "r": "E", "j": "Doutrina: traz também direitos econômicos, sociais e culturais (arts. 22 a 27)."}
+      ],
+      "questoes": ["prf-2021-p1|item 119"]
+    },
+    {
+      "id": "pacto-sao-jose",
+      "bloco": "Sistema interamericano",
+      "titulo": "Convenção Americana (Pacto de São José)",
+      "edital": "3 Convenção Americana (Decreto 678/1992)",
+      "peso": 3,
+      "artigos": ["D678 1"],
+      "palavras": ["pacto de sao jose", "pacto de sao jose da costa rica", "convencao americana", "convencao americana de direitos humanos", "decreto 678", "corte interamericana", "comissao interamericana", "sistema interamericano", "audiencia de custodia na convencao", "prisao por divida"],
+      "pontos": [
+        "A Convenção Americana sobre Direitos Humanos (Pacto de São José da Costa Rica) foi assinada em 22 de novembro de 1969, no âmbito da OEA. O Brasil aderiu em 1992 e a promulgou pelo Decreto 678/1992; como tratado de direitos humanos anterior à EC 45/2004, tem status supralegal.",
+        "Vida (art. 4º): protegida pela lei, em geral, desde o momento da concepção; ninguém pode ser privado dela arbitrariamente; a pena de morte não pode ser restabelecida nos Estados que a aboliram. Integridade (art. 5º): ninguém deve ser submetido a torturas nem a penas ou tratos cruéis, desumanos ou degradantes; as penas privativas de liberdade visam à reforma e à readaptação social dos condenados.",
+        "Liberdade pessoal (art. 7º): toda pessoa detida deve ser conduzida, sem demora, à presença de um juiz ou de outra autoridade autorizada por lei — base da audiência de custódia (7.5); ninguém deve ser detido por dívida, salvo por inadimplemento de obrigação alimentar (7.7) — o que levou à Súmula Vinculante 25.",
+        "Garantias judiciais (art. 8º): presunção de inocência enquanto não se comprove legalmente a culpa; direito de recorrer da sentença a juiz ou tribunal superior (8.2, h). Expressão (art. 13): sem censura prévia, mas com responsabilidades ulteriores; só os espetáculos públicos podem ter censura prévia, para proteger a moral da infância e da adolescência (13.4). É proibida a expulsão coletiva de estrangeiros (22.9).",
+        "Órgãos (art. 33): Comissão Interamericana de Direitos Humanos (7 membros, sede em Washington) e Corte Interamericana de Direitos Humanos (7 juízes, sede em San José). Qualquer pessoa, grupo de pessoas ou entidade não governamental pode peticionar à Comissão (art. 44), mas só os Estados Partes e a Comissão podem submeter caso à Corte (art. 61).",
+        "O Brasil reconheceu a competência contenciosa da Corte para fatos posteriores a 10 de dezembro de 1998 e já foi condenado em casos como Ximenes Lopes (2006), Gomes Lund — Guerrilha do Araguaia (2010), Trabalhadores da Fazenda Brasil Verde (2016) e Favela Nova Brasília (2017). Na adesão, declarou que visitas e inspeções in loco da Comissão dependem de anuência expressa do Estado."
+      ],
+      "pegadinhas": [
+        "Só os Estados Partes e a Comissão levam casos à Corte; o indivíduo peticiona à COMISSÃO (art. 61 e art. 44).",
+        "Prisão por dívida: só a do devedor de ALIMENTOS (7.7); a do depositário infiel, nunca (SV 25).",
+        "A vida é protegida 'em geral' desde a concepção."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Pela Convenção Americana, toda pessoa detida deve ser conduzida, sem demora, à presença de um juiz ou de outra autoridade autorizada por lei a exercer funções judiciais.", "r": "C", "j": "Decreto 678/1992, art. 7.5."},
+        {"t": "Qualquer pessoa pode submeter diretamente um caso à decisão da Corte Interamericana de Direitos Humanos.", "r": "E", "j": "Decreto 678/1992, art. 61: somente os Estados Partes e a Comissão."},
+        {"t": "A Convenção Americana admite a prisão por dívida em caso de inadimplemento de obrigação alimentar.", "r": "C", "j": "Decreto 678/1992, art. 7.7."},
+        {"t": "A Convenção Americana permite que o Estado que aboliu a pena de morte volte a adotá-la para crimes de extrema gravidade.", "r": "E", "j": "Decreto 678/1992, art. 4.3."},
+        {"t": "A Comissão Interamericana e a Corte Interamericana de Direitos Humanos são compostas, cada uma, por sete membros.", "r": "C", "j": "Decreto 678/1992, arts. 34 e 52."},
+        {"t": "A lei pode submeter os espetáculos públicos a censura prévia com o objetivo exclusivo de regular o acesso a eles, para proteção moral da infância e da adolescência.", "r": "C", "j": "Decreto 678/1992, art. 13.4."}
+      ],
+      "questoes": []
+    }
+  ]
+}
