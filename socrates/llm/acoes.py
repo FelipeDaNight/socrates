@@ -33,7 +33,7 @@ MARCADOR = "executar"   # o modelo responde isso quando percebe um pedido de aç
 INSTRUCAO_MARCADOR = """Você consegue mexer no computador do aluno: abrir e fechar programas,
 trocar de janela, ver o que está na tela, saber quais janelas estão abertas, ler o texto que ele
 copiou, copiar texto, escrever no Bloco de Notas, abrir sites e pastas, tocar no YouTube ou no
-Spotify, passar ou pausar a música, volume, timer, anotar, bloquear a tela, mudar a cor do seu
+Spotify, passar ou pausar a música, volume, timer, pomodoro de uma matéria, anotar, bloquear a tela, mudar a cor do seu
 visor, mandar pedidos de mudança para o Claude (quem programa você) e se atualizar.
 Se o aluno pedir uma dessas ações, responda APENAS com a palavra EXECUTAR e mais nada.
 Nunca diga que não consegue abrir programas ou mexer no computador."""

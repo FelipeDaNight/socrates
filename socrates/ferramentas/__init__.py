@@ -224,7 +224,7 @@ def executar(nome: str, argumentos: dict, confirmado: bool = False) -> str:
 def nomes_das_acoes(com_busca: bool = False, extras: tuple[str, ...] = ()) -> list[str]:
     """As ferramentas que o cérebro pode usar (importar o módulo registra as dele)."""
     import importlib
-    modulos = ["computador", "janelas", "tela", "claude", "aparencia", *extras]
+    modulos = ["computador", "janelas", "tela", "claude", "aparencia", "estudo", *extras]
     if com_busca:
         modulos.append("busca")
     nomes_mod = {importlib.import_module(f"{__name__}.{m}").__name__ for m in modulos}

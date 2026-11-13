@@ -94,6 +94,10 @@ visor:
   cor: laranja                # laranja, azul, ciano, verde, roxo, rosa, vermelho, branco
                               # (ou diga "Sócrates, muda a cor do visor para azul")
 
+planilha:                     # a mesma planilha do app estudo-prf (opcional)
+  url: ""                     # a URL do Apps Script (termina em /exec); ponha no config.local.yaml
+  chave_env: PLANILHA_CHAVE   # a chave fica no .env
+
 ouvido:                       # transcrição (Whisper no Groq, grátis)
   base_url: https://api.groq.com/openai/v1
   chave_env: GROQ_API_KEY

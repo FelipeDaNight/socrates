@@ -11,6 +11,9 @@
     python main.py --nuvem       voltar a pensar na nuvem (Groq/Mistral/Gemini)
     python main.py --vozes       ouvir as vozes disponíveis e escolher
     python main.py --acoes       testar janelas, texto copiado, bloco de notas e visão da tela
+    python main.py --material    baixar/atualizar as questões e a lei seca (do app estudo-prf)
+    python main.py --planilha    testar o envio para a sua planilha do Google
+    python main.py --atalho      criar um atalho do Sócrates na Área de Trabalho
 """
 
 from __future__ import annotations
@@ -89,6 +92,33 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
                         contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
 
 
+def criar_tutor(cfg: config.Config):
+    """Questões, lei seca, revisão e pomodoro. Sem material, o resto funciona igual."""
+    import os
+
+    from socrates.estudo import Caderno, Tutor, carregar
+    from socrates.estudo.planilha import Planilha
+    from socrates.ferramentas import estudo
+
+    try:
+        material = carregar()
+    except Exception as e:
+        logging.getLogger("socrates").exception("material de estudo")
+        print(f"[estudo] não consegui carregar o material: {e}")
+        return None
+    pl = (cfg.bruto.get("planilha") or {})
+    planilha = Planilha(pl.get("url"), os.getenv(pl.get("chave_env") or "PLANILHA_CHAVE"))
+    tutor = Tutor(material, Caderno(), planilha)
+    estudo.TUTOR = tutor
+    n_q = sum(len(b.get("questoes", [])) for b in material.bancos.values())
+    print(f"[estudo] {n_q} questões, {len(material.leis)} cadernos de lei seca"
+          + (", planilha ligada" if planilha.ativa else "")
+          + ("" if n_q else "  (rode main.py --material com internet)"))
+    if planilha.ativa and planilha.fila:
+        threading.Thread(target=planilha.sincronizar, daemon=True).start()   # o que ficou pendente
+    return tutor
+
+
 class Sentidos:
     """Microfone, ouvido e voz juntos."""
 
@@ -132,6 +162,7 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     aparencia.PAINEL = painel
 
     soc = criar_socrates(cfg)
+    tutor = criar_tutor(cfg)
     fila: asyncio.Queue = asyncio.Queue()
     loop = asyncio.get_running_loop()
     painel.ao_fechar = lambda: loop.call_soon_threadsafe(fila.put_nowait, None)
@@ -140,7 +171,7 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     ler_teclado(loop, fila)
     sentidos.escuta.iniciar(fila)
     try:
-        await Conversa(cfg, soc, sentidos, painel).rodar(fila)
+        await Conversa(cfg, soc, sentidos, painel, tutor=tutor).rodar(fila)
     finally:
         sentidos.escuta.parar()
         painel.encerrado = True
@@ -184,6 +215,7 @@ async def conversar_texto(cfg: config.Config) -> None:
     from socrates.core.quadro_fluxo import separar_quadro
 
     soc = criar_socrates(cfg)
+    tutor = criar_tutor(cfg)
     print(f"\n{cfg.nome} pronto ({config.descricao_cerebro(cfg)}, texto).")
     print(AJUDA_TEXTO)
     while True:
@@ -202,7 +234,10 @@ async def conversar_texto(cfg: config.Config) -> None:
                 if claude.REINICIAR.is_set():
                     break
                 continue
-        comando = interpretar(texto)
+        saida = None
+        if tutor is not None and tutor.em_treino and not texto.startswith("/"):
+            saida = tutor.atender(texto)
+        comando = None if saida is not None else interpretar(texto)
         if comando is Comando.SAIR:
             break
         if comando in (Comando.EXPLICAR, Comando.TESTAR):
@@ -216,13 +251,31 @@ async def conversar_texto(cfg: config.Config) -> None:
         if comando is not None:
             print(AJUDA_TEXTO)
             continue
+        extra = None
+        if tutor is not None and saida is None:
+            saida = tutor.atender(texto)
+            extra = None if saida is not None else (tutor.contexto_da_lei(texto) or None)
+        if saida is not None:
+            if saida.abrir_texto:
+                print(f"\n{saida.abrir_texto}\n")
+            if saida.quadro:
+                mostrar_quadro_texto(saida.quadro)
+            if saida.fala:
+                print(f"{cfg.nome}: {saida.fala}")
+            if not saida.contexto:
+                continue
+            extra = saida.contexto
         print(f"{cfg.nome}: ", end="", flush=True)
         try:
-            async for pedaco in separar_quadro(soc.conversar(texto), mostrar_quadro_texto):
+            async for pedaco in separar_quadro(soc.conversar(texto, extra), mostrar_quadro_texto):
                 print(pedaco, end="", flush=True)
             print()
         except ErroCerebro as e:
             print(f"\n[erro] {e}")
+    if tutor is not None and tutor.em_treino:
+        fim = tutor.encerrar()
+        if fim:
+            print(f"{cfg.nome}: {fim.fala}")
     print(f"\n{cfg.nome}: Até a próxima. Bons estudos!")
 
 
@@ -440,6 +493,59 @@ async def testar_pesquisa(cfg: config.Config, recuo: str = "") -> bool:
     return True
 
 
+def script_atalho(raiz, python) -> str:
+    from socrates.ferramentas.janelas import _literal
+    return "\n".join([
+        "$ws = New-Object -ComObject WScript.Shell",
+        "$destino = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Sócrates.lnk'",
+        "$a = $ws.CreateShortcut($destino)",
+        f"$a.TargetPath = {_literal(str(python))}",
+        "$a.Arguments = 'main.py'",
+        f"$a.WorkingDirectory = {_literal(str(raiz))}",
+        "$a.Description = 'Sócrates, assistente de estudo'",
+        "$a.Save()",
+        "Write-Output $destino",
+    ])
+
+
+def criar_atalho() -> str:
+    """Atalho que abre o Sócrates (com o terminal, para você ver o que ele escreve)."""
+    from pathlib import Path
+
+    from socrates.ferramentas.janelas import WINDOWS, _powershell
+    if not WINDOWS:
+        return "O atalho só pode ser criado no Windows."
+    raiz = config.RAIZ
+    python = raiz / ".venv" / "Scripts" / "python.exe"
+    if not python.exists():
+        python = Path(sys.executable)
+    try:
+        destino = _powershell(script_atalho(raiz, python))
+    except OSError as e:
+        return f"Não consegui criar o atalho: {e}"
+    return f"Pronto! Atalho criado: {destino}"
+
+
+def testar_planilha(cfg: config.Config) -> None:
+    import os
+
+    from socrates.estudo.planilha import Planilha
+    pl = cfg.bruto.get("planilha") or {}
+    planilha = Planilha(pl.get("url"), os.getenv(pl.get("chave_env") or "PLANILHA_CHAVE"))
+    if not planilha.ativa:
+        print("Planilha não configurada. Coloque a URL do script (a mesma do app) no")
+        print("config.local.yaml e a chave no .env. O passo a passo está no README.")
+        return
+    print("Lendo as matérias da planilha...")
+    materias = planilha.materias()
+    if not materias:
+        print("FALHOU: a planilha não respondeu. Confira a URL e a PLANILHA_CHAVE.")
+        return
+    print("OK: " + ", ".join(materias))
+    if planilha.fila:
+        print(planilha.sincronizar())
+
+
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")   # acentos certos no Windows
@@ -456,6 +562,9 @@ def main() -> None:
     p.add_argument("--modelo", help="com --local: escolher o modelo (ex.: qwen3.5:2b)")
     p.add_argument("--vozes", action="store_true", help="toca as vozes disponíveis para você escolher")
     p.add_argument("--acoes", action="store_true", help="testa janelas, texto copiado, bloco de notas e tela")
+    p.add_argument("--material", action="store_true", help="baixa/atualiza as questões e a lei seca")
+    p.add_argument("--planilha", action="store_true", help="testa o envio para a planilha do Google")
+    p.add_argument("--atalho", action="store_true", help="cria um atalho na Área de Trabalho")
     args = p.parse_args()
 
     if args.local:   # não precisa de chave nenhuma
@@ -464,6 +573,19 @@ def main() -> None:
     if args.nuvem:
         from socrates.instalar_local import voltar_para_nuvem
         voltar_para_nuvem()
+        sys.exit(0)
+    if args.atalho:
+        print(criar_atalho())
+        sys.exit(0)
+    if args.material:   # não precisa de chave nenhuma
+        from socrates.estudo.material import FONTE, baixar
+        print(f"Baixando o material de {FONTE} ...")
+        try:
+            n = baixar()
+        except Exception as e:
+            print(f"FALHOU: {e}\nConfira a internet e tente de novo.")
+            sys.exit(1)
+        print(f"Pronto: {n} arquivos atualizados na pasta material.")
         sys.exit(0)
 
     try:
@@ -480,6 +602,8 @@ def main() -> None:
             asyncio.run(testar_pesquisa(cfg))
         elif args.provedores:
             asyncio.run(testar_provedores(cfg))
+        elif args.planilha:
+            testar_planilha(cfg)
         elif args.vozes:
             asyncio.run(provar_vozes(cfg))
         elif args.acoes:

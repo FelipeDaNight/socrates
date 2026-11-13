@@ -40,7 +40,7 @@ class OuvidoFalso:
         self.textos[i] = texto
         return np.full(1600, i, dtype=np.int16)
 
-    async def transcrever(self, wav: bytes) -> str:
+    async def transcrever(self, wav: bytes, dica: str | None = None) -> str:
         self.chamadas += 1
         i = int(np.frombuffer(wav[44:46], dtype=np.int16)[0])
         return self.textos[i]

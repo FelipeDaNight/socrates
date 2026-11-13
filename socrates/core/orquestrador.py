@@ -80,17 +80,24 @@ class Orquestrador:
         self.historico.clear()
 
     # ---------- conversa ----------
-    def _mensagens(self) -> list[Mensagem]:
+    def _mensagens(self, extra: str | None = None) -> list[Mensagem]:
+        """`extra`: informação só para ESTE pedido (a questão do treino, trechos da lei).
+        Vai logo antes da pergunta e não fica no histórico."""
         recentes = compactar(self.historico[-self.historico_max:])
         sistema = self._sistema + (f"\n\n{self.extra_sistema}" if self.extra_sistema else "")
+        antes_da_pergunta = []
         if self.contexto and self.contexto_no_fim:
-            agora = {"role": "system", "content": self.contexto()}
-            return [{"role": "system", "content": sistema}, *recentes[:-1], agora, *recentes[-1:]]
-        if self.contexto:
+            antes_da_pergunta.append({"role": "system", "content": self.contexto()})
+        elif self.contexto:
             sistema += "\n\n" + self.contexto()
-        return [{"role": "system", "content": sistema}, *recentes]
+        if extra:
+            antes_da_pergunta.append({"role": "system", "content": extra})
+        if not antes_da_pergunta:
+            return [{"role": "system", "content": sistema}, *recentes]
+        return [{"role": "system", "content": sistema}, *recentes[:-1], *antes_da_pergunta,
+                *recentes[-1:]]
 
-    async def conversar(self, texto: str) -> AsyncIterator[str]:
+    async def conversar(self, texto: str, extra: str | None = None) -> AsyncIterator[str]:
         """Recebe o que o aluno disse e devolve a resposta em pedaços."""
         texto = texto.strip()
         if not texto:
@@ -101,7 +108,7 @@ class Orquestrador:
 
         resposta = ""
         try:
-            async for pedaco in self.cerebro.responder(self._mensagens()):
+            async for pedaco in self.cerebro.responder(self._mensagens(extra)):
                 if not resposta:
                     self._ir_para(Estado.FALANDO)
                 resposta += pedaco

@@ -35,6 +35,9 @@ Teste o som uma vez e depois converse:
 .venv\Scripts\python main.py
 ```
 
+Para abrir com dois cliques: `.venv\Scripts\python main.py --atalho` cria um atalho
+"Sócrates" na Área de Trabalho.
+
 ## Como usar
 
 Não tem botão. Ele fica ouvindo e só responde quando você diz o nome:
@@ -57,6 +60,60 @@ também funciona.
 | "apaga o quadro"    | `/apagar`   | Apaga só o quadro branco                            |
 | "obrigado"          | `/dormir`   | Encerra o assunto; volta a esperar o nome           |
 | "encerrar"          | `/sair`     | Desliga o Sócrates                                  |
+
+### Estudar com questões reais e lei seca
+
+O Sócrates usa o mesmo material do app [estudo-prf](https://github.com/FelipeDaNight/estudo-prf):
+as provas da PRF 2021 (Cebraspe, gabarito oficial) e do CBMGO 2022 (AOCP), o CTB compilado
+e a lei seca da semana. Ele baixa tudo sozinho na primeira vez; para atualizar quando o app
+ganhar material novo: `main.py --material`.
+
+| Fale                                  | O que acontece                                            |
+|---------------------------------------|-----------------------------------------------------------|
+| "questões da PRF"                     | 10 questões novas, uma por vez, com a questão no quadro   |
+| "5 questões de trânsito da PRF"       | Só uma matéria, na quantidade que você disser             |
+| "simulado de 20 questões do CBMGO"    | Sem correção até o fim; no Cebraspe, nota = certas − erradas |
+| "questões que eu errei"               | Refaz as que você errou                                   |
+| "lacunas do CTB" / "lacunas de hoje"  | Completa a lei em voz alta: as vencidas primeiro, depois as novas |
+| "revisa meus erros"                   | Revisão espaçada: o que você errou volta em 1, 3, 7, 15... dias |
+| "lê o artigo 165 do CTB"              | Texto oficial no quadro e o resumo falado ("e o 166?" também vale) |
+| "pomodoro de português"               | 25 minutos; no fim ele anota o tempo estudado             |
+| "como estou indo?"                    | Tempo de estudo e acertos da semana, por matéria          |
+| "o que eu estudo hoje?"               | Revisões vencidas, o próximo trecho da lei e a matéria mais fraca |
+
+Durante o treino você nem precisa dizer o nome: responda **"certo"**, **"errado"** ou
+**"letra B"**. Também vale **"dica"** (sem entregar a resposta), **"explica"** (depois de
+corrigir), **"repete"**, **"mostra o texto"** (abre o texto de apoio no Bloco de Notas),
+**"próxima"**, **"placar"** e **"parar"**.
+
+A correção é feita pelo **gabarito do banco**, nunca pela opinião do modelo. Quando você
+pede uma explicação, o cérebro recebe a questão, o gabarito e o comentário, e é instruído a
+não contradizer o gabarito. Perguntas sobre trânsito ou sobre o Código Penal ("qual a pena de
+embriaguez ao volante?") vão ao cérebro junto com o **texto oficial** dos artigos mais
+ligados, para ele citar o artigo em vez de inventar.
+
+Tudo fica no seu **caderno**, em `Documentos\Socrates\caderno.json`.
+
+**Suas questões do Gran:** coloque arquivos `.json` em `Documentos\Socrates\questoes\`, no
+mesmo formato do "Copiar backup" do app, e diga "questões do Gran".
+
+#### Mandar para a sua planilha (opcional)
+
+O pomodoro e os treinos podem cair na **mesma planilha do Google** que o app usa (abas Horas,
+Questões, Erros e Simulados), pelo mesmo script:
+
+1. No `config.local.yaml`, a URL do script (a mesma que está nos Ajustes do app):
+   ```yaml
+   planilha:
+     url: https://script.google.com/macros/s/.../exec
+   ```
+2. No `.env`, a mesma chave do app (sem colar a chave em lugar nenhum além daqui):
+   ```powershell
+   $k = Read-Host "Chave da planilha"; Add-Content .env "PLANILHA_CHAVE=$k"; cls
+   ```
+3. Teste: `.venv\Scripts\python main.py --planilha` (deve listar as suas matérias).
+
+Sem internet, os registros ficam guardados e vão depois.
 
 ### Ações no computador
 
@@ -167,6 +224,11 @@ estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
 | Pensando   | Os anéis giram rápido                             |
 | Falando    | O núcleo e as barras pulsam com a voz dele        |
 
+**Para ele parar de falar:** clique no visor ou aperte Espaço.
+
+Cor: diga "Sócrates, muda a cor do visor para azul" (laranja, azul, ciano, verde, roxo, rosa,
+vermelho ou branco). A escolha fica guardada.
+
 Tamanho: `escala:` no `config.yaml` (1.0 pequeno, 1.25 médio, 1.5 grande).
 Sem a janela: `main.py --sem-visor` (o quadro aparece como texto no terminal). Por cima das outras janelas:
 `sempre_no_topo: true` no `config.yaml`. Estudando sozinho e não quer dizer o nome
@@ -220,6 +282,9 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 | Modo local lento demais                  | `main.py --local --modelo qwen3.5:2b` (menor e mais rápido) |
 | "Tkinter não encontrado"                 | Reinstale o Python marcando *tcl/tk and IDLE*, ou use `--sem-visor` |
 | "modelo não encontrado"                  | `main.py --modelos` e copie um nome para `config.yaml`        |
+| Respondeu a algo que você não disse      | Veja no `socrates.log` as linhas "descartado" e "transcrito": elas mostram a certeza do Whisper |
+| "Ainda não tenho o material de estudo"   | `main.py --material` com a internet ligada                    |
+| Não entendeu "letra B" no treino         | Fale "letra" antes; "bê" sozinho pode virar outra palavra    |
 
 ## Como funciona
 
@@ -304,7 +369,7 @@ com muita conversa ou TV ligada, isso gasta o limite grátis do Groq mais rápid
 ## Arquitetura
 
 ```
-main.py                    ponto de partida: mãos livres, texto, diagnóstico
+main.py                    ponto de partida: mãos livres, texto, diagnóstico, --material, --atalho
 config.yaml                nome, modos, provedores, voz, microfone, escuta, visor
 socrates/
   maos_livres.py           o laço da conversa sem botão
@@ -332,8 +397,17 @@ socrates/
   audio/alto_falante.py    toca a voz e avisa o visor do volume
   visor/janela.py          a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
+  estudo/tutor.py          entende "questões da PRF", "lacunas do CTB", "como estou indo?"
+  estudo/treino.py         a sessão de treino: pergunta, corrige pelo gabarito, placar
+  estudo/respostas.py      entende "letra Bê", "acho que é errado", e confere lacunas
+  estudo/caderno.py        revisão espaçada e histórico (Documentos\Socrates\caderno.json)
+  estudo/lei.py            acha o artigo pedido e os trechos que respondem uma dúvida
+  estudo/material.py       baixa os bancos do app estudo-prf
+  estudo/planilha.py       manda para a planilha do Google (mesmo script do app)
+  ferramentas/estudo.py    pomodoro que anota os minutos
+  ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     305 testes, rodam sem microfone nem internet
+tests/                     380 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -343,8 +417,8 @@ tests/                     305 testes, rodam sem microfone nem internet
 - [x] **Fase 1.5** — mãos livres com o nome "Sócrates", janela de conversa, visor laranja
 - [x] **Fase 1.6** — sabe data, hora e cidade; pesquisa na internet quando precisa
 - [x] **Fase 2** — ações no computador, quadro branco com fórmulas e gráficos, visor maior, vozes novas
-- [ ] **Fase 2.5** — interromper enquanto ele fala
-- [ ] **Fase 3** — memória de longo prazo (o que você errou, o que já estudou)
+- [x] **Fase 2.5** — interromper enquanto ele fala (clique ou Espaço no visor)
+- [x] **Fase 3** — estudo com o material real: questões, lacunas, revisão espaçada, pomodoro e planilha
 
 ## Testes
 

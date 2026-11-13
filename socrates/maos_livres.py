@@ -52,6 +52,13 @@ AJUDA = """Como usar:
   Depois que ele responde, você tem alguns segundos para continuar
   a conversa sem repetir o nome. Também dá para digitar e dar Enter.
 
+Estudo com questões reais e lei seca:
+  "questões da PRF"  "10 questões de trânsito da PRF"  "simulado do CBMGO"
+  "lacunas do CTB"   "revisa meus erros"   "lê o artigo 165 do CTB"
+  "pomodoro de português"   "como estou indo?"   "o que eu estudo hoje?"
+  No treino: certo/errado ou "letra B"; dica, explica, repete, próxima, parar.
+  Clique no visor (ou aperte Espaço) para ele parar de falar.
+
 Comandos (falados ou digitados):
   "modo explicar"    /explicar   explica e confere se você entendeu
   "modo prova"       /testar     perguntas estilo banca
@@ -88,8 +95,9 @@ def pede_quadro(pedido: str) -> bool:
 
 class Conversa:
     def __init__(self, cfg: Config, soc: Orquestrador, sentidos, painel: Painel,
-                 escrever: Callable[[str], None] | None = None):
+                 escrever: Callable[[str], None] | None = None, tutor=None):
         self.cfg = cfg
+        self.tutor = tutor
         self.soc = soc
         self.s = sentidos
         self.painel = painel
@@ -182,13 +190,13 @@ class Conversa:
             inicio = texto.lower().find(ABRE.lower())
             self.soc.anexar_a_ultima_resposta(texto[inicio:])
 
-    async def responder(self, texto: str) -> None:
+    async def responder(self, texto: str, extra: str | None = None) -> None:
         from .core.quadro_fluxo import separar_quadro
 
         self.painel.estado = "pensando"
         self._quadros_nesta = 0
         self.escrever(f"{self.cfg.nome}: ")
-        fala = separar_quadro(self.soc.conversar(texto), self._ao_quadro)
+        fala = separar_quadro(self.soc.conversar(texto, extra), self._ao_quadro)
         pedacos = ecoar(fala, self.escrever)
 
         async def tarefa():
@@ -207,8 +215,12 @@ class Conversa:
             finally:
                 self.painel.estado = "ocioso"
 
+        await self._interrompivel(tarefa())
+
+    async def _interrompivel(self, coro) -> None:
+        """Fala que o aluno pode cortar (clique ou Espaço no visor)."""
         self.interrompido = False
-        self._falando = asyncio.ensure_future(tarefa())
+        self._falando = asyncio.ensure_future(coro)
         try:
             await self._com_microfone_pausado(self._esperar_fala())
         finally:
@@ -229,7 +241,8 @@ class Conversa:
     # ---------- janela de conversa ----------
     def _janela(self) -> float:
         e = self.cfg.escuta
-        return e.janela_prova_seg if self.soc.modo == "testar" else e.janela_seg
+        treinando = self.tutor is not None and self.tutor.em_treino
+        return e.janela_prova_seg if self.soc.modo == "testar" or treinando else e.janela_seg
 
     def abrir_janela(self) -> None:
         self.painel.abrir_janela(self._janela())
@@ -240,7 +253,24 @@ class Conversa:
     # ---------- entrada ----------
     def dica_do_ouvido(self) -> str | None:
         """Vocabulário que o ouvido deve esperar agora (o treino troca)."""
-        return None
+        return self.tutor.dica_do_ouvido() if self.tutor is not None else None
+
+    # ---------- estudo ----------
+    async def executar_saida(self, pedido: str, saida) -> None:
+        """Faz o que o tutor decidiu: falar, mostrar no quadro, abrir o texto, ou
+        pedir ao cérebro (com a questão e o gabarito junto)."""
+        if saida.abrir_texto:
+            await asyncio.to_thread(ferramentas.executar, "escrever_no_bloco_de_notas",
+                                    {"texto": saida.abrir_texto, "titulo": "questao"})
+        if saida.contexto:
+            await self.responder(pedido, extra=saida.contexto)
+            return
+        if saida.quadro:
+            self._quadros_nesta = 0
+            self._ao_quadro(saida.quadro)
+        if saida.fala:
+            self.dizer_tela(f"{self.cfg.nome}: {saida.fala}")
+            await self._interrompivel(self._falar(saida.fala, False))
 
     async def _transcrever(self, fala: np.ndarray, em_janela: bool) -> str:
         if em_janela:
@@ -326,6 +356,13 @@ class Conversa:
                 self.abrir_janela()
                 continue
 
+            if self.tutor is not None and self.tutor.em_treino and not _comando_geral(pedido):
+                saida = self.tutor.atender(pedido)
+                if saida is not None:
+                    await self.executar_saida(pedido, saida)
+                    self.abrir_janela()
+                    continue
+
             comando = interpretar(pedido)
             if comando is Comando.SAIR:
                 break
@@ -337,6 +374,8 @@ class Conversa:
                 if comando is Comando.LIMPAR:
                     self.soc.limpar()
                     self.painel.limpar_quadro()
+                    if self.tutor is not None:
+                        self.tutor.encerrar()
                 if comando is Comando.APAGAR_QUADRO:
                     self.painel.limpar_quadro()
                 self.dizer_tela(FALAS[comando])
@@ -348,7 +387,19 @@ class Conversa:
                     self.abrir_janela()
                 continue
 
-            await self.responder(pedido)
+            extra = None
+            if self.tutor is not None:
+                try:
+                    saida = self.tutor.atender(pedido)
+                except Exception:          # um banco com defeito não derruba a conversa
+                    log.exception("tutor falhou")
+                    saida = None
+                if saida is not None:
+                    await self.executar_saida(pedido, saida)
+                    self.abrir_janela()
+                    continue
+                extra = self.tutor.contexto_da_lei(pedido) or None
+            await self.responder(pedido, extra)
             if ferramentas.SOM_LIGADO.is_set():
                 # Abriu vídeo ou música: o som do PC entra no microfone. Para não
                 # responder ao vídeo, volta a esperar o nome "Sócrates".
@@ -359,10 +410,20 @@ class Conversa:
             self.abrir_janela()
 
         self.painel.fechar_janela()
+        if self.tutor is not None:
+            self.tutor.encerrar()          # guarda o treino que estava no meio
         despedida = ("Até já, volto atualizado." if claude.REINICIAR.is_set()
                      else "Até a próxima. Bons estudos!")
         self.dizer_tela(f"\n{self.cfg.nome}: {despedida}")
         await self.falar(despedida, False)
+
+
+def _comando_geral(pedido: str) -> bool:
+    """"Desligar", "obrigado", "apaga o quadro", "/sair" valem mesmo no meio do treino
+    (o "parar"/"encerra" é do treino: termina só o treino)."""
+    from .estudo.respostas import comando
+    cmd = interpretar(pedido)
+    return cmd is not None and (pedido.strip().startswith("/") or comando(pedido) != "parar")
 
 
 def _aquecer_quadro() -> None:

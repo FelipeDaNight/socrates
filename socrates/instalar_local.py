@@ -16,9 +16,7 @@ import sys
 import time
 from pathlib import Path
 
-import yaml
-
-from .config import RAIZ, mesclar
+from .config import RAIZ
 from .llm.ollama import ClienteOllama, CerebroLocal
 
 # (RAM mínima em GB, modelo, como fica)

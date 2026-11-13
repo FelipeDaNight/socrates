@@ -28,6 +28,9 @@ TINTA = "#1e2533"
 TITULO = "#c2410c"
 CURVA = ["#ea7a12", "#2563eb", "#16a34a"]
 MARGEM = 34
+# Largura média de uma letra da DejaVu Sans em pixels, por ponto de fonte: o tamanho
+# da fonte é em pontos (1/72 pol.) e a figura tem 100 pixels por polegada.
+LETRA_PX_POR_PT = 0.58 * 100 / 72
 
 _trava = threading.Lock()   # o matplotlib tem configurações globais
 
@@ -179,7 +182,7 @@ def _altura(item: Item, largura: int, esc: float) -> float:
         return 270 * esc
     if item.tipo == "espaco":
         return 10 * esc
-    max_chars = int((largura - 2 * MARGEM - 24) / (corpo * 0.52))
+    max_chars = int((largura - 2 * MARGEM - 24) / (corpo * LETRA_PX_POR_PT))
     return len(_quebrar(item.conteudo, max_chars)) * corpo * 1.55 + 6 * esc
 
 
@@ -229,7 +232,7 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
             elif it.tipo in ("texto", "item"):
                 corpo = 19 * esc
                 recuo = 24 if it.tipo == "item" else 0
-                max_chars = int((largura - 2 * MARGEM - 24) / (corpo * 0.52))
+                max_chars = int((largura - 2 * MARGEM - 24 - recuo) / (corpo * LETRA_PX_POR_PT))
                 linhas = _quebrar(it.conteudo, max_chars)
                 for k, linha in enumerate(linhas):
                     yy = y - k * corpo * 1.55
