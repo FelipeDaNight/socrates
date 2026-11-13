@@ -69,3 +69,29 @@ def test_socrates_nao_carrega_o_proprio_espelho(tmp_path):
 
     mat.baixar("https://x/", tmp_path / "copia", escrever=lambda *a: None, buscar=buscar)
     assert ex.ARQUIVO not in baixados and "bancos/prf-2021-p1.json" in baixados
+
+
+def test_resumos_vao_para_o_app_na_ordem_do_edital(tmp_path):
+    app = app_falso(tmp_path)
+    ex.atualizar_app(app)
+    r = json.loads((app / ex.ARQUIVO_RESUMOS).read_text(encoding="utf-8"))
+    conferidas = [t for t in carregar_trilhas() if not t.auto and t.plano in ("", "prf")]
+    assert r["id"] == ex.ID_RESUMOS and r["atualizado"] == "2026-11-13" and "13/11/2026" in r["aviso"]
+    assert {m["trilha"] for m in r["materias"]} == {t.id for t in conferidas}
+    assert r["materias"][0]["materia"] == "Legislação de Trânsito"          # a que mais cai
+    banco = json.loads((app / ex.ARQUIVO).read_text(encoding="utf-8"))
+    for m in r["materias"]:
+        tr = next(t for t in conferidas if t.id == m["trilha"])
+        assert [t["id"] for t in m["topicos"]] == [t.id for t in tr.topicos]
+        for t in m["topicos"]:
+            assert t["pontos"] and t["titulo"] and t["peso"] in (1, 2, 3)
+            # os itens do tópico no banco são achados pelo título (é o "topico" das questões)
+            assert t["itens"] == sum(1 for q in banco["questoes"] if q["topico"] == t["titulo"]
+                                     and q["materia"] == m["materia"]), t["id"]
+            assert all(q["banco"] == "prf-2021-p1" and isinstance(q["item"], int) for q in t["questoes"])
+    ctb = next(m for m in r["materias"] if m["trilha"] == "prf-transito")
+    contran = next(t for t in ctb["topicos"] if t["id"] == "contran")
+    assert {"banco": "prf-2021-p1", "item": 82} in contran["questoes"] and contran["novidades"]
+    # o espelho do Sócrates não baixa os resumos de volta
+    m = mat.carregar(app, tmp_path / "privado", baixar_se_faltar=False)
+    assert list(m.bancos) == ["prf-2021-p1"]
