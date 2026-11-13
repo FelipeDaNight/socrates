@@ -27,7 +27,7 @@
         {"id": "ctb-processo", "titulo": "CTB: processo administrativo", "edital": "CTB arts. 280 a 290", "peso": 2, "fontes": ["CTB 280-290"]},
         {"id": "ctb-crimes", "titulo": "CTB: crimes de trânsito", "edital": "CTB arts. 291 a 312-B", "peso": 3, "fontes": ["CTB 291-312-B"]},
         {"id": "lei-5970", "titulo": "Lei 5.970/1973: remoção de veículos e vítimas em acidente", "edital": "Lei 5.970/1973", "peso": 1, "fontes": ["L5970 1"]},
-        {"id": "contran", "titulo": "Resoluções do CONTRAN mais cobradas", "edital": "Resoluções do CONTRAN", "peso": 1, "pesquisa": "resoluções CONTRAN mais cobradas PRF alcoolemia equipamentos obrigatórios"}
+        {"id": "contran", "titulo": "Resoluções do CONTRAN mais cobradas", "edital": "Resoluções do CONTRAN (pesos e dimensões, tacógrafo, videomonitoramento, medidores de velocidade, placas, vidros, amarração de carga, passageiros em veículo de carga)", "peso": 3, "fontes": ["CTB 99-101", "CTB 108", "L7408 1"], "pesquisa": "resoluções CONTRAN vigentes 882/2021 909/2022 938/2022 945/2022 960/2022 969/2022 798/2020 alterações"}
       ]
     },
     {

@@ -122,14 +122,15 @@ com as leis conferidas nas fontes oficiais até novembro de 2026:
 
 | Trilha | Tópicos | O que tem |
 |---|---|---|
-| Legislação de Trânsito | 14 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973 |
+| Legislação de Trânsito | 15 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973; e as resoluções do CONTRAN em vigor (pesos e dimensões com a tolerância de 12,5% por eixo, tacógrafo, videomonitoramento, radares, placas, vidros, amarração de carga) |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 52 tópicos, 322 pontos-chave e 257 itens de fixação com gabarito e justificativa, e as questões
-reais da PRF 2021 (de trânsito e dos itens 100 a 115) entram no tópico certo. As resoluções do
-CONTRAN ainda ficam com o autoestudo. Isso importa porque os modelos de IA
+São 53 tópicos, 334 pontos-chave e 267 itens de fixação com gabarito e justificativa, e as questões
+reais da PRF 2021 (os 26 itens de trânsito e os itens 100 a 115) entram no tópico certo. Questão de
+prova cuja lei mudou depois (ex.: item 82, tolerância por eixo) é treinada pelo gabarito de hoje, e
+o Sócrates explica que a prova antiga cobrava a regra anterior. Isso importa porque os modelos de IA
 ainda trazem leis velhas: o furto passou a 1 a 6 anos (Lei 15.397/2026), a Lei Antifacção criou o
 "domínio social estruturado" (20 a 40 anos), novos hediondos entraram em 2026 e a PEC da Segurança
 Pública (aprovada no Senado em 3/11/2026) põe ferrovias e hidrovias federais com a PRF.
@@ -507,7 +508,7 @@ socrates/
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     505 testes, rodam sem microfone nem internet
+tests/                     518 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -522,8 +523,9 @@ tests/                     505 testes, rodam sem microfone nem internet
 - [x] **Fase 4** — trilha de Direito Penal da PRF: aulas guiadas, direção, diário e mapa
 - [x] **Fase 5** — trilhas de Processo Penal e Legislação Especial; autoestudo do edital inteiro
   (PRF e CBMGO), com conferência por outro modelo e atualização quando a lei muda
-- [x] **Fase 6** — trilha de Legislação de Trânsito (CTB inteiro); "questões da PRF" ficam com a prova
-- [ ] **Próximo** — resoluções do CONTRAN, Constitucional, Administrativo, Ética e Direitos Humanos
+- [x] **Fase 6** — trilha de Legislação de Trânsito (CTB inteiro e resoluções do CONTRAN); "questões da PRF"
+  ficam com a prova; questão com lei alterada depois da prova treina a regra de hoje
+- [ ] **Próximo** — Constitucional, Administrativo, Ética e Direitos Humanos
 
 ## Testes
 

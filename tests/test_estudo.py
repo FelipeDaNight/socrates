@@ -150,6 +150,29 @@ def test_treino_corrige_pelo_gabarito_e_explica_com_ele(tutor):
     assert tutor.caderno.dados["sessoes"][-1]["acertos"] == 1
 
 
+def test_questao_desatualizada_treina_pela_lei_de_hoje():
+    """Item de prova com gabarito que a lei mudou depois ("atual"): treina-se a regra de hoje,
+    contando que a prova antiga cobrava a anterior."""
+    from socrates.estudo.treino import Sessao, item_de_questao
+    banco = {"id": "prf-2021-p1", "titulo": "PRF 2021", "tipo": "ce"}
+    q = {"n": 74, "materia": "Legislação de Trânsito", "topico": "PRF 2021 · item 82", "tipo": "ce",
+         "resp": "E", "atual": "C", "enunciado": "É admitida a tolerância de 12,5% sobre o peso por eixo.",
+         "just": "Gabarito oficial definitivo (Cebraspe): ERRADO.",
+         "atualizacao": "Lei 14.229/2021: a tolerância por eixo subiu de 10% para 12,5%."}
+    it = item_de_questao(banco, q)
+    assert (it.resp, it.oficial, it.mudou) == ("C", "E", True)
+    assert "hoje o gabarito é Certo" in it.comentario() and "14.229/2021" in it.comentario()
+    ctx = it.contexto(revelar=True, resposta_aluno="Errado")
+    assert "Gabarito pela lei ATUAL: Certo" in ctx and "foi Errado" in ctx and "Gabarito OFICIAL" not in ctx
+    s = Sessao([it], "treino", "Teste")
+    s.abrir()
+    saida = s.atender("Errado")
+    assert saida.fala.startswith("Não. O gabarito é Certo.") and "lei mudou" in saida.fala
+    # sem "atual" (ou igual ao oficial), nada muda
+    sem = item_de_questao(banco, {**q, "atual": "E"})
+    assert (sem.resp, sem.mudou) == ("E", False) and "Gabarito OFICIAL: Errado" in sem.contexto(True)
+
+
 def test_dica_nao_revela_a_resposta(tutor):
     tutor.atender("questões do CBMGO")
     s = tutor.atender("me dá uma dica")

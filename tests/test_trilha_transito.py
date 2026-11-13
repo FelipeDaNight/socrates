@@ -14,7 +14,8 @@ from socrates.estudo.trilha import carregar_trilhas
 
 TRILHAS = {t.id: t for t in carregar_trilhas()}
 CTB = TRILHAS["prf-transito"]
-REAIS = (56, 57, 58, 59, 60, 62, 63, 66, 77, 78, 79, 80)
+REAIS = (56, 57, 58, 59, 60, 62, 63, 66, 77, 78, 79, 80)                          # CTB e Lei 5.970
+CONTRAN = (61, 64, 65, 68, 70, 71, 72, 73, 74, 75, 81, 82, 84, 85)              # resoluções
 
 BANCO = {"id": "prf-2021-p1", "titulo": "PRF 2021", "tipo": "ce", "questoes": [
     {"n": n, "materia": "Legislação de Trânsito", "topico": f"PRF 2021 · item {n}", "tipo": "ce",
@@ -35,20 +36,21 @@ def tutor(tmp_path):
 
 def test_trilha_bem_formada():
     assert CTB.atualizado == "2026-11-13" and CTB.plano == "prf" and "ctb" in CTB.apelidos
-    assert len(CTB.topicos) == 14
+    assert len(CTB.topicos) == 15
     for t in CTB.topicos:
         assert len(t.pontos) >= 2 and len(t.itens) >= 2 and t.palavras and t.faixas(), t.id
         respostas = {it["r"] for it in t.itens}
         assert respostas <= {"C", "E"} and (len(t.itens) < 3 or respostas == {"C", "E"}), t.id
         for it in t.itens:
-            assert len(it["t"]) > 30 and re.search(r"Art\.|Lei", it["j"]), (t.id, it["t"])
+            assert len(it["t"]) > 30 and re.search(r"Art\.|Lei|Res\. CONTRAN", it["j"]), (t.id, it["t"])
         for p in t.palavras:
             assert p == norm(p) and p.strip() == p, (t.id, p)
 
 
 def test_questoes_da_prova_no_topico_certo():
     ligadas = {int(q.split("item ")[1]): t.id for t in CTB.topicos for q in t.questoes}
-    assert sorted(ligadas) == list(REAIS)
+    assert sorted(ligadas) == sorted(REAIS + CONTRAN)                 # os 26 itens de trânsito
+    assert {ligadas[n] for n in CONTRAN} == {"contran"}
     assert ligadas[56] == ligadas[77] == ligadas[78] == ligadas[79] == "ctb-circulacao"
     assert ligadas[57] == ligadas[62] == "ctb-veiculos"
     assert ligadas[59] == "lei-5970" and ligadas[60] == "ctb-habilitacao"
@@ -65,6 +67,8 @@ def test_questoes_da_prova_no_topico_certo():
     ("ctb-processo", ["30 DIAS", "80%", "60%"]),
     ("ctb-crimes", ["reclusão de 5 a 8 anos", "0,3 mg", "perigo de dano", "2 meses a 5 anos"]),
     ("ctb-snt", ["OBJETIVAMENTE", "perícia administrativa", "condomínios"]),
+    ("contran", ["2,60 m", "19,30 m", "57 t", "12,5%", "até 50 t", "1 ano", "devidamente sinalizada",
+                 "2 vezes o peso", "menos de 10 anos", "2,5 cm", "70%", "882/2021", "938/2022"]),
 ])
 def test_numeros_conferidos_na_lei(topico, marcas):
     texto = " ".join(CTB.topico(topico).pontos)
@@ -82,10 +86,27 @@ def test_numeros_conferidos_na_lei(topico, marcas):
     ("questões de bafômetro", "ctb-infracoes"),
     ("me ensina suspensão do direito de dirigir", "ctb-penalidades"),
     ("questões de transporte escolar", "ctb-escolares"),
+    ("questões de resoluções do contran", "contran"),
+    ("me ensina pesos e dimensões", "contran"),
+    ("questões de tacógrafo", "contran"),
 ])
 def test_cada_pedido_vai_para_o_topico_certo(tutor, fala, topico):
     p = tutor.entender(fala)
     assert p.trilha.id == "prf-transito" and p.topico.id == topico, (fala, p)
+
+
+@pytest.mark.parametrize("pergunta,topico", [
+    ("qual a tolerância de peso por eixo?", "contran"),
+    ("o que o tacógrafo registra?", "contran"),
+    ("posso usar película no vidro?", "contran"),
+    ("quantos pontos suspendem a carteira?", "ctb-penalidades"),
+    ("o que acontece se eu recusar o bafômetro?", "ctb-infracoes"),
+    ("quem tem preferência na rotatória?", "ctb-circulacao"),
+    ("quanto tempo o motorista de caminhão pode dirigir sem parar?", "ctb-circulacao"),
+])
+def test_pergunta_solta_acha_o_topico(tutor, pergunta, topico):
+    tr, top = tutor._trilha_da_fala(pergunta)
+    assert tr.id == "prf-transito" and top.id == topico, (pergunta, tr and tr.id, top and top.id)
 
 
 def test_questoes_da_prf_vao_ao_banco_e_sem_prf_vao_a_trilha(tutor):
@@ -123,3 +144,9 @@ def test_palavras_nao_colidem_entre_trilhas(tutor):
                 if achada is None or achada.id != tr.id:
                     erradas.append((tr.id, t.id, p, achada.id if achada else None))
     assert not erradas, erradas
+
+
+def test_novidade_do_peso_por_eixo_esta_na_trilha():
+    contran = CTB.topico("contran")
+    assert any("14.229/2021" in n and "12,5%" in n for n in contran.novidades)
+    assert any("item 82" in p and "CERTO" in p for p in contran.pegadinhas)

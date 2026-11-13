@@ -160,7 +160,7 @@
       "edital": "CTB arts. 96 a 135",
       "peso": 2,
       "artigos": ["CTB 96-135"],
-      "palavras": ["equipamento obrigatorio", "equipamentos obrigatorios", "tacografo", "registrador de velocidade", "placa do veiculo", "placas", "registro do veiculo", "licenciamento", "crlv", "documento do carro", "transferencia de veiculo", "cortina no veiculo", "pelicula", "insulfilm", "categoria do veiculo", "licenciar o carro", "transferir o carro", "placa mercosul"],
+      "palavras": ["equipamento obrigatorio", "equipamentos obrigatorios", "placa do veiculo", "placas", "registro do veiculo", "licenciamento", "crlv", "documento do carro", "transferencia de veiculo", "cortina no veiculo", "categoria do veiculo", "licenciar o carro", "transferir o carro"],
       "pontos": [
         "Equipamentos obrigatórios (art. 105), entre outros do CONTRAN: cinto de segurança (exceto nos veículos de passageiros em que se permite viajar em pé); encosto de cabeça; controle de emissão de gases e ruído; e o registrador instantâneo inalterável de velocidade e tempo (tacógrafo) nos veículos de transporte e condução escolar, nos de passageiros com mais de 10 lugares e nos de carga com peso bruto total superior a 4.536 kg. Também: air bag frontal para condutor e passageiro do banco dianteiro e luzes de rodagem diurna (VII e VIII); nas bicicletas, campainha, sinalização noturna dianteira, traseira, lateral e nos pedais e retrovisor do lado esquerdo (VI).",
         "Áreas envidraçadas (art. 111): é vedado o uso de cortinas, persianas fechadas ou similares com o veículo em movimento, SALVO nos que tenham espelhos retrovisores em ambos os lados; películas, inscrições e pinturas só quando não comprometerem a segurança, conforme o CONTRAN.",
@@ -247,7 +247,7 @@
       "edital": "CTB arts. 161 a 255",
       "peso": 3,
       "artigos": ["CTB 161-255"],
-      "palavras": ["infracao de transito", "infracoes de transito", "multa de transito", "dirigir sem cnh", "sem habilitacao", "alcool ao volante", "dirigir embriagado", "bafometro", "recusar o bafometro", "excesso de velocidade", "radar", "celular ao volante", "sinal vermelho", "manobra perigosa", "sem cinto", "sem capacete", "veiculo nao licenciado", "excesso de peso", "omissao de socorro infracao", "infracao gravissima", "infracao grave", "infracao media", "infracao leve", "valor da multa", "beber e dirigir", "dirigir alcoolizado", "dirigir bebado", "celular dirigindo"],
+      "palavras": ["infracao de transito", "infracoes de transito", "multa de transito", "dirigir sem cnh", "sem habilitacao", "alcool ao volante", "dirigir embriagado", "bafometro", "recusar o bafometro", "excesso de velocidade", "celular ao volante", "sinal vermelho", "manobra perigosa", "sem cinto", "sem capacete", "veiculo nao licenciado", "omissao de socorro infracao", "infracao gravissima", "infracao grave", "infracao media", "infracao leve", "valor da multa", "beber e dirigir", "dirigir alcoolizado", "dirigir bebado", "celular dirigindo"],
       "pontos": [
         "Classificação e pontos (arts. 258 e 259): gravíssima — 7 pontos e multa de R$ 293,47; grave — 5 pontos e R$ 195,23; média — 4 pontos e R$ 130,16; leve — 3 pontos e R$ 88,38. Multa agravada usa o fator multiplicador previsto no artigo da infração.",
         "Álcool (art. 165): dirigir sob influência de álcool ou outra substância psicoativa — gravíssima, multa (10 vezes) e suspensão do direito de dirigir por 12 meses; recolhimento do documento e retenção do veículo; multa em dobro se reincidir em 12 meses. Qualquer concentração de álcool já caracteriza a infração (art. 276). Recusar o teste, exame ou perícia (art. 165-A): as MESMAS penalidades.",
@@ -415,6 +415,55 @@
         {"t": "Ao autorizar a remoção, a autoridade ou o agente policial lavrará boletim da ocorrência, nele consignando o fato e as testemunhas que o presenciaram.", "r": "C", "j": "Art. 1º, parágrafo único."}
       ],
       "questoes": ["prf-2021-p1|item 59"]
+    },
+    {
+      "id": "contran",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Resoluções do CONTRAN mais cobradas",
+      "edital": "Resoluções do CONTRAN (pesos e dimensões, tacógrafo, videomonitoramento, medidores de velocidade, placas, vidros, amarração de carga, passageiros em veículo de carga)",
+      "peso": 3,
+      "artigos": ["CTB 99-101", "CTB 108", "L7408 1"],
+      "palavras": ["resolucao do contran", "resolucoes do contran", "resolucao contran", "resolucoes contran", "pesos e dimensoes", "peso e dimensoes", "peso por eixo", "tolerancia de peso", "tolerancia na pesagem", "balanca", "pesagem", "excesso de peso", "largura maxima", "altura maxima", "comprimento maximo", "tacografo", "cronotacografo", "registrador de velocidade", "disco do tacografo", "videomonitoramento", "multa por camera", "camera de monitoramento", "radar", "medidor de velocidade", "lombada eletronica", "placa mercosul", "segunda placa", "qr code da placa", "para brisa trincado", "trinca no para brisa", "pelicula", "insulfilm", "amarracao de carga", "amarrar a carga", "cinta de amarracao", "passageiro na carroceria", "passageiros em veiculo de carga"],
+      "pontos": [
+        "O CONTRAN revisou e consolidou suas resoluções entre 2020 e 2022, e muitas que caíram em provas antigas foram revogadas. As mais cobradas hoje: 882/2021 (pesos e dimensões), 909/2022 (videomonitoramento), 938/2022 (tacógrafo), 945/2022 (amarração de carga), 960/2022 (vidros e películas), 969/2022 (placas), 798/2020 (medidores de velocidade) e 508/2014 (passageiros em veículo de carga).",
+        "Dimensões máximas (Res. 882/2021, art. 4º): largura 2,60 m; altura 4,40 m; comprimento do veículo não articulado 14,00 m; caminhão-trator com semirreboque 19,30 m (era 18,60 m até dezembro de 2023); caminhão ou ônibus com reboque e articulados com mais de duas unidades, 19,80 m. Fora dos limites, só com Autorização Especial de Trânsito, com prazo certo, por viagem ou por período (CTB, art. 101).",
+        "Pesos (Res. 882/2021, art. 6º): veículo não articulado, até 29 t de PBT; combinação com mais de duas unidades, incluída a tratora, até 57 t de PBTC (com no máximo 7 eixos e comprimento de 17,5 a 19,8 m, entre outros requisitos). Por eixo: isolado de 2 pneus, 6 t; isolado de 4 pneus, 10 t; dois eixos em tandem, 17 t; três eixos em tandem, 25,5 t.",
+        "Tolerância na pesagem (Lei 7.408/1985, art. 1º, com a Lei 14.229/2021; Res. 882/2021, art. 50): 5% sobre o PBT ou PBTC e 12,5% sobre o peso por eixo (era 10% até 2021). Veículo com PBT regulamentar de até 50 t é fiscalizado só pelo PBT/PBTC; se passar da tolerância do PBT, responde também pelo excesso por eixo, com penalidades cumulativas. Biodiesel B100 em veículo não adaptado: 7,5%. Só há autuação acima do limite somado à tolerância (CTB, art. 99, § 4º).",
+        "Excesso de peso (Res. 882/2021, arts. 52 a 55): dentro do PBT + 5%, mas com eixo acima da tolerância, a multa incide sobre o excesso e a carga é remanejada ou transbordada; acima do PBT + 5%, multa e transbordo do excesso. O veículo só segue com a irregularidade sanada, mas o agente pode dispensar o remanejamento ou o transbordo de produtos perigosos, perecíveis, cargas vivas e passageiros, avaliados os riscos.",
+        "Tacógrafo (Res. 938/2022, que revogou a 92/1999), obrigatório nos veículos do art. 105, II, do CTB: registra, das últimas 24 horas, velocidades, distância, tempo de movimentação e suas interrupções, data e hora de início, identificação do veículo e do condutor e a abertura do compartimento do disco ou da fita. Na fiscalização, o agente se identifica e assina o verso do disco ou da fita, com local, data e horário. Os dados de cada 24 horas ficam à disposição por 90 dias; em caso de sinistro, os das últimas 24 horas ficam por 1 ano.",
+        "Videomonitoramento (Res. 909/2022, que revogou as 471/2013 e 532/2015): a autoridade ou o agente pode autuar à distância, em tempo real, infrações às normas gerais de circulação e conduta vistas pelas câmeras, desde que a via esteja devidamente sinalizada para esse fim. No auto, o campo 'observação' informa como a infração foi constatada.",
+        "Medidores de velocidade (Res. 798/2020): fixo, que pode ser controlador (fiscaliza o limite da via) ou redutor (trechos críticos), e portátil. Só o redutor tem display obrigatório. O medidor fixo é precedido de placa R-19 fixa, e o órgão publica no site a lista dos seus medidores (com o local, no caso do fixo). Da velocidade medida desconta-se o erro admitido: 7 km/h até 100 km/h e 7% acima disso.",
+        "Placas (Res. 969/2022, padrão Mercosul): reboques, semirreboques, motocicletas, motonetas, ciclomotores, triciclos, quadriciclos e guindastes só têm placa traseira. Veículo com engate de reboque ou carroceria intercambiável usa uma segunda placa traseira quando a carga cobre a original. O QR Code dinâmico funciona como o lacre eletrônico da placa.",
+        "Vidros (Res. 960/2022, que revogou a 216/2006): nenhuma trinca ou fratura circular na área crítica de visão do condutor nem na faixa de 2,5 cm das bordas, e ali o dano não pode ser recuperado. Fora delas: ônibus, micro-ônibus e caminhões, até 3 danos (trinca de até 20 cm, fratura circular de até 4 cm); demais veículos, até 2 danos (trinca de até 10 cm, fratura de até 4 cm). Películas: transmitância mínima de 70% no para-brisa e nos vidros laterais dianteiros e de 28% nos demais; película refletiva é proibida; na autuação, soma-se 7% ao valor medido.",
+        "Amarração de carga (Res. 945/2022, que revogou a 552/2015): cintas têxteis, correntes ou cabos de aço com fator de segurança de no mínimo 2 vezes o peso da carga; sem pontos de amarração adequados ou suficientes, podem ser presos no próprio chassi; em prancha ou carroceria aberta, cada unidade de carga vai presa em pelo menos 4 terminais. Corda é proibida para amarrar carga (só serve para a lona).",
+        "Passageiros em veículo de carga ou misto (CTB, art. 108; Res. 508/2014): onde não houver linha regular de ônibus, a autoridade com circunscrição sobre a via pode autorizar, a título precário e por até 12 meses, o transporte no compartimento de carga, no mesmo município ou entre municípios limítrofes. É vedado levar passageiros com menos de 10 anos, em pé ou nas partes externas, levar carga no mesmo ambiente e usar veículo basculante, boiadeiro ou combinação de veículos."
+      ],
+      "pegadinhas": [
+        "Tolerância por eixo hoje é 12,5% (Lei 14.229/2021). O item 82 da PRF 2021 deu ERRADO porque, na época, era 10%: hoje ele seria CERTO.",
+        "Largura máxima 2,60 m (não 2,50 m — item 74) e combinação com mais de duas unidades até 57 t (não 60 t — item 75).",
+        "Tacógrafo após sinistro: dados das últimas 24 horas por 1 ANO (não 6 meses — item 73); 90 dias é a regra do uso normal.",
+        "Videomonitoramento EXIGE via sinalizada (item 61). Amarração: 2 vezes o peso da carga, não 1,5 (item 85).",
+        "O agente pode dispensar o transbordo também de produtos PERIGOSOS (item 81); e a fratura circular é tolerada fora da área crítica, até 4 cm (item 70).",
+        "Passageiro em veículo de carga: a vedação é para menores de 10 anos, não de 18 (item 68)."
+      ],
+      "novidades": [
+        "Lei 14.229/2021 (conversão da MP 1.050/2021): a tolerância por eixo passou de 10% para 12,5%, e veículos de até 50 t passaram a ser fiscalizados só pelo PBT/PBTC.",
+        "Dezembro de 2023 (Res. CONTRAN 1.005/2024): o caminhão-trator com semirreboque passou de 18,60 m para 19,30 m.",
+        "Consolidação de 2021 e 2022: 882/2021 substituiu a 210/2006; 909/2022, a 471/2013; 938/2022, a 92/1999; 945/2022, a 552/2015; 960/2022, a 216/2006; 969/2022, a 780/2019."
+      ],
+      "itens": [
+        {"t": "A largura máxima permitida para os veículos em circulação, sem autorização especial, é de 2,60 m.", "r": "C", "j": "Res. CONTRAN 882/2021, art. 4º."},
+        {"t": "Na pesagem por balança, a tolerância admitida sobre o peso por eixo é de 10%.", "r": "E", "j": "Lei 7.408/1985, art. 1º, II, com a Lei 14.229/2021, e Res. CONTRAN 882/2021, art. 50: 12,5%."},
+        {"t": "Veículo com peso bruto total regulamentar de até 50 toneladas é fiscalizado apenas quanto ao PBT ou PBTC, salvo se ultrapassar essa tolerância, caso em que responde também pelo excesso por eixo.", "r": "C", "j": "Lei 7.408/1985, art. 1º, §§ 1º e 2º."},
+        {"t": "Em caso de sinistro, as informações das últimas vinte e quatro horas do tacógrafo devem ficar à disposição das autoridades por noventa dias.", "r": "E", "j": "Res. CONTRAN 938/2022, art. 9º: um ano. Noventa dias é a regra geral do art. 8º."},
+        {"t": "A fiscalização por videomonitoramento dispensa sinalização na via, bastando que o agente registre no auto como constatou a infração.", "r": "E", "j": "Res. CONTRAN 909/2022, art. 3º: só em vias devidamente sinalizadas."},
+        {"t": "Entre os medidores de velocidade do tipo fixo, somente o redutor deve ser obrigatoriamente dotado de display.", "r": "C", "j": "Res. CONTRAN 798/2020, art. 3º."},
+        {"t": "Os dispositivos de amarração de carga devem respeitar fator de segurança de, no mínimo, duas vezes o peso da carga.", "r": "C", "j": "Res. CONTRAN 945/2022, art. 4º."},
+        {"t": "É permitido o uso de cordas na amarração da carga, desde que estejam em bom estado de conservação.", "r": "E", "j": "Res. CONTRAN 945/2022, art. 4º, § 3º: cordas só para fixar a lona."},
+        {"t": "No transporte de passageiros em veículo de carga autorizado a título precário, é vedado transportar passageiros com menos de dez anos de idade.", "r": "C", "j": "Res. CONTRAN 508/2014, art. 5º."},
+        {"t": "Ônibus, micro-ônibus e caminhões podem circular com até três danos no para-brisa fora da área crítica de visão, com trinca de até 20 cm ou fratura circular de até 4 cm.", "r": "C", "j": "Res. CONTRAN 960/2022, art. 15."}
+      ],
+      "questoes": ["prf-2021-p1|item 61", "prf-2021-p1|item 64", "prf-2021-p1|item 65", "prf-2021-p1|item 68", "prf-2021-p1|item 70", "prf-2021-p1|item 71", "prf-2021-p1|item 72", "prf-2021-p1|item 73", "prf-2021-p1|item 74", "prf-2021-p1|item 75", "prf-2021-p1|item 81", "prf-2021-p1|item 82", "prf-2021-p1|item 84", "prf-2021-p1|item 85"]
     }
   ]
 }

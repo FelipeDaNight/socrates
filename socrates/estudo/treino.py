@@ -60,6 +60,7 @@ class Item:
     letras: str = "ABCDE"
     real: bool = True            # questão de prova (False = item de fixação da trilha)
     lei: str = ""                # lacunas: a lei de onde veio (CP, CTB...)
+    oficial: str = ""            # gabarito oficial da prova, quando a lei mudou depois (resp é o de hoje)
 
     def comentario(self) -> str:
         """O comentário do gabarito, se ele ensinar algo (não só "Gabarito: CERTO")."""
@@ -69,12 +70,20 @@ class Item:
             return atencao[1].strip() if len(atencao) > 1 else ""
         return j
 
-    def gabarito_falado(self) -> str:
+    def _falado(self, r: str) -> str:
         if self.tipo == "ce":
-            return "Certo" if self.resp == "C" else "Errado"
+            return "Certo" if r == "C" else "Errado"
         if self.tipo == "mc":
-            return f"letra {self.resp}"
-        return self.resp
+            return f"letra {r}"
+        return r
+
+    def gabarito_falado(self) -> str:
+        return self._falado(self.resp)
+
+    @property
+    def mudou(self) -> bool:
+        """A lei mudou depois da prova: o gabarito de hoje não é o oficial."""
+        return bool(self.oficial) and self.oficial != self.resp
 
     def contexto(self, revelar: bool, resposta_aluno: str | None = None) -> str:
         """O que o cérebro precisa saber para dar dica ou explicar sem inventar."""
@@ -82,13 +91,19 @@ class Item:
         linhas = [f"O aluno está treinando com {tipo} ({self.fonte}, {self.materia}, "
                   f"tópico: {self.topico}). Texto:", self.completo]
         if revelar:
-            linhas.append(f"Gabarito OFICIAL: {self.gabarito_falado()}.")
+            if self.mudou:
+                linhas.append(f"Gabarito pela lei ATUAL: {self.gabarito_falado()}. O gabarito oficial da "
+                              f"prova foi {self._falado(self.oficial)}, mas a lei mudou depois dela; "
+                              "ensine a regra de hoje e diga que a prova antiga cobrava a anterior.")
+            else:
+                linhas.append(f"Gabarito OFICIAL: {self.gabarito_falado()}.")
             if self.comentario():
                 linhas.append(f"Comentário do gabarito: {self.comentario()}")
             if resposta_aluno:
                 linhas.append(f"O aluno respondeu: {resposta_aluno}.")
+            qual = "o gabarito pela lei atual" if self.mudou else "o gabarito oficial"
             linhas.append("Explique por que o gabarito é esse, em poucas frases faladas, e use o "
-                          "quadro se ajudar. Nunca contradiga o gabarito oficial. Se não tiver "
+                          f"quadro se ajudar. Nunca contradiga {qual}. Se não tiver "
                           "certeza da regra, diga isso em vez de inventar lei ou artigo.")
         else:
             linhas.append("O aluno AINDA NÃO respondeu. Dê uma dica curta sobre a regra ou o "
@@ -110,6 +125,14 @@ def item_de_questao(banco: dict, q: dict) -> Item | None:
     alternativas = q.get("alternativas") or {}
     afirmacoes = q.get("itens") or []
     resp = str(q.get("resp", "")).strip().upper()[:1]
+    just, oficial = str(q.get("just", "")), ""
+    atual = str(q.get("atual") or "").strip().upper()[:1]
+    if atual and atual != resp:                 # a lei mudou depois da prova: treina-se a de hoje
+        oficial, resp = resp, atual
+        hoje = ("Certo" if atual == "C" else "Errado") if tipo == "ce" else f"letra {atual}"
+        aviso = (f"A lei mudou depois da prova: hoje o gabarito é {hoje}. "
+                 + str(q.get("atualizacao") or "")).strip()
+        just = f"{just} {aviso}" if "Atenção:" in just else f"{just} Atenção: {aviso}".strip()
 
     completo = "\n\n".join(x for x in [texto_apoio, q.get("enunciado", ""), "\n".join(afirmacoes),
                                        q.get("enunciado2", ""),
@@ -141,7 +164,7 @@ def item_de_questao(banco: dict, q: dict) -> Item | None:
     return Item(id=f"{banco['id']}#{q.get('n')}", tipo=tipo, materia=q.get("materia", ""),
                 topico=q.get("topico", ""), fonte=fonte, resp=resp, fala=fala.strip(),
                 quadro=_quadro_seguro("\n".join(quadro)), completo=completo,
-                just=q.get("just", ""), letras=letras)
+                just=just, letras=letras, oficial=oficial)
 
 
 def item_de_lacuna(bloco: dict, artigo: dict, lacuna: dict) -> Item:
