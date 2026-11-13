@@ -1,0 +1,302 @@
+{
+  "id": "prf-administrativo",
+  "materia": "Direito Administrativo",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Lei 8.112/1990, Lei 9.784/1999, Lei 14.133/2021, Lei 9.654/1998 e Decreto 8.282/2014 (textos da Câmara dos Deputados, conferidos em 13/11/2026); CF, art. 37; STF (Temas 532, 592 e 940; Súmula Vinculante 13; Súmula 473).",
+  "atualizado": "2026-11-13",
+  "apelidos": ["direito administrativo", "administrativo"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "organizacao",
+      "bloco": "Organização administrativa",
+      "titulo": "Organização administrativa",
+      "edital": "1 Centralização, descentralização, administração direta e indireta",
+      "peso": 2,
+      "artigos": ["CF 37"],
+      "palavras": ["organizacao administrativa", "administracao direta", "administracao indireta", "descentralizacao", "desconcentracao", "centralizacao", "orgao publico", "teoria do orgao", "autarquia", "fundacao publica", "empresa publica", "sociedade de economia mista", "estatal", "supervisao ministerial"],
+      "pontos": [
+        "Centralização: o Estado age por seus próprios órgãos (administração direta). Descentralização: a atividade passa a OUTRA pessoa jurídica — por outorga, quando a lei cria a entidade e lhe dá a titularidade do serviço (administração indireta), ou por delegação, quando contrato ou ato transfere só a execução (concessionárias e permissionárias). Desconcentração: distribuição de competências entre órgãos DENTRO da mesma pessoa jurídica, com hierarquia.",
+        "Órgão público é um centro de competências sem personalidade jurídica própria: sua atuação é imputada à pessoa jurídica a que pertence (teoria do órgão ou da imputação). A PRF é órgão da administração direta da União, no Ministério da Justiça e Segurança Pública.",
+        "Administração indireta: autarquias, fundações públicas, empresas públicas e sociedades de economia mista. A autarquia é CRIADA por lei específica; a empresa pública, a sociedade de economia mista e a fundação têm a criação AUTORIZADA por lei específica, e lei complementar define as áreas de atuação da fundação (CF, art. 37, XIX).",
+        "Autarquia: pessoa jurídica de direito público para atividades típicas de Estado (ex.: INSS, DNIT, agências reguladoras). Fundação pública: patrimônio personalizado para fins sociais, que pode ser de direito público (fundação autárquica) ou de direito privado.",
+        "Empresa pública: direito privado, capital todo público, qualquer forma societária. Sociedade de economia mista: direito privado, sempre sociedade anônima, com a maioria das ações com direito a voto em poder do ente público (Lei 13.303/2016, arts. 3º e 4º). A estatal que explora atividade econômica segue o regime das empresas privadas, inclusive quanto às obrigações civis, comerciais, trabalhistas e tributárias (CF, art. 173, § 1º, II).",
+        "Entre órgãos da administração direta há hierarquia; entre o ministério e a entidade da indireta vinculada a ele há só supervisão ministerial (controle finalístico ou tutela), sem hierarquia."
+      ],
+      "pegadinhas": [
+        "Órgão NÃO tem personalidade jurídica (PRF 2021, item 87): quem tem é a pessoa jurídica — União, Estado, autarquia.",
+        "Descentralização cria ou usa OUTRA pessoa; desconcentração reparte competências DENTRO da mesma pessoa.",
+        "Autarquia é CRIADA por lei; empresa pública e sociedade de economia mista têm a criação AUTORIZADA por lei."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Órgão público é ente descentralizado da administração indireta, dotado de personalidade jurídica de direito público.", "r": "E", "j": "Doutrina (teoria do órgão): órgão não tem personalidade jurídica; é parte da pessoa jurídica. PRF 2021, item 87."},
+        {"t": "Há desconcentração quando a pessoa jurídica distribui competências entre órgãos de sua própria estrutura.", "r": "C", "j": "Doutrina: desconcentração ocorre dentro da mesma pessoa jurídica."},
+        {"t": "A autarquia é criada por lei específica, ao passo que a criação de empresa pública é autorizada por lei específica.", "r": "C", "j": "CF, art. 37, XIX."},
+        {"t": "A sociedade de economia mista pode adotar qualquer forma societária admitida em direito.", "r": "E", "j": "Lei 13.303/2016, art. 4º: sempre sociedade anônima."},
+        {"t": "Entre o ministério e a autarquia a ele vinculada há relação de hierarquia.", "r": "E", "j": "Doutrina: há supervisão ministerial (tutela), sem hierarquia."}
+      ],
+      "questoes": ["prf-2021-p1|item 87"]
+    },
+    {
+      "id": "ato-administrativo",
+      "bloco": "Atos administrativos",
+      "titulo": "Ato administrativo: requisitos, atributos, anulação e revogação",
+      "edital": "2 Ato administrativo: requisitos, atributos, anulação e revogação",
+      "peso": 3,
+      "artigos": ["L9784 50-55"],
+      "palavras": ["ato administrativo", "atos administrativos", "requisitos do ato", "elementos do ato", "atributos do ato", "presuncao de legitimidade", "autoexecutoriedade", "imperatividade", "anulacao do ato", "revogacao do ato", "anular ou revogar", "convalidacao", "motivacao do ato", "motivos determinantes", "sumula 473", "merito administrativo", "ato discricionario", "ato vinculado"],
+      "pontos": [
+        "Requisitos (elementos) do ato: competência, finalidade, forma, motivo e objeto. Competência, finalidade e forma são sempre vinculados; motivo e objeto formam o mérito nos atos discricionários (juízo de conveniência e oportunidade).",
+        "Atributos: presunção de legitimidade e de veracidade (relativa: vale até prova em contrário); imperatividade (impõe obrigação independentemente da concordância do particular); autoexecutoriedade (a Administração executa sem ordem judicial, quando a lei autoriza ou há urgência); tipicidade (corresponde a figura prevista em lei).",
+        "Motivação (Lei 9.784, art. 50): devem ser motivados os atos que neguem, limitem ou afetem direitos, imponham deveres ou sanções, decidam processos seletivos, dispensem ou declarem inexigível a licitação, decidam recursos e anulem, revoguem, suspendam ou convalidem atos. A motivação deve ser explícita, clara e congruente e pode remeter a pareceres anteriores (§ 1º). Pela teoria dos motivos determinantes, o motivo declarado vincula a validade do ato.",
+        "Anulação (Lei 9.784, art. 53; Súmula 473 do STF): a Administração DEVE anular os atos ilegais, com efeitos retroativos (ex tunc), e o Judiciário também pode anulá-los. O direito de anular ato favorável ao destinatário decai em 5 anos da sua prática, salvo comprovada má-fé; havendo efeitos patrimoniais contínuos, o prazo corre do primeiro pagamento (art. 54).",
+        "Revogação: só a própria Administração revoga, por conveniência e oportunidade, ato válido, com efeitos para o futuro (ex nunc), respeitados os direitos adquiridos. Não se revogam atos vinculados, atos que já exauriram seus efeitos nem os que geraram direito adquirido.",
+        "Convalidação (Lei 9.784, art. 55): atos com defeitos sanáveis podem ser convalidados pela própria Administração, se não houver lesão ao interesse público nem prejuízo a terceiros — em geral, vício de competência não exclusiva e de forma não essencial."
+      ],
+      "pegadinhas": [
+        "Anular é DEVER (ilegalidade, efeito retroativo, Administração ou Judiciário); revogar é FACULDADE só da Administração (mérito, efeito para o futuro).",
+        "Decadência de 5 anos só vale para anular ato FAVORÁVEL ao destinatário, e não corre se houver má-fé.",
+        "O Judiciário não revoga ato de outro Poder; só anula por ilegalidade."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A Administração deve anular seus próprios atos quando eivados de vício de legalidade e pode revogá-los por motivo de conveniência ou oportunidade, respeitados os direitos adquiridos.", "r": "C", "j": "Lei 9.784/1999, art. 53; Súmula 473 do STF."},
+        {"t": "O direito de a Administração anular atos de que decorram efeitos favoráveis aos destinatários decai em dez anos, contados da data em que foram praticados.", "r": "E", "j": "Lei 9.784/1999, art. 54: cinco anos, salvo comprovada má-fé."},
+        {"t": "A revogação do ato administrativo produz efeitos retroativos à data da sua edição.", "r": "E", "j": "Doutrina: a revogação opera efeitos para o futuro (ex nunc); Lei 9.784/1999, art. 53."},
+        {"t": "Os atos administrativos que decidam recursos administrativos devem ser motivados.", "r": "C", "j": "Lei 9.784/1999, art. 50, V."},
+        {"t": "O ato com defeito sanável pode ser convalidado pela própria Administração, desde que não acarrete lesão ao interesse público nem prejuízo a terceiros.", "r": "C", "j": "Lei 9.784/1999, art. 55."},
+        {"t": "A presunção de legitimidade dos atos administrativos é absoluta, não admitindo prova em contrário.", "r": "E", "j": "Doutrina: a presunção é relativa (juris tantum)."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "agentes-publicos",
+      "bloco": "Agentes públicos",
+      "titulo": "Agentes públicos e Lei 8.112/1990",
+      "edital": "3 Agentes públicos; Lei 8.112/1990",
+      "peso": 3,
+      "artigos": ["L8112 1-142"],
+      "palavras": ["agentes publicos", "agente publico", "lei 8112", "regime juridico dos servidores", "servidor publico", "posse em cargo publico", "estagio probatorio", "estabilidade", "provimento", "formas de provimento", "deveres do servidor", "proibicoes do servidor", "penalidades disciplinares", "processo administrativo disciplinar", "pad", "sindicancia", "demissao do servidor", "prescricao disciplinar", "afastamento preventivo"],
+      "pontos": [
+        "Provimento (Lei 8.112, art. 8º): nomeação, promoção, readaptação, reversão, aproveitamento, reintegração e recondução. A posse ocorre em até 30 dias da publicação do ato de provimento (art. 13, § 1º), e o servidor empossado entra em exercício em até 15 dias da posse (art. 15, § 1º).",
+        "Estágio probatório: a Lei 8.112 fala em 24 meses (art. 20), mas a Constituição exige 3 anos de efetivo exercício para a estabilidade (CF, art. 41, com a EC 19/1998), e STF e STJ entendem que o estágio é de 3 anos. É obrigatória a avaliação especial de desempenho por comissão (art. 41, § 4º). O estável só perde o cargo por sentença judicial transitada em julgado, por processo administrativo com ampla defesa ou por avaliação periódica de desempenho, na forma de lei complementar (§ 1º).",
+        "Deveres (art. 116): zelo e dedicação, lealdade, cumprir as ordens superiores — exceto as manifestamente ilegais —, guardar sigilo, ser assíduo e pontual, levar irregularidades ao conhecimento da autoridade e representar contra ilegalidade. Proibições (art. 117), entre outras: ausentar-se sem autorização, valer-se do cargo para proveito pessoal, receber propina ou presente em razão das atribuições, participar de gerência ou administração de sociedade privada e exercer o comércio (salvo como acionista, cotista ou comanditário).",
+        "Penalidades (art. 127): advertência; suspensão — até 90 dias, que pode virar multa de 50% por dia de remuneração, ficando o servidor em serviço (art. 130); demissão; cassação de aposentadoria ou disponibilidade; destituição de cargo em comissão; destituição de função comissionada. Os registros de advertência e suspensão são cancelados após 3 e 5 anos de exercício sem nova infração (art. 131).",
+        "Prescrição da ação disciplinar (art. 142): 5 anos para demissão, cassação e destituição de cargo em comissão; 2 anos para suspensão; 180 dias para advertência — contados da data em que o fato se tornou conhecido. A abertura de sindicância ou do PAD interrompe a prescrição até a decisão final.",
+        "Sindicância (art. 145): 30 dias, prorrogáveis por igual período; resulta em arquivamento, advertência ou suspensão de até 30 dias, ou instauração de PAD. PAD: comissão de três servidores estáveis (art. 149) e prazo de 60 dias, prorrogável por igual prazo (art. 152). O afastamento preventivo dura até 60 dias, sem prejuízo da remuneração, prorrogável por igual prazo (art. 147).",
+        "Responsabilidades civil, penal e administrativa são independentes; a administrativa só é afastada pela absolvição criminal que negue a existência do fato ou a autoria (art. 126). Geram demissão (art. 132), entre outras: crime contra a administração pública, abandono de cargo, inassiduidade habitual, improbidade, insubordinação grave em serviço, corrupção e acumulação ilegal de cargos."
+      ],
+      "pegadinhas": [
+        "Absolvição criminal por FALTA DE PROVAS não afasta a punição administrativa; só a que nega o fato ou a autoria (art. 126).",
+        "Ordem MANIFESTAMENTE ilegal não se cumpre (art. 116, IV).",
+        "Prescrição disciplinar conta de quando o fato se tornou CONHECIDO, não de quando aconteceu."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A posse em cargo público ocorrerá no prazo de trinta dias contados da publicação do ato de provimento.", "r": "C", "j": "Lei 8.112/1990, art. 13, § 1º."},
+        {"t": "A penalidade de suspensão não pode exceder sessenta dias.", "r": "E", "j": "Lei 8.112/1990, art. 130: até noventa dias."},
+        {"t": "A ação disciplinar prescreve em cinco anos quanto às infrações puníveis com demissão, contados da data em que o fato se tornou conhecido.", "r": "C", "j": "Lei 8.112/1990, art. 142, I e § 1º."},
+        {"t": "A absolvição criminal por insuficiência de provas afasta a responsabilidade administrativa do servidor.", "r": "E", "j": "Lei 8.112/1990, art. 126: só a absolvição que negue a existência do fato ou a autoria."},
+        {"t": "A comissão do processo administrativo disciplinar é composta de três servidores estáveis designados pela autoridade competente.", "r": "C", "j": "Lei 8.112/1990, art. 149."},
+        {"t": "O servidor não está obrigado a cumprir ordens superiores manifestamente ilegais.", "r": "C", "j": "Lei 8.112/1990, art. 116, IV."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "carreira-prf",
+      "bloco": "Agentes públicos",
+      "titulo": "Carreira de policial rodoviário federal",
+      "edital": "3 Lei 9.654/1998",
+      "peso": 1,
+      "artigos": ["L9654 1-12"],
+      "palavras": ["carreira prf", "carreira de policial rodoviario federal", "lei 9654", "classes da prf", "promocao na prf", "progressao na prf", "terceira classe", "segunda classe", "primeira classe", "classe especial", "curso de formacao da prf", "jornada do prf", "primeira lotacao", "decreto 8282"],
+      "pontos": [
+        "A Lei 9.654/1998 criou a carreira de Policial Rodoviário Federal no Poder Executivo. O ingresso é por concurso público em duas fases, ambas eliminatórias e classificatórias: a primeira com exame psicotécnico e provas e títulos, a segunda com o curso de formação (art. 3º); exige-se diploma de curso superior completo, em nível de graduação (§ 1º).",
+        "Classes (art. 2º-A, com a Lei 12.775/2012): Terceira, Segunda, Primeira e Especial, cada uma com padrões. O ingresso é no padrão inicial da Terceira Classe (art. 3º, § 3º). A Terceira Classe abrange a fiscalização, o patrulhamento e o policiamento ostensivo; as atribuições específicas de cada classe são fixadas em ato conjunto dos Ministros do Planejamento e da Justiça (art. 2º-A, §§ 1º e 2º).",
+        "Jornada de 40 horas semanais (art. 9º) e dedicação integral e exclusiva às atividades do cargo (art. 7º). Há permanência mínima de 3 anos na primeira lotação, e a remoção depende de concurso de remoção, permuta ou interesse da administração (art. 3º, § 4º).",
+        "Desenvolvimento (Decreto 8.282/2014): progressão é a passagem ao padrão seguinte na mesma classe, após 12 meses no padrão e avaliação de desempenho satisfatória (70% das metas); promoção é a passagem do último padrão de uma classe ao inicial da seguinte, após 12 meses no último padrão, avaliação satisfatória (80% das metas) e cursos de capacitação.",
+        "Capacitação mínima para promoção (Decreto 8.282/2014, Anexo): 120 horas de cursos compatíveis com as atribuições para chegar à Segunda Classe; 150 horas para a Primeira; e 360 horas de cursos específicos, ligados às atividades do órgão, para a Classe Especial. A promoção à Segunda Classe exige ainda o estágio probatório homologado.",
+        "Os policiais são remunerados por subsídio (CF, art. 144, § 9º, c/c art. 39, § 4º); a Lei 14.875/2024 reestruturou as remunerações da carreira."
+      ],
+      "pegadinhas": [
+        "Promoção à Segunda Classe: 120 horas de cursos (não 150 — PRF 2021, item 91). 150 horas é para a Primeira Classe; 360, para a Especial.",
+        "São QUATRO classes (Terceira, Segunda, Primeira e Especial), e o ingresso é sempre na Terceira.",
+        "Jornada de 40 horas semanais, com patrulhamento e policiamento ostensivo já na Terceira Classe (item 92)."
+      ],
+      "novidades": [
+        "Lei 14.875/2024 (31/5/2024): reestruturou a remuneração da carreira e revogou o antigo art. 2º da Lei 9.654/1998."
+      ],
+      "itens": [
+        {"t": "O ingresso na carreira de policial rodoviário federal ocorre no padrão inicial da Terceira Classe.", "r": "C", "j": "Lei 9.654/1998, art. 3º, § 3º."},
+        {"t": "A promoção à Segunda Classe exige participação em cursos de capacitação com carga horária mínima de 120 horas.", "r": "C", "j": "Decreto 8.282/2014, art. 4º, II, c, e Anexo."},
+        {"t": "A carreira de policial rodoviário federal é estruturada em três classes: Terceira, Segunda e Primeira.", "r": "E", "j": "Lei 9.654/1998, art. 2º-A: quatro classes, incluída a Especial."},
+        {"t": "O concurso para policial rodoviário federal tem duas fases eliminatórias e classificatórias, sendo a segunda o curso de formação.", "r": "C", "j": "Lei 9.654/1998, art. 3º."},
+        {"t": "A promoção exige doze meses de efetivo exercício no último padrão da classe e resultado satisfatório na avaliação de desempenho.", "r": "C", "j": "Decreto 8.282/2014, art. 4º, II, a e b."}
+      ],
+      "questoes": ["prf-2021-p1|item 91", "prf-2021-p1|item 92"]
+    },
+    {
+      "id": "poderes",
+      "bloco": "Poderes administrativos",
+      "titulo": "Poderes administrativos e abuso de poder",
+      "edital": "4 Poderes hierárquico, disciplinar, regulamentar e de polícia",
+      "peso": 3,
+      "artigos": ["L9784 11-17"],
+      "palavras": ["poderes administrativos", "poder hierarquico", "poder disciplinar", "poder regulamentar", "poder normativo", "poder de policia", "ciclo de policia", "atributos do poder de policia", "delegacao do poder de policia", "abuso de poder", "excesso de poder", "desvio de finalidade", "desvio de poder", "delegacao e avocacao", "decreto autonomo"],
+      "pontos": [
+        "Poderes administrativos são instrumentos para alcançar o interesse público: são poderes-deveres, irrenunciáveis. Vinculado e discricionário dizem respeito à margem de liberdade dada pela lei; hierárquico, disciplinar, regulamentar e de polícia são as espécies mais cobradas.",
+        "Hierárquico: ordenar, coordenar, controlar e corrigir a atuação dos subordinados, delegando e avocando competências (Lei 9.784, arts. 11 a 17). Não podem ser delegados a edição de atos normativos, a decisão de recursos administrativos e as matérias de competência exclusiva do órgão ou autoridade (art. 13).",
+        "Disciplinar: apurar infrações e aplicar penalidades aos servidores e a quem tem vínculo especial com a Administração (ex.: empresa contratada). Não alcança o particular sem vínculo — sobre ele atua o poder de polícia.",
+        "Regulamentar (normativo): editar decretos e regulamentos para a fiel execução das leis (CF, art. 84, IV), sem inovar na ordem jurídica. Decreto autônomo só nos casos do art. 84, VI: organização da administração federal sem aumento de despesa nem criação ou extinção de órgãos, e extinção de cargos vagos.",
+        "Poder de polícia (CTN, art. 78): limitar ou disciplinar direito, interesse ou liberdade em favor do interesse público. Atributos: discricionariedade, autoexecutoriedade e coercibilidade. Ciclo: ordem, consentimento (licença, autorização), fiscalização e sanção. A fiscalização de trânsito e a multa aplicada pela PRF são poder de polícia.",
+        "Delegação (STF, Tema 532): o poder de polícia pode ser delegado, por lei, a pessoas jurídicas de direito privado da administração indireta, de capital majoritariamente público, que prestem exclusivamente serviço público próprio do Estado em regime não concorrencial — salvo a ordem de polícia, que é indelegável.",
+        "Abuso de poder: excesso de poder (o agente vai além da sua competência) e desvio de finalidade ou de poder (age dentro da competência, mas para fim diverso do previsto em lei ou do interesse público). O ato abusivo é nulo e pode configurar crime (Lei 13.869/2019)."
+      ],
+      "pegadinhas": [
+        "Excesso de poder é vício de COMPETÊNCIA; desvio de finalidade é vício de FINALIDADE.",
+        "Poder disciplinar alcança quem tem vínculo especial com a Administração; o motorista multado está sob o poder de POLÍCIA.",
+        "Não se delegam: atos normativos, decisão de recursos e competência exclusiva."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O poder de polícia tem como atributos a discricionariedade, a autoexecutoriedade e a coercibilidade.", "r": "C", "j": "Doutrina; CTN, art. 78."},
+        {"t": "A decisão de recursos administrativos pode ser objeto de delegação.", "r": "E", "j": "Lei 9.784/1999, art. 13, II."},
+        {"t": "Há desvio de finalidade quando o agente, embora competente, pratica o ato visando a fim diverso daquele previsto na regra de competência.", "r": "C", "j": "Lei 4.717/1965, art. 2º, parágrafo único, e; doutrina."},
+        {"t": "Segundo o STF, a fase de ordem de polícia pode ser delegada a empresa pública que preste serviço público em regime não concorrencial.", "r": "E", "j": "STF, RE 633.782 (Tema 532): delegáveis consentimento, fiscalização e sanção; a ordem de polícia não."},
+        {"t": "O poder disciplinar autoriza a Administração a punir particulares sem vínculo especial com ela, como o condutor autuado em fiscalização de trânsito.", "r": "E", "j": "Doutrina: a sanção ao particular sem vínculo é poder de polícia."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "licitacao",
+      "bloco": "Licitações e contratos",
+      "titulo": "Licitações (Lei 14.133/2021)",
+      "edital": "5 Licitação",
+      "peso": 2,
+      "artigos": ["L14133 1-95"],
+      "palavras": ["licitacao", "licitacoes", "lei 14133", "nova lei de licitacoes", "modalidades de licitacao", "pregao", "concorrencia", "dialogo competitivo", "leilao", "dispensa de licitacao", "inexigibilidade", "inexigibilidade de licitacao", "contratacao direta", "agente de contratacao", "fases da licitacao", "criterios de julgamento", "declaracao de inidoneidade"],
+      "pontos": [
+        "A Lei 14.133/2021 é a lei geral de licitações e contratos; a Lei 8.666/1993 foi revogada no fim de 2023, após o período de transição. A licitação busca a proposta mais vantajosa, a isonomia e o desenvolvimento nacional sustentável, com princípios como legalidade, impessoalidade, moralidade, publicidade, eficiência, julgamento objetivo e vinculação ao edital (art. 5º).",
+        "Modalidades (art. 28): pregão, concorrência, concurso, leilão e diálogo competitivo; é vedado criar outras ou combiná-las — tomada de preços e convite deixaram de existir. O pregão é obrigatório para bens e serviços comuns, com julgamento por menor preço ou maior desconto (art. 6º, XLI).",
+        "Fases (art. 17), em sequência: preparatória; divulgação do edital; apresentação de propostas e lances; julgamento; habilitação; recursal; homologação — a habilitação vem DEPOIS do julgamento, em regra. Quem conduz a licitação é o agente de contratação, servidor efetivo ou empregado público dos quadros permanentes (art. 8º).",
+        "Critérios de julgamento (art. 33): menor preço; maior desconto; melhor técnica ou conteúdo artístico; técnica e preço; maior lance (leilão); maior retorno econômico.",
+        "Inexigibilidade (art. 74): competição inviável — fornecedor exclusivo; artista consagrado; serviços técnicos especializados de natureza predominantemente intelectual com profissionais ou empresas de notória especialização, como treinamento e aperfeiçoamento de pessoal (vedada para publicidade e divulgação); credenciamento; compra ou locação de imóvel cujas características tornem necessária a escolha.",
+        "Dispensa (art. 75): a competição é possível, mas a lei permite contratar direto — por pequeno valor (bases de R$ 100 mil para obras, serviços de engenharia e manutenção de veículos e de R$ 50 mil para outros serviços e compras, atualizadas todo 1º de janeiro, art. 182); licitação deserta ou fracassada há menos de 1 ano; emergência ou calamidade, para o que puder ser concluído em até 1 ano, vedadas a prorrogação e a recontratação da mesma empresa.",
+        "Sanções ao licitante ou contratado (art. 156): advertência; multa; impedimento de licitar e contratar no âmbito do ente, por até 3 anos; declaração de inidoneidade para licitar ou contratar com todos os entes, de 3 a 6 anos."
+      ],
+      "pegadinhas": [
+        "Treinamento de pessoal com empresa de notória especialização é INEXIGIBILIDADE (competição inviável), não dispensa (PRF 2021, item 88).",
+        "Dispensa: a competição é possível e a lei dispensa; inexigibilidade: a competição é inviável.",
+        "Convite e tomada de preços não existem na Lei 14.133; o diálogo competitivo é novo."
+      ],
+      "novidades": [
+        "Desde 30/12/2023 a Lei 8.666/1993 está revogada: as licitações seguem só a Lei 14.133/2021, e os valores de dispensa são atualizados por decreto todo 1º de janeiro."
+      ],
+      "itens": [
+        {"t": "A Lei 14.133/2021 prevê como modalidades de licitação o pregão, a concorrência, o concurso, o leilão e o diálogo competitivo, vedada a criação de outras.", "r": "C", "j": "Lei 14.133/2021, art. 28."},
+        {"t": "A contratação de treinamento de pessoal com empresa de notória especialização caracteriza dispensa de licitação.", "r": "E", "j": "Lei 14.133/2021, art. 74, III, f: é caso de inexigibilidade."},
+        {"t": "Na Lei 14.133/2021, em regra, a fase de habilitação antecede a de julgamento das propostas.", "r": "E", "j": "Lei 14.133/2021, art. 17: julgamento e, depois, habilitação."},
+        {"t": "Na contratação emergencial por dispensa, o contrato pode durar até um ano, vedada a prorrogação.", "r": "C", "j": "Lei 14.133/2021, art. 75, VIII."},
+        {"t": "A declaração de inidoneidade para licitar ou contratar tem prazo mínimo de três e máximo de seis anos.", "r": "C", "j": "Lei 14.133/2021, art. 156, § 5º."},
+        {"t": "O pregão é a modalidade obrigatória para a aquisição de bens e serviços comuns.", "r": "C", "j": "Lei 14.133/2021, art. 6º, XLI."}
+      ],
+      "questoes": ["prf-2021-p1|item 88"]
+    },
+    {
+      "id": "controle",
+      "bloco": "Controle da Administração",
+      "titulo": "Controle da Administração",
+      "edital": "6 Controle administrativo, judicial e legislativo",
+      "peso": 1,
+      "artigos": ["L9784 56-65"],
+      "palavras": ["controle da administracao", "controle administrativo", "controle judicial", "controle legislativo", "controle externo", "controle interno", "autotutela", "recurso administrativo", "tribunal de contas", "tcu", "sindicabilidade", "inafastabilidade"],
+      "pontos": [
+        "Controle administrativo (interno): a própria Administração revê seus atos por legalidade e por mérito — autotutela (Súmula 473 do STF; Lei 9.784, art. 53) —, de ofício ou provocada por recursos, representações e reclamações.",
+        "Recurso administrativo (Lei 9.784): cabe por razões de legalidade e de mérito, em 10 dias da ciência ou divulgação da decisão; é dirigido à autoridade que decidiu, que pode reconsiderar em 5 dias e, se não o fizer, o encaminha à superior; tramita por no máximo três instâncias; deve ser decidido em 30 dias, prorrogáveis uma vez por igual período (arts. 56, 57 e 59). Se a decisão puder agravar a situação do recorrente, ele é cientificado para alegar antes (art. 64); na revisão de processo punitivo, a sanção não pode ser agravada (art. 65).",
+        "Controle judicial: só de LEGALIDADE (incluídas razoabilidade e proporcionalidade). O Judiciário não entra no mérito (conveniência e oportunidade) e anula, não revoga, o ato de outro Poder. Pela inafastabilidade da jurisdição (CF, art. 5º, XXXV) — a 'sindicabilidade' —, toda lesão ou ameaça a direito pode ser levada ao Judiciário, por mandado de segurança, ação popular, ação civil pública e outras ações.",
+        "Controle legislativo (externo): o Congresso Nacional faz a fiscalização contábil, financeira, orçamentária, operacional e patrimonial da União, com o auxílio do Tribunal de Contas da União (CF, arts. 70 e 71), e pode sustar atos normativos do Executivo que exorbitem do poder regulamentar (art. 49, V).",
+        "Controle interno de cada Poder (CF, art. 74): os responsáveis, ao saberem de irregularidade, dão ciência ao TCU, sob pena de responsabilidade solidária; qualquer cidadão, partido, associação ou sindicato pode denunciar irregularidades ao TCU (§ 2º)."
+      ],
+      "pegadinhas": [
+        "Mandado de segurança é controle judicial de LEGALIDADE, nunca de mérito (PRF 2021, item 86).",
+        "Sindicabilidade é a possibilidade de levar ao Judiciário qualquer lesão ou ameaça a direito (item 90).",
+        "Recurso administrativo: 10 dias para recorrer, 30 para decidir, no máximo 3 instâncias."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O mandado de segurança impetrado contra multa contratual permite ao Judiciário rever o mérito administrativo da penalidade.", "r": "E", "j": "Doutrina: o controle judicial é de legalidade, não de mérito (PRF 2021, item 86)."},
+        {"t": "O prazo para interpor recurso administrativo é de dez dias, contado da ciência ou da divulgação oficial da decisão recorrida.", "r": "C", "j": "Lei 9.784/1999, art. 59."},
+        {"t": "O recurso administrativo tramitará, salvo disposição legal diversa, por no máximo três instâncias administrativas.", "r": "C", "j": "Lei 9.784/1999, art. 57."},
+        {"t": "Da revisão do processo administrativo que resultou em sanção poderá resultar o agravamento da penalidade, se surgirem fatos novos.", "r": "E", "j": "Lei 9.784/1999, art. 65, parágrafo único."},
+        {"t": "O controle externo, a cargo do Congresso Nacional, é exercido com o auxílio do Tribunal de Contas da União.", "r": "C", "j": "CF, art. 71."}
+      ],
+      "questoes": ["prf-2021-p1|item 86", "prf-2021-p1|item 90"]
+    },
+    {
+      "id": "responsabilidade-civil",
+      "bloco": "Responsabilidade do Estado",
+      "titulo": "Responsabilidade civil do Estado",
+      "edital": "7 Responsabilidade civil do Estado",
+      "peso": 2,
+      "artigos": ["CF 37"],
+      "palavras": ["responsabilidade civil do estado", "responsabilidade objetiva", "risco administrativo", "risco integral", "acao regressiva", "direito de regresso", "dupla garantia", "indenizacao do estado", "estado indeniza", "viatura bateu", "viatura da prf bateu", "acidente com viatura", "dano causado por agente publico"],
+      "pontos": [
+        "As pessoas jurídicas de direito público e as de direito privado prestadoras de serviço público respondem pelos danos que seus agentes, nessa qualidade, causarem a terceiros, assegurado o direito de regresso contra o responsável nos casos de dolo ou culpa (CF, art. 37, § 6º).",
+        "É responsabilidade OBJETIVA, pela teoria do risco administrativo: a vítima prova a conduta, o dano e o nexo causal, sem precisar provar culpa. A concessionária responde objetivamente também perante terceiros não usuários do serviço (STF).",
+        "Excludentes: culpa exclusiva da vítima, caso fortuito ou força maior e fato exclusivo de terceiro rompem o nexo e afastam o dever de indenizar; a culpa concorrente reduz a indenização. A teoria do risco integral (sem excludentes) é exceção, como no dano ambiental e no nuclear.",
+        "Omissão: em regra exige-se a falha do serviço (culpa anônima); mas o STF reconhece responsabilidade objetiva quando o Estado descumpre dever específico de agir, como na morte de preso sob custódia (Tema 592).",
+        "Dupla garantia (STF, Tema 940): a vítima processa o Estado ou a prestadora, não diretamente o agente; o Estado cobra do agente em ação regressiva, provando dolo ou culpa. As ações de indenização contra a Fazenda prescrevem em 5 anos (Decreto 20.910/1932).",
+        "Exemplo de prova: a viatura da PRF que, em perseguição, atinge o carro de um terceiro — a União responde objetivamente; se o policial agiu com dolo ou culpa, a União pode cobrar dele em regresso."
+      ],
+      "pegadinhas": [
+        "A vítima NÃO prova culpa do agente; quem prova dolo ou culpa é o Estado, na ação de regresso.",
+        "Não cabe ação direta da vítima contra o servidor (STF, Tema 940).",
+        "Concessionária responde objetivamente também perante o NÃO usuário."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "As pessoas jurídicas de direito privado prestadoras de serviço público respondem objetivamente pelos danos que seus agentes, nessa qualidade, causarem a terceiros.", "r": "C", "j": "CF, art. 37, § 6º."},
+        {"t": "Segundo o STF, a vítima pode escolher ajuizar a ação de indenização diretamente contra o agente público causador do dano.", "r": "E", "j": "STF, RE 1.027.633 (Tema 940): a ação é contra o Estado ou a prestadora; o agente é parte ilegítima."},
+        {"t": "Na responsabilidade objetiva do Estado, a culpa exclusiva da vítima rompe o nexo causal e afasta o dever de indenizar.", "r": "C", "j": "Doutrina: teoria do risco administrativo admite excludentes."},
+        {"t": "O direito de regresso do Estado contra o agente depende da comprovação de dolo ou culpa.", "r": "C", "j": "CF, art. 37, § 6º."},
+        {"t": "A responsabilidade civil do Estado adota, como regra, a teoria do risco integral.", "r": "E", "j": "Doutrina: a regra é o risco administrativo; o risco integral é exceção."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "regime-juridico",
+      "bloco": "Regime jurídico-administrativo",
+      "titulo": "Regime jurídico-administrativo e princípios",
+      "edital": "8 Princípios expressos e implícitos",
+      "peso": 2,
+      "artigos": ["CF 37"],
+      "palavras": ["regime juridico administrativo", "principios da administracao", "limpe", "legalidade administrativa", "principio da impessoalidade", "principio da moralidade", "principio da publicidade", "principio da eficiencia", "supremacia do interesse publico", "indisponibilidade do interesse publico", "nepotismo", "sumula vinculante 13", "primo pode ser nomeado", "parente nomeado", "nomear parente", "concurso publico", "validade do concurso", "acumulacao de cargos", "cargo em comissao", "improbidade"],
+      "pontos": [
+        "Regime jurídico-administrativo: supremacia do interesse público sobre o privado (prerrogativas) e indisponibilidade do interesse público (sujeições). A Administração só faz o que a lei permite (legalidade estrita); o particular pode fazer tudo o que a lei não proíbe.",
+        "Princípios expressos (CF, art. 37, caput): legalidade, impessoalidade, moralidade, publicidade e eficiência — esta incluída pela EC 19/1998 (o 'LIMPE'). A impessoalidade veda a promoção pessoal: a publicidade dos órgãos não pode ter nomes, símbolos ou imagens de autoridades ou servidores (§ 1º).",
+        "Princípios da Lei 9.784 (art. 2º) e implícitos: finalidade, motivação, razoabilidade, proporcionalidade, moralidade, ampla defesa, contraditório, segurança jurídica, interesse público e eficiência, além da autotutela e da continuidade do serviço público.",
+        "Nepotismo (Súmula Vinculante 13): viola a Constituição nomear cônjuge, companheiro ou parente até o terceiro grau, inclusive, da autoridade nomeante ou de servidor com cargo de direção, chefia ou assessoramento, para cargo em comissão, de confiança ou função gratificada, inclusive por designações recíprocas. Em regra, não alcança cargos políticos (ministro, secretário).",
+        "Concurso e cargos (art. 37): o cargo efetivo depende de concurso público (II), válido por até 2 anos, prorrogável uma vez por igual período (III); cargo em comissão é só para direção, chefia e assessoramento (V); a contratação temporária atende a necessidade temporária de excepcional interesse público (IX).",
+        "Acumulação (art. 37, XVI): vedada, salvo, com compatibilidade de horários, dois cargos de professor; um de professor com outro técnico ou científico; ou dois de profissionais de saúde com profissão regulamentada. Improbidade (§ 4º): suspensão dos direitos políticos, perda da função pública, indisponibilidade dos bens e ressarcimento ao erário, sem prejuízo da ação penal."
+      ],
+      "pegadinhas": [
+        "Eficiência entrou com a EC 19/1998 — não estava no texto original de 1988.",
+        "A Súmula Vinculante 13 vai até o terceiro grau: primo (quarto grau) não entra (PRF 2021, item 50).",
+        "Concurso: validade de ATÉ 2 anos, prorrogável UMA vez por igual período."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A eficiência foi inserida entre os princípios expressos da administração pública pela Emenda Constitucional 19/1998.", "r": "C", "j": "CF, art. 37, caput (EC 19/1998)."},
+        {"t": "O prazo de validade do concurso público é de até dois anos, prorrogável uma vez, por igual período.", "r": "C", "j": "CF, art. 37, III."},
+        {"t": "Viola a Súmula Vinculante 13 a nomeação, para cargo em comissão, de primo da autoridade nomeante.", "r": "E", "j": "STF, Súmula Vinculante 13: alcança parentes até o terceiro grau; o primo é parente de quarto grau."},
+        {"t": "É permitida a acumulação remunerada de dois cargos de professor, desde que haja compatibilidade de horários.", "r": "C", "j": "CF, art. 37, XVI, a."},
+        {"t": "Os cargos em comissão destinam-se apenas às atribuições de direção, chefia e assessoramento.", "r": "C", "j": "CF, art. 37, V."},
+        {"t": "Pelo princípio da legalidade, o administrador público pode fazer tudo o que a lei não proíbe.", "r": "E", "j": "Doutrina: na Administração, só se faz o que a lei autoriza (legalidade estrita)."}
+      ],
+      "questoes": []
+    }
+  ]
+}

@@ -256,7 +256,7 @@
         {"id": "organizacao", "titulo": "Organização administrativa", "edital": "1 Centralização, descentralização, administração direta e indireta", "peso": 2, "pesquisa": "organização administrativa descentralização desconcentração autarquia fundação empresa pública sociedade de economia mista"},
         {"id": "ato-administrativo", "titulo": "Ato administrativo", "edital": "2 Ato administrativo: requisitos, atributos, anulação e revogação", "peso": 3, "fontes": ["L9784 50-55"]},
         {"id": "agentes-publicos", "titulo": "Agentes públicos e Lei 8.112/1990", "edital": "3 Agentes públicos; Lei 8.112/1990", "peso": 3, "fontes": ["L8112 1-142"]},
-        {"id": "carreira-prf", "titulo": "Carreira de policial rodoviário federal", "edital": "3 Lei 9.654/1998", "peso": 1, "fontes": ["L9654 1-5"]},
+        {"id": "carreira-prf", "titulo": "Carreira de policial rodoviário federal", "edital": "3 Lei 9.654/1998", "peso": 1, "fontes": ["L9654 1-12"]},
         {"id": "poderes", "titulo": "Poderes administrativos e abuso de poder", "edital": "4 Poderes hierárquico, disciplinar, regulamentar e de polícia", "peso": 3, "pesquisa": "poderes administrativos poder de polícia atributos abuso de poder excesso desvio de finalidade"},
         {"id": "licitacao", "titulo": "Licitações (Lei 14.133/2021)", "edital": "5 Licitação", "peso": 2, "fontes": ["L14133 1-95"]},
         {"id": "controle", "titulo": "Controle da Administração", "edital": "6 Controle administrativo, judicial e legislativo", "peso": 1, "pesquisa": "controle da administração pública interno externo judicial legislativo TCU autotutela"},
