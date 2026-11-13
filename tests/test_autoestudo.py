@@ -100,10 +100,18 @@ def test_planos_bem_formados():
 
 
 def test_plano_usa_os_mesmos_ids_das_trilhas_conferidas():
+    """Cada tópico conferido tem o id do edital, na ordem do edital. O que o edital tem e a
+    trilha ainda não (ex.: resoluções do CONTRAN) fica para o autoestudo."""
     trilhas = {t.id: t for t in carregar_trilhas()}
+    usadas = 0
     for m in PLANOS[0].materias:
         if m.trilha in trilhas:
-            assert [t.id for t in m.topicos] == [t.id for t in trilhas[m.trilha].topicos], m.trilha
+            usadas += 1
+            ids_plano = [t.id for t in m.topicos]
+            ids_trilha = [t.id for t in trilhas[m.trilha].topicos]
+            assert [i for i in ids_plano if i in ids_trilha] == ids_trilha, m.trilha
+            assert len(ids_trilha) >= len(ids_plano) - 1, m.trilha     # falta no máximo um
+    assert usadas == len([t for t in trilhas.values() if t.plano == "prf"])
 
 
 def test_acha_o_topico_do_edital_na_fala():
@@ -195,11 +203,17 @@ def tarefa(chave):
 
 def test_primeiro_assunto_e_o_que_mais_cai_e_depois_alterna(tmp_path):
     m = motor(tmp_path)
-    t1 = m.proxima()
+    t1 = m.proxima({})                                 # sem trilha nenhuma: o que mais cai
     assert t1.materia.trilha == "prf-transito" and t1.topico.peso == 3
     asyncio.run(_gravar_falso(m, t1))
-    t2 = m.proxima()
+    vazia = tmp_path / "vazia"
+    vazia.mkdir()
+    so_auto = {t.id: t for t in carregar_trilhas(vazia, tmp_path / "Socrates" / "trilhas")}
+    assert so_auto["prf-transito"].topico(t1.topico.id) is not None
+    t2 = m.proxima(so_auto)
     assert t2.materia.trilha == "prf-portugues"        # não fica só em trânsito
+    # com as trilhas conferidas de verdade, trânsito (já pronto) não é mais o primeiro
+    assert m.proxima().materia.trilha != "prf-transito"
 
 
 async def _gravar_falso(m, t):

@@ -1,0 +1,420 @@
+{
+  "id": "prf-transito",
+  "materia": "Legislação de Trânsito",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "CTB (Lei 9.503/1997) compilado do Planalto em 04/11/2026 (o mesmo do app estudo-prf), com as Leis 14.071/2020, 14.229/2021 e 14.599/2023; Lei 5.970/1973.",
+  "atualizado": "2026-11-13",
+  "apelidos": ["legislacao de transito", "transito", "codigo de transito", "codigo de transito brasileiro", "ctb"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "ctb-snt",
+      "bloco": "Sistema Nacional de Trânsito",
+      "titulo": "CTB: disposições preliminares e Sistema Nacional de Trânsito",
+      "edital": "CTB arts. 1º a 25-A",
+      "peso": 2,
+      "artigos": ["CTB 1-25-A"],
+      "palavras": ["sistema nacional de transito", "snt", "contran", "cetran", "jari", "detran", "orgao executivo de transito", "orgao executivo rodoviario", "competencia da prf no ctb", "art 20 do ctb", "vias terrestres", "transito seguro", "condominio via terrestre", "prf pode multar", "prf pode suspender", "pericia da prf"],
+      "pontos": [
+        "Trânsito é a utilização das vias por pessoas, veículos e animais, isolados ou em grupos, conduzidos ou não, para circulação, parada, estacionamento e operação de carga ou descarga (CTB, art. 1º, § 1º). O trânsito seguro é direito de todos e dever dos órgãos do Sistema Nacional de Trânsito (SNT), que respondem OBJETIVAMENTE por danos causados por ação, omissão ou erro na execução e manutenção de programas, projetos e serviços de trânsito seguro (§§ 2º e 3º). A prioridade é a defesa da vida, incluídas a saúde e o meio ambiente (§ 5º).",
+        "Vias terrestres (art. 2º): ruas, avenidas, logradouros, caminhos, passagens, estradas e rodovias. Também são vias terrestres as praias abertas à circulação pública, as vias internas de condomínios constituídos por unidades autônomas e as vias e áreas de estacionamento de estabelecimentos privados de uso coletivo (parágrafo único).",
+        "Compõem o SNT (art. 7º): o CONTRAN, coordenador do sistema e órgão máximo NORMATIVO e CONSULTIVO; os CETRAN e o CONTRANDIFE; os órgãos executivos de trânsito e os executivos rodoviários da União, dos estados, do DF e dos municípios; a Polícia Rodoviária Federal; as Polícias Militares; e as JARI.",
+        "JARI (arts. 16 e 17): funcionam junto a cada órgão executivo de trânsito ou rodoviário e julgam os recursos dos infratores contra as penalidades impostas por esse órgão.",
+        "PRF (art. 20, nas rodovias e estradas federais): cumprir e fazer cumprir a legislação de trânsito; patrulhamento ostensivo; fiscalizar, aplicar advertência por escrito e multa e as medidas administrativas, notificar e arrecadar multas e valores de estadia, remoção e escolta de cargas superdimensionadas ou perigosas; levantamento dos locais de sinistros e dos serviços de socorro; credenciar escoltas; assegurar a livre circulação; coletar dados sobre sinistros; fiscalizar emissão de poluentes e ruído; aplicar a SUSPENSÃO do direito de dirigir quando prevista de forma específica para a infração (XII); e fazer perícia administrativa nos locais de sinistros (XIII).",
+        "Órgãos executivos rodoviários (art. 21): entre outras, fiscalizar e autuar as infrações por excesso de peso, dimensões e lotação. DETRAN (art. 22): formação e habilitação de condutores (expedir e cassar a Permissão para Dirigir e a CNH) e vistoria, registro, emplacamento e licenciamento de veículos, por delegação do órgão máximo executivo da União. Municípios (art. 24): planejar e operar o trânsito urbano, sinalizar, fiscalizar e manter o estacionamento rotativo."
+      ],
+      "pegadinhas": [
+        "O CONTRAN é órgão máximo NORMATIVO e CONSULTIVO, não executivo.",
+        "Vias internas de condomínio e estacionamento de shopping ou supermercado também são vias terrestres para o CTB.",
+        "O CTB atual fala em 'sinistro de trânsito', não mais em 'acidente'."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O CONTRAN é o coordenador do Sistema Nacional de Trânsito e o seu órgão máximo executivo.", "r": "E", "j": "Art. 7º, I: órgão máximo normativo e consultivo."},
+        {"t": "As vias internas pertencentes a condomínios constituídos por unidades autônomas são consideradas vias terrestres para os efeitos do CTB.", "r": "C", "j": "Art. 2º, parágrafo único."},
+        {"t": "Compete à PRF, no âmbito das rodovias federais, aplicar a penalidade de suspensão do direito de dirigir quando prevista de forma específica para a infração cometida.", "r": "C", "j": "Art. 20, XII."},
+        {"t": "Os órgãos do Sistema Nacional de Trânsito respondem subjetivamente, mediante prova de culpa, pelos danos causados por falhas na manutenção de serviços que garantam o trânsito seguro.", "r": "E", "j": "Art. 1º, § 3º: respondem objetivamente."},
+        {"t": "Compete às JARI julgar os recursos interpostos pelos infratores.", "r": "C", "j": "Art. 17, I."},
+        {"t": "Compete à PRF realizar perícia administrativa nos locais de sinistros de trânsito.", "r": "C", "j": "Art. 20, XIII."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-circulacao",
+      "bloco": "Circulação e conduta",
+      "titulo": "CTB: normas gerais de circulação e conduta",
+      "edital": "CTB arts. 26 a 67-E",
+      "peso": 3,
+      "artigos": ["CTB 26-67-E"],
+      "palavras": ["normas de circulacao", "circulacao e conduta", "preferencia de passagem", "rotatoria", "quem tem preferencia", "velocidade maxima", "limite de velocidade", "velocidade minima", "farol baixo", "luz baixa", "farol aceso de dia", "cinto de seguranca", "cadeirinha", "crianca no banco de tras", "capacete", "tempo de direcao", "motorista profissional", "descanso do motorista", "diario de bordo", "ultrapassagem", "ultrapassar", "luz alta", "pisca alerta", "farol", "distancia de seguranca", "faixa da esquerda", "motorista de caminhao", "caminhoneiro", "dirigir sem parar", "horas dirigindo", "lei do motorista"],
+      "pontos": [
+        "Circula-se pela direita, guardando distância lateral e frontal (art. 29, I e II). Em cruzamento não sinalizado, tem preferência: quem vem pela RODOVIA; na rotatória, quem circula NELA; nos demais casos, quem vem pela DIREITA do condutor (art. 29, III). As faixas da direita são dos veículos mais lentos e de maior porte; as da esquerda, da ultrapassagem e dos mais rápidos (IV). Veículo só transita sobre passeio, calçada ou acostamento para entrar ou sair de imóvel ou de área especial de estacionamento (V).",
+        "Luzes (art. 40): luz baixa à noite e, mesmo de dia, em túneis e sob chuva, neblina ou cerração; luz alta em via não iluminada, salvo ao cruzar ou seguir outro veículo; pisca-alerta só em imobilização ou emergência, ou quando a regulamentação da via mandar. Motocicletas e ônibus em faixa própria usam luz baixa de dia e de noite (§ 1º). Veículo SEM luz de rodagem diurna (DRL) mantém os faróis acesos, mesmo de dia, nas rodovias de pista simples fora do perímetro urbano (§ 2º).",
+        "Velocidade onde não há sinalização (art. 61): vias urbanas — 80 km/h (trânsito rápido), 60 (arterial), 40 (coletora), 30 (local); rodovia de pista DUPLA — 110 km/h para automóveis, camionetas, caminhonetes e motocicletas e 90 para os demais; pista SIMPLES — 100 e 90; estradas — 60 km/h. A mínima não pode ser inferior à metade da máxima (art. 62).",
+        "Criança com menos de 10 anos que não atingiu 1,45 m vai no banco traseiro, em dispositivo de retenção adequado à idade, ao peso e à altura, salvo exceções do CONTRAN (art. 64). O cinto é obrigatório para condutor e passageiros em todas as vias (art. 65).",
+        "Motocicleta (arts. 54 e 55): o condutor usa capacete com viseira ou óculos protetores, segura o guidom com as duas mãos e usa vestuário de proteção; o passageiro usa capacete e vai no assento suplementar atrás do condutor ou em carro lateral.",
+        "Motorista profissional (art. 67-C): é vedado dirigir mais de 5 horas e meia ininterruptas (passageiros ou cargas). Carga: 30 minutos de descanso a cada 6 horas de direção, fracionáveis; passageiros: 30 minutos a cada 4 horas. A cada 24 horas, 11 horas de descanso, fracionáveis, com 8 horas ininterruptas no primeiro período.",
+        "Controle do tempo de direção (art. 67-E): o motorista profissional controla e registra o tempo; o controle é feito pelo registrador instantâneo inalterável de velocidade e tempo (tacógrafo), por diário de bordo, papeleta ou ficha de trabalho externo, ou por meios eletrônicos. A guarda, a preservação e a exatidão das informações do registrador são responsabilidade do CONDUTOR (§ 4º)."
+      ],
+      "pegadinhas": [
+        "110 km/h é para pista DUPLA; em pista simples, automóveis e motos vão a 100 km/h.",
+        "Tempo de direção: no máximo 5h30 ininterruptas — a banca troca por 6h30 (PRF 2021, item 78).",
+        "Quem responde pela guarda e exatidão dos dados do tacógrafo é o condutor, não o proprietário (PRF 2021, item 79)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em rodovia de pista simples sem sinalização regulamentadora, a velocidade máxima para automóveis é de 110 km/h.", "r": "E", "j": "Art. 61, § 1º, II, b: 100 km/h."},
+        {"t": "Nas rodovias de pista dupla sem sinalização regulamentadora, automóveis, camionetas e motocicletas têm o mesmo limite máximo de velocidade.", "r": "C", "j": "Art. 61, § 1º, II, a, 1: 110 km/h. Item 56 da PRF 2021."},
+        {"t": "A velocidade mínima não pode ser inferior à metade da velocidade máxima estabelecida para a via.", "r": "C", "j": "Art. 62."},
+        {"t": "Em cruzamento não sinalizado entre uma rodovia e outra via, tem preferência o veículo que vem pela direita.", "r": "E", "j": "Art. 29, III, a: tem preferência quem circula pela rodovia."},
+        {"t": "É permitido ao motorista profissional de transporte de cargas dirigir por até seis horas e meia ininterruptas.", "r": "E", "j": "Art. 67-C: no máximo 5 horas e meia. Item 78 da PRF 2021."},
+        {"t": "A fiscalização do tempo de direção pode ser feita pelo diário de bordo, pela papeleta ou pela ficha de trabalho externo.", "r": "C", "j": "Art. 67-E, § 2º. Item 77 da PRF 2021."},
+        {"t": "Veículos sem luzes de rodagem diurna devem manter os faróis acesos, mesmo durante o dia, nas rodovias de pista simples situadas fora do perímetro urbano.", "r": "C", "j": "Art. 40, § 2º."}
+      ],
+      "questoes": ["prf-2021-p1|item 56", "prf-2021-p1|item 77", "prf-2021-p1|item 78", "prf-2021-p1|item 79"]
+    },
+    {
+      "id": "ctb-pedestres",
+      "bloco": "Pedestres e educação",
+      "titulo": "CTB: pedestres, ciclistas, cidadão e educação para o trânsito",
+      "edital": "CTB arts. 68 a 79",
+      "peso": 1,
+      "artigos": ["CTB 68-79", "CTB 58-59"],
+      "palavras": ["pedestre", "pedestres", "faixa de pedestre", "ciclista", "bicicleta", "ciclovia", "ciclofaixa", "educacao para o transito", "campanha de transito", "semana nacional de transito"],
+      "pontos": [
+        "O pedestre usa os passeios e passagens apropriadas nas vias urbanas e os ACOSTAMENTOS nas vias rurais (art. 68). O ciclista desmontado empurrando a bicicleta equipara-se ao pedestre em direitos e deveres (§ 1º).",
+        "Sem passeio (via urbana) ou sem acostamento (via rural), o pedestre anda pela pista com prioridade sobre os veículos, pelos bordos, em fila única; na via RURAL, no sentido CONTRÁRIO ao dos veículos (art. 68, §§ 2º e 3º). Nos trechos urbanos de vias rurais deve haver passeio, e o pedestre não usa o acostamento (§ 5º).",
+        "Na faixa de pedestres, quem atravessa tem prioridade, exceto onde houver semáforo; mesmo com semáforo, quem não terminou a travessia tem preferência quando o sinal abre para os veículos (art. 70).",
+        "Bicicletas (art. 58): nas vias urbanas e nas rurais de pista dupla, sem ciclovia, ciclofaixa ou acostamento, circulam nos bordos da pista, no mesmo sentido dos veículos, com preferência sobre os veículos automotores. A autoridade pode autorizar a circulação no sentido contrário se houver ciclofaixa.",
+        "Campanhas (art. 75): o CONTRAN define todo ano os temas e cronogramas das campanhas nacionais, em especial nas férias escolares, feriados prolongados e na Semana Nacional de Trânsito; as campanhas são permanentes, e as rádios e TVs públicas devem difundi-las gratuitamente.",
+        "Educação para o trânsito (art. 76): promovida da pré-escola ao ensino superior, por ações coordenadas entre os órgãos do SNT e os de educação."
+      ],
+      "pegadinhas": [
+        "Na via rural, o pedestre anda pelo acostamento; só sem acostamento vai pelos bordos da pista, em fila única e no sentido CONTRÁRIO ao dos veículos.",
+        "Sentido contrário é regra do PEDESTRE na via rural; a bicicleta anda no MESMO sentido dos veículos (art. 58).",
+        "Ciclista empurrando a bicicleta é pedestre."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O ciclista desmontado empurrando a bicicleta equipara-se ao pedestre em direitos e deveres.", "r": "C", "j": "Art. 68, § 1º."},
+        {"t": "Nas vias rurais, a circulação de pedestres deve ocorrer preferencialmente pela pista de rolamento, no sentido contrário ao dos veículos.", "r": "E", "j": "Art. 68: nas vias rurais, o pedestre usa o acostamento; só quando não houver acostamento anda pelos bordos da pista, em fila única, no sentido contrário (§ 3º)."},
+        {"t": "Nas vias rurais sem acostamento, a circulação de pedestres na pista é feita pelos bordos, em fila única, em sentido contrário ao deslocamento dos veículos.", "r": "C", "j": "Art. 68, § 3º."},
+        {"t": "Nos locais com semáforo, o pedestre que não concluiu a travessia tem preferência, mesmo que o sinal mude para liberar os veículos.", "r": "C", "j": "Art. 70, parágrafo único."},
+        {"t": "Compete ao CONTRAN estabelecer, anualmente, os temas e os cronogramas das campanhas nacionais de trânsito.", "r": "C", "j": "Art. 75."}
+      ],
+      "questoes": ["prf-2021-p1|item 63", "prf-2021-p1|item 80"]
+    },
+    {
+      "id": "ctb-sinalizacao",
+      "bloco": "Sinalização",
+      "titulo": "CTB: sinalização de trânsito",
+      "edital": "CTB arts. 80 a 90",
+      "peso": 2,
+      "artigos": ["CTB 80-90"],
+      "palavras": ["sinalizacao", "sinalizacao de transito", "placa de transito", "semaforo", "ordem de prevalencia", "gestos do agente", "sinalizacao insuficiente"],
+      "pontos": [
+        "Ordem de prevalência (art. 89): 1º as ordens do agente de trânsito sobre as normas de circulação e outros sinais; 2º as indicações do semáforo sobre os demais sinais; 3º as indicações dos sinais sobre as demais normas de trânsito.",
+        "Não se aplicam sanções por desrespeito à sinalização quando ela for insuficiente ou incorreta (art. 90). O órgão com circunscrição sobre a via responde pela falta, insuficiência ou colocação incorreta da sinalização (§ 1º).",
+        "A sinalização é colocada em posição e condições que a tornem visível e legível, de dia e de noite, em distância compatível com a segurança do trânsito (art. 80). Só se usa a sinalização prevista no CTB e nas normas do CONTRAN."
+      ],
+      "pegadinhas": [
+        "Ordem de prevalência: AGENTE > SEMÁFORO > SINAIS > normas de circulação.",
+        "Sinalização insuficiente ou incorreta afasta a penalidade."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "As ordens do agente de trânsito prevalecem sobre as indicações do semáforo.", "r": "C", "j": "Art. 89, I."},
+        {"t": "As indicações dos sinais prevalecem sobre as do semáforo.", "r": "E", "j": "Art. 89, II: o semáforo prevalece sobre os demais sinais."},
+        {"t": "Não serão aplicadas as sanções do CTB por inobservância à sinalização quando esta for insuficiente ou incorreta.", "r": "C", "j": "Art. 90."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-fiscalizacao",
+      "bloco": "Fiscalização",
+      "titulo": "CTB: engenharia, fiscalização e obras na via",
+      "edital": "CTB arts. 91 a 95",
+      "peso": 1,
+      "artigos": ["CTB 91-95"],
+      "palavras": ["obra na via", "evento na via", "interdicao da via", "engenharia de trafego", "policiamento ostensivo de transito"],
+      "pontos": [
+        "Nenhuma obra ou evento que possa perturbar ou interromper a livre circulação, ou pôr em risco a segurança, começa sem permissão prévia do órgão com circunscrição sobre a via (art. 95). A obrigação de sinalizar é de quem executa ou mantém a obra ou o evento (§ 1º).",
+        "Salvo emergência, a autoridade avisa a comunidade, pelos meios de comunicação, com 48 horas de antecedência, de qualquer interdição da via, indicando os caminhos alternativos (art. 95, § 2º)."
+      ],
+      "pegadinhas": [
+        "O aviso de interdição é com 48 horas de antecedência (salvo emergência)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Salvo em casos de emergência, a interdição da via deve ser comunicada à comunidade com quarenta e oito horas de antecedência, com indicação de caminhos alternativos.", "r": "C", "j": "Art. 95, § 2º."},
+        {"t": "A obrigação de sinalizar a obra na via é sempre do órgão de trânsito com circunscrição sobre ela.", "r": "E", "j": "Art. 95, § 1º: é do responsável pela execução ou manutenção da obra."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-veiculos",
+      "bloco": "Veículos",
+      "titulo": "CTB: veículos, equipamentos, registro e licenciamento",
+      "edital": "CTB arts. 96 a 135",
+      "peso": 2,
+      "artigos": ["CTB 96-135"],
+      "palavras": ["equipamento obrigatorio", "equipamentos obrigatorios", "tacografo", "registrador de velocidade", "placa do veiculo", "placas", "registro do veiculo", "licenciamento", "crlv", "documento do carro", "transferencia de veiculo", "cortina no veiculo", "pelicula", "insulfilm", "categoria do veiculo", "licenciar o carro", "transferir o carro", "placa mercosul"],
+      "pontos": [
+        "Equipamentos obrigatórios (art. 105), entre outros do CONTRAN: cinto de segurança (exceto nos veículos de passageiros em que se permite viajar em pé); encosto de cabeça; controle de emissão de gases e ruído; e o registrador instantâneo inalterável de velocidade e tempo (tacógrafo) nos veículos de transporte e condução escolar, nos de passageiros com mais de 10 lugares e nos de carga com peso bruto total superior a 4.536 kg. Também: air bag frontal para condutor e passageiro do banco dianteiro e luzes de rodagem diurna (VII e VIII); nas bicicletas, campainha, sinalização noturna dianteira, traseira, lateral e nos pedais e retrovisor do lado esquerdo (VI).",
+        "Áreas envidraçadas (art. 111): é vedado o uso de cortinas, persianas fechadas ou similares com o veículo em movimento, SALVO nos que tenham espelhos retrovisores em ambos os lados; películas, inscrições e pinturas só quando não comprometerem a segurança, conforme o CONTRAN.",
+        "Placas (art. 115): o veículo é identificado por placas dianteira e traseira, esta lacrada na estrutura; os caracteres acompanham o veículo até a baixa do registro, vedado o reaproveitamento. Placas verde-amarelas só para veículos de representação de altas autoridades (Presidente e Vice, presidentes do Senado, da Câmara e do STF, ministros do STF e de Estado, AGU e PGR).",
+        "Registro (arts. 120 e 123): todo veículo automotor, reboque ou semirreboque é registrado no DETRAN do município de domicílio ou residência do proprietário. É obrigatório novo Certificado de Registro (CRV) quando: houver transferência de propriedade; o proprietário mudar de MUNICÍPIO; mudar característica do veículo; ou mudar a categoria. Na transferência, o prazo é de 30 dias; nos demais casos, as providências são imediatas.",
+        "Licenciamento (arts. 130 a 133): anual, no DETRAN onde o veículo está registrado; o certificado pode ser físico ou digital; só é licenciado com tributos, encargos e multas quitados. O porte do Certificado de Licenciamento Anual é obrigatório, mas dispensado quando o agente puder consultar o sistema no momento da fiscalização (art. 133)."
+      ],
+      "pegadinhas": [
+        "Mudar de município exige NOVO CRV; mudar de endereço no MESMO município só exige comunicar em 30 dias.",
+        "Tacógrafo é obrigatório no veículo de carga com PBT acima de 4.536 kg e no de passageiros com mais de 10 lugares.",
+        "Cortina com o veículo em movimento é permitida se houver retrovisores dos dois lados (PRF 2021, item 57)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Veículos em movimento que possuam espelhos retrovisores em ambos os lados poderão usar cortinas nas áreas envidraçadas.", "r": "C", "j": "Art. 111, II. Item 57 da PRF 2021."},
+        {"t": "A expedição de novo Certificado de Registro de Veículo é obrigatória na transferência de propriedade, mas dispensável quando o proprietário muda de município de residência.", "r": "E", "j": "Art. 123, I e II: obrigatória nos dois casos. Item 62 da PRF 2021."},
+        {"t": "O registrador instantâneo inalterável de velocidade e tempo é equipamento obrigatório nos veículos de carga com peso bruto total superior a 4.536 kg.", "r": "C", "j": "Art. 105, II."},
+        {"t": "O porte do Certificado de Licenciamento Anual é dispensado quando, no momento da fiscalização, for possível verificar no sistema informatizado se o veículo está licenciado.", "r": "C", "j": "Art. 133, parágrafo único."},
+        {"t": "Os caracteres das placas podem ser reaproveitados em outro veículo após a baixa do registro.", "r": "E", "j": "Art. 115, § 1º: vedado o reaproveitamento."}
+      ],
+      "questoes": ["prf-2021-p1|item 57", "prf-2021-p1|item 62"]
+    },
+    {
+      "id": "ctb-escolares",
+      "bloco": "Escolares e motofrete",
+      "titulo": "CTB: condução de escolares e motofrete",
+      "edital": "CTB arts. 136 a 139-B",
+      "peso": 1,
+      "artigos": ["CTB 136-139-B"],
+      "palavras": ["transporte escolar", "van escolar", "conducao de escolares", "motofrete", "moto frete", "motoboy", "mototaxi"],
+      "pontos": [
+        "Veículo de condução coletiva de escolares só circula com autorização do DETRAN e exige (art. 136): registro como veículo de passageiros; inspeção SEMESTRAL; faixa amarela de 40 cm à meia altura, com o dístico ESCOLAR em preto (cores invertidas se o veículo for amarelo); tacógrafo; lanternas próprias; e cintos para todos os passageiros, entre outros.",
+        "O condutor de escolares deve (art. 138): ter mais de 21 anos; ser habilitado na categoria D; não ter cometido mais de UMA infração gravíssima nos últimos 12 meses; e ser aprovado em curso especializado.",
+        "Motofrete (art. 139-A): motocicleta ou motoneta de transporte remunerado de mercadorias só circula com autorização do DETRAN, exigindo registro como veículo de aluguel, protetor de motor 'mata-cachorro', aparador de linha (antena corta-pipas) e inspeção semestral."
+      ],
+      "pegadinhas": [
+        "Condutor de escolares: categoria D e mais de 21 anos; a regra atual tolera UMA gravíssima nos últimos 12 meses (não pode ter mais de uma).",
+        "Inspeção do escolar e do motofrete é SEMESTRAL."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Para conduzir veículo de transporte de escolares, o condutor deve ter mais de vinte e um anos e ser habilitado na categoria D.", "r": "C", "j": "Art. 138, I e II."},
+        {"t": "O veículo de condução de escolares deve passar por inspeção anual para verificação dos equipamentos obrigatórios e de segurança.", "r": "E", "j": "Art. 136, II: inspeção semestral."},
+        {"t": "Entre as exigências para o motofrete está a instalação de aparador de linha antena corta-pipas.", "r": "C", "j": "Art. 139-A, III."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-habilitacao",
+      "bloco": "Habilitação",
+      "titulo": "CTB: habilitação",
+      "edital": "CTB arts. 140 a 160",
+      "peso": 3,
+      "artigos": ["CTB 140-160"],
+      "palavras": ["habilitacao", "cnh", "carteira de motorista", "carteira nacional de habilitacao", "permissao para dirigir", "ppd", "categoria a", "categoria b", "categoria c", "categoria d", "categoria e", "exame toxicologico", "renovacao da cnh", "validade da cnh", "tirar a carteira", "tirar a cnh", "renovar a carteira", "renovar a cnh", "carteira provisoria", "cnh provisoria", "cnh digital"],
+      "pontos": [
+        "Requisitos para habilitar-se (art. 140): ser penalmente imputável, saber ler e escrever e possuir carteira de identidade ou equivalente.",
+        "Categorias (art. 143): A — veículo motorizado de duas ou três rodas; B — veículo não abrangido pela A, com PBT até 3.500 kg e até 8 lugares além do motorista; C — carga com PBT acima de 3.500 kg; D — passageiros com mais de 8 lugares além do motorista; E — combinação cuja unidade acoplada tenha 6.000 kg ou mais, ou lotação acima de 8 lugares. A categoria B também dirige motor-casa de até 6.000 kg e veículo elétrico ou híbrido (tração predominantemente elétrica) de até 4.250 kg de PBT.",
+        "Para C (art. 143, § 1º): 1 ano na categoria B e não mais de uma gravíssima nos últimos 12 meses. Para D e E (e para transporte coletivo, escolar, emergência ou produto perigoso — art. 145): mais de 21 anos; 2 anos na B ou 1 na C (para D); 1 ano na C (para E); não mais de uma gravíssima em 12 meses; e cursos especializado e de prática veicular em situação de risco.",
+        "Permissão para Dirigir (art. 148): o aprovado recebe a PPD com validade de 1 ano; a CNH vem ao fim desse ano se não houver infração GRAVE ou GRAVÍSSIMA nem reincidência em MÉDIA; se houver, reinicia todo o processo.",
+        "Exame de aptidão física e mental (art. 147, § 2º): a cada 10 anos para menores de 50 anos; a cada 5 anos de 50 a 69; a cada 3 anos a partir de 70. Exame toxicológico (art. 148-A): obrigatório para C, D e E na obtenção e renovação e, para quem tem menos de 70 anos, a cada 2 anos e 6 meses.",
+        "CNH (art. 159): física ou digital; tem fé pública e vale como documento de identidade. O porte é obrigatório ao dirigir, mas dispensado se o agente puder consultar o sistema; só vale apresentada em original."
+      ],
+      "pegadinhas": [
+        "Penalmente INIMPUTÁVEL não se habilita (PRF 2021, item 60).",
+        "Na PPD basta UMA infração grave ou gravíssima (ou reincidir em média) para perder a CNH definitiva.",
+        "A categoria D exige mais de 21 anos; a C não exige 21."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Cidadão penalmente inimputável não pode obter habilitação para conduzir veículo automotor.", "r": "C", "j": "Art. 140, I. Item 60 da PRF 2021."},
+        {"t": "A Permissão para Dirigir tem validade de dois anos.", "r": "E", "j": "Art. 148, § 2º: um ano."},
+        {"t": "O condutor com Permissão para Dirigir que cometer uma infração de natureza média não receberá a Carteira Nacional de Habilitação ao final do período.", "r": "E", "j": "Art. 148, § 3º: só a média reincidente impede; uma média não."},
+        {"t": "Para habilitar-se na categoria D, o candidato deve ser maior de 21 anos.", "r": "C", "j": "Art. 145, I."},
+        {"t": "O exame de aptidão física e mental deve ser renovado a cada dez anos para condutores com menos de cinquenta anos.", "r": "C", "j": "Art. 147, § 2º, I."},
+        {"t": "Os condutores das categorias C, D e E devem comprovar resultado negativo em exame toxicológico para obter e renovar a CNH.", "r": "C", "j": "Art. 148-A."}
+      ],
+      "questoes": ["prf-2021-p1|item 60"]
+    },
+    {
+      "id": "ctb-infracoes",
+      "bloco": "Infrações",
+      "titulo": "CTB: infrações",
+      "edital": "CTB arts. 161 a 255",
+      "peso": 3,
+      "artigos": ["CTB 161-255"],
+      "palavras": ["infracao de transito", "infracoes de transito", "multa de transito", "dirigir sem cnh", "sem habilitacao", "alcool ao volante", "dirigir embriagado", "bafometro", "recusar o bafometro", "excesso de velocidade", "radar", "celular ao volante", "sinal vermelho", "manobra perigosa", "sem cinto", "sem capacete", "veiculo nao licenciado", "excesso de peso", "omissao de socorro infracao", "infracao gravissima", "infracao grave", "infracao media", "infracao leve", "valor da multa", "beber e dirigir", "dirigir alcoolizado", "dirigir bebado", "celular dirigindo"],
+      "pontos": [
+        "Classificação e pontos (arts. 258 e 259): gravíssima — 7 pontos e multa de R$ 293,47; grave — 5 pontos e R$ 195,23; média — 4 pontos e R$ 130,16; leve — 3 pontos e R$ 88,38. Multa agravada usa o fator multiplicador previsto no artigo da infração.",
+        "Álcool (art. 165): dirigir sob influência de álcool ou outra substância psicoativa — gravíssima, multa (10 vezes) e suspensão do direito de dirigir por 12 meses; recolhimento do documento e retenção do veículo; multa em dobro se reincidir em 12 meses. Qualquer concentração de álcool já caracteriza a infração (art. 276). Recusar o teste, exame ou perícia (art. 165-A): as MESMAS penalidades.",
+        "Habilitação (art. 162): dirigir sem CNH, PPD ou ACC — gravíssima, multa (3 vezes), retenção até apresentar condutor habilitado; com o direito de dirigir suspenso ou cassado — gravíssima, multa (3 vezes); com categoria diferente — gravíssima, multa (2 vezes); com CNH vencida há mais de 30 dias — gravíssima, multa.",
+        "Velocidade (art. 218): até 20% acima da máxima — média; de 20% a 50% — grave; mais de 50% — gravíssima, multa (3 vezes) e suspensão do direito de dirigir.",
+        "Outras muito cobradas: sem cinto (art. 167) — grave, retenção até colocar o cinto; criança sem as normas de segurança (art. 168) — gravíssima; manobra perigosa com arrancada brusca, derrapagem ou frenagem com arrastamento de pneus (art. 175) — gravíssima, multa (10 vezes) e suspensão; avançar o sinal vermelho (art. 208) — gravíssima; moto sem capacete ou com passageiro sem capacete (art. 244) — gravíssima, multa e suspensão.",
+        "Celular (art. 252): dirigir usando fones ou o celular — média; SEGURANDO ou MANUSEANDO o celular — gravíssima (parágrafo único).",
+        "Sinistro (arts. 176 e 178): com VÍTIMA, deixar de socorrer, de preservar o local, de identificar-se ao policial etc. — gravíssima, multa (5 vezes) e suspensão do direito de dirigir; SEM vítima, deixar de remover o veículo quando necessário à segurança e à fluidez — média.",
+        "Exame toxicológico (arts. 165-B a 165-D, Lei 14.599/2023): dirigir sem o exame exigido, ou com resultado positivo — gravíssima, multa (5 vezes); deixar de fazer o exame periódico 30 dias após o vencimento — gravíssima, multa (5 vezes)."
+      ],
+      "pegadinhas": [
+        "Recusar o bafômetro tem a MESMA punição de dirigir alcoolizado (multa 10 vezes e suspensão por 12 meses).",
+        "Celular: só usar é média; SEGURAR ou MANUSEAR é gravíssima.",
+        "Em sinistro SEM vítima, a obrigação é remover o veículo (infração média), não preservar o local (PRF 2021, item 58)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Recusar-se a ser submetido a teste de alcoolemia é infração gravíssima, punida com multa (dez vezes) e suspensão do direito de dirigir por doze meses.", "r": "C", "j": "Art. 165-A."},
+        {"t": "Transitar em velocidade superior à máxima permitida em mais de 20% até 50% é infração gravíssima.", "r": "E", "j": "Art. 218, II: grave. Gravíssima é acima de 50%."},
+        {"t": "Dirigir segurando o telefone celular é infração gravíssima.", "r": "C", "j": "Art. 252, parágrafo único."},
+        {"t": "O condutor envolvido em sinistro sem vítima, apenas com danos materiais, deve preservar o local para a perícia, sob pena de infração grave.", "r": "E", "j": "Art. 178: sem vítima, a infração é deixar de remover o veículo (média). Item 58 da PRF 2021."},
+        {"t": "Dirigir com a CNH vencida há mais de trinta dias é infração gravíssima.", "r": "C", "j": "Art. 162, V."},
+        {"t": "A infração de natureza média corresponde a cinco pontos no prontuário do condutor.", "r": "E", "j": "Art. 259: média é 4 pontos; grave é 5."},
+        {"t": "Para a infração de dirigir sob influência de álcool, somente a concentração acima de 0,3 mg de álcool por litro de ar alveolar sujeita o condutor às penalidades administrativas.", "r": "E", "j": "Art. 276: qualquer concentração; o CONTRAN disciplina a margem de tolerância do aparelho."}
+      ],
+      "questoes": ["prf-2021-p1|item 58"]
+    },
+    {
+      "id": "ctb-penalidades",
+      "bloco": "Penalidades",
+      "titulo": "CTB: penalidades",
+      "edital": "CTB arts. 256 a 268-A",
+      "peso": 3,
+      "artigos": ["CTB 256-268-A"],
+      "palavras": ["penalidade", "penalidades", "suspensao do direito de dirigir", "suspensao da cnh", "cassacao da cnh", "cassacao", "advertencia por escrito", "pontuacao da cnh", "20 pontos", "40 pontos", "curso de reciclagem", "infracoes simultaneas", "pontos na carteira", "pontos na cnh", "quantos pontos", "carteira suspensa", "cnh suspensa", "suspender a carteira", "suspende a carteira", "suspendem a carteira", "carteira cassada", "cnh cassada", "perder a carteira", "reciclagem"],
+      "pontos": [
+        "Penalidades (art. 256): advertência por escrito; multa; suspensão do direito de dirigir; cassação da CNH; cassação da Permissão para Dirigir; frequência obrigatória em curso de reciclagem. A 'apreensão do veículo' deixou de ser penalidade (inciso revogado). As penalidades administrativas não afastam as penais (§ 1º).",
+        "Suspensão por pontos (art. 261, I), somados em 12 meses: 20 pontos se houver 2 ou mais gravíssimas; 30 pontos se houver 1 gravíssima; 40 pontos se não houver gravíssima. Prazo: 6 meses a 1 ano (reincidente em 12 meses: 8 meses a 2 anos).",
+        "Suspensão específica (art. 261, II), quando a infração já prevê a suspensão: 2 a 8 meses, salvo prazo próprio (ex.: álcool, 12 meses); reincidência em 12 meses: 8 a 18 meses. A CNH volta após cumprida a suspensão e o curso de reciclagem (§ 2º). A suspensão zera os pontos computados para a contagem seguinte (§ 3º), e quem dirige depois de notificado da suspensão comete a infração do art. 162, II (§ 9º).",
+        "Condutor que exerce atividade remunerada: suspensão só com 40 pontos, qualquer que seja a natureza das infrações, podendo fazer curso preventivo de reciclagem ao atingir 30 pontos em 12 meses, o que zera os pontos; quem optar pelo curso não pode repetir a opção em 12 meses (art. 261, §§ 5º a 7º).",
+        "Cassação (art. 263): dirigir qualquer veículo com o direito de dirigir suspenso; reincidir, em 12 meses, em dirigir com categoria diferente (art. 162, III), entregar ou permitir a direção a quem não pode (arts. 163 e 164), álcool (art. 165), racha, competição sem permissão ou manobra perigosa (arts. 173, 174 e 175); ou condenação judicial por delito de trânsito. Reabilitação: depois de 2 anos, refazendo todos os exames.",
+        "Advertência por escrito (art. 267): DEVE ser imposta à infração leve ou média, punível com multa, se o infrator não cometeu outra infração nos últimos 12 meses. Infrações simultâneas: as penalidades são aplicadas cumulativamente (art. 266)."
+      ],
+      "pegadinhas": [
+        "Pontos para suspensão: 20 (duas ou mais gravíssimas), 30 (uma gravíssima), 40 (nenhuma). A banca troca a ordem.",
+        "Advertência por escrito é OBRIGATÓRIA (deverá) para leve ou média sem outra infração em 12 meses — não é faculdade.",
+        "Apreensão do veículo não é mais penalidade do CTB."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A penalidade de suspensão do direito de dirigir será imposta quando o infrator atingir 20 pontos em 12 meses, caso constem duas ou mais infrações gravíssimas.", "r": "C", "j": "Art. 261, I, a."},
+        {"t": "Sem nenhuma infração gravíssima na pontuação, a suspensão ocorre ao atingir 30 pontos em 12 meses.", "r": "E", "j": "Art. 261, I, c: 40 pontos. 30 pontos é quando há uma gravíssima."},
+        {"t": "A autoridade de trânsito pode, a seu critério, aplicar advertência por escrito à infração grave cometida por condutor sem outra infração nos últimos 12 meses.", "r": "E", "j": "Art. 267: a advertência é para leve ou média, e deve ser imposta."},
+        {"t": "Será cassado o documento de habilitação do condutor que, com o direito de dirigir suspenso, conduzir qualquer veículo.", "r": "C", "j": "Art. 263, I."},
+        {"t": "Quando o infrator cometer, simultaneamente, duas ou mais infrações, ser-lhe-ão aplicadas cumulativamente as respectivas penalidades.", "r": "C", "j": "Art. 266."}
+      ],
+      "questoes": ["prf-2021-p1|item 66"]
+    },
+    {
+      "id": "ctb-medidas",
+      "bloco": "Medidas administrativas",
+      "titulo": "CTB: medidas administrativas",
+      "edital": "CTB arts. 269 a 279-A",
+      "peso": 3,
+      "artigos": ["CTB 269-279-A"],
+      "palavras": ["medida administrativa", "medidas administrativas", "retencao do veiculo", "remocao do veiculo", "deposito do detran", "patio do detran", "carro no patio", "recolhimento da cnh", "recolhimento do crlv", "transbordo", "teste de alcoolemia", "etilometro", "sinais de embriaguez", "recusa ao teste", "guincho", "carro guinchado", "carro apreendido"],
+      "pontos": [
+        "Medidas administrativas (art. 269): retenção do veículo; remoção do veículo; recolhimento da CNH, da Permissão para Dirigir, do Certificado de Registro e do Certificado de Licenciamento Anual; transbordo do excesso de carga; teste de alcoolemia ou perícia de substância entorpecente; recolhimento de animais soltos nas vias; e realização de exames de aptidão e de direção.",
+        "Retenção (art. 270): se a irregularidade puder ser sanada no local, o veículo é liberado assim que regularizado. Se não puder, e o veículo tiver condições de segurança, é liberado a condutor habilitado mediante recolhimento do Certificado de Licenciamento Anual, com prazo de até 30 dias para regularizar. Sem condutor habilitado no local, o veículo é removido ao depósito.",
+        "Remoção (art. 271): o veículo vai ao depósito do órgão com circunscrição sobre a via e só é restituído com o pagamento prévio de multas, taxas e despesas de remoção e estada; a liberação depende do reparo de equipamento obrigatório.",
+        "Álcool (arts. 276 e 277): qualquer concentração de álcool sujeita às penalidades do art. 165 (o CONTRAN fixa a tolerância do aparelho). O condutor envolvido em sinistro ou fiscalizado pode ser submetido a teste, exame clínico ou perícia; a infração também pode ser provada por imagem, vídeo, sinais de alteração da capacidade psicomotora ou outras provas. Quem se recusa sofre as penalidades do art. 165-A."
+      ],
+      "pegadinhas": [
+        "Na retenção, se não der para sanar no local, o CLA (licenciamento) é recolhido e o prazo para regularizar é de até 30 DIAS.",
+        "Bafômetro não é a única prova: imagem, vídeo e sinais de embriaguez também caracterizam a infração."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Quando a irregularidade não puder ser sanada no local, o veículo em condições de segurança poderá ser liberado a condutor habilitado mediante recolhimento do Certificado de Licenciamento Anual, com prazo não superior a 30 dias para regularização.", "r": "C", "j": "Art. 270, § 2º."},
+        {"t": "A infração de dirigir sob influência de álcool só pode ser comprovada por etilômetro ou exame de sangue.", "r": "E", "j": "Art. 277, § 2º: também por imagem, vídeo, sinais de alteração da capacidade psicomotora e outras provas."},
+        {"t": "Não se apresentando condutor habilitado no local, o veículo retido será removido ao depósito.", "r": "C", "j": "Art. 270, § 4º."},
+        {"t": "O transbordo do excesso de carga é uma das medidas administrativas previstas no CTB.", "r": "C", "j": "Art. 269, VIII."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-processo",
+      "bloco": "Processo administrativo",
+      "titulo": "CTB: auto de infração e processo administrativo",
+      "edital": "CTB arts. 280 a 290-A",
+      "peso": 2,
+      "artigos": ["CTB 280-290-A"],
+      "palavras": ["auto de infracao", "autuacao", "notificacao da autuacao", "defesa previa", "recurso de multa", "pagar multa com desconto", "desconto de 40", "desconto de 20", "prescricao da multa", "recorrer da multa", "recurso da multa", "notificacao da multa"],
+      "pontos": [
+        "O auto de infração contém (art. 280): tipificação; local, data e hora; placa, marca e espécie do veículo; prontuário do condutor, sempre que possível; identificação do órgão e do agente ou do equipamento; e assinatura do infrator, sempre que possível, valendo como notificação. A infração é comprovada pela declaração do agente, por aparelho eletrônico ou equipamento audiovisual regulamentado pelo CONTRAN (§ 2º).",
+        "O auto é arquivado e julgado insubsistente se for inconsistente ou irregular, ou se a notificação da autuação não for expedida em até 30 DIAS (art. 281, § 1º).",
+        "Indeferida a defesa prévia (ou não apresentada), aplica-se a penalidade e o responsável é notificado (art. 282); a notificação devolvida por endereço desatualizado ou recusa é válida (§ 1º).",
+        "Pagamento (art. 284): até o vencimento, por 80% do valor (20% de desconto); quem aderir ao sistema de notificação eletrônica e renunciar à defesa e ao recurso paga 60% (40% de desconto). Pagar não impede recorrer, e enquanto não termina a instância administrativa não há cobrança de mora nem restrição ao licenciamento e à transferência."
+      ],
+      "pegadinhas": [
+        "O prazo para expedir a notificação da autuação é de 30 dias; passou disso, o auto é arquivado.",
+        "Descontos: 20% pagando até o vencimento; 40% com a adesão ao sistema eletrônico e renúncia à defesa."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O auto de infração será arquivado se, no prazo máximo de trinta dias, não for expedida a notificação da autuação.", "r": "C", "j": "Art. 281, § 1º, II."},
+        {"t": "A notificação devolvida por desatualização do endereço do proprietário é considerada inválida, devendo ser renovada.", "r": "E", "j": "Art. 282, § 1º: é válida para todos os efeitos."},
+        {"t": "A multa pode ser paga até o vencimento por oitenta por cento do seu valor.", "r": "C", "j": "Art. 284."},
+        {"t": "O pagamento da multa implica renúncia ao direito de recorrer.", "r": "E", "j": "Art. 284, § 2º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ctb-crimes",
+      "bloco": "Crimes de trânsito",
+      "titulo": "CTB: crimes de trânsito",
+      "edital": "CTB arts. 291 a 312-B",
+      "peso": 3,
+      "artigos": ["CTB 291-312-B"],
+      "palavras": ["crime de transito", "crimes de transito", "homicidio culposo no transito", "lesao culposa no transito", "embriaguez ao volante", "dirigir bebado crime", "racha", "fuga do local", "sem habilitacao e crime", "sem cnh e crime", "omissao de socorro no transito", "dirigir sem habilitacao crime", "entregar a direcao", "velocidade perto de escola", "atropelamento", "atropelar", "matar no transito"],
+      "pontos": [
+        "Aplicam-se aos crimes de trânsito as regras gerais do CP e do CPP e a Lei 9.099, no que couber (art. 291). Na lesão corporal culposa valem a composição civil, a transação e a representação (arts. 74, 76 e 88 da Lei 9.099), EXCETO se o agente estiver sob influência de álcool, participando de racha ou a mais de 50 km/h acima da máxima — nesses casos, instaura-se inquérito (§§ 1º e 2º).",
+        "Ao condutor que presta pronto e integral socorro à vítima não se impõe prisão em flagrante nem se exige fiança (art. 301).",
+        "Homicídio culposo na direção (art. 302): detenção de 2 a 4 anos e suspensão ou proibição de obter a habilitação; aumento de 1/3 à metade se não tem habilitação, se ocorre na faixa de pedestres ou na calçada, se deixa de socorrer, ou se é motorista profissional de transporte de passageiros. Sob influência de álcool: reclusão de 5 a 8 anos (§ 3º). Lesão culposa (art. 303): detenção de 6 meses a 2 anos; com álcool e lesão grave ou gravíssima, reclusão de 2 a 5 anos (§ 2º).",
+        "Embriaguez ao volante (art. 306): conduzir com capacidade psicomotora alterada por álcool ou outra substância — detenção de 6 meses a 3 anos, multa e suspensão ou proibição. Constata-se por concentração igual ou superior a 6 decigramas por litro de sangue ou 0,3 mg por litro de ar alveolar, OU por sinais de alteração da capacidade psicomotora; vale também vídeo, prova testemunhal e outros meios.",
+        "Outros crimes: omissão de socorro (art. 304, detenção de 6 meses a 1 ano ou multa, mesmo que terceiros socorram ou a vítima tenha morrido na hora); fuga do local para escapar da responsabilidade (art. 305, mesma pena); violar a suspensão (art. 307); racha com risco (art. 308, detenção de 6 meses a 3 anos; com lesão grave, reclusão de 3 a 6; com morte, reclusão de 5 a 10); dirigir sem habilitação GERANDO PERIGO DE DANO (art. 309); entregar a direção a quem não pode (art. 310); velocidade incompatível perto de escolas e hospitais gerando perigo de dano (art. 311); fraude processual em sinistro (art. 312).",
+        "Penas: a suspensão ou proibição de obter habilitação vai de 2 meses a 5 anos (art. 293), e o condenado entrega o documento em 48 horas após o trânsito em julgado. A pena substitutiva é prestação de serviços ligada a vítimas de trânsito (art. 312-A). No homicídio e na lesão grave com álcool (arts. 302, § 3º, e 303, § 2º) não cabe substituição por restritiva de direitos (art. 312-B)."
+      ],
+      "pegadinhas": [
+        "Dirigir sem habilitação só é CRIME se gerar perigo de dano (art. 309); sem perigo, é infração administrativa (art. 162).",
+        "Socorrer a vítima afasta o flagrante e a fiança (art. 301), não o crime.",
+        "Omissão de socorro existe mesmo se a vítima morreu na hora ou foi socorrida por terceiros."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Ao condutor de veículo que, em sinistro com vítima, prestar pronto e integral socorro, não se imporá prisão em flagrante nem se exigirá fiança.", "r": "C", "j": "Art. 301."},
+        {"t": "O homicídio culposo na direção de veículo automotor praticado sob a influência de álcool é punido com reclusão de cinco a oito anos.", "r": "C", "j": "Art. 302, § 3º."},
+        {"t": "Dirigir veículo automotor em via pública sem habilitação é crime, ainda que não gere perigo de dano.", "r": "E", "j": "Art. 309 exige perigo de dano; sem ele, é a infração do art. 162."},
+        {"t": "O crime de embriaguez ao volante pode ser constatado por sinais que indiquem alteração da capacidade psicomotora, mesmo sem teste de alcoolemia.", "r": "C", "j": "Art. 306, § 1º, II, e § 2º."},
+        {"t": "Responde pela omissão de socorro o condutor cuja omissão foi suprida por terceiros.", "r": "C", "j": "Art. 304, parágrafo único."},
+        {"t": "Na lesão corporal culposa no trânsito praticada sob influência de álcool, aplica-se normalmente a transação penal.", "r": "E", "j": "Art. 291, § 1º, I: a exceção afasta os arts. 74, 76 e 88 da Lei 9.099."},
+        {"t": "A penalidade de suspensão ou proibição de obter a habilitação tem duração de dois meses a cinco anos.", "r": "C", "j": "Art. 293."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "lei-5970",
+      "bloco": "Sinistro e local",
+      "titulo": "Lei 5.970/1973: remoção de vítimas e veículos em sinistro",
+      "edital": "Lei 5.970/1973",
+      "peso": 1,
+      "artigos": ["L5970 1"],
+      "palavras": ["lei 5970", "remover veiculo do acidente", "remocao das vitimas", "remover o carro acidentado"],
+      "pontos": [
+        "Em sinistro de trânsito, a autoridade ou o agente policial que primeiro tomar conhecimento pode autorizar, INDEPENDENTEMENTE de exame do local, a imediata remoção das pessoas feridas e dos veículos que estejam no leito da via e prejudiquem o tráfego (Lei 5.970/1973, art. 1º).",
+        "Para autorizar a remoção, lavra-se boletim de ocorrência com o fato, as testemunhas e as demais circunstâncias necessárias ao esclarecimento da verdade (art. 1º, parágrafo único).",
+        "A lei excepciona, nesses casos, a regra do CPP de preservar o local até a chegada dos peritos (arts. 6º, I, 64 e 169 do CPP)."
+      ],
+      "pegadinhas": [
+        "A remoção NÃO depende de perícia prévia nem de socorro anterior às vítimas como condição (PRF 2021, item 59)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Para que a autoridade policial autorize a remoção de veículos envolvidos em sinistro no leito da via, é necessário que antes tenha sido realizada a perícia no local.", "r": "E", "j": "Lei 5.970/1973, art. 1º: independentemente de exame do local. Item 59 da PRF 2021."},
+        {"t": "Ao autorizar a remoção, a autoridade ou o agente policial lavrará boletim da ocorrência, nele consignando o fato e as testemunhas que o presenciaram.", "r": "C", "j": "Art. 1º, parágrafo único."}
+      ],
+      "questoes": ["prf-2021-p1|item 59"]
+    }
+  ]
+}

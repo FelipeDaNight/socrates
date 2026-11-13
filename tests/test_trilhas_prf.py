@@ -96,7 +96,9 @@ def test_aula_de_processo_penal_e_fixacao_com_questao_real(tutor):
 
 def test_plano_do_dia_junta_as_materias(tutor):
     s = tutor.atender("o que eu estudo hoje?")
-    assert "Direito Penal" in s.quadro and "Legislação Especial" in s.quadro
+    materias = [tr.materia for tr in tutor.trilhas]
+    assert sum(f"- {m}:" in s.quadro for m in materias) == 2       # duas matérias por dia
+    assert "- Legislação de Trânsito:" in s.quadro                    # a que mais cai vem
     assert tutor.entender("qual o próximo passo?").tipo == "plano"
 
 

@@ -117,17 +117,19 @@ Sem internet, os registros ficam guardados e vão depois.
 
 ### Trilhas da PRF: aulas, direção e o que você aprendeu
 
-O Sócrates tem três **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
+O Sócrates tem quatro **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
 com as leis conferidas nas fontes oficiais até novembro de 2026:
 
 | Trilha | Tópicos | O que tem |
 |---|---|---|
+| Legislação de Trânsito | 14 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973 |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 38 tópicos, 253 pontos-chave e 191 itens de fixação com gabarito e justificativa, e as questões
-reais da PRF 2021 (itens 100 a 115) entram no tópico certo. Isso importa porque os modelos de IA
+São 52 tópicos, 322 pontos-chave e 257 itens de fixação com gabarito e justificativa, e as questões
+reais da PRF 2021 (de trânsito e dos itens 100 a 115) entram no tópico certo. As resoluções do
+CONTRAN ainda ficam com o autoestudo. Isso importa porque os modelos de IA
 ainda trazem leis velhas: o furto passou a 1 a 6 anos (Lei 15.397/2026), a Lei Antifacção criou o
 "domínio social estruturado" (20 a 40 anos), novos hediondos entraram em 2026 e a PEC da Segurança
 Pública (aprovada no Senado em 3/11/2026) põe ferrovias e hidrovias federais com a PRF.
@@ -140,7 +142,8 @@ Pública (aprovada no Senado em 3/11/2026) põe ferrovias e hidrovias federais c
 | "o que eu estudo de penal?"            | O próximo passo e onde você está no edital da matéria      |
 | "o que eu estudei hoje?" / "ontem" / "essa semana" | Tempo, aulas, questões, lacunas, artigos e dúvidas |
 | "o que eu já aprendi?"                 | O que você domina, o que está praticando e o que ainda erra |
-| "questões de drogas" / "questões de furto" | Itens da trilha e questões reais da prova ligadas ao tópico |
+| "questões de drogas" / "questões de trânsito" | Itens da trilha e questões reais da prova ligadas ao tópico |
+| "questões de trânsito da PRF"          | Só as questões reais da prova, daquela matéria             |
 | "simulado de legislação especial"      | 20 itens misturados, corrigidos só no fim                  |
 | "mostra meu mapa"                      | Abre no navegador o mapa de todas as matérias (também: `main.py --mapa`) |
 
@@ -491,7 +494,7 @@ socrates/
   estudo/lei.py            acha o artigo pedido e os trechos que respondem uma dúvida
   estudo/material.py       baixa os bancos do app estudo-prf
   estudo/planilha.py       manda para a planilha do Google (mesmo script do app)
-  estudo/trilhas/*.json    trilhas conferidas da PRF (Penal, Processo Penal, Legislação Especial)
+  estudo/trilhas/*.json    trilhas conferidas da PRF (Trânsito, Penal, Processo Penal, Legislação Especial)
   estudo/planos/*.json     o mapa dos editais (PRF e CBMGO) e o endereço oficial de cada lei
   estudo/trilha.py         lê a trilha (e junta o que o autoestudo aprendeu), acha o tópico na fala
   estudo/plano.py          lê os editais e acha o tópico pedido
@@ -504,7 +507,7 @@ socrates/
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     481 testes, rodam sem microfone nem internet
+tests/                     505 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -519,7 +522,8 @@ tests/                     481 testes, rodam sem microfone nem internet
 - [x] **Fase 4** — trilha de Direito Penal da PRF: aulas guiadas, direção, diário e mapa
 - [x] **Fase 5** — trilhas de Processo Penal e Legislação Especial; autoestudo do edital inteiro
   (PRF e CBMGO), com conferência por outro modelo e atualização quando a lei muda
-- [ ] **Próximo** — conferir à mão os tópicos que o autoestudo escrever, a começar por Trânsito
+- [x] **Fase 6** — trilha de Legislação de Trânsito (CTB inteiro); "questões da PRF" ficam com a prova
+- [ ] **Próximo** — resoluções do CONTRAN, Constitucional, Administrativo, Ética e Direitos Humanos
 
 ## Testes
 

@@ -29,8 +29,10 @@ def test_banco_no_formato_do_app(tmp_path):
     assert ns == list(range(1, total + 1))
     q = banco["questoes"][0]
     assert set(q) >= {"n", "materia", "topico", "tipo", "resp", "enunciado", "just", "ref"}
-    assert {q["materia"] for q in banco["questoes"]} == {"Direito Penal", "Direito Processual Penal",
-                                                          "Legislação Especial"}
+    materias = {q["materia"] for q in banco["questoes"]}
+    assert materias == {tr.materia for tr in conferidas if tr.plano in ("", "prf")}
+    assert {"Direito Penal", "Direito Processual Penal", "Legislação Especial",
+            "Legislação de Trânsito"} <= materias
     indice = json.loads((app / "bancos/index.json").read_text(encoding="utf-8"))
     assert indice[-1] == {"id": ex.ID, "arquivo": ex.ARQUIVO, "titulo": ex.TITULO, "n": total,
                           "origem": "socrates"}

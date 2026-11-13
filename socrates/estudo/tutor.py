@@ -50,6 +50,7 @@ _BANCOS = [  # (palavras faladas, id do banco)
 _QUESTOES = re.compile(r"\b(questoes|questao|perguntas de prova|itens|simulado|prova)\b")
 _COMECAR = re.compile(r"\b(questoes|questao|simulado|treino|treinar|treina|me testa|me teste|"
                       r"pratica|praticar|bora|vamos|quero|faz|faca|manda|comeca|comecar|inicia)\b")
+_TREINO = re.compile(r"\b(me testa|me teste|treina|treinar|exercicios)\b")
 _ERRADAS = re.compile(r"\b(que (?:eu )?errei|erradas|que errei)\b")
 _REVISAO = re.compile(r"\b(revisa|revisar|revise|revisao|revisoes)\b.*\b(erros|errei|caderno|hoje|vencid\w*|cartoes)\b"
                       r"|\b(minha|minhas|a|as) revis(ao|oes)\b|^revis(ao|ar|a)\b")
@@ -187,6 +188,11 @@ class Tutor:
                     melhor = (nota, i, tr, topico)
         return (melhor[2], melhor[3]) if melhor else (None, None)
 
+    def _banco_citado(self, t: str) -> str | None:
+        """O banco de prova que a fala nomeia ("da PRF", "do CBMGO"), se ele estiver carregado."""
+        bid = next((b for rx, b in _BANCOS if rx.search(t)), None)
+        return bid if bid in self.material.bancos else None
+
     def _pedido_da_trilha(self, texto: str, t: str) -> Pedido | None:
         tr, topico = self._trilha_da_fala(texto)
         if _ESTUDADO.search(t):
@@ -219,9 +225,12 @@ class Tutor:
             return None                     # lacunas da lei seca (tratadas adiante)
         if _REVISAO.search(t):
             return Pedido("revisao", trilha=tr, n=self._quantos(t))
+        quer_treino = "simulado" in t or _QUESTOES.search(t) or _TREINO.search(t)
+        if quer_treino and topico is None and self._banco_citado(t):
+            return None                     # "questões de trânsito DA PRF": as da prova, no banco
         if "simulado" in t:
             return Pedido("simulado", trilha=tr, topico=topico, n=self._quantos(t))
-        if _QUESTOES.search(t) or re.search(r"\b(me testa|me teste|treina|treinar|exercicios)\b", t):
+        if _QUESTOES.search(t) or _TREINO.search(t):
             return Pedido("questoes", trilha=tr, topico=topico, n=self._quantos(t),
                           so_erradas=bool(_ERRADAS.search(t)))
         if _DESEMPENHO.search(t):

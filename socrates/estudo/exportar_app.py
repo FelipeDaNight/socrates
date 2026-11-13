@@ -21,7 +21,7 @@ from .trilha import Trilha, carregar_trilhas
 
 ID = "socrates-trilhas-prf"
 ARQUIVO = f"bancos/{ID}.json"
-TITULO = "Sócrates · Fixação PRF (Penal, Processo Penal e Legislação Especial)"
+TITULO = "Sócrates · Fixação PRF"
 
 
 def itens_conferidos(trilhas: list[Trilha]) -> list[dict]:
@@ -52,13 +52,15 @@ def banco_do_app(trilhas: list[Trilha], anterior: dict | None = None, atualizado
     datas = sorted({tr.atualizado for tr in trilhas if not tr.auto and tr.atualizado})
     quando = atualizado or (datas[-1] if datas else "")
     quando_br = "/".join(reversed(quando.split("-"))) if quando else ""
+    materias = list(dict.fromkeys(q["materia"] for q in questoes))
+    lista = ", ".join(materias[:-1]) + " e " + materias[-1] if len(materias) > 1 else "".join(materias)
     return {
         "id": ID, "titulo": TITULO, "banca": "Cebraspe (estilo)", "ano": int(quando[:4]) if quando else None,
         "tipo": "ce", "sincroniza_simulado": False, "origem": "socrates",
         "aviso": ("Itens de fixação no estilo Cebraspe, os mesmos das aulas do Sócrates, escritos e "
                   "conferidos nas fontes oficiais (leis atualizadas até " + (quando_br or "a data da trilha") +
-                  "). Não são questões de prova: as da PRF 2021 estão no banco da prova. Certo/Errado; "
-                  "a justificativa cita o artigo."),
+                  ")" + (f". Matérias: {lista}" if lista else "") + ". Não são questões de prova: as da "
+                  "PRF 2021 estão no banco da prova. Certo/Errado; a justificativa cita o artigo."),
         "questoes": questoes,
     }
 
