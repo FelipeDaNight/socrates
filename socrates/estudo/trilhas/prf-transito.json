@@ -6,7 +6,7 @@
   "fonte": "CTB (Lei 9.503/1997) compilado do Planalto em 04/11/2026 (o mesmo do app estudo-prf), com as Leis 14.071/2020, 14.229/2021 e 14.599/2023; Lei 5.970/1973.",
   "atualizado": "2026-11-13",
   "apelidos": ["legislacao de transito", "transito", "codigo de transito", "codigo de transito brasileiro", "ctb"],
-  "nao_confundir": [],
+  "nao_confundir": ["quem legisla sobre transito", "lei estadual de transito", "lei municipal de transito", "competencia para legislar sobre transito"],
   "plano": "prf",
   "topicos": [
     {

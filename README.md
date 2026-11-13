@@ -117,17 +117,18 @@ Sem internet, os registros ficam guardados e vão depois.
 
 ### Trilhas da PRF: aulas, direção e o que você aprendeu
 
-O Sócrates tem quatro **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
+O Sócrates tem cinco **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
 com as leis conferidas nas fontes oficiais até novembro de 2026:
 
 | Trilha | Tópicos | O que tem |
 |---|---|---|
 | Legislação de Trânsito | 15 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973; e as resoluções do CONTRAN em vigor (pesos e dimensões com a tolerância de 12,5% por eixo, tacógrafo, videomonitoramento, radares, placas, vidros, amarração de carga) |
+| Direito Constitucional | 10 | conferida na CF atualizada (13/11/2026): poder constituinte, art. 5º com as teses do STF (domicílio, reunião, confisco), remédios, direitos sociais e greve de policial, nacionalidade pela EC 131/2023, direitos políticos, competências (trânsito é privativa da União), Executivo (posse em 5 de janeiro), segurança pública com a PEC 18/2025 aguardando promulgação, estados de defesa e sítio, ordem social |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 53 tópicos, 334 pontos-chave e 267 itens de fixação com gabarito e justificativa, e as questões
+São 63 tópicos, 399 pontos-chave e 324 itens de fixação com gabarito e justificativa, e as questões
 reais da PRF 2021 (os 26 itens de trânsito e os itens 100 a 115) entram no tópico certo. Questão de
 prova cuja lei mudou depois (ex.: item 82, tolerância por eixo) é treinada pelo gabarito de hoje, e
 o Sócrates explica que a prova antiga cobrava a regra anterior. Isso importa porque os modelos de IA
@@ -508,7 +509,7 @@ socrates/
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     518 testes, rodam sem microfone nem internet
+tests/                     542 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -525,7 +526,8 @@ tests/                     518 testes, rodam sem microfone nem internet
   (PRF e CBMGO), com conferência por outro modelo e atualização quando a lei muda
 - [x] **Fase 6** — trilha de Legislação de Trânsito (CTB inteiro e resoluções do CONTRAN); "questões da PRF"
   ficam com a prova; questão com lei alterada depois da prova treina a regra de hoje
-- [ ] **Próximo** — Constitucional, Administrativo, Ética e Direitos Humanos
+- [x] **Fase 7** — trilha de Direito Constitucional; tela de Resumos no app
+- [ ] **Próximo** — Administrativo, Ética e Direitos Humanos
 
 ## Testes
 

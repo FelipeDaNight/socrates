@@ -1,0 +1,348 @@
+{
+  "id": "prf-constitucional",
+  "materia": "Direito Constitucional",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Constituição Federal atualizada (texto da Câmara dos Deputados conferido em 13/11/2026), com as EC 111/2021, 114/2021, 115/2022 e 131/2023; teses do STF (Temas 280, 541, 647 e 855; ADPF 187); situação da PEC 18/2025 no Senado.",
+  "atualizado": "2026-11-13",
+  "apelidos": ["direito constitucional", "constitucional", "constituicao federal"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "poder-constituinte",
+      "bloco": "Teoria da Constituição",
+      "titulo": "Poder constituinte e emendas à Constituição",
+      "edital": "1 Poder constituinte",
+      "peso": 1,
+      "artigos": ["CF 60"],
+      "palavras": ["poder constituinte", "constituinte originario", "constituinte derivado", "poder reformador", "emenda constitucional", "emenda a constituicao", "proposta de emenda", "clausula petrea", "clausulas petreas", "mutacao constitucional", "poder decorrente", "revisao constitucional", "recepcao de lei antiga"],
+      "pontos": [
+        "O poder constituinte originário cria a Constituição: é inicial (inaugura a ordem jurídica), juridicamente ilimitado e autônomo (não se prende à ordem anterior), incondicionado (não tem forma prefixada) e permanente (não se esgota com o uso). O titular é o povo: 'todo o poder emana do povo' (CF, art. 1º, parágrafo único).",
+        "O poder derivado reformador altera a Constituição por emenda (art. 60). Podem propor a emenda: um terço, no mínimo, dos membros da Câmara ou do Senado; o Presidente da República; ou mais da metade das Assembleias Legislativas, cada uma pela maioria relativa de seus membros.",
+        "Votação (art. 60, §§ 2º e 3º): dois turnos em cada Casa, com três quintos dos votos dos membros em ambos. A emenda é promulgada pelas Mesas da Câmara e do Senado, com o número de ordem — não há sanção nem veto do Presidente. Matéria de proposta rejeitada ou prejudicada não pode ser reapresentada na mesma sessão legislativa (§ 5º).",
+        "Limites (art. 60): circunstanciais — a Constituição não pode ser emendada na vigência de intervenção federal, estado de defesa ou estado de sítio (§ 1º); materiais, as cláusulas pétreas — não será objeto de deliberação a proposta TENDENTE A ABOLIR a forma federativa de Estado; o voto direto, secreto, universal e periódico; a separação dos Poderes; e os direitos e garantias individuais (§ 4º).",
+        "Poder derivado revisor (ADCT, art. 3º): revisão feita após cinco anos da promulgação, pelo voto da maioria absoluta do Congresso, em sessão unicameral; já se esgotou (emendas de revisão de 1994).",
+        "Poder derivado decorrente: os Estados se organizam por suas Constituições, observados os princípios da Constituição Federal (art. 25). Poder difuso: a mutação constitucional muda a interpretação da norma sem mudar o texto.",
+        "Lei anterior compatível com a nova Constituição é recepcionada; a incompatível é revogada (não recepcionada). A repristinação — volta a valer a lei revogada porque a revogadora caiu — só acontece se for expressa."
+      ],
+      "pegadinhas": [
+        "Emenda não tem sanção nem veto: quem promulga são as Mesas da Câmara e do Senado.",
+        "Cláusula pétrea não proíbe mexer no assunto: proíbe a proposta TENDENTE A ABOLIR. Forma republicana e voto obrigatório NÃO são cláusulas pétreas.",
+        "PEC rejeitada só volta na sessão legislativa seguinte; a reapresentação por maioria absoluta na mesma sessão é regra do projeto de lei (art. 67)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A emenda à Constituição é promulgada pelas Mesas da Câmara dos Deputados e do Senado Federal, sem sanção do Presidente da República.", "r": "C", "j": "CF, art. 60, § 3º."},
+        {"t": "A forma republicana de governo e o voto obrigatório estão entre as cláusulas pétreas da Constituição Federal.", "r": "E", "j": "CF, art. 60, § 4º: forma federativa; voto direto, secreto, universal e periódico; separação dos Poderes; direitos e garantias individuais."},
+        {"t": "A Constituição pode ser emendada durante o estado de defesa, desde que a proposta não trate das medidas coercitivas adotadas.", "r": "E", "j": "CF, art. 60, § 1º: não pode na vigência de intervenção federal, estado de defesa ou estado de sítio."},
+        {"t": "A matéria de proposta de emenda rejeitada pode ser objeto de nova proposta na mesma sessão legislativa, mediante proposta da maioria absoluta de qualquer das Casas.", "r": "E", "j": "CF, art. 60, § 5º. A ressalva da maioria absoluta é do projeto de lei (art. 67)."},
+        {"t": "Mais da metade das Assembleias Legislativas, manifestando-se cada uma pela maioria relativa de seus membros, pode propor emenda à Constituição.", "r": "C", "j": "CF, art. 60, III."},
+        {"t": "O poder constituinte originário é juridicamente ilimitado, não estando subordinado à ordem jurídica anterior.", "r": "C", "j": "Doutrina: característica do poder originário; o titular é o povo (CF, art. 1º, parágrafo único)."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "direitos-individuais",
+      "bloco": "Direitos e garantias fundamentais",
+      "titulo": "Direitos e deveres individuais e coletivos (art. 5º)",
+      "edital": "2 Direitos e garantias fundamentais",
+      "peso": 3,
+      "artigos": ["CF 5", "CF 243"],
+      "palavras": ["direitos fundamentais", "direitos individuais", "direitos e garantias", "artigo 5", "art 5", "casa e asilo inviolavel", "entrar na casa sem mandado", "sigilo das comunicacoes", "sigilo telefonico", "liberdade de reuniao", "direito de reuniao", "manifestacao publica", "liberdade de expressao", "marcha da maconha", "liberdade de associacao", "escusa de consciencia", "tribunal do juri", "extradicao", "extraditado", "extraditar", "pena de morte", "prisao perpetua", "racismo inafiancavel", "confisco de bens do trafico", "expropriacao", "dados pessoais"],
+      "pontos": [
+        "Titulares (art. 5º, caput): brasileiros e estrangeiros residentes no País — o STF estende os direitos fundamentais ao estrangeiro de passagem e, no que couber, às pessoas jurídicas. São invioláveis a vida, a liberdade, a igualdade, a segurança e a propriedade. As normas de direitos e garantias fundamentais têm aplicação imediata (§ 1º).",
+        "Liberdades: manifestação do pensamento livre, vedado o anonimato (IV); direito de resposta proporcional ao agravo (V); liberdade de consciência e de crença (VI). Escusa de consciência (VIII): ninguém é privado de direitos por crença religiosa ou convicção filosófica ou política, salvo se as invocar para fugir de obrigação legal a todos imposta e se recusar a cumprir a prestação alternativa fixada em lei.",
+        "Casa (XI): asilo inviolável; ninguém nela entra sem consentimento do morador, salvo em flagrante delito ou desastre, para prestar socorro ou, durante o dia, por determinação judicial. STF (Tema 280): a entrada forçada sem mandado, mesmo à noite, só é lícita com fundadas razões, justificadas depois, de que há flagrante dentro da casa — sob pena de nulidade das provas e de responsabilização do agente.",
+        "Sigilo (XII): é inviolável o sigilo da correspondência e das comunicações telegráficas, de dados e telefônicas, salvo, no último caso, por ordem judicial, nas hipóteses e na forma da lei (Lei 9.296/1996), para investigação criminal ou instrução processual penal. A proteção dos dados pessoais, inclusive nos meios digitais, é direito fundamental (LXXIX, EC 115/2022).",
+        "Reunião (XVI): todos podem reunir-se pacificamente, sem armas, em locais abertos ao público, independentemente de autorização, desde que não frustrem outra reunião antes convocada para o mesmo local, exigido apenas prévio aviso à autoridade competente. STF: o aviso é satisfeito por qualquer informação que permita ao poder público garantir a reunião pacífica (Tema 855), e a passeata pela legalização de drogas ('Marcha da Maconha') é exercício legítimo das liberdades de reunião e de expressão, não apologia ao crime (ADPF 187).",
+        "Associação (XVII a XXI): plena liberdade para fins lícitos, vedada a de caráter paramilitar; a criação independe de autorização, vedada a interferência estatal; a dissolução compulsória exige decisão judicial transitada em julgado, e a suspensão das atividades, decisão judicial; ninguém é obrigado a associar-se ou a permanecer associado.",
+        "Penal (XXXVIII a XLVII): júri com plenitude de defesa, sigilo das votações e soberania dos veredictos, competente para os crimes dolosos contra a vida; racismo é inafiançável e imprescritível, com reclusão; tortura, tráfico, terrorismo e hediondos são inafiançáveis e insuscetíveis de graça ou anistia; a ação de grupos armados contra a ordem constitucional e o Estado Democrático é inafiançável e imprescritível. Não haverá penas de morte (salvo guerra declarada), de caráter perpétuo, de trabalhos forçados, de banimento ou cruéis.",
+        "Extradição (LI e LII): o brasileiro nato nunca é extraditado; o naturalizado, só por crime comum praticado antes da naturalização ou por comprovado envolvimento em tráfico de drogas, na forma da lei; o estrangeiro não é extraditado por crime político ou de opinião.",
+        "Propriedade (XXII a XXV e art. 243): atende à função social; desapropriação com justa e prévia indenização em dinheiro; requisição em iminente perigo público, com indenização posterior se houver dano. Terras com cultura ilegal de psicotrópicos ou trabalho escravo são expropriadas sem indenização, e todo bem de valor econômico apreendido em decorrência do tráfico é confiscado — o STF dispensa prova de habitualidade ou de adaptação do bem para o crime (Tema 647)."
+      ],
+      "pegadinhas": [
+        "Reunião independe de AUTORIZAÇÃO; exige só prévio AVISO, que o STF admite por qualquer meio que permita ao poder público se organizar.",
+        "Casa: DE DIA, por ordem judicial; flagrante, desastre e socorro valem a qualquer hora.",
+        "Extradição: brasileiro NATO nunca; naturalizado em dois casos (crime comum antes da naturalização ou tráfico de drogas).",
+        "Imprescritíveis são só o racismo e a ação de grupos armados contra o Estado Democrático; hediondos, tortura, tráfico e terrorismo são inafiançáveis e sem graça ou anistia, mas prescrevem."
+      ],
+      "novidades": [
+        "EC 115/2022: proteção de dados pessoais virou direito fundamental (art. 5º, LXXIX), e legislar sobre o tema é competência privativa da União (art. 22, XXX)."
+      ],
+      "itens": [
+        {"t": "A casa é asilo inviolável, mas nela se pode entrar sem consentimento do morador, durante a noite, em caso de flagrante delito, desastre ou para prestar socorro.", "r": "C", "j": "CF, art. 5º, XI."},
+        {"t": "O direito de reunião em local aberto ao público depende de autorização da autoridade competente.", "r": "E", "j": "CF, art. 5º, XVI: independe de autorização; exige apenas prévio aviso."},
+        {"t": "O brasileiro naturalizado pode ser extraditado por comprovado envolvimento em tráfico ilícito de entorpecentes, na forma da lei.", "r": "C", "j": "CF, art. 5º, LI."},
+        {"t": "A dissolução compulsória de associação pode ser determinada por decisão administrativa fundamentada.", "r": "E", "j": "CF, art. 5º, XIX: só por decisão judicial transitada em julgado."},
+        {"t": "A prática do racismo constitui crime inafiançável e imprescritível, sujeito à pena de reclusão.", "r": "C", "j": "CF, art. 5º, XLII."},
+        {"t": "Os crimes hediondos são inafiançáveis e imprescritíveis.", "r": "E", "j": "CF, art. 5º, XLIII: inafiançáveis e insuscetíveis de graça ou anistia; imprescritíveis são o racismo e a ação de grupos armados (XLII e XLIV)."},
+        {"t": "Segundo o STF, a entrada forçada em domicílio sem mandado judicial é lícita, mesmo à noite, quando amparada em fundadas razões, justificadas a posteriori, de que dentro da casa ocorre flagrante delito.", "r": "C", "j": "STF, RE 603.616 (Tema 280); CF, art. 5º, XI."}
+      ],
+      "questoes": ["prf-2021-p1|item 93", "prf-2021-p1|item 94"]
+    },
+    {
+      "id": "remedios",
+      "bloco": "Direitos e garantias fundamentais",
+      "titulo": "Remédios constitucionais",
+      "edital": "2 Habeas corpus, mandado de segurança, mandado de injunção e habeas data",
+      "peso": 2,
+      "artigos": ["CF 5"],
+      "palavras": ["remedios constitucionais", "remedio constitucional", "habeas corpus", "mandado de seguranca", "mandado de seguranca coletivo", "mandado de injuncao", "habeas data", "acao popular"],
+      "pontos": [
+        "Habeas corpus (art. 5º, LXVIII): sempre que alguém sofrer ou se achar ameaçado de sofrer violência ou coação em sua liberdade de locomoção, por ilegalidade ou abuso de poder. Qualquer pessoa pode impetrar, sem advogado, e é gratuito (LXXVII). Não cabe habeas corpus em relação a punições disciplinares militares (art. 142, § 2º), embora o STF admita examinar a legalidade da punição.",
+        "Mandado de segurança (LXIX): protege direito líquido e certo, não amparado por habeas corpus ou habeas data, contra ilegalidade ou abuso de poder de autoridade pública ou de agente de pessoa jurídica no exercício de atribuições do poder público. O prazo é de 120 dias da ciência do ato (Lei 12.016/2009, art. 23).",
+        "Mandado de segurança coletivo (LXX): podem impetrar o partido político com representação no Congresso Nacional e a organização sindical, a entidade de classe ou a associação legalmente constituída e em funcionamento há pelo menos um ano, em defesa dos interesses de seus membros ou associados.",
+        "Mandado de injunção (LXXI): cabe quando a falta de norma regulamentadora torna inviável o exercício dos direitos e liberdades constitucionais e das prerrogativas inerentes à nacionalidade, à soberania e à cidadania (Lei 13.300/2016).",
+        "Habeas data (LXXII): assegura o conhecimento de informações relativas à pessoa do impetrante em registros ou bancos de dados de entidades governamentais ou de caráter público, e a retificação de dados; é gratuito. O STF não admite habeas data para descobrir quem fez denúncias ou agressões contra o impetrante: são informações sobre terceiros.",
+        "Ação popular (LXXIII): qualquer cidadão pode propor para anular ato lesivo ao patrimônio público ou de entidade de que o Estado participe, à moralidade administrativa, ao meio ambiente e ao patrimônio histórico e cultural; o autor fica isento de custas e do ônus da sucumbência, salvo comprovada má-fé."
+      ],
+      "pegadinhas": [
+        "Habeas data é para informação sobre o PRÓPRIO impetrante; a identidade de quem o denunciou não (PRF 2021, item 97).",
+        "Mandado de segurança coletivo: o requisito de um ano de funcionamento é da associação; o partido precisa ter representação no Congresso.",
+        "Habeas corpus e habeas data são gratuitos; mandado de segurança não."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O habeas corpus pode ser impetrado por qualquer pessoa, independentemente de advogado, em favor de quem sofra coação ilegal em sua liberdade de locomoção.", "r": "C", "j": "CF, art. 5º, LXVIII; CPP, art. 654."},
+        {"t": "Partido político com representação no Congresso Nacional pode impetrar mandado de segurança coletivo.", "r": "C", "j": "CF, art. 5º, LXX, a."},
+        {"t": "Associação legalmente constituída e em funcionamento há pelo menos seis meses pode impetrar mandado de segurança coletivo em defesa de seus associados.", "r": "E", "j": "CF, art. 5º, LXX, b: há pelo menos um ano."},
+        {"t": "O habeas data é o instrumento adequado para obter a identidade de terceiros que tenham feito denúncias contra o impetrante.", "r": "E", "j": "CF, art. 5º, LXXII: informações relativas à pessoa do impetrante; entendimento do STF."},
+        {"t": "A ação popular pode ser proposta por qualquer cidadão para anular ato lesivo à moralidade administrativa, ficando o autor isento de custas, salvo comprovada má-fé.", "r": "C", "j": "CF, art. 5º, LXXIII."}
+      ],
+      "questoes": ["prf-2021-p1|item 97"]
+    },
+    {
+      "id": "direitos-sociais",
+      "bloco": "Direitos e garantias fundamentais",
+      "titulo": "Direitos sociais",
+      "edital": "2 Direitos sociais",
+      "peso": 1,
+      "artigos": ["CF 6-11"],
+      "palavras": ["direitos sociais", "direito de greve", "greve", "greve de policial", "policial pode fazer greve", "sindicato", "sindicalizacao", "renda basica", "salario minimo", "licenca maternidade", "trabalho do menor"],
+      "pontos": [
+        "Direitos sociais (art. 6º, com a EC 90/2015): educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância e assistência aos desamparados. Todo brasileiro em situação de vulnerabilidade social tem direito a uma renda básica familiar, em programa permanente de transferência de renda (parágrafo único, EC 114/2021).",
+        "Trabalho (art. 7º, alguns incisos): salário mínimo nacionalmente unificado; décimo terceiro; jornada de até 8 horas diárias e 44 semanais; 6 horas em turnos ininterruptos de revezamento, salvo negociação coletiva; férias com um terço a mais; licença-gestante de 120 dias; aviso prévio proporcional de no mínimo 30 dias; proibição de trabalho noturno, perigoso ou insalubre a menores de 18 anos e de qualquer trabalho a menores de 16, salvo como aprendiz, a partir de 14 (XXXIII).",
+        "Sindicato (art. 8º): livre associação, sem autorização do Estado; unicidade — uma só organização sindical da mesma categoria na mesma base territorial, não inferior à área de um Município; ninguém é obrigado a filiar-se ou a manter-se filiado; o dirigente sindical não pode ser dispensado desde o registro da candidatura até um ano após o fim do mandato, salvo falta grave.",
+        "Greve (art. 9º): os trabalhadores decidem quando exercê-la e que interesses defender; a lei define os serviços essenciais e o atendimento das necessidades inadiáveis. Para o servidor público, a greve depende de lei específica (art. 37, VII), e, enquanto ela não vem, o STF manda aplicar a Lei 7.783/1989.",
+        "Policial não faz greve: o STF fixou que o exercício do direito de greve, sob qualquer forma, é vedado aos policiais civis e a todos os servidores que atuem diretamente na segurança pública (Tema 541) — o que alcança o PRF. Ao militar, a sindicalização e a greve são proibidas pela própria Constituição (art. 142, § 3º, IV)."
+      ],
+      "pegadinhas": [
+        "Transporte é direito social desde a EC 90/2015; a renda básica familiar, desde a EC 114/2021.",
+        "Aprendiz a partir de 14 anos; qualquer outro trabalho, a partir de 16; noturno, perigoso ou insalubre, só a partir de 18.",
+        "Greve de policial é vedada pelo STF mesmo sem lei expressa — não basta manter percentual mínimo do efetivo."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O transporte é direito social previsto expressamente na Constituição Federal.", "r": "C", "j": "CF, art. 6º (EC 90/2015)."},
+        {"t": "É proibido qualquer trabalho a menores de dezesseis anos, salvo na condição de aprendiz, a partir de quatorze anos.", "r": "C", "j": "CF, art. 7º, XXXIII."},
+        {"t": "A licença à gestante, prevista na Constituição, tem duração de cento e oitenta dias.", "r": "E", "j": "CF, art. 7º, XVIII: cento e vinte dias."},
+        {"t": "Segundo o STF, os policiais civis podem exercer o direito de greve, desde que mantido percentual mínimo do efetivo em atividade.", "r": "E", "j": "STF, ARE 654.432 (Tema 541): a greve é vedada aos policiais e a quem atue diretamente na segurança pública."},
+        {"t": "É vedada a criação de mais de uma organização sindical representativa da mesma categoria na mesma base territorial, que não pode ser inferior à área de um Município.", "r": "C", "j": "CF, art. 8º, II."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "nacionalidade",
+      "bloco": "Direitos e garantias fundamentais",
+      "titulo": "Nacionalidade",
+      "edital": "2 Nacionalidade",
+      "peso": 2,
+      "artigos": ["CF 12-13"],
+      "palavras": ["nacionalidade", "brasileiro nato", "brasileiro naturalizado", "naturalizacao", "perda da nacionalidade", "cargos privativos de brasileiro nato", "dupla nacionalidade", "quase nacionalidade", "portugues no brasil", "simbolos nacionais"],
+      "pontos": [
+        "Natos (art. 12, I): (a) nascidos no Brasil, ainda que de pais estrangeiros, desde que estes não estejam a serviço de seu país; (b) nascidos no estrangeiro de pai ou mãe brasileiros, se qualquer deles estiver a serviço do Brasil; (c) nascidos no estrangeiro de pai ou mãe brasileiros, desde que registrados em repartição brasileira competente ou que venham a residir no Brasil e optem, em qualquer tempo, depois da maioridade, pela nacionalidade brasileira.",
+        "Naturalizados (art. 12, II): (a) os que adquirem a nacionalidade na forma da lei — dos originários de países de língua portuguesa exigem-se apenas residência por um ano ininterrupto e idoneidade moral; (b) estrangeiros de qualquer nacionalidade residentes no Brasil há mais de quinze anos ininterruptos e sem condenação penal, desde que requeiram.",
+        "Portugueses com residência permanente no Brasil, havendo reciprocidade, têm os direitos inerentes ao brasileiro, salvo os casos da Constituição (art. 12, § 1º — a 'quase nacionalidade'). A lei não pode distinguir natos e naturalizados, salvo nos casos da própria Constituição (§ 2º).",
+        "Cargos privativos de brasileiro nato (art. 12, § 3º): Presidente e Vice-Presidente da República; Presidente da Câmara dos Deputados; Presidente do Senado Federal; Ministro do STF; carreira diplomática; oficial das Forças Armadas; Ministro de Estado da Defesa. Ministros de outros tribunais e de outras pastas podem ser naturalizados.",
+        "Perda (art. 12, § 4º, com a EC 131/2023): só (I) quando a naturalização é cancelada por sentença judicial, por fraude no processo de naturalização ou por atentado contra a ordem constitucional e o Estado Democrático; ou (II) por pedido expresso de perda perante autoridade brasileira competente, ressalvadas as situações que causem apatridia. Quem renunciou pode readquirir a nacionalidade originária (§ 5º). As hipóteses são taxativas: nem tratado internacional pode ampliá-las.",
+        "Desde a EC 131/2023, adquirir outra nacionalidade não faz perder a brasileira. A língua portuguesa é o idioma oficial, e são símbolos nacionais a bandeira, o hino, as armas e o selo nacionais (art. 13)."
+      ],
+      "pegadinhas": [
+        "Depois da EC 131/2023, adquirir outra nacionalidade NÃO faz perder a brasileira; a perda só vem por cancelamento judicial da naturalização ou por pedido expresso.",
+        "Ministro do STF é cargo de nato; ministro do STJ, do TSE ou de outra pasta, não. Entre os Ministros de Estado, só o da Defesa precisa ser nato.",
+        "Originários de países de língua portuguesa: um ano de residência ininterrupta e idoneidade moral (não quinze anos)."
+      ],
+      "novidades": [
+        "EC 131/2023 (3/10/2023): a perda da nacionalidade ficou restrita ao cancelamento judicial da naturalização (fraude ou atentado contra a ordem constitucional) e ao pedido expresso; a renúncia permite readquirir a nacionalidade originária."
+      ],
+      "itens": [
+        {"t": "Perde a nacionalidade brasileira quem adquirir outra nacionalidade por naturalização voluntária.", "r": "E", "j": "CF, art. 12, § 4º, com a EC 131/2023: só cancelamento judicial da naturalização ou pedido expresso."},
+        {"t": "É privativo de brasileiro nato o cargo de Ministro de Estado da Defesa.", "r": "C", "j": "CF, art. 12, § 3º, VII."},
+        {"t": "O cargo de Ministro do Superior Tribunal de Justiça é privativo de brasileiro nato.", "r": "E", "j": "CF, art. 12, § 3º: Ministro do STF (o STJ não está na lista)."},
+        {"t": "As hipóteses de perda da nacionalidade brasileira previstas na Constituição são taxativas, não podendo ser ampliadas por tratado internacional.", "r": "C", "j": "CF, art. 12, § 4º."},
+        {"t": "O brasileiro que renunciar expressamente à nacionalidade pode readquirir sua nacionalidade brasileira originária, nos termos da lei.", "r": "C", "j": "CF, art. 12, § 5º (EC 131/2023)."},
+        {"t": "Dos originários de países de língua portuguesa, a naturalização exige residência no Brasil por quinze anos ininterruptos.", "r": "E", "j": "CF, art. 12, II, a: residência por um ano ininterrupto e idoneidade moral."}
+      ],
+      "questoes": ["prf-2021-p1|item 95"]
+    },
+    {
+      "id": "direitos-politicos",
+      "bloco": "Direitos e garantias fundamentais",
+      "titulo": "Direitos políticos e partidos",
+      "edital": "2 Direitos políticos; partidos políticos",
+      "peso": 1,
+      "artigos": ["CF 14-17"],
+      "palavras": ["direitos politicos", "voto obrigatorio", "voto facultativo", "alistamento eleitoral", "elegibilidade", "inelegibilidade", "idade minima para candidato", "reeleicao", "suspensao dos direitos politicos", "perda dos direitos politicos", "partidos politicos", "partido politico", "anterioridade eleitoral", "plebiscito", "referendo", "idade minima para senador", "idade minima para presidente", "idade minima para governador", "idade minima para deputado", "idade minima para prefeito", "idade minima para vereador"],
+      "pontos": [
+        "Soberania popular (art. 14): sufrágio universal e voto direto e secreto, com valor igual para todos; plebiscito, referendo e iniciativa popular. Alistamento e voto são obrigatórios para maiores de 18 anos e facultativos para analfabetos, maiores de 70 e maiores de 16 e menores de 18 (§ 1º). Não podem alistar-se os estrangeiros e, durante o serviço militar obrigatório, os conscritos (§ 2º).",
+        "Idades mínimas (§ 3º, VI): 35 anos para Presidente, Vice e Senador; 30 para Governador e Vice; 21 para Deputado Federal, Estadual ou Distrital, Prefeito, Vice-Prefeito e juiz de paz; 18 para Vereador. São inelegíveis os inalistáveis e os analfabetos (§ 4º).",
+        "Reeleição (§ 5º): Presidente, Governadores e Prefeitos, e quem os suceder ou substituir, podem ser reeleitos para um único período subsequente. Para concorrer a outros cargos, devem renunciar aos mandatos até seis meses antes do pleito (§ 6º).",
+        "Perda ou suspensão (art. 15) — é vedada a cassação: cancelamento da naturalização por sentença transitada em julgado; incapacidade civil absoluta; condenação criminal transitada em julgado, enquanto durarem seus efeitos; recusa de cumprir obrigação a todos imposta ou a prestação alternativa (art. 5º, VIII); improbidade administrativa (art. 37, § 4º).",
+        "Anterioridade eleitoral (art. 16): a lei que alterar o processo eleitoral entra em vigor na data da publicação, mas não se aplica à eleição que ocorra até um ano da data de sua vigência.",
+        "Partidos (art. 17): livre criação, com caráter nacional, proibido receber recursos de entidade ou governo estrangeiros, com prestação de contas à Justiça Eleitoral; adquirem personalidade jurídica na forma da lei civil e registram os estatutos no TSE; é vedada a utilização de organização paramilitar. O acesso ao fundo partidário e à propaganda gratuita depende de desempenho mínimo nas eleições para a Câmara (cláusula de desempenho, § 3º)."
+      ],
+      "pegadinhas": [
+        "Conscrito não se alista durante o serviço militar obrigatório; já o militar alistável é elegível (§ 8º).",
+        "Escusa de consciência só atinge os direitos políticos de quem se recusa à obrigação E à prestação alternativa (art. 15, IV).",
+        "Lei eleitoral nova vale desde a publicação, mas não para a eleição que ocorra até um ano depois."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O voto é facultativo para os maiores de setenta anos e para os maiores de dezesseis e menores de dezoito anos.", "r": "C", "j": "CF, art. 14, § 1º, II."},
+        {"t": "A idade mínima para concorrer ao cargo de Senador é de trinta anos.", "r": "E", "j": "CF, art. 14, § 3º, VI, a: trinta e cinco anos."},
+        {"t": "É vedada a cassação de direitos políticos, cuja perda ou suspensão só ocorre nos casos previstos na Constituição.", "r": "C", "j": "CF, art. 15."},
+        {"t": "A lei que alterar o processo eleitoral só entra em vigor um ano após a data de sua publicação.", "r": "E", "j": "CF, art. 16: entra em vigor na publicação; não se aplica à eleição que ocorra até um ano da vigência."},
+        {"t": "Os conscritos, durante o período do serviço militar obrigatório, não podem alistar-se como eleitores.", "r": "C", "j": "CF, art. 14, § 2º."}
+      ],
+      "questoes": ["prf-2021-p1|item 96"]
+    },
+    {
+      "id": "organizacao-estado",
+      "bloco": "Organização do Estado",
+      "titulo": "Organização do Estado: federação, bens e competências",
+      "edital": "arts. 18 a 24 da CF",
+      "peso": 2,
+      "artigos": ["CF 18-24"],
+      "palavras": ["organizacao do estado", "federacao", "bens da uniao", "faixa de fronteira", "competencia da uniao", "competencia privativa", "competencia comum", "competencia concorrente", "quem legisla sobre transito", "lei estadual de transito", "lei municipal de transito", "competencia para legislar sobre transito", "territorios federais", "criacao de municipios", "competencia legislativa"],
+      "pontos": [
+        "Federação (art. 18): União, Estados, Distrito Federal e Municípios, todos autônomos; Brasília é a capital federal; os Territórios Federais integram a União. Criar Estado depende de plebiscito da população interessada e de lei complementar; criar Município, de lei estadual no período fixado por lei complementar federal, de plebiscito e de estudos de viabilidade.",
+        "Bens da União (art. 20, entre outros): terras devolutas indispensáveis à defesa das fronteiras e à preservação ambiental; lagos e rios em terrenos seus, que banhem mais de um Estado ou façam limite com outros países; mar territorial; terrenos de marinha; praias marítimas; ilhas oceânicas e costeiras (salvo, com exceções, as que contenham sede de Município); recursos minerais, inclusive do subsolo; potenciais de energia hidráulica; cavidades naturais subterrâneas e sítios arqueológicos; terras tradicionalmente ocupadas pelos índios. A faixa de fronteira tem até 150 km de largura (§ 2º).",
+        "Competência exclusiva da União (art. 21, administrativa), por exemplo: declarar guerra e celebrar a paz; executar os serviços de polícia marítima, aeroportuária e de fronteiras (XXII); explorar o transporte rodoviário interestadual e internacional de passageiros; organizar e manter as polícias civil, penal e militar e o corpo de bombeiros militar do Distrito Federal; organizar e fiscalizar a proteção de dados pessoais (XXVI).",
+        "Competência privativa da União para legislar (art. 22): direito civil, comercial, penal, processual, eleitoral, agrário, marítimo, aeronáutico, espacial e do trabalho (I); trânsito e transporte (XI); competência da polícia federal e das polícias rodoviária e ferroviária federais (XXII); proteção e tratamento de dados pessoais (XXX). Lei complementar pode autorizar os Estados a legislar sobre questões específicas dessas matérias (parágrafo único).",
+        "Por isso, lei estadual ou municipal que cria regra de trânsito (infração, multa, equipamento obrigatório) invade a competência privativa da União (art. 22, XI) e é inconstitucional. Já estabelecer e implantar política de educação para a segurança do trânsito é competência comum de todos os entes (art. 23, XII).",
+        "Competência concorrente (art. 24): União, Estados e DF legislam sobre direito tributário, financeiro, penitenciário, econômico e urbanístico, orçamento, meio ambiente, educação e organização, garantias, direitos e deveres das polícias civis, entre outras matérias. A União edita normas gerais; sem elas, os Estados exercem a competência plena; a lei federal superveniente SUSPENDE a eficácia da lei estadual no que lhe for contrário (§ 4º). Os Municípios legislam sobre assuntos de interesse local (art. 30)."
+      ],
+      "pegadinhas": [
+        "Trânsito e transporte: legislar é competência PRIVATIVA da União (art. 22, XI); educação para a segurança do trânsito é competência COMUM (art. 23, XII).",
+        "Lei federal superveniente SUSPENDE (não revoga) a eficácia da lei estadual contrária (art. 24, § 4º).",
+        "Faixa de fronteira: até 150 km de largura."
+      ],
+      "novidades": [
+        "EC 115/2022: organizar e fiscalizar a proteção de dados pessoais passou a ser competência da União (art. 21, XXVI), assim como legislar sobre o tema (art. 22, XXX)."
+      ],
+      "itens": [
+        {"t": "Compete privativamente à União legislar sobre trânsito e transporte.", "r": "C", "j": "CF, art. 22, XI."},
+        {"t": "Compete concorrentemente à União, aos Estados e ao Distrito Federal legislar sobre a competência da polícia rodoviária federal.", "r": "E", "j": "CF, art. 22, XXII: competência privativa da União."},
+        {"t": "A superveniência de lei federal sobre normas gerais revoga a lei estadual que dispunha de forma contrária.", "r": "E", "j": "CF, art. 24, § 4º: suspende a eficácia da lei estadual no que lhe for contrário."},
+        {"t": "A faixa de até cento e cinquenta quilômetros de largura ao longo das fronteiras terrestres é considerada fundamental para a defesa do território nacional.", "r": "C", "j": "CF, art. 20, § 2º."},
+        {"t": "Estabelecer e implantar política de educação para a segurança do trânsito é competência comum da União, dos Estados, do Distrito Federal e dos Municípios.", "r": "C", "j": "CF, art. 23, XII."},
+        {"t": "Lei complementar pode autorizar os Estados a legislar sobre questões específicas das matérias de competência privativa da União.", "r": "C", "j": "CF, art. 22, parágrafo único."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "poder-executivo",
+      "bloco": "Organização dos Poderes",
+      "titulo": "Poder Executivo",
+      "edital": "3 Poder Executivo: Presidente e Ministros",
+      "peso": 1,
+      "artigos": ["CF 76-91"],
+      "palavras": ["poder executivo", "presidente da republica", "vice presidente da republica", "eleicao presidencial", "posse do presidente", "sucessao presidencial", "linha sucessoria", "vacancia da presidencia", "impeachment", "crime de responsabilidade", "ministros de estado", "ministro de estado", "presidente toma posse", "posse presidencial", "conselho da republica", "conselho de defesa nacional"],
+      "pontos": [
+        "O Executivo é exercido pelo Presidente, auxiliado pelos Ministros de Estado (art. 76). A eleição é no primeiro domingo de outubro e, havendo segundo turno, no último domingo de outubro; é eleito quem obtiver a maioria absoluta dos votos, não computados os brancos e os nulos (art. 77). O mandato é de 4 anos, com início em 5 de janeiro do ano seguinte ao da eleição (art. 82, com a EC 111/2021): a posse de 5 de janeiro de 2027 é a primeira nessa data.",
+        "Posse em sessão do Congresso; se, decorridos 10 dias da data fixada, o Presidente ou o Vice, salvo força maior, não assumir, o cargo é declarado vago (art. 78). O Vice substitui nos impedimentos e sucede na vaga (art. 79); depois dele, são chamados, sucessivamente, os Presidentes da Câmara, do Senado e do STF — só para exercício temporário (art. 80).",
+        "Vagando os dois cargos, nova eleição 90 dias depois da última vaga; se a vacância ocorrer nos últimos dois anos do mandato, eleição indireta pelo Congresso 30 dias depois, e os eleitos só completam o período (art. 81). Presidente e Vice não podem ausentar-se do País por mais de 15 dias sem licença do Congresso, sob pena de perda do cargo (art. 83).",
+        "Atribuições (art. 84): são privativas, mas o Presidente pode delegar aos Ministros de Estado, ao Procurador-Geral da República ou ao Advogado-Geral da União as dos incisos VI (decretos sobre organização da administração e extinção de cargos vagos), XII (indulto e comutação de penas) e XXV, primeira parte (prover cargos públicos federais).",
+        "Responsabilização (arts. 85 e 86): admitida a acusação por dois terços da Câmara, o Presidente é julgado pelo STF nas infrações penais comuns e pelo Senado nos crimes de responsabilidade; fica suspenso das funções quando o STF recebe a denúncia ou o Senado instaura o processo, por até 180 dias. Até a sentença condenatória nas infrações comuns, não está sujeito a prisão, e, na vigência do mandato, não responde por atos estranhos ao exercício das funções.",
+        "Ministros de Estado (art. 87): brasileiros maiores de 21 anos no exercício dos direitos políticos (o da Defesa tem de ser nato). O Conselho da República (art. 89) e o Conselho de Defesa Nacional (art. 91) são órgãos de consulta do Presidente e são ouvidos antes do estado de defesa e do estado de sítio."
+      ],
+      "pegadinhas": [
+        "Presidentes da Câmara, do Senado e do STF só exercem a Presidência temporariamente: não sucedem (art. 80).",
+        "Vacância nos dois últimos anos: eleição INDIRETA pelo Congresso em 30 dias; nos dois primeiros, eleição direta em 90 dias.",
+        "Posse do Presidente: 5 de janeiro (EC 111/2021), não mais 1º de janeiro; governadores tomam posse em 6 de janeiro."
+      ],
+      "novidades": [
+        "EC 111/2021: a posse do Presidente passou a 5 de janeiro e a dos governadores a 6 de janeiro, a partir dos eleitos em 2026 (posse em janeiro de 2027)."
+      ],
+      "itens": [
+        {"t": "O mandato do Presidente da República é de quatro anos e tem início em 5 de janeiro do ano seguinte ao de sua eleição.", "r": "C", "j": "CF, art. 82 (EC 111/2021)."},
+        {"t": "Vagando os cargos de Presidente e Vice nos últimos dois anos do mandato, far-se-á eleição direta noventa dias depois de aberta a última vaga.", "r": "E", "j": "CF, art. 81, § 1º: eleição indireta pelo Congresso, trinta dias depois da última vaga."},
+        {"t": "O Presidente da República pode delegar aos Ministros de Estado a concessão de indulto e a comutação de penas.", "r": "C", "j": "CF, art. 84, XII e parágrafo único."},
+        {"t": "O Presidente da República, na vigência do mandato, não pode ser responsabilizado por atos estranhos ao exercício de suas funções.", "r": "C", "j": "CF, art. 86, § 4º."},
+        {"t": "O Presidente e o Vice-Presidente não podem ausentar-se do País por mais de quinze dias sem licença do Congresso Nacional, sob pena de perda do cargo.", "r": "C", "j": "CF, art. 83."},
+        {"t": "Admitida a acusação contra o Presidente pela maioria absoluta da Câmara dos Deputados, ele será julgado pelo STF nos crimes de responsabilidade.", "r": "E", "j": "CF, art. 86: dois terços da Câmara; nos crimes de responsabilidade, o julgamento é do Senado."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "seguranca-publica",
+      "bloco": "Defesa do Estado e segurança pública",
+      "titulo": "Segurança pública e defesa do Estado",
+      "edital": "4 Defesa do Estado e das instituições democráticas",
+      "peso": 3,
+      "artigos": ["CF 136-144"],
+      "palavras": ["seguranca publica", "artigo 144", "art 144", "orgaos de seguranca publica", "prf na constituicao", "prf esta na constituicao", "constituicao fala da prf", "policia rodoviaria federal na constituicao", "policia ferroviaria federal", "policia civil", "policia militar", "policias penais", "policia penal", "guarda municipal", "guardas municipais", "seguranca viaria", "estado de defesa", "estado de sitio", "forcas armadas", "defesa do estado", "pec da seguranca publica", "pec da seguranca", "pec 18"],
+      "pontos": [
+        "Segurança pública (art. 144): dever do Estado, direito e responsabilidade de todos, exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio, por meio da polícia federal, da polícia rodoviária federal, da polícia ferroviária federal, das polícias civis, das polícias militares e corpos de bombeiros militares e das polícias penais federal, estaduais e distrital.",
+        "PRF (art. 144, § 2º): órgão permanente, organizado e mantido pela União e estruturado em carreira, destina-se, na forma da lei, ao patrulhamento ostensivo das rodovias federais. A polícia ferroviária federal tem a mesma estrutura para as ferrovias federais (§ 3º). Os policiais são remunerados por subsídio (§ 9º).",
+        "Polícia federal (§ 1º): apura infrações contra a ordem política e social ou em detrimento de bens, serviços e interesses da União e outras de repercussão interestadual ou internacional que exijam repressão uniforme; previne e reprime o tráfico de drogas, o contrabando e o descaminho; exerce as funções de polícia marítima, aeroportuária e de fronteiras e, com exclusividade, a de polícia judiciária da União.",
+        "Estados (§§ 4º a 6º): polícias civis, dirigidas por delegados de carreira, fazem a polícia judiciária e apuram as infrações penais, exceto as militares; polícias militares fazem a polícia ostensiva e a preservação da ordem pública; corpos de bombeiros executam a defesa civil; polícias penais cuidam da segurança dos estabelecimentos penais (§ 5º-A, EC 104/2019). PM e bombeiros são forças auxiliares e reserva do Exército, e todos se subordinam aos Governadores.",
+        "Municípios podem constituir guardas municipais para a proteção de seus bens, serviços e instalações (§ 8º). A segurança viária — educação, engenharia e fiscalização de trânsito — compete, nos Estados, DF e Municípios, aos órgãos executivos de trânsito e a seus agentes, estruturados em carreira (§ 10, EC 82/2014).",
+        "Estado de defesa (art. 136): decretado pelo Presidente, ouvidos os Conselhos da República e de Defesa Nacional, para preservar ou restabelecer a ordem pública ou a paz social em locais restritos e determinados; dura até 30 dias, prorrogável uma vez por igual período; pode restringir reunião e sigilo de correspondência e de comunicações; a prisão por crime contra o Estado, decretada pelo executor, não passa de 10 dias, salvo autorização judicial. O decreto vai ao Congresso em 24 horas, que o aprecia em 10 dias, por maioria absoluta.",
+        "Estado de sítio (arts. 137 e 138): exige autorização PRÉVIA do Congresso, por maioria absoluta. Por comoção grave de repercussão nacional ou ineficácia do estado de defesa, até 30 dias por vez; por guerra declarada ou agressão armada estrangeira, pelo tempo que durar a guerra.",
+        "Forças Armadas (art. 142): Marinha, Exército e Aeronáutica, sob a autoridade suprema do Presidente, defendem a Pátria e garantem os poderes constitucionais e, por iniciativa de qualquer destes, a lei e a ordem. Não cabe habeas corpus em relação a punições disciplinares militares; ao militar são proibidas a sindicalização e a greve e, em serviço ativo, a filiação a partido."
+      ],
+      "pegadinhas": [
+        "Estado de DEFESA: o Congresso aprecia DEPOIS (24 horas mais 10 dias). Estado de SÍTIO: autorização ANTES.",
+        "Prorrogação: estado de defesa, uma vez por igual período; sítio por comoção, de 30 em 30 dias.",
+        "PRF: patrulhamento OSTENSIVO das rodovias federais; o texto atual não fala em ferrovias, hidrovias nem polícia judiciária."
+      ],
+      "novidades": [
+        "PEC 18/2025 (PEC da Segurança Pública): aprovada pela Câmara e pelo Senado (3/11/2026), aguarda promulgação, prevista para o fim de novembro de 2026. Amplia a PRF para o policiamento de ferrovias e hidrovias federais, põe o Sistema Único de Segurança Pública na Constituição, permite polícias municipais e protege os fundos da segurança pública. Até ser promulgada, vale o texto atual do art. 144, § 2º."
+      ],
+      "itens": [
+        {"t": "A polícia rodoviária federal, órgão permanente, organizado e mantido pela União e estruturado em carreira, destina-se, na forma da lei, ao patrulhamento ostensivo das rodovias federais.", "r": "C", "j": "CF, art. 144, § 2º."},
+        {"t": "As polícias penais federal, estaduais e distrital integram o rol de órgãos de segurança pública do art. 144 da Constituição.", "r": "C", "j": "CF, art. 144, VI (EC 104/2019)."},
+        {"t": "O estado de defesa depende de autorização prévia do Congresso Nacional, por maioria absoluta.", "r": "E", "j": "CF, art. 136: decretado pelo Presidente e submetido ao Congresso em 24 horas; a autorização prévia é exigida para o estado de sítio (art. 137)."},
+        {"t": "No estado de defesa, a prisão por crime contra o Estado não pode exceder dez dias, salvo quando autorizada pelo Poder Judiciário.", "r": "C", "j": "CF, art. 136, § 3º, III."},
+        {"t": "Cabe habeas corpus contra punição disciplinar militar sempre que o militar alegar injustiça da sanção.", "r": "E", "j": "CF, art. 142, § 2º."},
+        {"t": "As polícias militares e os corpos de bombeiros militares, forças auxiliares e reserva do Exército, subordinam-se aos Governadores dos Estados, do Distrito Federal e dos Territórios.", "r": "C", "j": "CF, art. 144, § 6º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ordem-social",
+      "bloco": "Ordem social",
+      "titulo": "Ordem social",
+      "edital": "5 Ordem social",
+      "peso": 1,
+      "artigos": ["CF 193-232"],
+      "palavras": ["ordem social", "seguridade social", "saude e direito de todos", "previdencia social", "assistencia social", "educacao basica", "meio ambiente na constituicao", "vaquejada", "familia na constituicao", "uniao estavel", "uniao homoafetiva", "absoluta prioridade", "maioridade penal", "reducao da maioridade penal", "idoso no transporte", "terras indigenas", "indios"],
+      "pontos": [
+        "A ordem social tem como base o primado do trabalho e como objetivo o bem-estar e a justiça sociais (art. 193). A seguridade social reúne saúde, previdência e assistência (art. 194): a saúde é direito de todos e dever do Estado (art. 196); a previdência é contributiva (art. 201); a assistência é prestada a quem dela necessitar, independentemente de contribuição (art. 203).",
+        "Educação (arts. 205 e 208): direito de todos e dever do Estado e da família; a educação básica é obrigatória e gratuita dos 4 aos 17 anos de idade, assegurada também a quem não teve acesso na idade própria.",
+        "Comunicação social (art. 220): é vedada toda e qualquer censura de natureza política, ideológica e artística. Meio ambiente (art. 225): direito de todos ao meio ambiente ecologicamente equilibrado, bem de uso comum do povo; condutas lesivas sujeitam pessoas físicas e jurídicas a sanções penais e administrativas, independentemente da obrigação de reparar o dano (§ 3º); práticas desportivas com animais que sejam manifestações culturais não são consideradas cruéis (§ 7º, EC 96/2017, a 'emenda da vaquejada').",
+        "Família (art. 226): base da sociedade, com especial proteção do Estado; a união estável entre o homem e a mulher é reconhecida como entidade familiar (§ 3º), e o STF estendeu o reconhecimento às uniões homoafetivas (ADI 4277 e ADPF 132).",
+        "Criança, adolescente e jovem (art. 227): é dever da família, da sociedade e do Estado assegurar-lhes, com absoluta prioridade, os direitos fundamentais. São penalmente inimputáveis os menores de 18 anos, sujeitos às normas da legislação especial — o ECA (art. 228).",
+        "Idosos (art. 230): amparo pela família, pela sociedade e pelo Estado; aos maiores de 65 anos é garantida a gratuidade dos transportes coletivos urbanos (§ 2º). Índios (arts. 231 e 232): são reconhecidos sua organização social, costumes, línguas, crenças e tradições e os direitos originários sobre as terras que tradicionalmente ocupam — bens da União (art. 20, XI), de posse permanente e usufruto exclusivo dos povos indígenas, cabendo à União demarcá-las e protegê-las."
+      ],
+      "pegadinhas": [
+        "Assistência social independe de contribuição; previdência é contributiva.",
+        "Gratuidade no transporte coletivo URBANO para maiores de 65 anos (não 60).",
+        "Educação básica obrigatória dos 4 aos 17 anos."
+      ],
+      "novidades": [
+        "Novembro de 2026: a redução da maioridade penal foi retirada da PEC da Segurança Pública e segue em propostas separadas; a inimputabilidade continua aos 18 anos (art. 228)."
+      ],
+      "itens": [
+        {"t": "A assistência social será prestada a quem dela necessitar, independentemente de contribuição à seguridade social.", "r": "C", "j": "CF, art. 203."},
+        {"t": "A educação básica obrigatória e gratuita compreende a faixa dos seis aos quatorze anos de idade.", "r": "E", "j": "CF, art. 208, I: dos 4 aos 17 anos."},
+        {"t": "Aos maiores de sessenta anos é garantida, pela Constituição, a gratuidade dos transportes coletivos urbanos.", "r": "E", "j": "CF, art. 230, § 2º: maiores de sessenta e cinco anos."},
+        {"t": "As condutas lesivas ao meio ambiente sujeitam os infratores, pessoas físicas ou jurídicas, a sanções penais e administrativas, independentemente da obrigação de reparar o dano.", "r": "C", "j": "CF, art. 225, § 3º."},
+        {"t": "São penalmente inimputáveis os menores de dezoito anos, sujeitos às normas da legislação especial.", "r": "C", "j": "CF, art. 228."}
+      ],
+      "questoes": []
+    }
+  ]
+}
