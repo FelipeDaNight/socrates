@@ -3,6 +3,9 @@
 Os arquivos são baixados uma vez do GitHub para a pasta `material/` (e atualizados
 com `main.py --material`). Funciona sem internet depois disso.
 
+O banco "socrates-trilhas-prf" do app (origem "socrates") é o espelho das trilhas do
+próprio Sócrates: ele não é baixado nem carregado aqui, para não repetir os itens.
+
 Questões suas (por exemplo, as que você errou no Gran Questões) ficam em
 Documentos\\Socrates\\questoes\\*.json, no mesmo formato do app:
     {"questoes": [{"materia", "topico", "tipo": "ce"|"mc", "resp", "enunciado",
@@ -48,7 +51,7 @@ def baixar(fonte: str = FONTE, pasta: Path | None = None, escrever=print,
         dados = buscar(fonte + indice)
         (pasta / indice).write_bytes(dados)
         conteudo = json.loads(dados)
-        arquivos += [i["arquivo"] if isinstance(i, dict) else i for i in conteudo]
+        arquivos += [i["arquivo"] if isinstance(i, dict) else i for i in conteudo if not _espelho(i)]
     for arq in arquivos:
         escrever(f"     {arq}")
         (pasta / arq).parent.mkdir(parents=True, exist_ok=True)
@@ -69,6 +72,11 @@ class Material:
         for caderno in self.leis:
             for bloco in caderno.get("blocos", []):
                 yield caderno, bloco
+
+
+def _espelho(info) -> bool:
+    """Banco que o próprio Sócrates gerou para o app (as trilhas): já está nas trilhas."""
+    return isinstance(info, dict) and info.get("origem") == "socrates"
 
 
 def _ler(caminho: Path):
@@ -111,6 +119,8 @@ def carregar(pasta: Path | None = None, pasta_privada: Path | None = None,
     m = Material()
     try:
         for info in _ler(pasta / "bancos" / "index.json"):
+            if _espelho(info):
+                continue
             banco = _ler(pasta / info["arquivo"])
             for i, q in enumerate(banco.get("questoes", []), 1):
                 q.setdefault("n", i)

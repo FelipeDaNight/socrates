@@ -193,6 +193,11 @@ Também dá para deixar ele estudando sem voz: `main.py --aprender` (até o limi
 para parar) ou `main.py --aprender "crimes ambientais"` (só esse assunto). Ajustes no
 `config.yaml`, seção `autoestudo`: limite por dia (40), pausa entre assuntos, quais editais.
 
+Os itens das trilhas conferidas também estão no **app do iPhone** (estudo-prf), no banco
+"Sócrates · Fixação PRF": Questões > Treinar por matéria. Para atualizar o app depois de mexer nas
+trilhas: `python -m socrates.estudo.exportar_app CAMINHO_DO_APP` (o número de cada item não muda,
+então o progresso e os cartões do app continuam valendo).
+
 > Ele usa os cérebros grátis na ordem Mistral, Gemini, Groq (o Groq fica livre para a conversa).
 > Com a chave do Mistral no `.env` ele aprende bem mais rápido. Os tópicos do autoestudo aparecem
 > com o selo "autoestudo" no mapa: são bons, mas confira na lei antes de confiar 100%.
@@ -492,13 +497,14 @@ socrates/
   estudo/plano.py          lê os editais e acha o tópico pedido
   estudo/autoestudo.py     estuda sozinho: escolhe, pesquisa, escreve, confere com outro modelo, grava
   estudo/leitor_lei.py     lê a lei no Planalto, tira o texto riscado e separa os artigos
+  estudo/exportar_app.py   leva os itens das trilhas conferidas para o app estudo-prf (iPhone)
   estudo/aula.py           a aula guiada, ponto por ponto, com fixação no fim
   estudo/progresso.py      domínio por tópico, próximo passo, o que estudou e aprendeu
   estudo/mapa.py           o mapa de estudo em HTML (todas as matérias e o autoestudo)
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     478 testes, rodam sem microfone nem internet
+tests/                     481 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
