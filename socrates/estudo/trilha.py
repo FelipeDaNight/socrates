@@ -10,11 +10,18 @@ Uma trilha (socrates/estudo/trilhas/*.json) tem os tópicos do edital, e cada t�
 
 É esse conteúdo que faz o Sócrates "saber" a matéria: o cérebro recebe as notas do
 tópico junto com a pergunta e é instruído a não contradizê-las.
+
+Há dois tipos de tópico:
+  conferido   escrito e conferido nas fontes oficiais (as trilhas que vêm com o Sócrates)
+  auto        o próprio Sócrates estudou sozinho (autoestudo) a partir da lei e da internet,
+              com uma segunda conferência por outro modelo. Fica em Documentos\\Socrates\\trilhas
+              e completa as trilhas que vêm com ele (o conferido sempre vale mais).
 """
 
 from __future__ import annotations
 
 import json
+import logging
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -22,14 +29,13 @@ from pathlib import Path
 from .respostas import norm
 from .treino import Item, _quadro_seguro, item_de_questao
 
-PASTA = Path(__file__).parent / "trilhas"
+log = logging.getLogger("socrates.trilha")
 
-# "direito penal", "código penal", "penal" (mas não "processo penal")
-_MATERIA = {
-    "prf-penal": re.compile(r"\b(direito penal|codigo penal|penal)\b"),
-}
-_NAO_E = re.compile(r"\b(processo penal|processual penal|lei de execucao penal|execucao penal)\b")
-_FAIXA = re.compile(r"^(CP|CPP|CTB|L14133)\s+(\d+)(?:-([A-Z]))?(?:-(\d+)(?:-([A-Z]))?)?$")
+PASTA = Path(__file__).parent / "trilhas"
+PASTA_AUTO = Path.home() / "Documents" / "Socrates" / "trilhas"     # o que ele aprendeu sozinho
+
+# "CP 155-183", "CPP 301-310", "L11343 33-40", "CF 5", "D1655 1"
+_FAIXA = re.compile(r"^([A-Z][A-Z0-9]*)\s+(\d+)(?:-([A-Z]))?(?:-(\d+)(?:-([A-Z]))?)?$")
 _ROTULO = re.compile(r"Art\.\s*(\d+)\s*º?(?:-([A-Z]))?")
 
 
@@ -49,6 +55,43 @@ class Topico:
     questoes: list[str]
     ordem: int = 0
     chaves: list[str] = field(default_factory=list)   # palavras normalizadas
+    origem: str = "conferido"      # conferido | auto (o Sócrates aprendeu sozinho)
+    fontes: list[str] = field(default_factory=list)
+    gerado: str = ""               # quando o autoestudo escreveu (ou atualizou) o tópico
+
+    @property
+    def auto(self) -> bool:
+        return self.origem == "auto"
+
+    @classmethod
+    def de_json(cls, t: dict, ordem: int = 0) -> "Topico":
+        topico = cls(
+            id=t["id"], bloco=t.get("bloco", ""), titulo=t["titulo"], edital=t.get("edital", ""),
+            peso=int(t.get("peso") or 1), artigos=list(t.get("artigos", [])),
+            palavras=list(t.get("palavras", [])), pontos=list(t.get("pontos", [])),
+            pegadinhas=list(t.get("pegadinhas", [])), novidades=list(t.get("novidades", [])),
+            itens=list(t.get("itens", [])), questoes=list(t.get("questoes", [])), ordem=ordem,
+            origem=t.get("origem", "conferido"), fontes=list(t.get("fontes", [])),
+            gerado=t.get("gerado", ""))
+        topico.indexar()
+        return topico
+
+    def indexar(self) -> None:
+        self.chaves = sorted({norm(p) for p in self.palavras + [self.titulo] if norm(p)},
+                             key=len, reverse=True)
+
+    def para_json(self) -> dict:
+        d = {"id": self.id, "bloco": self.bloco, "titulo": self.titulo, "edital": self.edital,
+             "peso": self.peso, "artigos": self.artigos, "palavras": self.palavras,
+             "pontos": self.pontos, "pegadinhas": self.pegadinhas, "novidades": self.novidades,
+             "itens": self.itens, "questoes": self.questoes}
+        if self.origem != "conferido":
+            d["origem"] = self.origem
+        if self.fontes:
+            d["fontes"] = self.fontes
+        if self.gerado:
+            d["gerado"] = self.gerado
+        return d
 
     def faixas(self) -> list[tuple[str, tuple[int, str], tuple[int, str]]]:
         saida = []
@@ -78,33 +121,78 @@ class Trilha:
     fonte: str
     atualizado: str
     topicos: list[Topico]
+    apelidos: list[str] = field(default_factory=list)       # como o aluno chama a matéria
+    nao_confundir: list[str] = field(default_factory=list)  # "processo penal" não é "penal"
+    plano: str = ""                                          # o edital de onde ela vem (prf, cbmgo)
+    auto: bool = False                                       # trilha inteira feita pelo autoestudo
+
+    def __post_init__(self):
+        self._rx_materia = _rx_de([norm(a) for a in self.apelidos])
+        self._rx_nao = _rx_de([norm(a) for a in self.nao_confundir])
 
     # ---------- carregar ----------
     @classmethod
-    def ler(cls, caminho: Path) -> "Trilha":
-        d = json.loads(caminho.read_text(encoding="utf-8"))
-        topicos = []
-        for i, t in enumerate(d["topicos"]):
-            topico = Topico(
-                id=t["id"], bloco=t.get("bloco", ""), titulo=t["titulo"], edital=t.get("edital", ""),
-                peso=int(t.get("peso") or 1), artigos=t.get("artigos", []),
-                palavras=t.get("palavras", []), pontos=t.get("pontos", []),
-                pegadinhas=t.get("pegadinhas", []), novidades=t.get("novidades", []),
-                itens=t.get("itens", []), questoes=t.get("questoes", []), ordem=i)
-            topico.chaves = sorted({norm(p) for p in topico.palavras + [topico.titulo] if norm(p)},
-                                   key=len, reverse=True)
-            topicos.append(topico)
+    def de_json(cls, d: dict) -> "Trilha":
+        topicos = [Topico.de_json(t, i) for i, t in enumerate(d.get("topicos", []))]
         return cls(d["id"], d["materia"], d.get("concurso", ""), d.get("banca", ""),
-                   d.get("fonte", ""), d.get("atualizado", ""), topicos)
+                   d.get("fonte", ""), d.get("atualizado", ""), topicos,
+                   list(d.get("apelidos", [])), list(d.get("nao_confundir", [])),
+                   d.get("plano", ""), bool(d.get("auto")))
+
+    @classmethod
+    def ler(cls, caminho: Path) -> "Trilha":
+        return cls.de_json(json.loads(caminho.read_text(encoding="utf-8")))
+
+    def para_json(self) -> dict:
+        d = {"id": self.id, "materia": self.materia, "concurso": self.concurso, "banca": self.banca,
+             "fonte": self.fonte, "atualizado": self.atualizado, "apelidos": self.apelidos,
+             "nao_confundir": self.nao_confundir, "plano": self.plano}
+        if self.auto:
+            d["auto"] = True
+        d["topicos"] = [t.para_json() for t in self.topicos]
+        return d
+
+    def juntar(self, outra: "Trilha") -> None:
+        """Completa esta trilha com o que o autoestudo aprendeu: tópicos novos entram;
+        num tópico conferido, só entram as atualizações de lei (o conferido vale mais)."""
+        for t in outra.topicos:
+            meu = self.topico(t.id)
+            if meu is None:
+                self.topicos.append(t)
+                continue
+            if meu.auto:                      # o autoestudo refez o tópico: vale o mais novo
+                self.topicos[self.topicos.index(meu)] = t
+                continue
+            for n in t.novidades:
+                if n not in meu.novidades:
+                    meu.novidades.append(n)
+            textos = {i.get("t") for i in meu.itens}
+            meu.itens += [i for i in t.itens if i.get("t") not in textos]   # no fim: ids não mudam
+            for f in t.fontes:
+                if f not in meu.fontes:
+                    meu.fontes.append(f)
+        for i, t in enumerate(self.topicos):
+            t.ordem = i
+        for a in outra.apelidos:
+            if a not in self.apelidos:
+                self.apelidos.append(a)
+        self.__post_init__()
 
     def topico(self, tid: str) -> Topico | None:
         return next((t for t in self.topicos if t.id == tid), None)
 
+    @property
+    def tem_auto(self) -> bool:
+        return any(t.auto for t in self.topicos)
+
     # ---------- entender a fala ----------
     def menciona_materia(self, texto: str) -> bool:
+        if self._rx_materia is None:
+            return False
         t = norm(texto)
-        rx = _MATERIA.get(self.id)
-        return bool(rx and rx.search(_NAO_E.sub(" ", t)))
+        if self._rx_nao is not None:
+            t = self._rx_nao.sub(" ", t)
+        return bool(self._rx_materia.search(t))
 
     def achar(self, texto: str) -> list[tuple[int, Topico]]:
         """Tópicos citados na fala, do mais provável para o menos. Expressão mais
@@ -210,6 +298,63 @@ class Trilha:
         return f"{cabeca}\n{texto}", topicos
 
 
-def carregar_trilhas(pasta: Path | None = None) -> list[Trilha]:
+_CURTAS = ("artigos", "palavras", "questoes", "apelidos", "nao_confundir", "fontes")
+
+
+def formatar_json(d: dict, topicos_em_linha: bool = False) -> str:
+    """JSON da trilha no formato de sempre: listas curtas numa linha, textos longos um
+    por linha, cada item de fixação numa linha (fácil de ler e de comparar no git).
+    Nos planos (editais), cada tópico fica numa linha só."""
+    def valor(chave: str, v, recuo: str) -> str:
+        if isinstance(v, list):
+            if not v:
+                return "[]"
+            if chave in _CURTAS:
+                return json.dumps(v, ensure_ascii=False)
+            dentro = recuo + "  "
+            if chave == "materias" or (chave == "topicos" and not topicos_em_linha):
+                partes = [dentro + objeto(x, dentro) for x in v]
+            else:
+                partes = [dentro + json.dumps(x, ensure_ascii=False) for x in v]
+            return "[\n" + ",\n".join(partes) + "\n" + recuo + "]"
+        return json.dumps(v, ensure_ascii=False)
+
+    def objeto(o: dict, recuo: str) -> str:
+        dentro = recuo + "  "
+        linhas = [f"{dentro}{json.dumps(k, ensure_ascii=False)}: {valor(k, v, dentro)}"
+                  for k, v in o.items()]
+        return "{\n" + ",\n".join(linhas) + "\n" + recuo + "}"
+
+    return objeto(d, "") + "\n"
+
+
+def _rx_de(expressoes: list[str]) -> re.Pattern | None:
+    expressoes = sorted({e for e in expressoes if e}, key=len, reverse=True)
+    if not expressoes:
+        return None
+    return re.compile(r"\b(?:" + "|".join(re.escape(e) for e in expressoes) + r")\b")
+
+
+def carregar_trilhas(pasta: Path | None = None, extra: Path | None = None) -> list[Trilha]:
+    """As trilhas conferidas (que vêm com o Sócrates) completadas pelo que ele aprendeu
+    sozinho (autoestudo). `extra=None` usa Documentos\\Socrates\\trilhas."""
     pasta = pasta or PASTA
-    return [Trilha.ler(p) for p in sorted(pasta.glob("*.json"))]
+    trilhas: dict[str, Trilha] = {}
+    for p in sorted(pasta.glob("*.json")):
+        tr = Trilha.ler(p)
+        trilhas[tr.id] = tr
+    extra = PASTA_AUTO if extra is None else extra
+    if extra and extra.is_dir():
+        for p in sorted(extra.glob("*.json")):
+            try:
+                tr = Trilha.ler(p)
+            except (OSError, ValueError, KeyError) as e:
+                log.warning("trilha do autoestudo com defeito (%s): %s", p.name, e)
+                continue
+            if not tr.topicos:
+                continue
+            if tr.id in trilhas:
+                trilhas[tr.id].juntar(tr)
+            else:
+                trilhas[tr.id] = tr
+    return list(trilhas.values())

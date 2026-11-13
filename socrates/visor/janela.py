@@ -156,6 +156,9 @@ class Visor:
         self.status = c.create_text(self.cx, 478 * e, text="", font=(fonte, round(11 * e)))
         self.fala = c.create_text(self.cx, 508 * e, text="", font=(fonte, round(10 * e), "italic"),
                                   width=self.m["hud_l"] - 40)
+        # autoestudo: no canto de cima, pequeno (o anel não chega lá)
+        self.aprendendo = c.create_text(
+            12 * e, 10 * e, text="", anchor="nw", font=(fonte, round(8 * e)), width=round(150 * e))
 
         # Quadro (escondido até ter conteúdo)
         x0 = self.m["hud_l"]
@@ -262,6 +265,9 @@ class Visor:
 
         c.itemconfigure(self.titulo, fill=misturar(self.laranja, FUNDO, 0.85 * max(luz, 0.5)))
         c.itemconfigure(self.status, text=LEGENDA[visual], fill=misturar(self.brilho, FUNDO, 0.55))
+        aprendendo = p.aprendendo if len(p.aprendendo) <= 80 else p.aprendendo[:77] + "..."
+        c.itemconfigure(self.aprendendo, text=f"◆ {aprendendo}" if aprendendo else "",
+                        fill=misturar(self.brilho, FUNDO, 0.4))
         legenda = p.legenda if len(p.legenda) <= 90 else p.legenda[:87] + "..."
         c.itemconfigure(self.fala, text=f"“{legenda}”" if legenda else "",
                         fill=misturar(self.brilho, FUNDO, 0.35))

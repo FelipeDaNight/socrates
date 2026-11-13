@@ -14,7 +14,7 @@ from socrates.estudo.progresso import Progresso, diario
 from socrates.estudo.respostas import norm
 from socrates.estudo.trilha import PASTA, carregar_trilhas
 
-TRILHA = carregar_trilhas()[0]
+TRILHA = next(t for t in carregar_trilhas() if t.id == "prf-penal")
 
 PRF = {"id": "prf-2021-p1", "titulo": "PRF 2021 · Policial Rodoviário Federal (Cebraspe)", "tipo": "ce",
        "questoes": [

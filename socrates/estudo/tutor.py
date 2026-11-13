@@ -6,13 +6,16 @@ Pedidos que ele resolve sozinho (rápido, sem gastar o limite grátis):
   "questões que eu errei"              "revisa meus erros"
   "lacunas do CTB" / "lacunas de hoje" "lê o artigo 165 do CTB"
   "como estou indo?"                   "o que eu estudo hoje?"
-Trilha de Direito Penal da PRF:
-  "me ensina legítima defesa"          "vamos estudar penal"      (aula guiada)
+Trilhas (Direito Penal, Processo Penal, Legislação Especial e o que o autoestudo completar):
+  "me ensina legítima defesa"          "vamos estudar processo penal"  (aula guiada)
   "o que eu estudo de penal?"          "qual o próximo passo?"    (direção)
   "o que eu estudei hoje/essa semana?" "o que eu já aprendi?"     (diário e domínio)
-  "questões de penal" / "questões de furto"   "simulado de penal"   "mapa de penal"
-Qualquer outra coisa segue para o cérebro, levando junto as notas conferidas da trilha
-e os trechos da lei, quando a pergunta for sobre eles.
+  "questões de furto" / "questões de drogas"  "simulado de penal"   "meu mapa"
+Autoestudo (ele estuda sozinho o edital):
+  "o que você está aprendendo?"  "o que você aprendeu hoje?"  "aprende sobre crase"
+  "pausa o aprendizado"  "volta a aprender"
+Qualquer outra coisa segue para o cérebro, levando junto as notas da trilha e os
+trechos da lei, quando a pergunta for sobre eles.
 """
 
 from __future__ import annotations
@@ -22,14 +25,16 @@ import random
 import re
 from dataclasses import dataclass
 
+from . import autoestudo as auto
 from .aula import Aula
 from .caderno import Caderno
 from .lei import Leis, lei_citada
 from .material import ID_PRIVADO, Material
-from .progresso import Progresso, diario, periodo_da_fala
+from .progresso import Progresso, _lista, diario, periodo_da_fala
 from .respostas import norm
 from .treino import (NOME_LEI, Item, Saida, Sessao, fonte_curta, item_de_lacuna, item_de_questao,
                      plural)
+from .plano import Plano, TopicoPlano, achar_materia, achar_topico
 from .trilha import Topico, Trilha, carregar_trilhas
 
 log = logging.getLogger("socrates.tutor")
@@ -94,14 +99,19 @@ class Pedido:
     trilha: Trilha | None = None
     topico: Topico | None = None
     periodo: str | None = None
+    alvo: TopicoPlano | None = None       # tópico do edital que ainda não tem conteúdo
+    comando: str | None = None            # autoestudo: status | hoje | pausar | retomar | pedir
 
 
-_CONSULTAS = ("artigo", "desempenho", "plano", "direcao", "estudado", "aprendido", "mapa")
+_CONSULTAS = ("artigo", "desempenho", "plano", "direcao", "estudado", "aprendido", "mapa", "auto")
+_ORDEM_PASSO = {"continuar": 0, "reforco": 1, "revisao": 2, "relembrar": 3, "aula": 4, "praticar": 5,
+                "simulado": 6}
 
 
 class Tutor:
     def __init__(self, material: Material, caderno: Caderno, planilha=None, sortear=None,
-                 trilhas: list[Trilha] | None = None):
+                 trilhas: list[Trilha] | None = None, planos: list[Plano] | None = None,
+                 autoestudo=None):
         self.material = material
         self.caderno = caderno
         self.planilha = planilha
@@ -109,8 +119,28 @@ class Tutor:
         self.sessao: Sessao | None = None
         self.aula: Aula | None = None
         self.sortear = sortear or random.Random()
+        self._trilhas_fixas = trilhas is not None
         self.trilhas = carregar_trilhas() if trilhas is None else trilhas
+        self.planos = planos or []
+        self.autoestudo = autoestudo
         self._progressos: dict[str, Progresso] = {}
+        self._recarregar = False
+
+    # ---------- o autoestudo aprendeu algo novo ----------
+    def marcar_recarga(self, _trilha: str | None = None) -> None:
+        """Chamado pelo autoestudo (outra thread): recarrega as trilhas no próximo pedido."""
+        self._recarregar = True
+
+    def _talvez_recarregar(self) -> None:
+        if not self._recarregar or self._trilhas_fixas:
+            return
+        self._recarregar = False
+        try:
+            self.trilhas = carregar_trilhas()
+        except Exception:
+            log.exception("não consegui recarregar as trilhas")
+            return
+        self._progressos.clear()
 
     def progresso(self, trilha: Trilha) -> Progresso:
         if trilha.id not in self._progressos:
@@ -143,22 +173,39 @@ class Tutor:
         return banco, None
 
     def _trilha_da_fala(self, texto: str) -> tuple[Trilha | None, Topico | None]:
+        """A trilha da matéria citada ("processo penal"); senão, a do tópico mais parecido
+        com a fala, entre todas as trilhas."""
         for tr in self.trilhas:
-            topico = tr.topico_citado(texto)
-            if topico or tr.menciona_materia(texto):
-                return tr, topico
-        return None, None
+            if tr.menciona_materia(texto):
+                return tr, tr.topico_citado(texto)
+        melhor: tuple[int, int, Trilha, Topico] | None = None
+        for i, tr in enumerate(self.trilhas):
+            achados = tr.achar(texto)
+            if achados:
+                nota, topico = achados[0]
+                if melhor is None or (nota, -i) > (melhor[0], -melhor[1]):
+                    melhor = (nota, i, tr, topico)
+        return (melhor[2], melhor[3]) if melhor else (None, None)
 
     def _pedido_da_trilha(self, texto: str, t: str) -> Pedido | None:
         tr, topico = self._trilha_da_fala(texto)
-        geral = self.trilhas[0] if self.trilhas else None
         if _ESTUDADO.search(t):
             return Pedido("estudado", trilha=tr, periodo=periodo_da_fala(t))
         if _APRENDIDO.search(t) and (tr or not _DESEMPENHO.search(t)):
-            return Pedido("aprendido", trilha=tr or geral)
-        if tr is None and geral is not None and _MAPA_SOLTO.search(t):
-            return Pedido("mapa", trilha=geral)
+            return Pedido("aprendido", trilha=tr)
+        if tr is None and self.trilhas and _MAPA_SOLTO.search(t):
+            return Pedido("mapa")
         if tr is None:
+            if _DIRECAO.search(t) and self.trilhas:
+                return Pedido("plano")        # "qual o próximo passo?" sem matéria: o plano geral
+            if _AULA.search(t) and self.planos and not _QUESTOES.search(t):
+                alvo = achar_topico(self.planos, texto)
+                if alvo is None:                       # "vamos estudar português"
+                    m = achar_materia(self.planos, texto)
+                    if m is not None and m.topicos:
+                        alvo = max(m.topicos, key=lambda x: (x.peso, -m.topicos.index(x)))
+                if alvo is not None:
+                    return Pedido("aprender", alvo=alvo)
             return None
         if _MAPA.search(t):
             return Pedido("mapa", trilha=tr)
@@ -184,6 +231,10 @@ class Tutor:
     def entender(self, texto: str) -> Pedido | None:
         t = norm(texto)
         t = re.sub(r"^(?:socrates|ei socrates|ok)\s+", "", t)
+        if self.autoestudo is not None:
+            cmd = auto.entender(texto)
+            if cmd is not None:
+                return Pedido("auto", comando=cmd[0])
         trilha = self._pedido_da_trilha(texto, t)
         if trilha is not None:
             return trilha
@@ -311,6 +362,8 @@ class Tutor:
 
     def atender(self, texto: str) -> Saida | None:
         """Devolve o que fazer, ou None se o pedido não é de estudo (vai ao cérebro)."""
+        if self.aula is None and self.sessao is None:
+            self._talvez_recarregar()
         p = self.entender(texto)
         if self.aula is not None:
             return self._na_aula(texto, p)
@@ -359,6 +412,8 @@ class Tutor:
         return saida
 
     def _consulta(self, p: Pedido, texto: str) -> Saida:
+        if p.tipo == "auto":
+            return self._autoestudo(p.comando, texto)
         if p.tipo == "desempenho":
             return self.desempenho()
         if p.tipo == "plano":
@@ -367,13 +422,21 @@ class Tutor:
             fala, quadro = self.progresso(p.trilha).mapa_resumido()
             return Saida(fala=fala, quadro=quadro)
         if p.tipo == "aprendido":
+            if p.trilha is None:
+                return self.aprendizado_geral()
             fala, quadro = self.progresso(p.trilha).resumo_aprendizado()
             return Saida(fala=fala, quadro=quadro)
         if p.tipo == "estudado":
             fala, quadro = diario(self.caderno, p.periodo or "semana", self.trilhas)
             return Saida(fala=fala, quadro=quadro)
         if p.tipo == "mapa":
-            from .mapa import gerar
+            from .mapa import gerar, gerar_geral
+            if p.trilha is None:
+                caminho = gerar_geral([self.progresso(tr) for tr in self.trilhas], self.autoestudo,
+                                      planos=self.planos)
+                plano = self.plano()
+                return Saida(fala="Abri o mapa de todas as matérias no navegador. " + plano.fala,
+                             quadro=plano.quadro, abrir_pagina=str(caminho))
             prog = self.progresso(p.trilha)
             caminho = gerar(prog)
             fala, quadro = prog.mapa_resumido()
@@ -406,6 +469,8 @@ class Tutor:
         log.info("pedido de estudo: %s", p)
         if p.tipo in _CONSULTAS:
             return self._consulta(p, texto)
+        if p.tipo == "aprender":
+            return self._aula_que_falta(p.alvo, texto)
         if p.tipo == "aula":
             return self._abrir_aula(p)
         if p.trilha is not None and p.tipo in ("questoes", "simulado"):
@@ -439,6 +504,39 @@ class Tutor:
         self.sessao = Sessao(itens, modo, titulo, self.caderno,
                              self.material.bancos.get(p.banco) if p.banco else None)
         return self.sessao.abrir()
+
+    # ---------- autoestudo ----------
+    def _autoestudo(self, comando: str, texto: str) -> Saida:
+        a = self.autoestudo
+        if comando == "pausar":
+            return Saida(fala=a.pausar())
+        if comando == "retomar":
+            return Saida(fala=a.retomar())
+        if comando == "pedir":
+            fala, _ = a.pedir(texto)
+            return Saida(fala=fala)
+        if comando in ("hoje", "semana"):
+            fala, quadro = a.resumo(0 if comando == "hoje" else 6)
+            return Saida(fala=fala, quadro=quadro)
+        return Saida(fala=a.status())
+
+    def _aula_que_falta(self, alvo: TopicoPlano, texto: str) -> Saida:
+        """Pediu aula de um tópico do edital que ainda não tem conteúdo: o autoestudo
+        estuda primeiro; enquanto isso, o cérebro dá uma explicação inicial."""
+        if self.autoestudo is not None:
+            aviso, _ = self.autoestudo.pedir(alvo.titulo)
+            combinado = ("Diga em uma frase que você ainda não tem a aula completa desse tópico e que vai "
+                         "estudá-lo agora sozinho (pela lei e pela internet, conferindo com outro modelo) e "
+                         "avisa quando a aula estiver pronta.")
+        else:
+            aviso = ""
+            combinado = "Diga em uma frase que esse tópico ainda não tem aula pronta na trilha."
+        return Saida(contexto=(
+            f"O aluno pediu aula de \"{alvo.titulo}\" ({alvo.materia.materia}, concurso "
+            f"{alvo.materia.plano.concurso}, banca {alvo.materia.plano.banca}). {combinado} Depois, "
+            "explique o essencial em até 6 frases curtas, com cuidado: se não tiver certeza de um "
+            "número (pena, prazo, artigo), não cite o número. Termine com uma pergunta curta."
+            + (f"\n(O autoestudo respondeu: {aviso})" if aviso else "")))
 
     def _abrir_aula(self, p: Pedido) -> Saida:
         tr = p.trilha
@@ -527,16 +625,18 @@ class Tutor:
         return None
 
     def contexto_da_lei(self, pergunta: str) -> str:
-        """O que o cérebro recebe junto com uma pergunta livre: as notas conferidas da
-        trilha (se for sobre um tópico dela) e os trechos oficiais da lei."""
+        """O que o cérebro recebe junto com uma pergunta livre: as notas da trilha mais
+        ligada à pergunta (se for sobre um tópico dela) e os trechos oficiais da lei."""
         partes = []
-        for tr in self.trilhas:
+        if self.aula is None and self.sessao is None:
+            self._talvez_recarregar()
+        tr, topico = self._trilha_da_fala(pergunta)
+        if tr is not None:
             notas, topicos = tr.notas(pergunta)
             if notas:
                 partes.append(notas)
                 self.caderno.anotar_evento("duvida", t=f"{tr.id}:{topicos[0].id}",
                                            q=pergunta.strip()[:120])
-                break
         trechos = self.leis.trechos(pergunta)
         if trechos:
             partes.append(trechos)
@@ -604,6 +704,56 @@ class Tutor:
                 return NOME_LEI.get(bloco.get("lei"), bloco.get("lei")), bloco.get("rotulo", "")
         return None
 
+    def passos(self, n: int = 2) -> list[tuple[Trilha, object]]:
+        """Os próximos passos das trilhas, do mais urgente (aula pela metade, tópico fraco)
+        ao menos; no empate, a matéria que pesa mais na prova (a ordem do plano)."""
+        peso = {}
+        for i, plano in enumerate(self.planos):
+            for m in plano.materias:
+                peso.setdefault(m.trilha, m.peso * (1.0 if i == 0 else 0.5))
+        lista = []
+        for i, tr in enumerate(self.trilhas):
+            passo = self.progresso(tr).proximo_passo()
+            if passo.acao == "simulado" and len(self.trilhas) > 1:
+                continue
+            lista.append((_ORDEM_PASSO.get(passo.acao, 9), -peso.get(tr.id, 0), i, tr, passo))
+        lista.sort(key=lambda x: x[:3])
+        return [(tr, passo) for *_, tr, passo in lista[:n]]
+
+    def aprendizado_geral(self) -> Saida:
+        """"O que eu já aprendi?" sem dizer a matéria: todas as trilhas em que ele mexeu."""
+        com_estudo = []
+        for tr in self.trilhas:
+            prog = self.progresso(tr)
+            sits = prog.situacoes()
+            if any(s.estado != "novo" for s in sits):
+                com_estudo.append((tr, prog, sits))
+        if len(com_estudo) == 1 or (not com_estudo and len(self.trilhas) == 1):
+            tr, prog = (com_estudo[0][0], com_estudo[0][1]) if com_estudo else \
+                (self.trilhas[0], self.progresso(self.trilhas[0]))
+            fala, quadro = prog.resumo_aprendizado()
+            return Saida(fala=fala, quadro=quadro)
+        if not com_estudo:
+            plano = self.plano()
+            return Saida(fala="Você ainda não começou nenhuma trilha. " + plano.fala, quadro=plano.quadro)
+        falas, linhas = [], ["# O que você já sabe"]
+        for tr, prog, sits in com_estudo:
+            c = prog.contagem(sits)
+            linhas.append(f"- {tr.materia}: domina {c['dominado']}, praticando "
+                          f"{c['praticando'] + c['comecou']}, reforçar {c['fraco']}, faltam {c['novo']}")
+            partes = []
+            if c["dominado"]:
+                partes.append(f"domina {plural(c['dominado'], 'tópico', 'tópicos')}")
+            pratica = c["praticando"] + c["comecou"] + c["esfriando"]
+            if pratica:
+                partes.append(f"está praticando {plural(pratica, 'tópico', 'tópicos')}")
+            if c["fraco"]:
+                partes.append(f"precisa reforçar {c['fraco']}")
+            falas.append(f"em {tr.materia}, " + _lista(partes))
+        fala = "Você já estudou " + plural(len(com_estudo), "matéria", "matérias") + ": " + \
+            "; ".join(falas) + ". Para os detalhes, diga: o que eu já aprendi de e o nome da matéria."
+        return Saida(fala=fala, quadro="\n".join(linhas))
+
     def plano(self) -> Saida:
         _s, _e, por = self._ultimos(14)
         vencidos = len(self.caderno.vencidos())
@@ -612,8 +762,7 @@ class Tutor:
             linhas.append(f"- Revisar {plural(vencidos, 'item que venceu', 'itens que venceram')}"
                           " (diga: revisa meus erros)")
             falas.append(f"revisar {plural(vencidos, 'item que venceu', 'itens que venceram')} hoje")
-        for tr in self.trilhas[:1]:
-            passo = self.progresso(tr).proximo_passo()
+        for tr, passo in self.passos(2):
             if passo.acao != "revisao":
                 linhas.append(f"- {tr.materia}: {passo.motivo} (diga: {passo.comando})")
                 falas.append(f"em {tr.materia}, {passo.motivo[0].lower()}{passo.motivo[1:].rstrip('.')}")

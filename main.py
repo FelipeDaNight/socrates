@@ -14,7 +14,9 @@
     python main.py --material    baixar/atualizar as questões e a lei seca (do app estudo-prf)
     python main.py --planilha    testar o envio para a sua planilha do Google
     python main.py --atalho      criar um atalho do Sócrates na Área de Trabalho
-    python main.py --mapa        abrir o mapa da trilha de Direito Penal (o que estudou e o que falta)
+    python main.py --mapa        abrir o mapa de estudo (todas as matérias, o que estudou e o que falta)
+    python main.py --aprender    o Sócrates estuda SOZINHO o edital agora (sem voz), até você fechar
+    python main.py --aprender "crase"   estuda só esse assunto e para
 """
 
 from __future__ import annotations
@@ -109,7 +111,13 @@ def criar_tutor(cfg: config.Config):
         return None
     pl = (cfg.bruto.get("planilha") or {})
     planilha = Planilha(pl.get("url"), os.getenv(pl.get("chave_env") or "PLANILHA_CHAVE"))
-    tutor = Tutor(material, Caderno(), planilha)
+    from socrates.estudo.plano import carregar_planos
+    try:
+        planos = carregar_planos(ids=cfg.autoestudo.planos)
+    except Exception as e:
+        logging.getLogger("socrates").warning("planos de estudo: %s", e)
+        planos = []
+    tutor = Tutor(material, Caderno(), planilha, planos=planos)
     estudo.TUTOR = tutor
     n_q = sum(len(b.get("questoes", [])) for b in material.bancos.values())
     print(f"[estudo] {n_q} questões, {len(material.leis)} cadernos de lei seca"
@@ -118,6 +126,38 @@ def criar_tutor(cfg: config.Config):
     if planilha.ativa and planilha.fila:
         threading.Thread(target=planilha.sincronizar, daemon=True).start()   # o que ficou pendente
     return tutor
+
+
+def criar_autoestudo(cfg: config.Config, tutor=None, avisar=None, ao_mudar=None, ocupado=None):
+    """O Sócrates estudando sozinho o edital (em segundo plano). None se não der."""
+    from socrates.estudo.autoestudo import Autoestudo
+    from socrates.estudo.leitor_lei import Biblioteca
+    from socrates.estudo.plano import carregar_leis, carregar_planos
+    from socrates.llm import membro
+    from socrates.llm.rodizio import CerebroRodizio
+
+    ae = cfg.autoestudo
+    if not ae.cerebros:
+        print("[autoestudo] desligado: nenhum cérebro na nuvem com chave (Mistral, Gemini ou Groq).")
+        return None
+
+    def juntar(lista):
+        membros = [membro(c) for c in lista]
+        return membros[0] if len(membros) == 1 else CerebroRodizio(membros)
+
+    planos = tutor.planos if tutor is not None and tutor.planos else carregar_planos(ids=ae.planos)
+    motor = Autoestudo(planos, juntar(ae.cerebros), juntar(ae.conferentes or ae.cerebros),
+                       Biblioteca(carregar_leis()), ativo=ae.ativo, por_dia=ae.por_dia,
+                       pausa_seg=ae.pausa_seg, ocioso_seg=ae.ocioso_seg, avisar=avisar,
+                       ao_aprender=tutor.marcar_recarga if tutor is not None else None,
+                       ao_mudar=ao_mudar, ocupado=ocupado)
+    if tutor is not None:
+        tutor.autoestudo = motor
+    quem = ", ".join(dict.fromkeys(c.provedor for c in ae.cerebros))
+    print(f"[autoestudo] {'pausado' if motor.pausado else 'ligado'}: estuda sozinho "
+          f"{' e '.join(p.concurso for p in planos)} quando você fica quieto ({quem}; "
+          f"até {ae.por_dia} assuntos por dia)")
+    return motor
 
 
 class Sentidos:
@@ -169,11 +209,25 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     painel.ao_fechar = lambda: loop.call_soon_threadsafe(fila.put_nowait, None)
     computador.avisar = lambda texto: loop.call_soon_threadsafe(fila.put_nowait, Aviso(texto))
 
+    motor = None
+    if tutor is not None:
+        def ocupado() -> bool:
+            return (painel.estado != "ocioso" or painel.falando() or painel.em_janela()
+                    or painel.ouvindo)
+        motor = criar_autoestudo(
+            cfg, tutor, ocupado=ocupado,
+            avisar=lambda texto: loop.call_soon_threadsafe(fila.put_nowait, Aviso(texto)),
+            ao_mudar=lambda texto: setattr(painel, "aprendendo", texto))
+        if motor is not None:
+            motor.iniciar()
+
     ler_teclado(loop, fila)
     sentidos.escuta.iniciar(fila)
     try:
         await Conversa(cfg, soc, sentidos, painel, tutor=tutor).rodar(fila)
     finally:
+        if motor is not None:
+            motor.parar()
         sentidos.escuta.parar()
         painel.encerrado = True
 
@@ -215,8 +269,17 @@ def mostrar_quadro_texto(conteudo: str) -> None:
 async def conversar_texto(cfg: config.Config) -> None:
     from socrates.core.quadro_fluxo import separar_quadro
 
+    import time
+
     soc = criar_socrates(cfg)
     tutor = criar_tutor(cfg)
+    ultimo = [time.monotonic()]
+    motor = None
+    if tutor is not None:
+        motor = criar_autoestudo(cfg, tutor, avisar=lambda t: print(f"\n[autoestudo] {t}"),
+                                 ocupado=lambda: time.monotonic() - ultimo[0] < 20)
+        if motor is not None:
+            motor.iniciar()
     print(f"\n{cfg.nome} pronto ({config.descricao_cerebro(cfg)}, texto).")
     print(AJUDA_TEXTO)
     while True:
@@ -224,6 +287,7 @@ async def conversar_texto(cfg: config.Config) -> None:
             texto = (await asyncio.to_thread(input, f"\n[{soc.modo}] Você: ")).strip()
         except (EOFError, KeyboardInterrupt):
             break
+        ultimo[0] = time.monotonic()
         if not texto:
             continue
         from socrates import ferramentas
@@ -277,6 +341,9 @@ async def conversar_texto(cfg: config.Config) -> None:
             print()
         except ErroCerebro as e:
             print(f"\n[erro] {e}")
+        ultimo[0] = time.monotonic()
+    if motor is not None:
+        motor.parar()
     if tutor is not None and tutor.em_treino:
         fim = tutor.encerrar()
         if fim:
@@ -513,18 +580,52 @@ def script_atalho(raiz, python) -> str:
     ])
 
 
+def aprender(cfg: config.Config, assunto: str | None) -> None:
+    """Autoestudo em primeiro plano: mostra o que ele pesquisa, escreve e confere."""
+    import datetime as dt
+
+    ultimo = [""]
+
+    def mostrar(texto: str) -> None:
+        if texto != ultimo[0]:
+            ultimo[0] = texto
+            print(f"[{dt.datetime.now():%H:%M}] {texto}")
+
+    print("=== Autoestudo: o Sócrates estudando sozinho ===")
+    print("Ele pega o próximo assunto do edital que falta (ou a lei que mudou), pesquisa na lei e na")
+    print("internet, escreve o material, confere com outro modelo e grava. Ctrl+C para parar.\n")
+    motor = criar_autoestudo(cfg, None, avisar=lambda t: print(f"  -> {t}"), ao_mudar=mostrar)
+    if motor is None:
+        return
+    motor.pausado = False
+    if assunto:
+        print(motor.pedir(assunto)[0])
+    try:
+        n = asyncio.run(motor.rodar(max_tentativas=1 if assunto else None, esperar_livre=False))
+    except KeyboardInterrupt:
+        n = None
+        print("\nParado.")
+    fala, quadro = motor.resumo(0)
+    print(f"\n{quadro}")
+    print(f"\nTudo fica em Documentos\\Socrates\\trilhas (auto-*.json) e o registro em "
+          f"Documentos\\Socrates\\aprendizado.json.")
+    del n, fala
+
+
 def abrir_mapa() -> None:
+    """O mapa de todas as matérias (e o que o autoestudo já aprendeu)."""
     from socrates.estudo import Caderno, Tutor, carregar
-    from socrates.estudo.mapa import gerar
+    from socrates.estudo.autoestudo import Autoestudo
+    from socrates.estudo.mapa import gerar_geral
+    from socrates.estudo.plano import carregar_planos
     from socrates.maos_livres import abrir_pagina
-    tutor = Tutor(carregar(), Caderno())
-    for trilha in tutor.trilhas:
-        prog = tutor.progresso(trilha)
-        caminho = gerar(prog)
-        fala, _ = prog.mapa_resumido()
-        print(fala)
-        print(f"Mapa: {caminho}")
-        abrir_pagina(str(caminho))
+    planos = carregar_planos(ids=["prf", "cbmgo"])
+    tutor = Tutor(carregar(), Caderno(), planos=planos)
+    registro = Autoestudo(planos, escritor=None, buscar=None, ler=None)   # só para ler o registro
+    caminho = gerar_geral([tutor.progresso(tr) for tr in tutor.trilhas], registro, planos=planos)
+    print(tutor.plano().fala)
+    print(f"Mapa: {caminho}")
+    abrir_pagina(str(caminho))
 
 
 def criar_atalho() -> str:
@@ -584,7 +685,9 @@ def main() -> None:
     p.add_argument("--material", action="store_true", help="baixa/atualiza as questões e a lei seca")
     p.add_argument("--planilha", action="store_true", help="testa o envio para a planilha do Google")
     p.add_argument("--atalho", action="store_true", help="cria um atalho na Área de Trabalho")
-    p.add_argument("--mapa", action="store_true", help="abre o mapa da trilha de Direito Penal")
+    p.add_argument("--mapa", action="store_true", help="abre o mapa de estudo de todas as matérias")
+    p.add_argument("--aprender", nargs="?", const="", metavar="ASSUNTO",
+                   help="o Sócrates estuda sozinho o edital agora (ou só o ASSUNTO dado)")
     args = p.parse_args()
 
     if args.local:   # não precisa de chave nenhuma
@@ -627,6 +730,8 @@ def main() -> None:
             asyncio.run(testar_provedores(cfg))
         elif args.planilha:
             testar_planilha(cfg)
+        elif args.aprender is not None:
+            aprender(cfg, args.aprender.strip() or None)
         elif args.vozes:
             asyncio.run(provar_vozes(cfg))
         elif args.acoes:

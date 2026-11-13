@@ -3,8 +3,11 @@
   "materia": "Direito Penal",
   "concurso": "PRF",
   "banca": "Cebraspe",
-  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe), o último publicado. Leis conferidas até a Lei 15.397/2026.",
+  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe), o último publicado. Leis conferidas até a Lei 15.397/2026 e a Lei Antifacção (Lei 15.358/2026).",
   "atualizado": "2026-11-13",
+  "apelidos": ["direito penal", "codigo penal", "penal", "parte geral do codigo penal"],
+  "nao_confundir": ["processo penal", "processual penal", "codigo de processo penal", "execucao penal", "lei de execucao penal", "penal militar", "codigo penal militar", "legislacao penal especial", "leis penais especiais"],
+  "plano": "prf",
   "topicos": [
     {
       "id": "principios",
@@ -326,7 +329,8 @@
         "Lei 15.134/2025: a qualificadora do inciso VII passou a proteger também membros do Judiciário, do MP, da Defensoria, da Advocacia Pública e oficiais de justiça.",
         "Lei 15.159/2025: homicídio nas dependências de instituição de ensino é qualificado (inciso X).",
         "Lei 15.163/2025: abandono de incapaz e maus-tratos, reclusão de 2 a 5 anos.",
-        "Lei 15.384/2026: vicaricídio (art. 121-B), 20 a 40 anos, hediondo."
+        "Lei 15.384/2026: vicaricídio (art. 121-B), 20 a 40 anos, hediondo.",
+        "Lei 15.358/2026 (Lei Antifacção, em vigor desde 25/3/2026): homicídio doloso cometido por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada tem pena de reclusão de 20 a 40 anos (art. 121, § 2º-D); sequestro ou cárcere privado cometido por eles, reclusão de 12 a 20 anos (art. 148, § 3º); a lei também criou a ameaça ligada a esses grupos (art. 147-C) e penas maiores para a lesão corporal (art. 129, §§ 3º-A e 8º-A)."
       ],
       "itens": [
         {"t": "Desde a Lei 14.994/2024, o feminicídio deixou de ser qualificadora do homicídio e passou a ser crime autônomo, punido com reclusão de 20 a 40 anos.", "r": "C", "j": "Art. 121-A do CP, com a revogação do inciso VI do § 2º do art. 121."},
@@ -363,7 +367,8 @@
         "Latrocínio é crime contra o patrimônio: juiz singular, não júri, ainda que haja morte dolosa."
       ],
       "novidades": [
-        "Lei 15.397/2026 (vigente desde 4/5/2026): furto 1 a 6 anos e repouso noturno com aumento de metade; furto de celular, computador ou semovente, de veículo para outro Estado e por fraude eletrônica, 4 a 10 anos; roubo 6 a 10 anos; latrocínio 24 a 30 anos; receptação 2 a 6 anos; receptação de animal (art. 180-A) 3 a 8 anos; 'conta laranja' no estelionato; revogação do § 5º do art. 171."
+        "Lei 15.397/2026 (vigente desde 4/5/2026): furto 1 a 6 anos e repouso noturno com aumento de metade; furto de celular, computador ou semovente, de veículo para outro Estado e por fraude eletrônica, 4 a 10 anos; roubo 6 a 10 anos; latrocínio 24 a 30 anos; receptação 2 a 6 anos; receptação de animal (art. 180-A) 3 a 8 anos; 'conta laranja' no estelionato; revogação do § 5º do art. 171.",
+        "Lei 15.358/2026 (Lei Antifacção): roubo e extorsão cometidos por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada têm a pena aplicada em triplo; extorsão mediante sequestro e receptação praticadas por esses integrantes, aumento de 2/3. Confira no Planalto a redação atual, que também foi mexida pela Lei 15.397/2026."
       ],
       "itens": [
         {"t": "Após a Lei 15.397/2026, o crime de furto simples passou a ser punido com reclusão de 1 a 6 anos e multa.", "r": "C", "j": "A pena do caput do art. 155 era de 1 a 4 anos."},

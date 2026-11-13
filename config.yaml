@@ -94,6 +94,15 @@ visor:
   cor: laranja                # laranja, azul, ciano, verde, roxo, rosa, vermelho, branco
                               # (ou diga "Sócrates, muda a cor do visor para azul")
 
+autoestudo:                   # o Sócrates estuda SOZINHO o edital enquanto está aberto
+  ativo: true                 # false = desligado (ou diga "Sócrates, pausa o aprendizado")
+  planos: [prf, cbmgo]        # editais que ele completa; o primeiro tem prioridade
+  por_dia: 40                 # máximo de assuntos por dia (poupa o limite grátis)
+  pausa_seg: 90               # descanso entre um assunto e outro
+  ocioso_seg: 30              # só estuda se você está quieto há esse tempo (a conversa vem antes)
+  cerebros: [mistral, gemini, groq_leve, groq]       # quem escreve o material (sem chave = pulado)
+  conferentes: [gemini, mistral_leve, groq, mistral] # quem confere (sempre outro modelo)
+
 planilha:                     # a mesma planilha do app estudo-prf (opcional)
   url: ""                     # a URL do Apps Script (termina em /exec); ponha no config.local.yaml
   chave_env: PLANILHA_CHAVE   # a chave fica no .env

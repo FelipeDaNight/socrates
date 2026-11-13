@@ -1,0 +1,144 @@
+{
+  "id": "cbmgo",
+  "concurso": "CBMGO",
+  "cargo": "Soldado Combatente",
+  "banca": "AOCP",
+  "edital": "Edital CBMGO 004/2022 (Soldado Combatente, AOCP), Anexo II.",
+  "materias": [
+    {
+      "id": "bombeiro",
+      "trilha": "cbmgo-bombeiro",
+      "materia": "Atividade de Bombeiro Militar",
+      "bloco": "",
+      "peso": 15,
+      "apelidos": ["atividade de bombeiro", "atividade bombeiro militar", "incendio", "combate a incendio", "suporte basico de vida", "primeiros socorros"],
+      "topicos": [
+        {"id": "teoria-fogo", "titulo": "Teoria do fogo", "edital": "1 Combate a incêndio: teoria do fogo", "peso": 3, "pesquisa": "teoria do fogo triângulo tetraedro do fogo combustão pontos de temperatura manual bombeiros"},
+        {"id": "extincao", "titulo": "Métodos de extinção e classes de incêndio", "edital": "1 Métodos de extinção; classes de incêndio", "peso": 3, "pesquisa": "métodos de extinção resfriamento abafamento isolamento quebra da reação em cadeia classes de incêndio A B C D K"},
+        {"id": "agentes-extintores", "titulo": "Agentes extintores", "edital": "1 Agentes extintores", "peso": 3, "pesquisa": "agentes extintores água espuma pó químico CO2 indicação por classe de incêndio"},
+        {"id": "seguranca-cena", "titulo": "Segurança de cena e avaliação da vítima", "edital": "2 Protocolo de SBV CBMGO 2020", "peso": 3, "pesquisa": "protocolo suporte básico de vida bombeiros segurança de cena avaliação primária XABCDE"},
+        {"id": "sbv", "titulo": "Suporte básico de vida e RCP", "edital": "2 Suporte básico de vida", "peso": 3, "pesquisa": "suporte básico de vida RCP adulto compressões 100 a 120 por minuto DEA diretrizes"}
+      ]
+    },
+    {
+      "id": "legislacao",
+      "trilha": "cbmgo-legislacao",
+      "materia": "Legislação do CBMGO",
+      "bloco": "",
+      "peso": 10,
+      "apelidos": ["legislacao do cbmgo", "legislacao cbm", "estatuto dos bombeiros", "estatuto do bombeiro"],
+      "topicos": [
+        {"id": "estatuto", "titulo": "Estatuto dos Bombeiros Militares de Goiás (Lei 11.416/1991)", "edital": "1", "peso": 3, "fontes": ["GO11416 1"]},
+        {"id": "carreira", "titulo": "Plano de carreira de praças (Lei 15.704/2006)", "edital": "2", "peso": 2, "fontes": ["GO15704 1"]},
+        {"id": "etica-disciplina", "titulo": "Código de Ética e Disciplina (Lei 19.969/2018)", "edital": "3", "peso": 3, "fontes": ["GO19969 1"]}
+      ]
+    },
+    {
+      "id": "portugues",
+      "trilha": "cbmgo-portugues",
+      "materia": "Língua Portuguesa (AOCP)",
+      "bloco": "",
+      "peso": 4,
+      "apelidos": ["portugues do cbmgo", "portugues da aocp"],
+      "topicos": [
+        {"id": "interpretacao", "titulo": "Leitura: compreensão, pressupostos e subentendidos", "edital": "1 Leitura", "peso": 2, "pesquisa": "interpretação de texto pressupostos subentendidos AOCP"},
+        {"id": "logica-textual", "titulo": "Lógica textual: coerência, argumentação e gêneros", "edital": "2 Lógica textual", "peso": 1, "pesquisa": "coerência textual argumentação intertextualidade gêneros textuais funções da linguagem"},
+        {"id": "semantica", "titulo": "Sinonímia, antonímia, hiperonímia; denotação e conotação", "edital": "2 Relações de sentido", "peso": 1, "pesquisa": "sinonímia antonímia hiperonímia hiponímia denotação conotação"},
+        {"id": "coesao", "titulo": "Coesão: pontuação, conjunções e pronomes", "edital": "3 Coesão textual", "peso": 2, "pesquisa": "coesão textual pontuação conjunções pronomes relativos AOCP"},
+        {"id": "morfossintaxe", "titulo": "Morfossintaxe e variação linguística", "edital": "4 Conhecimentos linguísticos", "peso": 2, "pesquisa": "morfossintaxe funções sintáticas termos da oração variação linguística"}
+      ]
+    },
+    {
+      "id": "informatica",
+      "trilha": "cbmgo-informatica",
+      "materia": "Noções de Informática (AOCP)",
+      "bloco": "",
+      "peso": 4,
+      "apelidos": ["informatica do cbmgo", "informatica da aocp"],
+      "topicos": [
+        {"id": "sistemas", "titulo": "Sistemas operacionais Linux e Windows", "edital": "1", "peso": 1, "pesquisa": "Linux comandos básicos Windows 10 conceitos concurso"},
+        {"id": "office", "titulo": "Microsoft Office 2016 e LibreOffice", "edital": "2", "peso": 2, "pesquisa": "Word Excel PowerPoint 2016 LibreOffice Writer Calc atalhos funções concurso"},
+        {"id": "redes", "titulo": "Internet, intranet, navegadores e e-mail", "edital": "3", "peso": 2, "pesquisa": "internet intranet navegadores Edge Firefox Chrome correio eletrônico Thunderbird concurso"},
+        {"id": "arquivos", "titulo": "Arquivos, pastas e programas", "edital": "4", "peso": 1, "pesquisa": "organização de arquivos e pastas extensões Windows Explorer"},
+        {"id": "seguranca", "titulo": "Segurança: vírus, firewall e backup", "edital": "5", "peso": 2, "pesquisa": "malware vírus worm antivírus firewall backup nuvem concurso"},
+        {"id": "perifericos", "titulo": "Periféricos: conceitos e instalação", "edital": "6", "peso": 1, "pesquisa": "periféricos de entrada e saída hardware conceitos concurso"}
+      ]
+    },
+    {
+      "id": "rlq",
+      "trilha": "cbmgo-rlq",
+      "materia": "Raciocínio Lógico-Quantitativo",
+      "bloco": "",
+      "peso": 4,
+      "apelidos": ["raciocinio logico quantitativo", "rlq"],
+      "topicos": [
+        {"id": "logica", "titulo": "Lógica: conectivos, equivalências, negações e argumentos", "edital": "1", "peso": 2, "pesquisa": "lógica proposicional conectivos tautologia equivalências negação silogismo"},
+        {"id": "conjuntos-numeros", "titulo": "Conjuntos numéricos e operações", "edital": "2", "peso": 1, "pesquisa": "conjuntos numéricos operações problemas concurso"},
+        {"id": "proporcao-porcentagem", "titulo": "Proporcionalidade e porcentagem", "edital": "3", "peso": 2, "pesquisa": "proporcionalidade regra de três porcentagem problemas"},
+        {"id": "tabelas-graficos", "titulo": "Leitura de tabelas e gráficos", "edital": "4", "peso": 1, "pesquisa": "interpretação de tabelas e gráficos matemática concurso"}
+      ]
+    },
+    {
+      "id": "constitucional",
+      "trilha": "cbmgo-constitucional",
+      "materia": "Direito Constitucional (CBMGO)",
+      "bloco": "",
+      "peso": 4,
+      "apelidos": ["constitucional do cbmgo", "constituicao de goias"],
+      "topicos": [
+        {"id": "principios-fundamentais", "titulo": "Princípios fundamentais", "edital": "2", "peso": 1, "fontes": ["CF 1-4"]},
+        {"id": "direitos-fundamentais", "titulo": "Direitos e garantias fundamentais", "edital": "2", "peso": 3, "fontes": ["CF 5-17"]},
+        {"id": "defesa-estado", "titulo": "Estado de defesa, de sítio, Forças Armadas e segurança pública", "edital": "2", "peso": 2, "fontes": ["CF 136-144"]},
+        {"id": "constituicao-goias", "titulo": "Constituição de Goiás: administração, servidores e segurança", "edital": "3", "peso": 2, "fontes": ["CEGO 1"], "pesquisa": "Constituição do Estado de Goiás segurança pública Corpo de Bombeiros Militar artigos"}
+      ]
+    },
+    {
+      "id": "goias",
+      "trilha": "cbmgo-goias",
+      "materia": "Realidade de Goiás",
+      "bloco": "",
+      "peso": 3,
+      "apelidos": ["realidade de goias", "historia de goias", "geografia de goias", "goias"],
+      "topicos": [
+        {"id": "formacao-economica", "titulo": "Formação econômica de Goiás", "edital": "1 Mineração, agropecuária, ferrovia, Goiânia e Brasília, industrialização", "peso": 2, "pesquisa": "formação econômica de Goiás mineração século XVIII estrada de ferro Goiânia Brasília"},
+        {"id": "modernizacao", "titulo": "Modernização agrícola e urbanização", "edital": "2", "peso": 1, "pesquisa": "modernização agrícola Goiás cerrado urbanização"},
+        {"id": "populacao", "titulo": "População de Goiás: povoamento e migrações", "edital": "3", "peso": 1, "pesquisa": "população de Goiás povoamento migrações densidade demográfica censo"},
+        {"id": "economia", "titulo": "Economia goiana: indústria, transportes e comunicações", "edital": "4", "peso": 1, "pesquisa": "economia de Goiás indústria polos industriais infraestrutura de transportes"},
+        {"id": "regionalizacao", "titulo": "Regiões de Goiás e desigualdades", "edital": "5", "peso": 1, "pesquisa": "regiões de planejamento de Goiás desigualdades regionais"},
+        {"id": "aspectos-fisicos", "titulo": "Aspectos físicos: vegetação, hidrografia, clima e relevo", "edital": "6", "peso": 2, "pesquisa": "aspectos físicos de Goiás cerrado bacias hidrográficas clima relevo"},
+        {"id": "historia-politica", "titulo": "História política de Goiás", "edital": "7 Independência, coronelismo, oligarquias, Revolução de 1930", "peso": 2, "pesquisa": "história política de Goiás coronelismo oligarquias Caiado Pedro Ludovico Revolução de 1930"},
+        {"id": "historia-social", "titulo": "História social e cultura de Goiás", "edital": "8 Indígenas, escravidão, movimentos sociais, cultura popular", "peso": 1, "pesquisa": "história social de Goiás indígenas escravidão quilombos Kalunga cultura popular"}
+      ]
+    },
+    {
+      "id": "administrativo",
+      "trilha": "cbmgo-administrativo",
+      "materia": "Direito Administrativo (CBMGO)",
+      "bloco": "",
+      "peso": 3,
+      "apelidos": ["administrativo do cbmgo", "improbidade"],
+      "topicos": [
+        {"id": "administracao-publica", "titulo": "Administração pública: princípios, poderes e organização", "edital": "1", "peso": 2, "fontes": ["CF 37-41"]},
+        {"id": "agentes", "titulo": "Agentes públicos, cargo, emprego e concurso", "edital": "1", "peso": 1, "fontes": ["CF 37-41"]},
+        {"id": "atos", "titulo": "Atos administrativos e abuso de poder", "edital": "1", "peso": 2, "pesquisa": "atos administrativos requisitos atributos extinção uso e abuso de poder"},
+        {"id": "responsabilidade", "titulo": "Responsabilidade civil do Estado", "edital": "1", "peso": 1, "fontes": ["CF 37"]},
+        {"id": "improbidade", "titulo": "Improbidade administrativa (Lei 8.429/1992)", "edital": "1", "peso": 2, "fontes": ["L8429 1-23-C"]}
+      ]
+    },
+    {
+      "id": "penal-militar",
+      "trilha": "cbmgo-penal-militar",
+      "materia": "Direito Penal Militar",
+      "bloco": "",
+      "peso": 3,
+      "apelidos": ["penal militar", "codigo penal militar", "cpm"],
+      "topicos": [
+        {"id": "aplicacao", "titulo": "Aplicação da lei penal militar", "edital": "4", "peso": 1, "fontes": ["CPM 1-28"]},
+        {"id": "crime-militar", "titulo": "Crime militar", "edital": "4", "peso": 2, "fontes": ["CPM 29-54"]},
+        {"id": "penas", "titulo": "Penas e medidas de segurança", "edital": "4", "peso": 1, "fontes": ["CPM 55-120"]},
+        {"id": "autoridade-disciplina", "titulo": "Crimes contra a autoridade ou disciplina militar", "edital": "4", "peso": 2, "fontes": ["CPM 149-182"]},
+        {"id": "servico-dever", "titulo": "Crimes contra o serviço e o dever militar", "edital": "4", "peso": 2, "fontes": ["CPM 183-204"]}
+      ]
+    }
+  ]
+}

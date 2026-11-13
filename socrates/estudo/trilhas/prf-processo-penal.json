@@ -1,0 +1,330 @@
+{
+  "id": "prf-processo-penal",
+  "materia": "Direito Processual Penal",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe). CPP e leis conferidos nas fontes oficiais até 13/11/2026 (Leis 15.358/2026 e 15.487/2026; STF: ADIs 6245/6264, RE 603.616, HC 208.240).",
+  "atualizado": "2026-11-13",
+  "apelidos": ["processo penal", "processual penal", "direito processual penal", "codigo de processo penal", "cpp"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "acao-penal",
+      "bloco": "Ação penal",
+      "titulo": "Ação penal",
+      "edital": "1 Ação penal: conceito, características, espécies e condições",
+      "peso": 3,
+      "artigos": ["CPP 24-62"],
+      "palavras": ["acao penal", "acao penal publica", "acao penal privada", "acao publica condicionada", "acao publica incondicionada", "representacao do ofendido", "queixa crime", "denuncia do ministerio publico", "requisicao do ministro da justica", "prazo decadencial", "subsidiaria da publica", "acordo de nao persecucao penal", "anpp", "condicoes da acao", "justa causa", "indivisibilidade"],
+      "pontos": [
+        "Ação penal pública: o titular é o Ministério Público, por denúncia (CF, art. 129, I). Pode ser incondicionada (a regra) ou condicionada à representação do ofendido ou à requisição do Ministro da Justiça (CPP, art. 24). Ação penal privada: o ofendido age por queixa (art. 30).",
+        "Princípios da ação pública: obrigatoriedade (havendo indícios, o MP deve denunciar, ressalvados os acordos legais) e indisponibilidade (o MP não pode desistir da ação: art. 42). Na privada valem a oportunidade e a disponibilidade (renúncia, perdão, perempção) e a indivisibilidade: a queixa contra um obriga ao processo de todos (art. 48), e a renúncia a um se estende a todos (art. 49).",
+        "Representação: pode ser feita ao juiz, ao MP ou à autoridade policial, sem forma especial. É retratável só até o OFERECIMENTO da denúncia (art. 25). O direito de queixa ou de representação decai em 6 meses, contados do dia em que o ofendido soube quem é o autor do crime (art. 38).",
+        "Ação privada subsidiária da pública: se o MP não oferece a denúncia no prazo legal (5 dias com réu preso, 15 dias solto — art. 46), o ofendido pode oferecer queixa (art. 29; CF, art. 5º, LIX). Não cabe se o MP pediu o arquivamento ou novas diligências.",
+        "Morrendo o ofendido ou sendo declarado ausente, o direito de queixa ou de representação passa ao cônjuge, ascendente, descendente ou irmão (art. 31 e art. 24, § 1º).",
+        "Condições da ação e rejeição da denúncia: a denúncia ou queixa é rejeitada se for inepta, se faltar pressuposto processual ou condição para a ação, ou se faltar justa causa (art. 395).",
+        "Acordo de não persecução penal (art. 28-A): cabível se não for caso de arquivamento e o investigado confessar formal e circunstanciadamente infração sem violência ou grave ameaça, com pena mínima inferior a 4 anos. Não cabe, entre outros casos, se couber transação penal, se o investigado for reincidente ou tiver conduta criminal habitual, se tiver recebido ANPP, transação ou suspensão nos 5 anos anteriores, ou em crime de violência doméstica ou contra a mulher por razões da condição de sexo feminino."
+      ],
+      "pegadinhas": [
+        "A representação é retratável até o OFERECIMENTO da denúncia (não até o recebimento).",
+        "Na ação privada subsidiária da pública, o MP continua podendo aditar a queixa, repudiá-la e oferecer denúncia substitutiva e retomar a ação se o querelante for negligente (art. 29).",
+        "ANPP: pena MÍNIMA inferior a 4 anos e sem violência ou grave ameaça; a confissão é requisito."
+      ],
+      "novidades": [
+        "Lei 15.397/2026 (Código Penal): revogou o § 5º do art. 171; o estelionato voltou a ser, como regra, crime de ação penal pública incondicionada."
+      ],
+      "itens": [
+        {"t": "A representação do ofendido é retratável até o recebimento da denúncia.", "r": "E", "j": "Art. 25 do CPP: é irretratável depois de OFERECIDA a denúncia."},
+        {"t": "O Ministério Público não pode desistir da ação penal pública que tiver proposto.", "r": "C", "j": "Art. 42 do CPP (indisponibilidade)."},
+        {"t": "Em regra, o direito de queixa decai em seis meses, contados do dia em que o ofendido vier a saber quem é o autor do crime.", "r": "C", "j": "Art. 38 do CPP."},
+        {"t": "A ação penal privada subsidiária da pública é cabível quando o Ministério Público requer o arquivamento do inquérito policial.", "r": "E", "j": "Só cabe se o MP fica inerte no prazo legal; pedir arquivamento não é inércia."},
+        {"t": "A renúncia ao exercício do direito de queixa em relação a um dos autores do crime se estende a todos.", "r": "C", "j": "Art. 49 do CPP (indivisibilidade)."},
+        {"t": "O acordo de não persecução penal pode ser celebrado em crime cometido com grave ameaça, desde que a pena mínima seja inferior a quatro anos.", "r": "E", "j": "Art. 28-A: exige infração sem violência ou grave ameaça."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "tco",
+      "bloco": "Termo circunstanciado",
+      "titulo": "Termo circunstanciado e infrações de menor potencial ofensivo",
+      "edital": "2 Termo circunstanciado de ocorrência (Lei 9.099/1995)",
+      "peso": 3,
+      "artigos": ["L9099 60-69"],
+      "palavras": ["termo circunstanciado", "tco", "lavrar tco", "lavratura do termo", "lavrar o termo circunstanciado", "termo circunstanciado de ocorrencia", "compromisso de comparecer", "tcos"],
+      "pontos": [
+        "Na infração de menor potencial ofensivo (contravenções e crimes com pena máxima de até 2 anos — Lei 9.099, art. 61), a autoridade policial que toma conhecimento da ocorrência lavra termo circunstanciado e o encaminha imediatamente ao Juizado, com o autor do fato e a vítima, providenciando as requisições dos exames periciais necessários (art. 69).",
+        "Se o autor do fato, depois da lavratura do termo, for imediatamente encaminhado ao Juizado ou assumir o compromisso de comparecer, não se impõe prisão em flagrante nem se exige fiança (art. 69, parágrafo único). Se ele se recusa a assumir o compromisso, cabe a lavratura do auto de prisão em flagrante.",
+        "Em violência doméstica, o juiz pode determinar, como medida de cautela, o afastamento do autor do lar, domicílio ou local de convivência com a vítima (art. 69, parágrafo único). Mas aos crimes de violência doméstica e familiar contra a mulher não se aplica a Lei 9.099 (Lei 11.340, art. 41).",
+        "O TCO substitui o inquérito policial nessas infrações: é um registro simplificado do fato, com a qualificação dos envolvidos, o resumo das versões e a indicação de testemunhas e exames.",
+        "A PRF pode lavrar TCO: o STF decidiu que o termo circunstanciado não é ato de investigação e pode ser lavrado por integrantes da polícia judiciária ou da polícia administrativa (ADIs 6245 e 6264, 17/2/2023). Hoje a atribuição consta do art. 58, XII, do Anexo I do Decreto 11.348/2023.",
+        "O usuário de drogas (Lei 11.343, art. 28) também não é preso em flagrante: vai ao juízo ou, na falta, lavra-se termo circunstanciado (art. 48, § 2º)."
+      ],
+      "pegadinhas": [
+        "Sem o compromisso de comparecer ao Juizado, o autor do fato pode ser preso em flagrante.",
+        "TCO não é exclusivo de delegado: a PRF pode lavrá-lo (STF, 2023).",
+        "Menor potencial ofensivo olha a pena MÁXIMA (até 2 anos), não a mínima."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Ao autor do fato que, após a lavratura do termo circunstanciado, assumir o compromisso de comparecer ao juizado, não se imporá prisão em flagrante nem se exigirá fiança.", "r": "C", "j": "Art. 69, parágrafo único, da Lei 9.099/1995."},
+        {"t": "Segundo o STF, a PRF pode lavrar termo circunstanciado de ocorrência, pois este não é ato de investigação criminal.", "r": "C", "j": "ADIs 6245 e 6264 (2023)."},
+        {"t": "O termo circunstanciado é cabível em qualquer crime cuja pena mínima não supere dois anos.", "r": "E", "j": "O critério é a pena MÁXIMA não superior a dois anos (art. 61)."},
+        {"t": "Nos crimes de violência doméstica e familiar contra a mulher, ainda que de menor potencial ofensivo, aplica-se a Lei 9.099/1995.", "r": "E", "j": "Lei 11.340, art. 41: não se aplica."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "atos-processuais",
+      "bloco": "Atos processuais",
+      "titulo": "Atos processuais: forma, lugar e tempo",
+      "edital": "2 Atos processuais: forma, lugar e tempo",
+      "peso": 1,
+      "artigos": ["CPP 792-798-A"],
+      "palavras": ["atos processuais", "ato processual", "prazo processual", "prazos processuais", "contagem de prazo processual", "prazos no processo penal", "dia do comeco", "prazo que termina no domingo", "recesso forense"],
+      "pontos": [
+        "Forma e lugar: as audiências, sessões e atos processuais são, em regra, públicos e se realizam nas sedes dos juízos e tribunais, em dia e hora certos ou previamente designados (CPP, art. 792). Em caso de necessidade, podem ocorrer em outra casa designada pelo juiz.",
+        "Tempo: salvo as sessões de julgamento, que não são marcadas para domingo ou feriado, os demais atos podem ser praticados em período de férias, em domingos e feriados; o julgamento iniciado em dia útil não se interrompe por causa de feriado ou domingo (art. 797).",
+        "Prazos (art. 798): são contínuos e peremptórios, sem interrupção por férias, domingo ou feriado. Não se conta o dia do começo; conta-se o do vencimento (§ 1º). O prazo que termina em domingo ou feriado é prorrogado até o dia útil seguinte (§ 3º).",
+        "Suspensão de prazos (art. 798-A, Lei 14.365/2022): o curso dos prazos fica suspenso de 20 de dezembro a 20 de janeiro, salvo nos processos com réu preso (ligados à prisão), nos da Lei Maria da Penha e nas medidas urgentes, por despacho fundamentado.",
+        "Prazo penal x prazo processual: no prazo PENAL (Código Penal, art. 10) conta-se o dia do começo; no prazo PROCESSUAL (CPP, art. 798, § 1º), não."
+      ],
+      "pegadinhas": [
+        "No prazo processual NÃO se conta o dia do começo; no prazo penal (decadência, prescrição) conta-se.",
+        "A suspensão de 20/12 a 20/1 não vale para processos com réu preso nem para os da Lei Maria da Penha."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "No processo penal, os prazos são contínuos e peremptórios, não se interrompendo por férias, domingo ou feriado.", "r": "C", "j": "Art. 798 do CPP."},
+        {"t": "Na contagem dos prazos processuais penais, computa-se o dia do começo e exclui-se o do vencimento.", "r": "E", "j": "Art. 798, § 1º: não se computa o dia do começo; inclui-se o do vencimento."},
+        {"t": "A suspensão dos prazos processuais entre 20 de dezembro e 20 de janeiro não se aplica aos processos que envolvam réus presos.", "r": "C", "j": "Art. 798-A, I."},
+        {"t": "O prazo processual penal que terminar em feriado considera-se prorrogado até o dia útil imediato.", "r": "C", "j": "Art. 798, § 3º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "prova",
+      "bloco": "Prova",
+      "titulo": "Prova: conceito, ônus, provas ilícitas e local de crime",
+      "edital": "3 Prova: conceito, objeto, classificação, preservação de local de crime, ônus, provas ilícitas",
+      "peso": 3,
+      "artigos": ["CPP 155-184"],
+      "palavras": ["prova", "provas", "onus da prova", "prova ilicita", "provas ilicitas", "prova derivada", "fruto da arvore envenenada", "fonte independente", "descoberta inevitavel", "cadeia de custodia", "vestigio", "vestigios", "local de crime", "preservacao do local", "isolamento do local", "corpo de delito", "exame de corpo de delito", "lei 5970", "remocao de vitimas"],
+      "pontos": [
+        "O juiz forma a convicção pela livre apreciação da prova produzida em contraditório judicial; não pode fundamentar a decisão exclusivamente nos elementos informativos da investigação, ressalvadas as provas cautelares, não repetíveis e antecipadas (CPP, art. 155).",
+        "Ônus: a prova da alegação incumbe a quem a fizer (art. 156). Provas ilícitas — obtidas com violação de normas constitucionais ou legais — são inadmissíveis e devem ser desentranhadas (art. 157). As derivadas também, salvo quando não houver nexo de causalidade ou puderem ser obtidas por fonte independente (§§ 1º e 2º). O STF declarou inconstitucional o § 5º (juiz que conheceu a prova ilícita impedido de sentenciar).",
+        "Quando a infração deixa vestígios, o exame de corpo de delito, direto ou indireto, é indispensável e a confissão não o supre (art. 158). Têm prioridade os casos de violência doméstica e familiar contra a mulher e de violência contra criança, adolescente, idoso ou pessoa com deficiência (parágrafo único). Desaparecidos os vestígios, a prova testemunhal pode suprir a falta (art. 167).",
+        "Cadeia de custódia (art. 158-A): é o conjunto de procedimentos para manter e documentar a história cronológica do vestígio, da coleta ao descarte. Começa com a preservação do local de crime, e o agente público que reconhece um elemento de potencial interesse pericial fica responsável pela sua preservação (§§ 1º e 2º). Etapas: reconhecimento, isolamento, fixação, coleta, acondicionamento, transporte, recebimento, processamento, armazenamento e descarte (art. 158-B).",
+        "Local de crime: a autoridade providencia para que não se altere o estado das coisas até a chegada dos peritos (arts. 6º, I, e 169). É proibido entrar em locais isolados ou remover vestígios antes da liberação pelo perito; fazê-lo é fraude processual (art. 158-C, § 2º).",
+        "Acidente de trânsito (Lei 5.970/1973): a autoridade ou o agente policial que primeiro tomar conhecimento pode autorizar, independentemente de exame do local, a imediata remoção das vítimas e dos veículos que estejam no leito da via e prejudiquem o tráfego, lavrando boletim com o fato, as testemunhas e as circunstâncias."
+      ],
+      "pegadinhas": [
+        "A confissão NÃO supre o exame de corpo de delito; a prova testemunhal só supre se os vestígios desapareceram.",
+        "Em acidente de trânsito, a remoção das vítimas e dos veículos que atrapalham o tráfego pode ser autorizada antes da perícia (Lei 5.970/1973); a banca diz que isso é sempre proibido.",
+        "Entrar no local isolado antes da liberação pelo perito é fraude processual (art. 158-C, § 2º)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Quando a infração deixar vestígios, a confissão do acusado poderá suprir a falta do exame de corpo de delito.", "r": "E", "j": "Art. 158 do CPP: a confissão não supre o exame."},
+        {"t": "O início da cadeia de custódia se dá com a preservação do local de crime ou com procedimentos policiais ou periciais nos quais seja detectada a existência de vestígio.", "r": "C", "j": "Art. 158-A, § 1º."},
+        {"t": "Em caso de acidente de trânsito, o agente policial que primeiro tomar conhecimento do fato poderá autorizar a remoção imediata dos veículos que estiverem no leito da via prejudicando o tráfego, independentemente de exame do local.", "r": "C", "j": "Lei 5.970/1973, art. 1º."},
+        {"t": "São admissíveis as provas derivadas das ilícitas quando puderem ser obtidas por uma fonte independente das primeiras.", "r": "C", "j": "Art. 157, §§ 1º e 2º."},
+        {"t": "O juiz pode fundamentar a condenação exclusivamente nos elementos informativos colhidos no inquérito policial.", "r": "E", "j": "Art. 155: não pode, ressalvadas as provas cautelares, não repetíveis e antecipadas."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "meios-de-prova",
+      "bloco": "Prova",
+      "titulo": "Meios de prova: interrogatório, testemunhas, reconhecimento",
+      "edital": "3.6 Meios de prova",
+      "peso": 2,
+      "artigos": ["CPP 185-239"],
+      "palavras": ["interrogatorio", "interrogatorio do reu", "direito ao silencio", "confissao", "testemunha", "testemunhas", "depoimento", "depoimento do policial", "policial como testemunha", "ofendido", "declaracoes da vitima", "reconhecimento de pessoas", "reconhecimento fotografico", "acareacao", "indicio", "indicios", "prova documental"],
+      "pontos": [
+        "Interrogatório: o acusado é informado do direito de permanecer calado e de não responder às perguntas; o silêncio não importa confissão e não pode ser interpretado em prejuízo da defesa (art. 186). A presença do defensor é obrigatória (art. 185); a videoconferência é excepcional (§ 2º).",
+        "Confissão: o valor é aferido junto com as demais provas; é divisível e retratável, sem prejuízo do livre convencimento do juiz (arts. 197 e 200).",
+        "Testemunhas: toda pessoa pode ser testemunha (art. 202), inclusive o policial que participou da prisão; o depoimento dele vale como o de qualquer testemunha, sem valor superior a priori. Parentes do acusado (cônjuge, ascendente, descendente, irmão) podem recusar-se a depor, salvo se não houver outro modo de obter a prova (art. 206); não prestam compromisso, nem os doentes mentais e os menores de 14 anos (art. 208). São proibidas de depor as pessoas que, por função, ministério, ofício ou profissão, devam guardar segredo, salvo se, desobrigadas pela parte, quiserem depor (art. 207).",
+        "Ofendido: é ouvido sobre as circunstâncias da infração e quem seja o autor; não presta compromisso e, se não comparecer sem justo motivo, pode ser conduzido (art. 201).",
+        "Reconhecimento de pessoas (art. 226): quem vai reconhecer descreve antes a pessoa; esta é colocada, se possível, ao lado de outras parecidas; lavra-se auto assinado pela autoridade, por quem reconheceu e por duas testemunhas. Para o STJ (HC 598.886, 2020), o procedimento é garantia mínima: o reconhecimento feito sem ele não serve, sozinho, para condenar.",
+        "Acareação (art. 229): entre acusados, testemunhas e ofendidos que divergirem sobre fatos relevantes. Documentos podem ser juntados em qualquer fase do processo, salvo exceções legais (art. 231). Indício é a circunstância conhecida e provada que, ligada ao fato, autoriza por indução concluir outras circunstâncias (art. 239)."
+      ],
+      "pegadinhas": [
+        "O depoimento do policial não tem valor SUPERIOR ao interrogatório nem às demais provas (PRF 2021, item 108).",
+        "O silêncio do acusado não pode ser usado contra ele.",
+        "Parente do acusado PODE recusar-se a depor; quem tem dever de sigilo profissional é PROIBIDO de depor, salvo se desobrigado e quiser."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O policial que efetuou a prisão pode ser arrolado como testemunha, e seu depoimento terá valor probatório superior ao do interrogatório do acusado.", "r": "E", "j": "Pode ser testemunha, mas sem valor superior a priori. Item 108 da PRF 2021."},
+        {"t": "O silêncio do acusado no interrogatório não importará confissão e não poderá ser interpretado em prejuízo da defesa.", "r": "C", "j": "Art. 186, parágrafo único, do CPP."},
+        {"t": "A confissão do acusado é indivisível e irretratável.", "r": "E", "j": "Art. 200: é divisível e retratável."},
+        {"t": "Não se deferirá o compromisso de dizer a verdade aos menores de quatorze anos.", "r": "C", "j": "Art. 208 do CPP."},
+        {"t": "O ofendido que, intimado, deixar de comparecer sem motivo justo poderá ser conduzido à presença da autoridade.", "r": "C", "j": "Art. 201, § 1º."}
+      ],
+      "questoes": ["prf-2021-p1|item 108"]
+    },
+    {
+      "id": "busca-apreensao",
+      "bloco": "Prova",
+      "titulo": "Busca e apreensão pessoal e domiciliar",
+      "edital": "3.7 Busca e apreensão: pessoal, domiciliar, requisitos, restrições, horários",
+      "peso": 3,
+      "artigos": ["CPP 240-250"],
+      "palavras": ["busca e apreensao", "busca pessoal", "busca domiciliar", "revista pessoal", "abordagem policial", "busca no veiculo", "busca veicular", "fundada suspeita", "mandado de busca", "entrar na casa", "entrada em domicilio", "inviolabilidade do domicilio", "busca em mulher", "perfilamento racial", "busca", "abordagem", "revistar", "revista", "revistar o carro", "revistar o veiculo", "sem mandado"],
+      "pontos": [
+        "Busca domiciliar (CPP, art. 240, § 1º): quando fundadas razões a autorizarem, para prender criminosos, apreender coisas obtidas por meios criminosos, instrumentos de crime, armas e munições, objetos necessários à prova, cartas, pessoas vítimas de crime e qualquer elemento de convicção.",
+        "Domicílio (CF, art. 5º, XI): a casa é asilo inviolável; só se entra sem consentimento do morador em flagrante delito ou desastre, para prestar socorro, ou, durante o dia, por determinação judicial. Sem mandado, a entrada forçada só é lícita, mesmo à noite, se houver fundadas razões, justificadas depois, de que dentro da casa ocorre flagrante (STF, RE 603.616, Tema 280).",
+        "Mandado e horário: a busca domiciliar por mandado é feita de dia, salvo consentimento do morador para fazê-la à noite (art. 245). O mandado indica a casa e o morador, os motivos e os fins da diligência (art. 243). Cumprir mandado de busca domiciliar depois das 21h ou antes das 5h é crime de abuso de autoridade (Lei 13.869, art. 22, § 1º, III).",
+        "Busca pessoal (art. 244): independe de mandado no caso de prisão, quando houver fundada suspeita de que a pessoa esteja com arma proibida ou com objetos ou papéis que constituam corpo de delito, ou quando feita no curso de busca domiciliar. A fundada suspeita exige elementos objetivos; não basta impressão subjetiva ou nervosismo (STJ, RHC 158.580, 2022), e é ilícita a busca motivada por raça, sexo, orientação sexual, cor da pele ou aparência física (STF, HC 208.240, 2024).",
+        "Veículo: a busca em veículo equipara-se, como regra, à busca pessoal e dispensa mandado se houver fundada suspeita; a exceção é o veículo usado como moradia.",
+        "A busca em mulher é feita por outra mulher, se não importar retardamento ou prejuízo da diligência (art. 249). Em casa habitada, a busca não deve molestar os moradores mais do que o indispensável (art. 248)."
+      ],
+      "pegadinhas": [
+        "Busca no veículo, durante fiscalização, com fundada suspeita, NÃO precisa de autorização judicial (PRF 2021, item 105).",
+        "Em flagrante delito, a casa pode ser invadida a qualquer hora, dia ou noite; com mandado judicial, só de dia (salvo consentimento).",
+        "Busca em mulher por policial homem é possível quando esperar uma policial atrasaria ou prejudicaria a diligência."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A busca e a apreensão em veículo, realizadas por policial rodoviário durante fiscalização, são ilícitas se feitas sem autorização judicial.", "r": "E", "j": "Busca veicular equipara-se à pessoal e dispensa mandado com fundada suspeita (art. 244). Item 105 da PRF 2021."},
+        {"t": "A busca domiciliar determinada por mandado judicial pode ser executada durante a noite, desde que o morador consinta.", "r": "C", "j": "Art. 245 do CPP."},
+        {"t": "Em situação de flagrante delito, a entrada em domicílio sem mandado judicial somente é permitida durante o dia.", "r": "E", "j": "CF, art. 5º, XI: em flagrante, a qualquer hora."},
+        {"t": "A busca pessoal independe de mandado quando houver fundada suspeita de que a pessoa esteja na posse de arma proibida.", "r": "C", "j": "Art. 244 do CPP."},
+        {"t": "Segundo o STF, a busca pessoal pode ser motivada pela cor da pele do abordado, desde que haja nervosismo aparente.", "r": "E", "j": "STF, HC 208.240 (2024): exige elementos objetivos; é ilícita a busca baseada em raça ou aparência."}
+      ],
+      "questoes": ["prf-2021-p1|item 105"]
+    },
+    {
+      "id": "prisao-flagrante",
+      "bloco": "Prisão",
+      "titulo": "Prisão em flagrante e audiência de custódia",
+      "edital": "4 Prisão em flagrante",
+      "peso": 3,
+      "artigos": ["CPP 301-310"],
+      "palavras": ["prisao em flagrante", "flagrante", "flagrante delito", "flagrante proprio", "flagrante improprio", "quase flagrante", "flagrante presumido", "flagrante ficto", "flagrante obrigatorio", "flagrante facultativo", "auto de prisao em flagrante", "nota de culpa", "audiencia de custodia", "voz de prisao", "recibo de entrega do preso", "flagrante diferido", "flagrante forjado"],
+      "pontos": [
+        "Qualquer do povo PODE e as autoridades policiais e seus agentes DEVEM prender quem for encontrado em flagrante delito (CPP, art. 301): flagrante facultativo e flagrante obrigatório.",
+        "Espécies (art. 302): próprio — está cometendo a infração ou acaba de cometê-la (I e II); impróprio ou quase flagrante — é perseguido, logo após, em situação que faça presumir ser o autor (III); presumido ou ficto — é encontrado, logo depois, com instrumentos, armas, objetos ou papéis que façam presumir ser o autor (IV). No crime permanente, há flagrante enquanto não cessar a permanência (art. 303).",
+        "Flagrante preparado (provocado) não vale: não há crime quando a preparação torna impossível a consumação (Súmula 145 do STF). O esperado é válido. O diferido ou retardado (ação controlada) depende de previsão legal (Leis 12.850 e 11.343). O forjado é ilegal e crime de quem o forja.",
+        "Lavratura (art. 304): apresentado o preso, a autoridade ouve o condutor e entrega a ele cópia do termo e recibo de entrega do preso; depois ouve as testemunhas e interroga o preso. A prisão em flagrante é prisão provisória e dispensa mandado.",
+        "Comunicação (art. 306): a prisão e o local são comunicados imediatamente ao juiz, ao MP e à família do preso ou à pessoa por ele indicada. Em até 24 horas, o auto vai ao juiz (e à Defensoria, se não houver advogado) e o preso recebe a nota de culpa, com o motivo da prisão, o nome do condutor e os das testemunhas (§§ 1º e 2º).",
+        "Audiência de custódia (art. 310): em até 24 horas o juiz ouve o preso e, fundamentadamente: relaxa a prisão ilegal; converte o flagrante em preventiva, se presentes os requisitos do art. 312 e insuficientes outras cautelares; ou concede liberdade provisória, com ou sem fiança.",
+        "Perseguição: se o perseguido passa para outro município ou comarca, o executor pode prendê-lo onde o alcançar, apresentando-o à autoridade local (art. 290)."
+      ],
+      "pegadinhas": [
+        "A nota de culpa é entregue em até 24 HORAS, ao PRESO, mediante recibo (PRF 2021, item 106).",
+        "Quem é perseguido 'logo após' está em flagrante IMPRÓPRIO; quem é encontrado 'logo depois' com objetos do crime, em flagrante PRESUMIDO.",
+        "A prisão em flagrante dispensa mandado e é espécie de prisão provisória (cautelar) — PRF 2021, item 109."
+      ],
+      "novidades": [
+        "Lei 15.358/2026: a audiência de custódia, em até 24 horas, passou a ser feita preferencialmente por videoconferência, com conversa prévia e reservada do preso com o defensor; presencial em situações excepcionais (CPP, arts. 3º-B, § 1º, e 310)."
+      ],
+      "itens": [
+        {"t": "O policial que surpreende o autor logo após a prática do crime, com a mercadoria proibida no veículo, realiza prisão em flagrante próprio, devendo a nota de culpa ser entregue ao preso em até vinte e quatro horas.", "r": "C", "j": "Arts. 302, II, e 306, § 2º, do CPP. Item 106 da PRF 2021."},
+        {"t": "A prisão em flagrante é uma espécie de prisão provisória, dispensa a expedição de mandado, e o condutor deve receber o recibo de entrega do preso.", "r": "C", "j": "Arts. 301 e 304 do CPP. Item 109 da PRF 2021."},
+        {"t": "Considera-se em flagrante delito quem é perseguido, logo após, pela autoridade, em situação que faça presumir ser autor da infração.", "r": "C", "j": "Art. 302, III (flagrante impróprio)."},
+        {"t": "Qualquer do povo deverá prender quem quer que seja encontrado em flagrante delito.", "r": "E", "j": "Art. 301: qualquer do povo PODERÁ; as autoridades policiais e seus agentes DEVERÃO."},
+        {"t": "Nos crimes permanentes, entende-se o agente em flagrante delito enquanto não cessar a permanência.", "r": "C", "j": "Art. 303 do CPP."},
+        {"t": "O flagrante preparado pela polícia, que torna impossível a consumação do crime, é válido.", "r": "E", "j": "Súmula 145 do STF."}
+      ],
+      "questoes": ["prf-2021-p1|item 106", "prf-2021-p1|item 109"]
+    },
+    {
+      "id": "prisao-cautelar",
+      "bloco": "Prisão",
+      "titulo": "Prisão: regras gerais, preventiva e temporária",
+      "edital": "4 Prisão: conceito, formalidades, espécies, mandado e cumprimento",
+      "peso": 2,
+      "artigos": ["CPP 282-300", "CPP 311-316", "CPP 321-350", "L7960 1-2"],
+      "palavras": ["prisao preventiva", "preventiva", "prisao temporaria", "temporaria", "mandado de prisao", "cumprimento do mandado", "algemas", "uso de algemas", "emprego de forca", "resistencia a prisao", "fianca", "liberdade provisoria", "prisao domiciliar", "medidas cautelares", "prisao a noite", "lei 7960", "prisao", "prisoes"],
+      "pontos": [
+        "Ninguém é preso senão em flagrante delito ou por ordem escrita e fundamentada do juiz competente, em prisão cautelar ou por condenação transitada em julgado (CPP, art. 283). A prisão pode ser feita em qualquer dia e hora, respeitada a inviolabilidade do domicílio (§ 2º).",
+        "Força e algemas: só se usa a força indispensável no caso de resistência ou tentativa de fuga (art. 284); havendo resistência, podem-se usar os meios necessários, lavrando-se auto assinado por duas testemunhas (art. 292). Algemas só em caso de resistência, fundado receio de fuga ou perigo à integridade física, justificando por escrito (Súmula Vinculante 11); são vedadas em mulheres durante o parto e no puerpério imediato (art. 292, parágrafo único).",
+        "Captura em casa (art. 293): se o procurado está numa casa, o morador é intimado a entregá-lo; não obedecendo, de dia o executor entra à força, com duas testemunhas; de noite, guarda todas as saídas e, ao amanhecer, entra e prende.",
+        "Prisão preventiva: decretada pelo juiz, a requerimento do MP, do querelante ou do assistente, ou por representação da autoridade policial — nunca de ofício (art. 311). Requisitos (art. 312): garantia da ordem pública ou econômica, conveniência da instrução criminal ou garantia da aplicação da lei penal, com prova do crime, indício suficiente de autoria e perigo gerado pela liberdade. Cabe, entre outros, em crimes dolosos com pena máxima superior a 4 anos e para o reincidente em crime doloso (art. 313). A necessidade é revista a cada 90 dias (art. 316, parágrafo único).",
+        "Prisão temporária (Lei 7.960/1989): só na investigação, decretada pelo juiz a requerimento do MP ou por representação da autoridade policial; prazo de 5 dias, prorrogável por mais 5 em caso de extrema e comprovada necessidade (30 + 30 nos hediondos). Para o STF (ADIs 3360 e 4109), os requisitos são cumulativos: imprescindível para a investigação, fundadas razões de autoria em crime da lista legal, fatos novos ou contemporâneos e cautelares insuficientes.",
+        "Fiança: o delegado só pode conceder fiança em infração com pena máxima de até 4 anos; nos demais casos, ela é pedida ao juiz, que decide em 48 horas (art. 322). Não cabe fiança em racismo, tortura, tráfico, terrorismo, crimes hediondos e ação de grupos armados contra a ordem constitucional (art. 323)."
+      ],
+      "pegadinhas": [
+        "Preventiva NUNCA de ofício pelo juiz (desde a Lei 13.964/2019); temporária, só na fase de INVESTIGAÇÃO.",
+        "Mandado à noite: a prisão pode ocorrer a qualquer hora, mas a entrada na casa para cumprir mandado só de dia.",
+        "Delegado concede fiança até pena MÁXIMA de 4 anos; acima disso, só o juiz."
+      ],
+      "novidades": [
+        "Lei 15.358/2026: a preventiva passou a ser admitida também quando o crime é cometido por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada (CPP, art. 313, V), exigido o vínculo do crime com a atuação do grupo e os requisitos do art. 312.",
+        "Lei 15.487/2026: a preventiva passou a ser admitida nos crimes contra a dignidade sexual de criança ou adolescente e nos crimes dos arts. 240 a 241-D e 244-A do ECA (CPP, art. 313, VI)."
+      ],
+      "itens": [
+        {"t": "O juiz pode decretar a prisão preventiva de ofício, no curso da ação penal.", "r": "E", "j": "Art. 311 do CPP (Lei 13.964/2019): só a requerimento ou por representação."},
+        {"t": "A prisão temporária pode ser decretada durante a ação penal, para assegurar a instrução criminal.", "r": "E", "j": "Lei 7.960/1989: só na investigação."},
+        {"t": "A autoridade policial pode conceder fiança nos casos de infração cuja pena privativa de liberdade máxima não seja superior a quatro anos.", "r": "C", "j": "Art. 322 do CPP."},
+        {"t": "Segundo a Súmula Vinculante 11, o uso de algemas exige justificativa por escrito da excepcionalidade.", "r": "C", "j": "Súmula Vinculante 11 do STF."},
+        {"t": "Encontrando-se o procurado em casa, durante a noite, e não atendida a intimação ao morador, o executor do mandado poderá arrombar as portas imediatamente.", "r": "E", "j": "Art. 293: à noite, guarda as saídas e só entra ao amanhecer."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "identificacao-criminal",
+      "bloco": "Identificação",
+      "titulo": "Identificação criminal",
+      "edital": "5 Identificação criminal (CF, art. 5º, LVIII; Lei 12.037/2009, art. 3º)",
+      "peso": 2,
+      "artigos": ["CF 5", "L12037 1-9"],
+      "palavras": ["identificacao criminal", "lei 12037", "identificado civilmente", "identificacao civil", "identificacao datiloscopica", "datiloscopia", "impressao digital", "perfil genetico", "material biologico", "documento rasurado", "documento com rasura", "outros nomes", "identificacao"],
+      "pontos": [
+        "O civilmente identificado não é submetido a identificação criminal, salvo nas hipóteses previstas em lei (CF, art. 5º, LVIII; Lei 12.037, art. 1º). A antiga Súmula 568 do STF, que dizia o contrário, está superada.",
+        "Identificam civilmente: carteira de identidade, carteira de trabalho, carteira profissional, passaporte, carteira de identificação funcional ou outro documento público que permita a identificação; os documentos militares se equiparam (art. 2º).",
+        "Mesmo com documento civil, cabe identificação criminal quando (art. 3º): I — o documento tiver rasura ou indício de falsificação; II — for insuficiente para identificar cabalmente o indiciado; III — o indiciado portar documentos de identidade distintos, com informações conflitantes; IV — for essencial às investigações, por despacho do juiz (de ofício ou a pedido da autoridade policial, do MP ou da defesa); V — constar de registros policiais o uso de outros nomes ou diferentes qualificações; VI — o estado de conservação, a distância temporal ou a localidade da expedição do documento impossibilitar a completa identificação dos caracteres essenciais.",
+        "A identificação criminal inclui o processo datiloscópico e o fotográfico (art. 5º). Na hipótese do inciso IV, pode incluir a coleta de material biológico para obter o perfil genético (art. 5º, parágrafo único). A autoridade toma as providências para evitar constrangimento do identificado (art. 4º).",
+        "Antes do trânsito em julgado da condenação, é vedado mencionar a identificação criminal em atestados de antecedentes ou em informações não destinadas ao juízo criminal (art. 6º). Com o arquivamento, a rejeição da denúncia ou a absolvição, o interessado pode pedir a retirada da identificação fotográfica (art. 7º). O perfil genético é excluído na absolvição ou, se houver condenação, a pedido, 20 anos após o cumprimento da pena (art. 7º-A)."
+      ],
+      "pegadinhas": [
+        "Ter a CNH não impede a identificação criminal se houver suspeita de falsificação ou outra hipótese do art. 3º (PRF 2021, itens 107 e 112).",
+        "A coleta de material biológico para perfil genético na Lei 12.037 depende da hipótese do inciso IV (essencial às investigações, com despacho judicial).",
+        "As cópias dos documentos apresentados são juntadas aos autos mesmo se consideradas insuficientes (art. 3º, parágrafo único)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A identificação criminal do condutor não poderá ser feita se ele tiver sido identificado civilmente pela CNH.", "r": "E", "j": "Art. 3º da Lei 12.037/2009: há hipóteses de identificação criminal mesmo com documento civil. Item 107 da PRF 2021."},
+        {"t": "Mesmo em caso de apresentação do documento de identificação civil, é possível a identificação criminal se constar de registros policiais o uso de outros nomes ou diferentes qualificações.", "r": "C", "j": "Art. 3º, V. Item 112 da PRF 2021."},
+        {"t": "A identificação criminal compreende o processo datiloscópico e o fotográfico.", "r": "C", "j": "Art. 5º da Lei 12.037/2009."},
+        {"t": "Antes do trânsito em julgado da sentença condenatória, a identificação criminal pode constar de atestados de antecedentes fornecidos a empregadores.", "r": "E", "j": "Art. 6º: é vedado."},
+        {"t": "O passaporte é documento apto à identificação civil.", "r": "C", "j": "Art. 2º, IV."}
+      ],
+      "questoes": ["prf-2021-p1|item 107", "prf-2021-p1|item 112"]
+    },
+    {
+      "id": "diligencias",
+      "bloco": "Investigação",
+      "titulo": "Inquérito e diligências investigatórias",
+      "edital": "6 Diligências investigatórias (arts. 6º e 13 do CPP)",
+      "peso": 2,
+      "artigos": ["CPP 4-23"],
+      "palavras": ["inquerito policial", "inquerito", "diligencias", "diligencias investigatorias", "autoridade policial", "delegado de policia", "arquivamento do inquerito", "indiciamento", "indiciado", "notitia criminis", "delatio criminis", "requisicao de dados cadastrais", "sigilo do inquerito", "prazo do inquerito", "policia judiciaria"],
+      "pontos": [
+        "Polícia judiciária: exercida pelas autoridades policiais nas suas circunscrições, apura as infrações penais e a sua autoria (art. 4º). A PRF não é polícia judiciária: prende em flagrante, preserva o local, apreende objetos e apresenta o caso ao delegado da Polícia Federal ou da Polícia Civil.",
+        "Logo que tiver conhecimento da infração, a autoridade policial deve (art. 6º): ir ao local e preservar o estado das coisas até a chegada dos peritos; apreender os objetos relacionados ao fato, depois de liberados pelos peritos; colher as provas; ouvir o ofendido e o indiciado; fazer reconhecimento de pessoas e coisas e acareações; determinar o exame de corpo de delito e outras perícias; ordenar a identificação datiloscópica e juntar a folha de antecedentes; averiguar a vida pregressa do indiciado; e colher informações sobre a existência de filhos, idades, deficiência e quem cuida deles.",
+        "Cabe ainda à autoridade policial (art. 13): fornecer informações aos juízes, realizar as diligências requisitadas pelo juiz ou pelo MP, cumprir os mandados de prisão e representar acerca da prisão preventiva. Nos crimes de sequestro, cárcere privado, redução a condição análoga à de escravo, tráfico de pessoas, extorsão com restrição da liberdade e extorsão mediante sequestro, o delegado e o MP podem requisitar diretamente dados cadastrais da vítima ou de suspeitos, a serem enviados em 24 horas (art. 13-A).",
+        "Instauração: na ação pública, de ofício, por requisição do MP ou a requerimento do ofendido; qualquer do povo pode comunicar a infração à autoridade (art. 5º, § 3º). Na ação pública condicionada, o inquérito não começa sem representação; na privada, só a requerimento de quem pode propor a queixa (§§ 4º e 5º).",
+        "Prazos (art. 10): 10 dias com o indiciado preso (a partir da prisão) e 30 dias se solto, prorrogável neste caso. A autoridade policial não pode mandar arquivar o inquérito (art. 17). O inquérito tem o sigilo necessário à elucidação do fato (art. 20), mas o defensor tem acesso aos elementos de prova já documentados (Súmula Vinculante 14)."
+      ],
+      "pegadinhas": [
+        "O DELEGADO não arquiva inquérito (art. 17).",
+        "Preso: 10 dias; solto: 30 dias (no inquérito do CPP). Leis especiais têm prazos próprios (Lei de Drogas, Polícia Federal, Lei Antifacção).",
+        "A apreensão dos objetos ocorre depois de liberados pelos peritos (art. 6º, II)."
+      ],
+      "novidades": [
+        "Lei 15.358/2026 (Lei Antifacção): nos crimes de domínio social estruturado, o inquérito deve terminar em 90 dias se o investigado estiver preso e em 270 dias se solto, prorrogáveis; o atraso não solta o preso automaticamente."
+      ],
+      "itens": [
+        {"t": "A autoridade policial poderá mandar arquivar autos de inquérito quando concluir pela inexistência de crime.", "r": "E", "j": "Art. 17 do CPP: não poderá."},
+        {"t": "Logo que tiver conhecimento da infração penal, a autoridade policial deverá dirigir-se ao local, providenciando para que não se alterem o estado e a conservação das coisas até a chegada dos peritos criminais.", "r": "C", "j": "Art. 6º, I, do CPP."},
+        {"t": "Estando o indiciado preso, o inquérito policial deverá terminar no prazo de trinta dias.", "r": "E", "j": "Art. 10: dez dias com o indiciado preso; trinta se solto."},
+        {"t": "Nos crimes de ação penal pública condicionada, o inquérito policial não poderá ser iniciado sem a representação do ofendido.", "r": "C", "j": "Art. 5º, § 4º, do CPP."},
+        {"t": "Ao defensor é assegurado o acesso amplo aos elementos de prova já documentados em procedimento investigatório realizado por órgão com competência de polícia judiciária.", "r": "C", "j": "Súmula Vinculante 14."}
+      ],
+      "questoes": []
+    }
+  ]
+}

@@ -59,11 +59,15 @@ Estudo com questões reais e lei seca:
   "pomodoro de português"   "como estou indo?"   "o que eu estudo hoje?"
   No treino: certo/errado ou "letra B"; dica, explica, repete, próxima, parar.
 
-Direito Penal da PRF (aulas e direção):
-  "me ensina legítima defesa"   "vamos estudar penal"   "o que eu estudo de penal?"
-  "o que eu estudei hoje?"   "o que eu já aprendi?"   "questões de furto"   "mapa de penal"
+Trilhas da PRF: Penal, Processo Penal, Legislação Especial (aulas e direção):
+  "me ensina legítima defesa"   "vamos estudar processo penal"   "o que eu estudo de penal?"
+  "o que eu estudei hoje?"   "o que eu já aprendi?"   "questões de drogas"   "meu mapa"
   Na aula: responda a pergunta dele; "próximo", "repete" ou "parar".
   Clique no visor (ou aperte Espaço) para ele parar de falar.
+
+Autoestudo (ele estuda sozinho o edital enquanto você está quieto; veja no canto do visor):
+  "o que você está aprendendo?"   "o que você aprendeu hoje?"   "aprende sobre crase"
+  "pausa o aprendizado"   "volta a aprender"
 
 Comandos (falados ou digitados):
   "modo explicar"    /explicar   explica e confere se você entendeu

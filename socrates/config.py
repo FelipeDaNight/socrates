@@ -23,6 +23,18 @@ class ConfigLLM:
 
 
 @dataclass
+class ConfigAutoestudo:
+    """O Sócrates estuda sozinho o edital enquanto está aberto (socrates/estudo/autoestudo.py)."""
+    ativo: bool = True
+    planos: list = field(default_factory=lambda: ["prf", "cbmgo"])
+    por_dia: int = 40
+    pausa_seg: float = 90
+    ocioso_seg: float = 30
+    cerebros: list = field(default_factory=list)       # ConfigLLM de quem escreve (com chave)
+    conferentes: list = field(default_factory=list)    # ConfigLLM de quem confere (com chave)
+
+
+@dataclass
 class ConfigVoz:
     ativa: bool = True
     provedor: str = "edge"                  # edge | gemini
@@ -85,6 +97,7 @@ class Config:
     rodizio: list = field(default_factory=list)              # conversa, em ordem
     rodizio_acoes: list = field(default_factory=list)        # ações no PC, em ordem
     sem_chave: list = field(default_factory=list)            # provedores pulados
+    autoestudo: ConfigAutoestudo = field(default_factory=ConfigAutoestudo)
     voz: ConfigVoz = field(default_factory=ConfigVoz)
     ouvido: ConfigOuvido = field(default_factory=ConfigOuvido)
     microfone: ConfigMic = field(default_factory=ConfigMic)
@@ -199,6 +212,27 @@ def carregar(caminho: Path | str | None = None) -> Config:
         raise ErroConfig(f"Nenhuma chave encontrada ({faltam}). Coloque pelo menos a "
                          "GROQ_API_KEY no arquivo .env.")
     llm = com_chave[0]
+    ae = dados.get("autoestudo") or {}
+
+    def com_chaves(nomes) -> list[ConfigLLM]:
+        saida = []
+        for n in nomes or []:
+            if n in provedores:
+                c = montar(n)
+                if c.chave:
+                    c.temperatura = 0.3          # material de estudo: menos criatividade
+                    saida.append(c)
+        return saida
+
+    autoestudo = ConfigAutoestudo(
+        ativo=bool(ae.get("ativo", True)),
+        planos=list(ae.get("planos") or ["prf", "cbmgo"]),
+        por_dia=int(ae.get("por_dia", 40)),
+        pausa_seg=float(ae.get("pausa_seg", 90)),
+        ocioso_seg=float(ae.get("ocioso_seg", 30)),
+        cerebros=com_chaves(ae.get("cerebros") or ["mistral", "gemini", "groq_leve", "groq"]),
+        conferentes=com_chaves(ae.get("conferentes") or ["gemini", "mistral_leve", "groq", "mistral"]),
+    )
     ouvido = _preencher(ConfigOuvido, dados.get("ouvido"))
     ouvido.chave = os.getenv(ouvido.chave_env)
 
@@ -211,6 +245,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         rodizio=[c for c in rodizio if c.chave],
         rodizio_acoes=[c for c in rodizio_acoes if c.chave],
         sem_chave=[c.provedor for c in rodizio + rodizio_acoes if not c.chave],
+        autoestudo=autoestudo,
         voz=_preencher(ConfigVoz, dados.get("voz")),
         ouvido=ouvido,
         microfone=_preencher(ConfigMic, dados.get("microfone")),

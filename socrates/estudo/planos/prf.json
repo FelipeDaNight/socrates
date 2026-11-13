@@ -1,0 +1,279 @@
+{
+  "id": "prf",
+  "concurso": "PRF",
+  "cargo": "Policial Rodoviário Federal",
+  "banca": "Cebraspe",
+  "edital": "Conteúdo do edital PRF 2021, o último publicado (o concurso novo foi pedido; sem edital até nov/2026).",
+  "materias": [
+    {
+      "id": "transito",
+      "trilha": "prf-transito",
+      "materia": "Legislação de Trânsito",
+      "bloco": "Bloco II",
+      "peso": 26,
+      "apelidos": ["legislacao de transito", "transito", "codigo de transito", "ctb"],
+      "topicos": [
+        {"id": "ctb-snt", "titulo": "CTB: disposições preliminares e Sistema Nacional de Trânsito", "edital": "CTB arts. 1º a 25-A", "peso": 2, "fontes": ["CTB 1-25-A"]},
+        {"id": "ctb-circulacao", "titulo": "CTB: normas gerais de circulação e conduta", "edital": "CTB arts. 26 a 67", "peso": 3, "fontes": ["CTB 26-67"]},
+        {"id": "ctb-pedestres", "titulo": "CTB: pedestres, cidadão e educação para o trânsito", "edital": "CTB arts. 68 a 79", "peso": 1, "fontes": ["CTB 68-79"]},
+        {"id": "ctb-sinalizacao", "titulo": "CTB: sinalização de trânsito", "edital": "CTB arts. 80 a 90", "peso": 2, "fontes": ["CTB 80-90"]},
+        {"id": "ctb-fiscalizacao", "titulo": "CTB: engenharia, fiscalização e policiamento", "edital": "CTB arts. 91 a 95", "peso": 1, "fontes": ["CTB 91-95"]},
+        {"id": "ctb-veiculos", "titulo": "CTB: veículos, segurança, registro e licenciamento", "edital": "CTB arts. 96 a 135", "peso": 2, "fontes": ["CTB 96-135"]},
+        {"id": "ctb-escolares", "titulo": "CTB: condução de escolares e motofrete", "edital": "CTB arts. 136 a 139-B", "peso": 1, "fontes": ["CTB 136-139-B"]},
+        {"id": "ctb-habilitacao", "titulo": "CTB: habilitação", "edital": "CTB arts. 140 a 160", "peso": 3, "fontes": ["CTB 140-160"]},
+        {"id": "ctb-infracoes", "titulo": "CTB: infrações", "edital": "CTB arts. 161 a 255", "peso": 3, "fontes": ["CTB 161-255"]},
+        {"id": "ctb-penalidades", "titulo": "CTB: penalidades", "edital": "CTB arts. 256 a 268-A", "peso": 3, "fontes": ["CTB 256-268-A"]},
+        {"id": "ctb-medidas", "titulo": "CTB: medidas administrativas", "edital": "CTB arts. 269 a 279-A", "peso": 3, "fontes": ["CTB 269-279-A"]},
+        {"id": "ctb-processo", "titulo": "CTB: processo administrativo", "edital": "CTB arts. 280 a 290", "peso": 2, "fontes": ["CTB 280-290"]},
+        {"id": "ctb-crimes", "titulo": "CTB: crimes de trânsito", "edital": "CTB arts. 291 a 312-B", "peso": 3, "fontes": ["CTB 291-312-B"]},
+        {"id": "lei-5970", "titulo": "Lei 5.970/1973: remoção de veículos e vítimas em acidente", "edital": "Lei 5.970/1973", "peso": 1, "fontes": ["L5970 1"]},
+        {"id": "contran", "titulo": "Resoluções do CONTRAN mais cobradas", "edital": "Resoluções do CONTRAN", "peso": 1, "pesquisa": "resoluções CONTRAN mais cobradas PRF alcoolemia equipamentos obrigatórios"}
+      ]
+    },
+    {
+      "id": "portugues",
+      "trilha": "prf-portugues",
+      "materia": "Língua Portuguesa",
+      "bloco": "Bloco I",
+      "peso": 18,
+      "apelidos": ["portugues", "lingua portuguesa", "gramatica", "redacao oficial"],
+      "topicos": [
+        {"id": "interpretacao", "titulo": "Compreensão e interpretação de textos", "edital": "1 Compreensão e interpretação de textos de gêneros variados", "peso": 3, "pesquisa": "interpretação de texto Cebraspe inferência pressuposto subentendido dicas"},
+        {"id": "tipologia", "titulo": "Tipos e gêneros textuais", "edital": "2 Reconhecimento de tipos e gêneros textuais", "peso": 1, "pesquisa": "tipos textuais e gêneros textuais diferença concurso"},
+        {"id": "ortografia", "titulo": "Ortografia oficial e acentuação", "edital": "3 Domínio da ortografia oficial", "peso": 1, "pesquisa": "ortografia oficial acentuação novo acordo ortográfico regras concurso"},
+        {"id": "coesao", "titulo": "Coesão textual: referência, substituição e conectores", "edital": "4 Mecanismos de coesão textual", "peso": 2, "pesquisa": "coesão textual referenciação conectores sequenciação tempos verbais concurso"},
+        {"id": "classes-palavras", "titulo": "Classes de palavras", "edital": "5.1 Emprego das classes de palavras", "peso": 1, "pesquisa": "classes de palavras emprego concurso Cebraspe"},
+        {"id": "periodo", "titulo": "Coordenação e subordinação", "edital": "5.2 Relações de coordenação e subordinação", "peso": 2, "pesquisa": "orações coordenadas e subordinadas classificação concurso"},
+        {"id": "pontuacao", "titulo": "Pontuação", "edital": "5.3 Emprego dos sinais de pontuação", "peso": 3, "pesquisa": "regras de pontuação vírgula concurso Cebraspe"},
+        {"id": "concordancia", "titulo": "Concordância verbal e nominal", "edital": "5.4 Concordância verbal e nominal", "peso": 3, "pesquisa": "concordância verbal e nominal regras casos especiais concurso"},
+        {"id": "regencia", "titulo": "Regência verbal e nominal", "edital": "5.5 Regência verbal e nominal", "peso": 2, "pesquisa": "regência verbal regência nominal concurso verbos principais"},
+        {"id": "crase", "titulo": "Crase", "edital": "5.6 Emprego do sinal indicativo de crase", "peso": 2, "pesquisa": "crase regras casos obrigatórios proibidos facultativos"},
+        {"id": "colocacao-pronominal", "titulo": "Colocação pronominal", "edital": "5.7 Colocação dos pronomes átonos", "peso": 1, "pesquisa": "colocação pronominal próclise mênclise ênclise regras"},
+        {"id": "reescrita", "titulo": "Reescrita de frases e parágrafos", "edital": "6 Reescrita: significação das palavras, substituição, reorganização", "peso": 3, "pesquisa": "reescrita de frases Cebraspe manutenção do sentido e da correção gramatical"},
+        {"id": "redacao-oficial", "titulo": "Redação oficial (Manual da Presidência)", "edital": "7 Correspondência oficial: Manual de Redação da Presidência da República", "peso": 2, "pesquisa": "Manual de Redação da Presidência da República 3ª edição ofício pronomes de tratamento fecho"}
+      ]
+    },
+    {
+      "id": "penal",
+      "trilha": "prf-penal",
+      "materia": "Direito Penal",
+      "bloco": "Bloco III",
+      "peso": 6,
+      "apelidos": ["direito penal", "codigo penal", "penal"],
+      "nao_confundir": ["processo penal", "processual penal", "codigo de processo penal", "execucao penal", "penal militar", "legislacao penal especial"],
+      "topicos": [
+        {"id": "principios", "titulo": "Princípios do Direito Penal", "edital": "1 Princípios básicos", "peso": 2, "fontes": ["CP 1"]},
+        {"id": "lei-penal-tempo", "titulo": "Lei penal no tempo", "edital": "2.2 Lei penal no tempo", "peso": 3, "fontes": ["CP 2-4"]},
+        {"id": "lei-penal-espaco", "titulo": "Lei penal no espaço e contagem de prazo", "edital": "2.3 Lei penal no espaço", "peso": 2, "fontes": ["CP 5-12"]},
+        {"id": "fato-tipico", "titulo": "Fato típico: dolo, culpa e nexo causal", "edital": "3 Tipicidade; crime doloso e culposo", "peso": 2, "fontes": ["CP 13", "CP 18-19"]},
+        {"id": "erro-de-tipo", "titulo": "Erro de tipo", "edital": "3.2 Erro de tipo", "peso": 2, "fontes": ["CP 20", "CP 73-74"]},
+        {"id": "iter-criminis", "titulo": "Consumação, tentativa e crime impossível", "edital": "3.3 e 3.4", "peso": 3, "fontes": ["CP 14-17"]},
+        {"id": "punibilidade", "titulo": "Punibilidade e extinção da punibilidade", "edital": "3.5 Punibilidade", "peso": 1, "fontes": ["CP 107-120"]},
+        {"id": "ilicitude", "titulo": "Ilicitude: excludentes e excesso punível", "edital": "4 Ilicitude", "peso": 3, "fontes": ["CP 23-25"]},
+        {"id": "culpabilidade", "titulo": "Culpabilidade: imputabilidade e erro de proibição", "edital": "5 Culpabilidade", "peso": 2, "fontes": ["CP 21-22", "CP 26-28"]},
+        {"id": "crimes-pessoa", "titulo": "Crimes contra a pessoa", "edital": "6 Crimes contra a pessoa", "peso": 2, "fontes": ["CP 121-154"]},
+        {"id": "crimes-patrimonio", "titulo": "Crimes contra o patrimônio", "edital": "6 Crimes contra o patrimônio", "peso": 3, "fontes": ["CP 155-183"]},
+        {"id": "dignidade-sexual", "titulo": "Crimes contra a dignidade sexual", "edital": "6 Crimes contra a dignidade sexual", "peso": 1, "fontes": ["CP 213-234"]},
+        {"id": "incolumidade", "titulo": "Crimes contra a incolumidade pública", "edital": "6 Crimes contra a incolumidade pública", "peso": 1, "fontes": ["CP 250-285"]},
+        {"id": "fe-publica", "titulo": "Crimes contra a fé pública", "edital": "6 Crimes contra a fé pública", "peso": 3, "fontes": ["CP 289-311-A"]},
+        {"id": "adm-publica", "titulo": "Crimes contra a Administração Pública", "edital": "6 Crimes contra a Administração Pública", "peso": 3, "fontes": ["CP 312-359"]},
+        {"id": "concurso", "titulo": "Concurso de pessoas e concurso de crimes", "edital": "cobrado em situações", "peso": 1, "fontes": ["CP 29-31", "CP 69-71"]}
+      ]
+    },
+    {
+      "id": "legislacao-especial",
+      "trilha": "prf-legislacao-especial",
+      "materia": "Legislação Especial",
+      "bloco": "Bloco III",
+      "peso": 6,
+      "apelidos": ["legislacao especial", "legislacao penal especial", "leis especiais", "leis penais especiais", "leis extravagantes"],
+      "topicos": [
+        {"id": "documentos", "titulo": "Retenção de documentos (Lei 5.553/1968)", "edital": "1 Lei 5.553/1968", "peso": 1, "fontes": ["L5553 1-3"]},
+        {"id": "eca", "titulo": "ECA: viagem, ato infracional e crimes", "edital": "2 Lei 8.069/1990 (ECA)", "peso": 2, "fontes": ["ECA 2", "ECA 83-85", "ECA 103-109", "ECA 171-178", "ECA 225-244-C"]},
+        {"id": "hediondos", "titulo": "Crimes hediondos", "edital": "3 Lei 8.072/1990", "peso": 3, "fontes": ["L8072 1-2"]},
+        {"id": "prf-competencias", "titulo": "Competências da PRF", "edital": "4 Decreto 1.655/1995 e estrutura do Ministério da Justiça", "peso": 2, "fontes": ["D1655 1-2", "D11348 58"]},
+        {"id": "juizados", "titulo": "Juizados especiais criminais: transação e suspensão", "edital": "5 Lei 9.099/1995", "peso": 2, "fontes": ["L9099 60-92"]},
+        {"id": "tortura", "titulo": "Tortura", "edital": "6 Lei 9.455/1997", "peso": 2, "fontes": ["L9455 1-4"]},
+        {"id": "ambientais", "titulo": "Crimes ambientais", "edital": "7 Lei 9.605/1998 (capítulos III e V)", "peso": 2, "fontes": ["L9605 25-26", "L9605 29-69-A"]},
+        {"id": "armas", "titulo": "Estatuto do Desarmamento: crimes", "edital": "8 Lei 10.826/2003 (capítulo IV)", "peso": 3, "fontes": ["L10826 12-21-A"]},
+        {"id": "drogas", "titulo": "Lei de Drogas", "edital": "9 Lei 11.343/2006", "peso": 3, "fontes": ["L11343 19", "L11343 27-47", "L11343 48-53"]},
+        {"id": "organizacoes-criminosas", "titulo": "Organizações criminosas e Lei Antifacção", "edital": "10 Lei 12.850/2013", "peso": 3, "fontes": ["L12850 1-21-B", "L15358 1-4"]},
+        {"id": "susp", "titulo": "SUSP: Sistema Único de Segurança Pública", "edital": "11 Lei 13.675/2018", "peso": 1, "fontes": ["L13675 1-12"]},
+        {"id": "abuso-autoridade", "titulo": "Abuso de autoridade", "edital": "12 Lei 13.869/2019", "peso": 3, "fontes": ["L13869 1-38"]}
+      ]
+    },
+    {
+      "id": "processo-penal",
+      "trilha": "prf-processo-penal",
+      "materia": "Direito Processual Penal",
+      "bloco": "Bloco III",
+      "peso": 5,
+      "apelidos": ["processo penal", "processual penal", "codigo de processo penal", "cpp"],
+      "topicos": [
+        {"id": "acao-penal", "titulo": "Ação penal", "edital": "1 Ação penal: conceito, características, espécies e condições", "peso": 3, "fontes": ["CPP 24-62"]},
+        {"id": "tco", "titulo": "Termo circunstanciado e infrações de menor potencial ofensivo", "edital": "2 Termo circunstanciado de ocorrência (Lei 9.099/1995)", "peso": 3, "fontes": ["L9099 60-69"]},
+        {"id": "atos-processuais", "titulo": "Atos processuais: forma, lugar e tempo", "edital": "2 Atos processuais: forma, lugar e tempo", "peso": 1, "fontes": ["CPP 792-798-A"]},
+        {"id": "prova", "titulo": "Prova: conceito, ônus, provas ilícitas e local de crime", "edital": "3 Prova: conceito, objeto, classificação, ônus, provas ilícitas, preservação de local de crime", "peso": 3, "fontes": ["CPP 155-184"]},
+        {"id": "meios-de-prova", "titulo": "Meios de prova: interrogatório, testemunhas, reconhecimento", "edital": "3.6 Meios de prova", "peso": 2, "fontes": ["CPP 185-239"]},
+        {"id": "busca-apreensao", "titulo": "Busca e apreensão pessoal e domiciliar", "edital": "3.7 Busca e apreensão: pessoal, domiciliar, requisitos, restrições, horários", "peso": 3, "fontes": ["CPP 240-250"]},
+        {"id": "prisao-flagrante", "titulo": "Prisão em flagrante e audiência de custódia", "edital": "4 Prisão em flagrante", "peso": 3, "fontes": ["CPP 301-310"]},
+        {"id": "prisao-cautelar", "titulo": "Prisão: regras gerais, preventiva e temporária", "edital": "4 Prisão: conceito, formalidades, espécies, mandado e cumprimento", "peso": 2, "fontes": ["CPP 282-300", "CPP 311-316", "CPP 321-350", "L7960 1-2"]},
+        {"id": "identificacao-criminal", "titulo": "Identificação criminal", "edital": "5 Identificação criminal (CF, art. 5º, LVIII; Lei 12.037/2009, art. 3º)", "peso": 2, "fontes": ["CF 5", "L12037 1-9"]},
+        {"id": "diligencias", "titulo": "Inquérito e diligências investigatórias", "edital": "6 Diligências investigatórias (arts. 6º e 13 do CPP)", "peso": 2, "fontes": ["CPP 4-23"]}
+      ]
+    },
+    {
+      "id": "rlm",
+      "trilha": "prf-rlm",
+      "materia": "Raciocínio Lógico-Matemático",
+      "bloco": "Bloco I",
+      "peso": 6,
+      "apelidos": ["raciocinio logico", "rlm", "matematica", "logica"],
+      "topicos": [
+        {"id": "equacoes", "titulo": "Equações, inequações e sistemas lineares", "edital": "Modelagem com equações do 1º e 2º graus e sistemas", "peso": 2, "pesquisa": "equações do primeiro e segundo grau sistemas lineares problemas concurso"},
+        {"id": "funcoes", "titulo": "Funções e gráficos (afim, quadrática, exponencial, logarítmica)", "edital": "Noção de função; análise gráfica", "peso": 3, "pesquisa": "função quadrática vértice máximo mínimo função afim exponencial concurso"},
+        {"id": "razao-proporcao", "titulo": "Razão, proporção e regra de três", "edital": "Razão e proporção; regra de três simples e composta", "peso": 2, "pesquisa": "razão proporção regra de três composta grandezas inversamente proporcionais"},
+        {"id": "porcentagem", "titulo": "Porcentagem e juros", "edital": "Porcentagem", "peso": 2, "pesquisa": "porcentagem aumentos e descontos sucessivos concurso"},
+        {"id": "sequencias", "titulo": "Sequências, PA e PG", "edital": "Regularidades e padrões em sequências; PA e PG", "peso": 3, "pesquisa": "progressão aritmética progressão geométrica soma dos termos sequências padrões"},
+        {"id": "conjuntos", "titulo": "Teoria dos conjuntos", "edital": "Conjuntos e operações", "peso": 1, "pesquisa": "teoria dos conjuntos união interseção diagrama de Venn problemas"},
+        {"id": "contagem", "titulo": "Análise combinatória", "edital": "Princípios de contagem", "peso": 2, "pesquisa": "princípio fundamental da contagem permutação arranjo combinação"},
+        {"id": "probabilidade", "titulo": "Probabilidade", "edital": "Noções de probabilidade", "peso": 2, "pesquisa": "probabilidade condicional eventos independentes concurso"},
+        {"id": "estatistica", "titulo": "Estatística descritiva", "edital": "Noções de estatística", "peso": 1, "pesquisa": "média moda mediana desvio padrão variância concurso"},
+        {"id": "logica", "titulo": "Lógica proposicional", "edital": "Proposições, conectivos, equivalências e negações", "peso": 2, "pesquisa": "lógica proposicional tabela verdade equivalências negação Cebraspe"}
+      ]
+    },
+    {
+      "id": "informatica",
+      "trilha": "prf-informatica",
+      "materia": "Informática",
+      "bloco": "Bloco I",
+      "peso": 6,
+      "apelidos": ["informatica", "nocoes de informatica"],
+      "topicos": [
+        {"id": "internet-intranet", "titulo": "Internet, intranet e navegadores", "edital": "1 e 2 Internet e intranet; navegadores, correio, busca, redes sociais", "peso": 2, "pesquisa": "internet intranet extranet navegadores correio eletrônico protocolos conceitos concurso"},
+        {"id": "windows", "titulo": "Windows 10: arquivos, pastas e programas", "edital": "3 Organização de informações, arquivos, pastas e programas", "peso": 2, "pesquisa": "Windows 10 gerenciamento de arquivos pastas atalhos de teclado explorador concurso"},
+        {"id": "transformacao-digital", "titulo": "Transformação digital: IoT, big data e IA", "edital": "4 Transformação digital: internet das coisas, big data, inteligência artificial", "peso": 2, "pesquisa": "internet das coisas big data 5 Vs inteligência artificial aprendizado de máquina conceitos"},
+        {"id": "malwares", "titulo": "Segurança: vírus, worms e pragas virtuais", "edital": "5 Noções de vírus, worms e pragas virtuais", "peso": 3, "pesquisa": "tipos de malware vírus worm trojan ransomware spyware botnet diferenças"},
+        {"id": "ferramentas-seguranca", "titulo": "Antivírus, firewall e boas práticas", "edital": "5 Aplicativos para segurança; procedimentos de segurança", "peso": 2, "pesquisa": "firewall antivírus antispyware autenticação dois fatores phishing engenharia social"},
+        {"id": "backup-nuvem", "titulo": "Backup e computação em nuvem", "edital": "5 Backup; armazenamento em nuvem", "peso": 2, "pesquisa": "tipos de backup completo incremental diferencial computação em nuvem IaaS PaaS SaaS"}
+      ]
+    },
+    {
+      "id": "fisica",
+      "trilha": "prf-fisica",
+      "materia": "Física",
+      "bloco": "Bloco I",
+      "peso": 5,
+      "apelidos": ["fisica"],
+      "topicos": [
+        {"id": "cinematica", "titulo": "Cinemática escalar e vetorial", "edital": "Cinemática", "peso": 3, "pesquisa": "cinemática MRU MRUV equação de Torricelli velocidade média física"},
+        {"id": "movimento-circular", "titulo": "Movimento circular", "edital": "Movimento circular", "peso": 1, "pesquisa": "movimento circular uniforme aceleração centrípeta frequência período"},
+        {"id": "newton", "titulo": "Leis de Newton e aplicações (atrito, plano inclinado)", "edital": "Leis de Newton", "peso": 3, "pesquisa": "leis de Newton força de atrito plano inclinado força centrípeta curva"},
+        {"id": "trabalho-energia", "titulo": "Trabalho, potência e energia", "edital": "Trabalho; potência; energia cinética e potencial", "peso": 2, "pesquisa": "trabalho de uma força potência energia cinética potencial conservação"},
+        {"id": "impulso", "titulo": "Impulso, quantidade de movimento e colisões", "edital": "Impulso e quantidade de movimento; colisões", "peso": 2, "pesquisa": "impulso quantidade de movimento conservação colisão elástica inelástica"},
+        {"id": "ondas", "titulo": "Ondas, som e efeito Doppler", "edital": "Ondulatória", "peso": 1, "pesquisa": "ondas sonoras efeito Doppler radar velocidade frequência"}
+      ]
+    },
+    {
+      "id": "etica",
+      "trilha": "prf-etica",
+      "materia": "Ética e Cidadania",
+      "bloco": "Bloco I",
+      "peso": 5,
+      "apelidos": ["etica", "etica e cidadania", "etica no servico publico"],
+      "topicos": [
+        {"id": "etica-moral", "titulo": "Ética, moral, princípios e valores", "edital": "1 a 3 Ética e moral; ética e democracia; cidadania", "peso": 2, "pesquisa": "ética e moral diferença valores cidadania ética e democracia concurso"},
+        {"id": "etica-funcao-publica", "titulo": "Ética e função pública", "edital": "4 Ética e função pública", "peso": 1, "pesquisa": "ética no serviço público princípios função pública concurso"},
+        {"id": "codigo-etica", "titulo": "Código de Ética do servidor (Decreto 1.171/1994)", "edital": "5 Decreto 1.171/1994", "peso": 3, "fontes": ["D1171 1-3"]},
+        {"id": "gestao-etica", "titulo": "Sistema de Gestão da Ética (Decreto 6.029/2007)", "edital": "5 Decreto 6.029/2007", "peso": 2, "fontes": ["D6029 1-28"]},
+        {"id": "lai", "titulo": "Lei de Acesso à Informação e Decreto 7.724/2012", "edital": "5 Lei 12.527/2011", "peso": 2, "fontes": ["L12527 1-47"]},
+        {"id": "conflito-interesses", "titulo": "Conflito de interesses e nepotismo", "edital": "5 Lei 12.813/2013 e Decreto 7.203/2010", "peso": 2, "fontes": ["L12813 1-14", "D7203 1-7"]},
+        {"id": "governanca", "titulo": "Governança pública (Decreto 9.203/2017)", "edital": "5 Decreto 9.203/2017", "peso": 1, "fontes": ["D9203 1-20"]}
+      ]
+    },
+    {
+      "id": "geopolitica",
+      "trilha": "prf-geopolitica",
+      "materia": "Geopolítica",
+      "bloco": "Bloco I",
+      "peso": 5,
+      "apelidos": ["geopolitica", "geografia", "geografia e transportes"],
+      "topicos": [
+        {"id": "nacao-territorio", "titulo": "O Brasil político: nação e território", "edital": "1", "peso": 1, "pesquisa": "formação territorial do Brasil fronteiras nação e território geopolítica"},
+        {"id": "estado-brasileiro", "titulo": "Organização do Estado brasileiro", "edital": "2", "peso": 1, "pesquisa": "organização político-administrativa do Brasil federação regiões geopolítica"},
+        {"id": "divisao-trabalho", "titulo": "Divisão inter-regional do trabalho e da produção", "edital": "3", "peso": 1, "pesquisa": "divisão inter-regional do trabalho Brasil regiões produção concentração industrial"},
+        {"id": "urbanizacao", "titulo": "Estrutura urbana e grandes metrópoles", "edital": "4", "peso": 2, "pesquisa": "urbanização brasileira metrópoles rede urbana IBGE regiões de influência"},
+        {"id": "populacao", "titulo": "População e migrações", "edital": "5", "peso": 2, "pesquisa": "distribuição da população brasileira migrações internas e externas censo 2022"},
+        {"id": "industria-agro", "titulo": "Indústria, cidade e campo", "edital": "6", "peso": 1, "pesquisa": "integração indústria e agropecuária Brasil agronegócio modernização do campo"},
+        {"id": "transportes", "titulo": "Rede de transportes: modais e infraestrutura", "edital": "7", "peso": 3, "pesquisa": "matriz de transportes do Brasil modal rodoviário ferroviário hidroviário dados infraestrutura"},
+        {"id": "economia-global", "titulo": "O Brasil na economia internacional", "edital": "8", "peso": 1, "pesquisa": "inserção do Brasil na economia mundial globalização comércio exterior BRICS Mercosul"},
+        {"id": "gestao-ambiental", "titulo": "Geografia e gestão ambiental", "edital": "9", "peso": 1, "pesquisa": "gestão ambiental Brasil desmatamento unidades de conservação mudanças climáticas"},
+        {"id": "biomas", "titulo": "Biomas e domínios morfoclimáticos", "edital": "10", "peso": 2, "pesquisa": "biomas brasileiros domínios morfoclimáticos Ab'Saber características"}
+      ]
+    },
+    {
+      "id": "constitucional",
+      "trilha": "prf-constitucional",
+      "materia": "Direito Constitucional",
+      "bloco": "Bloco III",
+      "peso": 5,
+      "apelidos": ["direito constitucional", "constitucional", "constituicao"],
+      "topicos": [
+        {"id": "poder-constituinte", "titulo": "Poder constituinte", "edital": "1 Poder constituinte", "peso": 1, "pesquisa": "poder constituinte originário derivado reformador decorrente características"},
+        {"id": "direitos-individuais", "titulo": "Direitos e deveres individuais e coletivos", "edital": "2 Direitos e garantias fundamentais", "peso": 3, "fontes": ["CF 5"]},
+        {"id": "remedios", "titulo": "Remédios constitucionais", "edital": "2 Habeas corpus, mandado de segurança, mandado de injunção e habeas data", "peso": 2, "fontes": ["CF 5"]},
+        {"id": "direitos-sociais", "titulo": "Direitos sociais", "edital": "2 Direitos sociais", "peso": 1, "fontes": ["CF 6-11"]},
+        {"id": "nacionalidade", "titulo": "Nacionalidade", "edital": "2 Nacionalidade", "peso": 2, "fontes": ["CF 12-13"]},
+        {"id": "direitos-politicos", "titulo": "Direitos políticos e partidos", "edital": "2 Direitos políticos; partidos políticos", "peso": 1, "fontes": ["CF 14-17"]},
+        {"id": "organizacao-estado", "titulo": "Organização do Estado: bens e competências", "edital": "arts. 20 a 24 da CF", "peso": 2, "fontes": ["CF 18-24"]},
+        {"id": "poder-executivo", "titulo": "Poder Executivo", "edital": "3 Poder Executivo: Presidente e Ministros", "peso": 1, "fontes": ["CF 76-91"]},
+        {"id": "seguranca-publica", "titulo": "Segurança pública e defesa do Estado", "edital": "4 Defesa do Estado e das instituições democráticas", "peso": 3, "fontes": ["CF 136-144"]},
+        {"id": "ordem-social", "titulo": "Ordem social", "edital": "5 Ordem social", "peso": 1, "fontes": ["CF 193-232"]}
+      ]
+    },
+    {
+      "id": "direitos-humanos",
+      "trilha": "prf-direitos-humanos",
+      "materia": "Direitos Humanos",
+      "bloco": "Bloco III",
+      "peso": 5,
+      "apelidos": ["direitos humanos"],
+      "topicos": [
+        {"id": "dh-teoria", "titulo": "Teoria geral dos direitos humanos", "edital": "Direitos humanos: conceito, características, gerações", "peso": 2, "pesquisa": "direitos humanos características universalidade indivisibilidade dimensões gerações concurso"},
+        {"id": "dh-cf-tratados", "titulo": "A Constituição e os tratados de direitos humanos", "edital": "1 CF e tratados internacionais", "peso": 3, "fontes": ["CF 5"]},
+        {"id": "dudh", "titulo": "Declaração Universal dos Direitos Humanos", "edital": "2 Declaração Universal (1948)", "peso": 2, "pesquisa": "Declaração Universal dos Direitos Humanos 1948 artigos principais texto"},
+        {"id": "pacto-sao-jose", "titulo": "Convenção Americana (Pacto de São José)", "edital": "3 Convenção Americana (Decreto 678/1992)", "peso": 3, "fontes": ["D678 1"]}
+      ]
+    },
+    {
+      "id": "administrativo",
+      "trilha": "prf-administrativo",
+      "materia": "Direito Administrativo",
+      "bloco": "Bloco III",
+      "peso": 5,
+      "apelidos": ["direito administrativo", "administrativo"],
+      "topicos": [
+        {"id": "organizacao", "titulo": "Organização administrativa", "edital": "1 Centralização, descentralização, administração direta e indireta", "peso": 2, "pesquisa": "organização administrativa descentralização desconcentração autarquia fundação empresa pública sociedade de economia mista"},
+        {"id": "ato-administrativo", "titulo": "Ato administrativo", "edital": "2 Ato administrativo: requisitos, atributos, anulação e revogação", "peso": 3, "fontes": ["L9784 50-55"]},
+        {"id": "agentes-publicos", "titulo": "Agentes públicos e Lei 8.112/1990", "edital": "3 Agentes públicos; Lei 8.112/1990", "peso": 3, "fontes": ["L8112 1-142"]},
+        {"id": "carreira-prf", "titulo": "Carreira de policial rodoviário federal", "edital": "3 Lei 9.654/1998", "peso": 1, "fontes": ["L9654 1-5"]},
+        {"id": "poderes", "titulo": "Poderes administrativos e abuso de poder", "edital": "4 Poderes hierárquico, disciplinar, regulamentar e de polícia", "peso": 3, "pesquisa": "poderes administrativos poder de polícia atributos abuso de poder excesso desvio de finalidade"},
+        {"id": "licitacao", "titulo": "Licitações (Lei 14.133/2021)", "edital": "5 Licitação", "peso": 2, "fontes": ["L14133 1-95"]},
+        {"id": "controle", "titulo": "Controle da Administração", "edital": "6 Controle administrativo, judicial e legislativo", "peso": 1, "pesquisa": "controle da administração pública interno externo judicial legislativo TCU autotutela"},
+        {"id": "responsabilidade-civil", "titulo": "Responsabilidade civil do Estado", "edital": "7 Responsabilidade civil do Estado", "peso": 2, "fontes": ["CF 37"]},
+        {"id": "regime-juridico", "titulo": "Regime jurídico-administrativo e princípios", "edital": "8 Princípios expressos e implícitos", "peso": 2, "fontes": ["CF 37"]}
+      ]
+    },
+    {
+      "id": "ingles",
+      "trilha": "prf-ingles",
+      "materia": "Língua Inglesa",
+      "bloco": "Bloco I",
+      "peso": 1,
+      "apelidos": ["ingles", "lingua inglesa"],
+      "topicos": [
+        {"id": "ingles-texto", "titulo": "Inglês: compreensão de textos", "edital": "Língua estrangeira", "peso": 1, "pesquisa": "inglês instrumental interpretação de texto cognatos falsos cognatos concurso"}
+      ]
+    }
+  ]
+}

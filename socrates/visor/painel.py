@@ -33,6 +33,7 @@ class Painel:
         self.cor = "laranja"          # cor do visor (muda por voz)
         self.interromper = None       # o visor chama isto ao clicar / apertar Espaço
         self.legenda = ""             # última coisa que você disse
+        self.aprendendo = ""          # o que o autoestudo está fazendo (canto do visor)
         self.ouvindo = False          # o microfone detectou alguém falando agora
         self.nivel_mic = 0.0          # 0..1
         self.janela_ate = 0.0         # até quando ele aceita fala sem o nome

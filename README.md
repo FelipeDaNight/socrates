@@ -115,25 +115,34 @@ Questões, Erros e Simulados), pelo mesmo script:
 
 Sem internet, os registros ficam guardados e vão depois.
 
-### Direito Penal da PRF: aulas, direção e o que você aprendeu
+### Trilhas da PRF: aulas, direção e o que você aprendeu
 
-O Sócrates tem uma **trilha de Direito Penal** montada sobre o último edital da PRF (2021,
-Cebraspe): 16 tópicos, do "Princípios" ao "Crimes contra a Administração Pública", com 117
-pontos-chave, 44 pegadinhas da banca e 79 itens de fixação com gabarito e justificativa. As leis
-estão conferidas até 2026, o que importa porque os modelos de IA ainda trazem penas antigas: o
-furto passou a 1 a 6 anos e o roubo a 6 a 10 (Lei 15.397/2026), o feminicídio virou crime
-autônomo (Lei 14.994/2024) e o estelionato voltou a ser de ação pública incondicionada.
+O Sócrates tem três **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
+com as leis conferidas nas fontes oficiais até novembro de 2026:
+
+| Trilha | Tópicos | O que tem |
+|---|---|---|
+| Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
+| Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
+| Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
+
+São 38 tópicos, 253 pontos-chave e 191 itens de fixação com gabarito e justificativa, e as questões
+reais da PRF 2021 (itens 100 a 115) entram no tópico certo. Isso importa porque os modelos de IA
+ainda trazem leis velhas: o furto passou a 1 a 6 anos (Lei 15.397/2026), a Lei Antifacção criou o
+"domínio social estruturado" (20 a 40 anos), novos hediondos entraram em 2026 e a PEC da Segurança
+Pública (aprovada no Senado em 3/11/2026) põe ferrovias e hidrovias federais com a PRF.
 
 | Fale                                   | O que acontece                                             |
 |----------------------------------------|------------------------------------------------------------|
-| "vamos estudar penal"                  | Aula do tópico que ele recomenda para você agora           |
-| "me ensina legítima defesa"            | Aula de um tópico: ponto por ponto, com exemplos da rotina de um PRF |
-| "o que eu estudo de penal?"            | O próximo passo e onde você está no edital                 |
+| "vamos estudar processo penal"         | Aula do tópico que ele recomenda para você agora           |
+| "me ensina prisão em flagrante"        | Aula de um tópico: ponto por ponto, com exemplos da rotina de um PRF |
+| "o que eu estudo hoje?" / "qual o próximo passo?" | O plano do dia, juntando todas as matérias     |
+| "o que eu estudo de penal?"            | O próximo passo e onde você está no edital da matéria      |
 | "o que eu estudei hoje?" / "ontem" / "essa semana" | Tempo, aulas, questões, lacunas, artigos e dúvidas |
 | "o que eu já aprendi?"                 | O que você domina, o que está praticando e o que ainda erra |
-| "questões de penal" / "questões de furto" | Itens da trilha e questões reais da prova ligadas ao tópico |
-| "simulado de penal"                    | 20 itens misturados, corrigidos só no fim                  |
-| "mostra meu mapa de penal"             | Abre no navegador o mapa completo (também: `main.py --mapa`) |
+| "questões de drogas" / "questões de furto" | Itens da trilha e questões reais da prova ligadas ao tópico |
+| "simulado de legislação especial"      | 20 itens misturados, corrigidos só no fim                  |
+| "mostra meu mapa"                      | Abre no navegador o mapa de todas as matérias (também: `main.py --mapa`) |
 
 **Como é a aula:** cada ponto aparece no quadro (o texto conferido) e o Sócrates explica falando
 e termina com uma pergunta. Você responde ou tira a dúvida; ele corrige com base no ponto.
@@ -148,6 +157,45 @@ nas questões reais e nas lacunas dos artigos dele; respostas antigas valem meno
 Qualquer pergunta solta sobre o assunto ("qual a pena do roubo?", "concussão ou corrupção
 passiva?") vai ao cérebro junto com as notas conferidas do tópico, com a instrução de não
 contradizê-las.
+
+### Autoestudo: ele estuda sozinho o edital inteiro
+
+Enquanto o Sócrates está aberto e você está quieto, ele **estuda sozinho**: pega o próximo
+assunto do edital que ainda não tem conteúdo (a PRF inteira e o CBMGO: 174 tópicos mapeados em
+`socrates/estudo/planos/`), pesquisa, escreve o material, confere com outro modelo e grava. Quando
+termina, segue para o próximo. O que ele aprende vira aula, questões e notas na hora.
+
+1. **Escolhe o assunto**: primeiro o que você pediu; depois o tópico que falta, pelo peso na prova
+   (Trânsito, Português, Penal...), alternando as matérias; também confere, uma lei por vez, se
+   alguma mudou depois da trilha (no Planalto, as notas "Redação dada pela Lei nº ...") e atualiza
+   o tópico.
+2. **Pesquisa**: o texto em vigor da lei no Planalto (sem o texto riscado) e páginas da internet,
+   com os sites oficiais (gov.br, leg.br, jus.br) primeiro.
+3. **Escreve**: pontos, pegadinhas, itens certo/errado e as palavras para achar o tópico na fala.
+4. **Confere com outro modelo**: ponto que a fonte contradiz sai; nos tópicos de lei, ponto sem
+   apoio na lei também sai; item cujo gabarito não bate com a resposta do conferente sai. Se
+   sobrar pouco, ele não grava e tenta de novo horas depois.
+5. **Grava** em `Documentos\Socrates\trilhas\auto-*.json` e anota em
+   `Documentos\Socrates\aprendizado.json`. O que veio com o Sócrates (conferido) sempre vale mais:
+   o autoestudo só completa o que falta e acrescenta as mudanças de lei.
+
+No visor, o canto de cima mostra o que ele está fazendo. Fale com ele:
+
+| Fale | O que acontece |
+|---|---|
+| "o que você está aprendendo?" | O assunto de agora, quantos já fez hoje e a fila |
+| "o que você aprendeu hoje?" / "essa semana" | A lista do que ele aprendeu sozinho |
+| "aprende sobre crase" / "estuda pra mim o ECA" | Põe o assunto na frente da fila e avisa quando terminar |
+| "me ensina teoria do fogo" (tópico que ainda não existe) | Ele explica o básico na hora e vai estudar o tópico a fundo |
+| "pausa o aprendizado" / "volta a aprender" | Pausa ou retoma (vale também da próxima vez que abrir) |
+
+Também dá para deixar ele estudando sem voz: `main.py --aprender` (até o limite do dia, Ctrl+C
+para parar) ou `main.py --aprender "crimes ambientais"` (só esse assunto). Ajustes no
+`config.yaml`, seção `autoestudo`: limite por dia (40), pausa entre assuntos, quais editais.
+
+> Ele usa os cérebros grátis na ordem Mistral, Gemini, Groq (o Groq fica livre para a conversa).
+> Com a chave do Mistral no `.env` ele aprende bem mais rápido. Os tópicos do autoestudo aparecem
+> com o selo "autoestudo" no mapa: são bons, mas confira na lei antes de confiar 100%.
 
 ### Ações no computador
 
@@ -438,15 +486,19 @@ socrates/
   estudo/lei.py            acha o artigo pedido e os trechos que respondem uma dúvida
   estudo/material.py       baixa os bancos do app estudo-prf
   estudo/planilha.py       manda para a planilha do Google (mesmo script do app)
-  estudo/trilhas/*.json    trilhas do edital (Direito Penal da PRF), com conteúdo conferido
-  estudo/trilha.py         lê a trilha, acha o tópico na fala, monta itens e notas
+  estudo/trilhas/*.json    trilhas conferidas da PRF (Penal, Processo Penal, Legislação Especial)
+  estudo/planos/*.json     o mapa dos editais (PRF e CBMGO) e o endereço oficial de cada lei
+  estudo/trilha.py         lê a trilha (e junta o que o autoestudo aprendeu), acha o tópico na fala
+  estudo/plano.py          lê os editais e acha o tópico pedido
+  estudo/autoestudo.py     estuda sozinho: escolhe, pesquisa, escreve, confere com outro modelo, grava
+  estudo/leitor_lei.py     lê a lei no Planalto, tira o texto riscado e separa os artigos
   estudo/aula.py           a aula guiada, ponto por ponto, com fixação no fim
   estudo/progresso.py      domínio por tópico, próximo passo, o que estudou e aprendeu
-  estudo/mapa.py           o mapa da trilha em HTML
+  estudo/mapa.py           o mapa de estudo em HTML (todas as matérias e o autoestudo)
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     429 testes, rodam sem microfone nem internet
+tests/                     478 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -459,7 +511,9 @@ tests/                     429 testes, rodam sem microfone nem internet
 - [x] **Fase 2.5** — interromper enquanto ele fala (clique ou Espaço no visor)
 - [x] **Fase 3** — estudo com o material real: questões, lacunas, revisão espaçada, pomodoro e planilha
 - [x] **Fase 4** — trilha de Direito Penal da PRF: aulas guiadas, direção, diário e mapa
-- [ ] **Próximas trilhas** — Processo Penal e Legislação Especial (o resto do bloco da PRF)
+- [x] **Fase 5** — trilhas de Processo Penal e Legislação Especial; autoestudo do edital inteiro
+  (PRF e CBMGO), com conferência por outro modelo e atualização quando a lei muda
+- [ ] **Próximo** — conferir à mão os tópicos que o autoestudo escrever, a começar por Trânsito
 
 ## Testes
 

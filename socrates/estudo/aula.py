@@ -68,6 +68,10 @@ class Aula:
             linhas.append("Pegadinhas que a banca usa: " + " ".join(t.pegadinhas))
         if self.texto_lei:
             linhas.append("Texto da lei: " + self.texto_lei)
+        if t.auto:
+            linhas.append("Este tópico foi montado pelo autoestudo (lei em vigor e páginas da internet, "
+                          "conferido por um segundo modelo, mas não por um professor). Se o aluno "
+                          "questionar um ponto, admita que pode haver erro e sugira conferir na lei.")
         return "\n".join(linhas)
 
     def _ctx_explicar(self, primeira: bool, de_novo: bool) -> str:

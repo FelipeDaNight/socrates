@@ -1,0 +1,411 @@
+{
+  "id": "prf-legislacao-especial",
+  "materia": "Legislação Especial",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe). Leis conferidas nas fontes oficiais (Câmara, Senado, STF) até 13/11/2026: Leis 15.245/2025, 15.358/2026, 15.384/2026, 15.474/2026 e 15.487/2026; PEC 18/2025 aprovada pelo Senado em 3/11/2026.",
+  "atualizado": "2026-11-13",
+  "apelidos": ["legislacao especial", "legislacao penal especial", "leis especiais", "leis penais especiais", "leis extravagantes"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "documentos",
+      "bloco": "Documentos e identificação",
+      "titulo": "Retenção de documentos (Lei 5.553/1968)",
+      "edital": "1 Lei 5.553/1968 e Lei 12.037/2009",
+      "peso": 1,
+      "artigos": ["L5553 1-3"],
+      "palavras": ["retencao de documento", "reter documento", "reter a identidade", "reter o documento", "lei 5553", "documento de identificacao pessoal", "ficar com o documento", "retencao de documentos", "documentos"],
+      "pontos": [
+        "Ninguém, pessoa física ou jurídica, pública ou privada, pode reter documento de identificação pessoal, nem mesmo a fotocópia autenticada ou a pública-forma (Lei 5.553/1968, art. 1º). Exemplos da lei: carteira de identidade, título de eleitor, carteira profissional, certidão de nascimento ou de casamento, comprovante de quitação militar.",
+        "Quem exige o documento para um ato tem até 5 dias para extrair os dados e devolver (art. 2º). Depois desse prazo, só ordem judicial permite ficar com o documento (art. 2º, § 1º).",
+        "Na portaria de órgão público ou de empresa, os dados são anotados no ato e o documento volta na hora para o interessado (art. 2º, § 2º).",
+        "Reter o documento é contravenção penal, punida com prisão simples de 1 a 3 meses ou multa (art. 3º). Se quem reteve foi um empregado da empresa, responde quem deu a ordem; o empregado só responde se desobedeceu a ordens expressas (art. 3º, parágrafo único).",
+        "A identificação criminal (fotografia e digitais) é assunto da Lei 12.037/2009, vista no Processo Penal: o civilmente identificado só é identificado criminalmente nos casos da lei (CF, art. 5º, LVIII)."
+      ],
+      "pegadinhas": [
+        "A banca troca o prazo: são 5 dias para extrair os dados e devolver, não 48 horas nem 30 dias.",
+        "Reter documento é CONTRAVENÇÃO (prisão simples), e não crime com detenção ou reclusão.",
+        "Fotocópia autenticada também não pode ser retida: a proibição vale para ela."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Pessoa jurídica de direito privado pode reter a carteira de identidade de um visitante enquanto ele estiver nas suas dependências.", "r": "E", "j": "Art. 2º, § 2º: na entrada de órgãos públicos ou particulares, os dados são anotados e o documento é devolvido imediatamente."},
+        {"t": "Quem exige documento de identificação para realizar um ato deve extrair os dados e devolvê-lo no prazo de até cinco dias.", "r": "C", "j": "Art. 2º da Lei 5.553/1968."},
+        {"t": "A retenção indevida de documento de identificação pessoal configura crime punido com detenção.", "r": "E", "j": "Art. 3º: é contravenção penal, com prisão simples de 1 a 3 meses ou multa."},
+        {"t": "Ultrapassado o prazo legal, a retenção de documento de identificação pessoal só é possível por ordem judicial.", "r": "C", "j": "Art. 2º, § 1º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "eca",
+      "bloco": "Crianças e adolescentes",
+      "titulo": "ECA: viagem, ato infracional e crimes",
+      "edital": "2 Lei 8.069/1990 (ECA)",
+      "peso": 2,
+      "artigos": ["ECA 2", "ECA 83-85", "ECA 103-109", "ECA 171-178", "ECA 225-244-C"],
+      "palavras": ["eca", "estatuto da crianca", "crianca", "adolescente", "menor desacompanhado", "viagem de crianca", "autorizacao de viagem", "ato infracional", "apreensao de adolescente", "bebida para menor", "bebida alcoolica para crianca", "corromper menor", "pornografia infantil", "exploracao sexual de crianca", "compartimento fechado"],
+      "pontos": [
+        "Criança é quem tem até 12 anos incompletos; adolescente, de 12 a 18 anos (ECA, art. 2º).",
+        "Viagem dentro do país: menor de 16 anos não viaja para fora da comarca onde mora, desacompanhado dos pais ou responsáveis, sem autorização judicial (art. 83, redação da Lei 13.812/2019). Não precisa de autorização se: for comarca vizinha na mesma UF ou na mesma região metropolitana; ou se estiver com ascendente ou colateral maior até o 3º grau (parentesco provado por documento), ou com pessoa maior expressamente autorizada pelo pai, mãe ou responsável (art. 83, § 1º).",
+        "Viagem ao exterior: dispensa autorização judicial quando a criança ou o adolescente está com os dois pais (ou o responsável), ou com um deles autorizado expressamente pelo outro em documento com firma reconhecida (art. 84). Sair do país com estrangeiro que mora no exterior sempre exige autorização judicial prévia (art. 85).",
+        "Ato infracional é a conduta descrita como crime ou contravenção; menores de 18 anos são penalmente inimputáveis (arts. 103 e 104). À criança aplicam-se medidas de proteção (art. 105); ao adolescente, medidas socioeducativas.",
+        "Nenhum adolescente é privado da liberdade senão em flagrante de ato infracional ou por ordem escrita e fundamentada do juiz (art. 106). A apreensão e o local onde ele está são comunicados na hora ao juiz e à família ou à pessoa que ele indicar (art. 107). Apreendido em flagrante, vai desde logo para a autoridade policial competente (art. 172).",
+        "O adolescente não pode ser conduzido ou transportado em compartimento fechado de veículo policial (o 'camburão'), em condições que atentem contra a sua dignidade ou que ponham em risco a sua integridade física ou mental (art. 178).",
+        "Crimes do ECA mais cobrados: vender, fornecer ou entregar, ainda que de graça, bebida alcoólica a criança ou adolescente — detenção de 2 a 4 anos e multa, se o fato não for crime mais grave (art. 243); corrupção de menores — corromper ou facilitar a corrupção de menor de 18 anos, praticando infração penal com ele ou induzindo-o a praticá-la, reclusão de 1 a 4 anos (art. 244-B); apreender criança ou adolescente sem flagrante nem ordem judicial — detenção de 6 meses a 2 anos (art. 230)."
+      ],
+      "pegadinhas": [
+        "Até 12 anos INCOMPLETOS é criança: quem tem 12 anos completos já é adolescente.",
+        "A corrupção de menores (art. 244-B) é crime FORMAL: não precisa provar que o menor foi efetivamente corrompido (Súmula 500 do STJ).",
+        "Para viajar dentro do país, a regra vale para menores de 16 anos; a banca troca por 'menores de 18' ou por 'menores de 12'."
+      ],
+      "novidades": [
+        "A Lei 15.487/2026 (6/8/2026) endureceu os crimes sexuais contra crianças e adolescentes no ambiente digital: os arts. 240, 241 e 241-A passaram a ter pena de 4 a 10 anos de reclusão, o 241-B (adquirir ou possuir o material) de 3 a 6 anos, o 241-C (simular, inclusive com inteligência artificial) e o 241-D (aliciar menor de 14) de 3 a 5 anos; e tornou hediondos os arts. 240, 241, 241-A, 241-B, 241-D e 244-A.",
+        "A mesma Lei 15.487/2026 ampliou a infiltração de agentes na internet (arts. 190-A e seguintes do ECA, que vêm da Lei 13.441/2017), criou a 'ronda virtual' (art. 190-F: a polícia pode usar programas para identificar e coletar arquivos em ambientes digitais públicos, sem ordem judicial prévia) e incluiu esses crimes entre as hipóteses que admitem prisão preventiva (CPP, art. 313, VI)."
+      ],
+      "itens": [
+        {"t": "Adolescente de dezesseis anos de idade pode viajar desacompanhado para outra comarca do país sem autorização judicial.", "r": "C", "j": "Art. 83: a exigência é para menores de 16 anos."},
+        {"t": "Criança de dez anos acompanhada de um tio maior de idade, com o parentesco comprovado por documento, pode viajar para outro estado sem autorização judicial.", "r": "C", "j": "Art. 83, § 1º, b, 1: colateral maior até o 3º grau, com parentesco comprovado."},
+        {"t": "O adolescente apreendido em flagrante de ato infracional pode ser transportado no compartimento fechado da viatura, desde que algemado.", "r": "E", "j": "Art. 178: é vedado o transporte em compartimento fechado em condições atentatórias à dignidade ou de risco à integridade."},
+        {"t": "O crime de corrupção de menores exige prova de que o menor foi efetivamente corrompido.", "r": "E", "j": "Súmula 500 do STJ: é crime formal."},
+        {"t": "Servir bebida alcoólica a adolescente, ainda que gratuitamente, é crime previsto no ECA.", "r": "C", "j": "Art. 243 (Lei 13.106/2015): detenção de 2 a 4 anos e multa."},
+        {"t": "Com doze anos completos, a pessoa ainda é considerada criança para o ECA.", "r": "E", "j": "Art. 2º: criança é até 12 anos incompletos."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "hediondos",
+      "bloco": "Crimes hediondos",
+      "titulo": "Crimes hediondos",
+      "edital": "3 Lei 8.072/1990",
+      "peso": 3,
+      "artigos": ["L8072 1-2"],
+      "palavras": ["hediondo", "hediondos", "crimes hediondos", "lei 8072", "rol dos hediondos", "equiparados", "equiparado a hediondo", "tortura trafico terrorismo", "graca anistia e indulto"],
+      "pontos": [
+        "Só é hediondo o que está no rol da Lei 8.072/1990 (critério legal). Entre os crimes do Código Penal estão, por exemplo: homicídio qualificado e o praticado em atividade típica de grupo de extermínio; feminicídio; latrocínio e roubo com restrição da liberdade da vítima ou com emprego de arma de fogo; extorsão mediante sequestro; estupro e estupro de vulnerável; furto qualificado pelo emprego de explosivo; favorecimento da prostituição de criança, adolescente ou vulnerável.",
+        "Fora do Código Penal, também são hediondos: genocídio; posse ou porte ilegal de arma de fogo de USO PROIBIDO; comércio ilegal e tráfico internacional de arma de fogo, acessório ou munição; organização criminosa voltada a crime hediondo ou equiparado; e os crimes do CPM que correspondem aos hediondos do Código Penal.",
+        "Tortura, tráfico de drogas e terrorismo não estão no rol: são EQUIPARADOS a hediondos pela Constituição (art. 5º, XLIII), que os torna inafiançáveis e insuscetíveis de graça ou anistia.",
+        "Hediondos e equiparados são insuscetíveis de anistia, graça e indulto, e de fiança (Lei 8.072, art. 2º, I e II). Liberdade provisória SEM fiança é possível, conforme o caso.",
+        "O § 1º do art. 2º (regime inicial fechado obrigatório) foi declarado inconstitucional pelo STF: o regime inicial segue as regras gerais do Código Penal. A progressão de regime segue os percentuais da LEP (art. 112).",
+        "A prisão temporária nos crimes hediondos e equiparados é de até 30 dias, prorrogável por mais 30 em caso de extrema e comprovada necessidade (art. 2º, § 4º).",
+        "O tráfico privilegiado (Lei 11.343, art. 33, § 4º) não é hediondo nem equiparado (LEP, art. 112, § 5º)."
+      ],
+      "pegadinhas": [
+        "Furtar EXPLOSIVO não é hediondo; hediondo é o furto qualificado pelo EMPREGO de explosivo ou artefato análogo que cause perigo comum (CP, art. 155, § 4º-A). Foi cobrado na PRF 2021.",
+        "Tortura, tráfico e terrorismo são EQUIPARADOS, não estão no rol da Lei 8.072.",
+        "Porte de arma de uso RESTRITO não é hediondo; só a posse ou o porte de arma de uso PROIBIDO (desde a Lei 13.964/2019)."
+      ],
+      "novidades": [
+        "Lei 15.358/2026 (Lei Antifacção, em vigor desde 25/3/2026): passaram a ser hediondos os crimes de domínio social estruturado e de favorecimento ao domínio social estruturado.",
+        "Lei 15.487/2026: incluiu no rol os crimes do ECA dos arts. 240, 241, 241-A, 241-B, 241-D e 244-A (exploração sexual e material de abuso sexual de crianças e adolescentes).",
+        "Lei 15.384/2026: o vicaricídio (CP, art. 121-B) é hediondo. Desde a Lei 14.994/2024, o feminicídio é crime autônomo (art. 121-A), também hediondo."
+      ],
+      "itens": [
+        {"t": "Caso três pessoas associadas, com divisão de tarefas, subtraiam substância explosiva, estará configurado crime hediondo.", "r": "E", "j": "Hediondo é o furto qualificado pelo emprego de explosivo (art. 155, § 4º-A), não a subtração de explosivo. Item 110 da PRF 2021."},
+        {"t": "A tortura e o tráfico de drogas integram o rol de crimes hediondos previsto no art. 1º da Lei 8.072/1990.", "r": "E", "j": "São equiparados a hediondos (CF, art. 5º, XLIII), não estão no rol do art. 1º."},
+        {"t": "Os crimes hediondos são insuscetíveis de anistia, graça, indulto e fiança.", "r": "C", "j": "Art. 2º, I e II, da Lei 8.072/1990."},
+        {"t": "Segundo o STF, é inconstitucional a imposição obrigatória do regime inicial fechado aos condenados por crime hediondo.", "r": "C", "j": "STF, HC 111.840: o § 1º do art. 2º é inconstitucional."},
+        {"t": "O porte ilegal de arma de fogo de uso restrito é crime hediondo.", "r": "E", "j": "Só a posse ou o porte de arma de uso PROIBIDO é hediondo (Lei 8.072, parágrafo único, após a Lei 13.964/2019)."},
+        {"t": "Nos crimes hediondos, a prisão temporária pode durar até trinta dias, prorrogáveis por igual período em caso de extrema e comprovada necessidade.", "r": "C", "j": "Art. 2º, § 4º."}
+      ],
+      "questoes": ["prf-2021-p1|item 110"]
+    },
+    {
+      "id": "prf-competencias",
+      "bloco": "PRF",
+      "titulo": "Competências da PRF",
+      "edital": "4 Decreto 1.655/1995; art. 47 do Decreto 9.662/2019 (hoje, art. 58 do Anexo I do Decreto 11.348/2023)",
+      "peso": 2,
+      "artigos": ["D1655 1-2", "D11348 58"],
+      "palavras": ["competencia da prf", "competencias da prf", "atribuicoes da prf", "decreto 1655", "policia rodoviaria federal compete", "patrulhamento ostensivo", "porte de arma da prf", "decreto 11348", "decreto 9662", "pec da seguranca publica", "ferrovias e hidrovias"],
+      "pontos": [
+        "A PRF é órgão permanente, organizado e mantido pela União e estruturado em carreira, destinado, na forma da lei, ao patrulhamento ostensivo das rodovias federais (CF, art. 144, § 2º). Também tem as competências do art. 20 do CTB.",
+        "Decreto 1.655/1995, art. 1º: no âmbito das rodovias federais, compete à PRF, entre outras coisas, realizar o patrulhamento ostensivo para preservar a ordem, a incolumidade das pessoas, o patrimônio da União e o de terceiros; exercer os poderes de autoridade de polícia de trânsito; aplicar e arrecadar multas; atender acidentes e salvar vítimas; fazer levantamentos de local, perícias, boletins de ocorrência e testes de alcoolemia para elucidar acidentes; assegurar a livre circulação; escoltar autoridades; fiscalizar o tráfico de menores; e colaborar na prevenção e repressão de crimes (contra a vida, o patrimônio, o meio ambiente, roubo de veículos, tráfico de drogas, contrabando, descaminho e outros).",
+        "Decreto 1.655/1995, art. 2º: a identidade funcional do policial rodoviário federal dá livre porte de arma e franco acesso aos locais sob fiscalização do órgão e, em serviço, prioridade em todos os tipos de transporte e comunicação.",
+        "O edital de 2021 cita o art. 47 do Decreto 9.662/2019 (estrutura do Ministério da Justiça). Hoje a estrutura é a do Decreto 11.348/2023: o art. 58 do Anexo I lista as competências da PRF em 12 incisos, e o inciso XII é 'lavrar o termo circunstanciado de que trata o art. 69 da Lei 9.099/1995'.",
+        "O STF decidiu que a PRF pode lavrar termo circunstanciado de ocorrência (TCO): o TCO não é ato de investigação e pode ser lavrado por polícia judiciária ou administrativa (ADIs 6245 e 6264, julgadas em 17/2/2023).",
+        "A PRF é polícia administrativa (ostensiva), não polícia judiciária: não preside inquérito policial. Na prisão em flagrante, apresenta o preso à autoridade policial competente (delegado da Polícia Federal ou da Polícia Civil, conforme o crime)."
+      ],
+      "pegadinhas": [
+        "A PRF não faz 'policiamento ostensivo de todas as rodovias': a Constituição fala em rodovias FEDERAIS.",
+        "TCO pela PRF é constitucional (STF, 2023); a banca pode dizer que é atribuição exclusiva da polícia judiciária — está errado.",
+        "Livre porte de arma decorre da identidade funcional (Decreto 1.655, art. 2º)."
+      ],
+      "novidades": [
+        "PEC 18/2025 (PEC da Segurança Pública): aprovada pelo Senado em dois turnos em 3/11/2026, depois de aprovada na Câmara; vai à promulgação. Mantém o nome Polícia Rodoviária Federal, amplia a atuação para ferrovias e hidrovias federais e põe o SUSP na Constituição. Confira se já foi promulgada e o texto final do art. 144."
+      ],
+      "itens": [
+        {"t": "Compete à PRF, no âmbito das rodovias federais, realizar o patrulhamento ostensivo, executando operações relacionadas com a segurança pública.", "r": "C", "j": "Decreto 1.655/1995, art. 1º, I; CF, art. 144, § 2º."},
+        {"t": "Segundo o STF, a lavratura do termo circunstanciado de ocorrência é atribuição exclusiva das polícias judiciárias, razão pela qual a PRF não pode lavrá-lo.", "r": "E", "j": "ADIs 6245 e 6264 (2023): o TCO pode ser lavrado por polícia judiciária ou administrativa."},
+        {"t": "A identidade funcional do policial rodoviário federal assegura, quando em serviço, prioridade em todos os tipos de transporte e comunicação.", "r": "C", "j": "Decreto 1.655/1995, art. 2º."},
+        {"t": "A PRF exerce funções de polícia judiciária da União, cabendo-lhe presidir inquéritos sobre crimes cometidos em rodovias federais.", "r": "E", "j": "Polícia judiciária da União é a Polícia Federal (CF, art. 144, § 1º, IV); a PRF é polícia ostensiva."},
+        {"t": "Entre as competências da PRF está a fiscalização e o controle do tráfico de menores nas rodovias federais.", "r": "C", "j": "Decreto 1.655/1995, art. 1º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "juizados",
+      "bloco": "Juizados especiais",
+      "titulo": "Juizados especiais criminais: transação e suspensão",
+      "edital": "5 Lei 9.099/1995",
+      "peso": 2,
+      "artigos": ["L9099 60-92"],
+      "palavras": ["juizado especial criminal", "juizados especiais", "jecrim", "lei 9099", "transacao penal", "composicao civil", "composicao dos danos", "suspensao condicional do processo", "sursis processual", "menor potencial ofensivo"],
+      "pontos": [
+        "Infrações de menor potencial ofensivo: todas as contravenções penais e os crimes com pena máxima não superior a 2 anos, cumulada ou não com multa (Lei 9.099, art. 61).",
+        "Composição civil dos danos (art. 74): acordo entre autor e vítima, homologado pelo juiz. Na ação privada ou pública condicionada à representação, o acordo homologado é renúncia ao direito de queixa ou de representação.",
+        "Transação penal (art. 76): o MP propõe a aplicação imediata de pena restritiva de direitos ou multa, sem processo. Não cabe se o autor já foi condenado por crime a pena privativa de liberdade por sentença definitiva, se foi beneficiado por transação nos últimos 5 anos, ou se os antecedentes e as circunstâncias não a recomendam. Não gera reincidência nem consta de certidão de antecedentes.",
+        "Lesão corporal leve e lesão culposa dependem de representação (art. 88).",
+        "Suspensão condicional do processo (art. 89): cabe nos crimes com pena MÍNIMA igual ou inferior a 1 ano (mesmo fora do juizado), se o acusado não está sendo processado nem foi condenado por outro crime. O processo fica suspenso por 2 a 4 anos (período de prova); cumpridas as condições, extingue-se a punibilidade.",
+        "A Lei 9.099 não se aplica aos crimes de violência doméstica e familiar contra a mulher (Lei 11.340, art. 41): nesses casos não cabem transação penal nem suspensão condicional do processo (Súmula 536 do STJ)."
+      ],
+      "pegadinhas": [
+        "Transação penal olha a pena MÁXIMA (até 2 anos); suspensão condicional do processo olha a pena MÍNIMA (até 1 ano). A banca troca uma pela outra.",
+        "No concurso de crimes, para a suspensão condicional do processo soma-se a pena mínima (ou aplica-se o aumento); se passar de 1 ano, não cabe (Súmula 243 do STJ e Súmula 723 do STF).",
+        "Maria da Penha: nada de Lei 9.099, mesmo que a pena máxima seja pequena."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Consideram-se infrações de menor potencial ofensivo as contravenções penais e os crimes cuja pena máxima não seja superior a dois anos, cumulada ou não com multa.", "r": "C", "j": "Art. 61 da Lei 9.099/1995."},
+        {"t": "A suspensão condicional do processo é cabível nos crimes cuja pena máxima seja igual ou inferior a um ano.", "r": "E", "j": "Art. 89: o critério é a pena MÍNIMA igual ou inferior a um ano."},
+        {"t": "Nos crimes praticados com violência doméstica e familiar contra a mulher, é cabível a transação penal se a pena máxima não superar dois anos.", "r": "E", "j": "Lei 11.340, art. 41, e Súmula 536 do STJ."},
+        {"t": "Na ação penal pública condicionada à representação, o acordo de composição civil homologado acarreta a renúncia ao direito de representação.", "r": "C", "j": "Art. 74, parágrafo único."},
+        {"t": "A lesão corporal culposa depende de representação do ofendido.", "r": "C", "j": "Art. 88 da Lei 9.099/1995."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "tortura",
+      "bloco": "Tortura",
+      "titulo": "Tortura",
+      "edital": "6 Lei 9.455/1997",
+      "peso": 2,
+      "artigos": ["L9455 1-4"],
+      "palavras": ["tortura", "torturar", "lei 9455", "sofrimento fisico ou mental", "intenso sofrimento", "tortura castigo", "tortura prova", "tortura omissao", "tortura discriminacao"],
+      "pontos": [
+        "Tortura-prova, tortura-crime e tortura-discriminação (art. 1º, I): constranger alguém com violência ou grave ameaça, causando sofrimento físico ou mental, a) para obter informação, declaração ou confissão; b) para provocar ação ou omissão de natureza criminosa; c) em razão de discriminação racial ou religiosa. Reclusão de 2 a 8 anos.",
+        "Tortura-castigo (art. 1º, II): submeter alguém sob sua guarda, poder ou autoridade, com violência ou grave ameaça, a INTENSO sofrimento físico ou mental, como castigo pessoal ou medida de caráter preventivo. Reclusão de 2 a 8 anos.",
+        "Na mesma pena incorre quem submete pessoa presa ou sujeita a medida de segurança a sofrimento físico ou mental, por ato não previsto em lei ou não resultante de medida legal (§ 1º).",
+        "Tortura por omissão (§ 2º): quem se omite diante dessas condutas, quando tinha o dever de evitá-las ou apurá-las, responde com detenção de 1 a 4 anos.",
+        "Resultado: lesão grave ou gravíssima, reclusão de 4 a 10 anos; morte, reclusão de 8 a 16 anos (§ 3º). Aumento de 1/6 a 1/3 se o crime é cometido por agente público; contra criança, gestante, pessoa com deficiência, adolescente ou maior de 60 anos; ou mediante sequestro (§ 4º).",
+        "A condenação acarreta a perda do cargo, função ou emprego público e a interdição para o seu exercício pelo dobro do prazo da pena aplicada (§ 5º), efeito automático. O crime é inafiançável e insuscetível de graça ou anistia (§ 6º), e o condenado, salvo no caso do § 2º, inicia o cumprimento em regime fechado (§ 7º).",
+        "A lei se aplica mesmo ao crime cometido fora do Brasil, se a vítima é brasileira ou se o agente está em local sob jurisdição brasileira (art. 2º)."
+      ],
+      "pegadinhas": [
+        "Na tortura-castigo (inciso II), o sofrimento tem de ser INTENSO; não é 'qualquer sofrimento, independentemente da intensidade' (PRF 2021, item 115).",
+        "A omissão (§ 2º) tem pena menor e é de DETENÇÃO (1 a 4 anos); não tem a mesma pena da tortura.",
+        "A tortura do inciso I pode ser praticada por qualquer pessoa (crime comum); a perda do cargo é efeito automático da condenação."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Praticam o crime de tortura policiais rodoviários federais que, dentro de um posto policial, submetem o autor de crime a sofrimento físico, independentemente de sua intensidade.", "r": "E", "j": "Art. 1º, II, exige INTENSO sofrimento físico ou mental. Item 115 da PRF 2021."},
+        {"t": "Aquele que se omite em face das condutas de tortura, quando tinha o dever de evitá-las ou apurá-las, incorre na pena de detenção de um a quatro anos.", "r": "C", "j": "Art. 1º, § 2º, da Lei 9.455/1997."},
+        {"t": "A condenação por crime de tortura acarreta a perda do cargo público e a interdição para o seu exercício pelo dobro do prazo da pena aplicada.", "r": "C", "j": "Art. 1º, § 5º."},
+        {"t": "O crime de tortura é afiançável, mas insuscetível de graça ou anistia.", "r": "E", "j": "Art. 1º, § 6º: é inafiançável e insuscetível de graça ou anistia."},
+        {"t": "Constranger alguém, com emprego de grave ameaça, causando-lhe sofrimento mental, em razão de discriminação religiosa, configura tortura.", "r": "C", "j": "Art. 1º, I, c."}
+      ],
+      "questoes": ["prf-2021-p1|item 115"]
+    },
+    {
+      "id": "ambientais",
+      "bloco": "Meio ambiente",
+      "titulo": "Crimes ambientais",
+      "edital": "7 Lei 9.605/1998 (capítulos III e V)",
+      "peso": 2,
+      "artigos": ["L9605 25-26", "L9605 29-69-A"],
+      "palavras": ["crime ambiental", "crimes ambientais", "lei 9605", "fauna silvestre", "animal silvestre", "passaro silvestre", "maus tratos a animais", "maus tratos de cao", "cao ou gato", "madeira sem licenca", "transporte de madeira", "carvao", "lenha", "apreensao de animais", "pesca proibida", "ambiental", "ambientais", "meio ambiente"],
+      "pontos": [
+        "Verificada a infração, são apreendidos os produtos e instrumentos, lavrando-se os autos (Lei 9.605, art. 25). Os animais são, de preferência, libertados no seu hábitat ou, se isso não for viável, entregues a jardins zoológicos, fundações ou entidades assemelhadas; até a entrega, o órgão autuante zela pelo bem-estar deles (art. 25, §§ 1º e 2º).",
+        "Produtos perecíveis ou madeiras apreendidos são avaliados e doados a instituições científicas, hospitalares, penais e outras com fins beneficentes; os instrumentos usados na infração são vendidos, garantida a descaracterização por reciclagem (art. 25, §§ 3º a 5º).",
+        "Nos crimes da Lei 9.605, a ação penal é pública incondicionada (art. 26). A pessoa jurídica também responde penalmente (art. 3º; CF, art. 225, § 3º).",
+        "Fauna (art. 29): matar, perseguir, caçar, apanhar ou utilizar espécimes da fauna silvestre sem permissão, licença ou autorização: detenção de 6 meses a 1 ano e multa. Na mesma pena incorre quem vende, guarda, tem em cativeiro ou TRANSPORTA ovos, larvas ou espécimes da fauna silvestre sem autorização (§ 1º, III). Na guarda doméstica de espécie silvestre não ameaçada de extinção, o juiz pode deixar de aplicar a pena (§ 2º).",
+        "Maus-tratos (art. 32): praticar abuso, maus-tratos, ferir ou mutilar animais silvestres, domésticos ou domesticados: detenção de 3 meses a 1 ano e multa. Se for cão ou gato: reclusão de 2 a 5 anos, multa e proibição da guarda (§ 1º-A, Lei 14.064/2020). A pena aumenta de 1/6 a 1/3 se o animal morre.",
+        "Flora (art. 46, parágrafo único): vender, ter em depósito, TRANSPORTAR ou guardar madeira, lenha, carvão e outros produtos de origem vegetal sem licença válida para todo o tempo da viagem ou do armazenamento: detenção de 6 meses a 1 ano e multa. É o flagrante ambiental típico da fiscalização em rodovia."
+      ],
+      "pegadinhas": [
+        "Maus-tratos a cão ou gato tem pena de RECLUSÃO de 2 a 5 anos; para os demais animais, detenção de 3 meses a 1 ano.",
+        "A licença da carga de madeira ou carvão tem de valer para TODO o tempo da viagem; licença vencida no meio do trajeto também configura o crime.",
+        "A ação penal nos crimes ambientais é pública INCONDICIONADA."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Nos crimes ambientais da Lei 9.605/1998, a ação penal é pública condicionada à representação do órgão ambiental.", "r": "E", "j": "Art. 26: é pública incondicionada."},
+        {"t": "Transportar carvão vegetal sem licença válida para todo o tempo da viagem configura crime contra a flora.", "r": "C", "j": "Art. 46, parágrafo único, da Lei 9.605/1998."},
+        {"t": "Praticar maus-tratos contra cão sujeita o agente à pena de reclusão de dois a cinco anos, multa e proibição da guarda.", "r": "C", "j": "Art. 32, § 1º-A (Lei 14.064/2020)."},
+        {"t": "Os animais apreendidos devem ser, obrigatoriamente, destinados a jardins zoológicos.", "r": "E", "j": "Art. 25, § 1º: prioritariamente libertados no seu hábitat; zoológicos e entidades assemelhadas quando a soltura for inviável."},
+        {"t": "No caso de guarda doméstica de espécie silvestre não ameaçada de extinção, o juiz pode, consideradas as circunstâncias, deixar de aplicar a pena.", "r": "C", "j": "Art. 29, § 2º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "armas",
+      "bloco": "Armas de fogo",
+      "titulo": "Estatuto do Desarmamento: crimes",
+      "edital": "8 Lei 10.826/2003 (capítulo IV)",
+      "peso": 3,
+      "artigos": ["L10826 12-21-A"],
+      "palavras": ["estatuto do desarmamento", "lei 10826", "arma de fogo", "porte ilegal", "posse irregular", "porte de arma", "posse de arma", "municao", "disparo de arma", "numeracao raspada", "uso restrito", "uso proibido", "comercio ilegal de arma", "trafico internacional de arma", "omissao de cautela", "arma desmuniciada", "armas", "arma", "armas de fogo", "desarmamento"],
+      "pontos": [
+        "Posse irregular de arma de uso permitido (art. 12): ter em casa ou no local de trabalho (se for o titular ou responsável pela empresa), em desacordo com a lei: detenção de 1 a 3 anos e multa. Porte ilegal de arma de uso permitido (art. 14): portar, transportar, trazer consigo etc. fora desses lugares: reclusão de 2 a 4 anos e multa.",
+        "Omissão de cautela (art. 13): deixar de cuidar para que menor de 18 anos ou pessoa com deficiência mental se apodere de arma de fogo: detenção de 1 a 2 anos e multa. Disparo de arma de fogo (art. 15) em lugar habitado ou em via pública: reclusão de 2 a 4 anos, se a conduta não tiver como finalidade a prática de outro crime.",
+        "Arma de uso restrito (art. 16): posse ou porte, reclusão de 3 a 6 anos. Na mesma pena: suprimir ou alterar marca ou numeração; portar arma com numeração raspada; vender ou entregar arma, munição ou explosivo a criança ou adolescente; produzir ou recarregar munição sem autorização. Se a arma for de uso PROIBIDO: reclusão de 4 a 12 anos (§ 2º, Lei 13.964/2019).",
+        "Comércio ilegal (art. 17): adquirir, transportar, CONDUZIR, ter em depósito, vender etc., no exercício de atividade comercial ou industrial, arma, acessório ou munição sem autorização: reclusão de 6 a 12 anos. Tráfico internacional (art. 18): importar, exportar ou favorecer a entrada ou saída do país sem autorização: reclusão de 8 a 16 anos. Nos dois, a pena aumenta de metade se a arma, acessório ou munição for de uso proibido ou restrito (art. 19).",
+        "A pena dos crimes dos arts. 14 a 18 aumenta de metade se o agente integra os órgãos e empresas dos arts. 6º, 7º e 8º (como as polícias e as empresas de segurança) ou se é reincidente específico (art. 20).",
+        "O STF declarou inconstitucionais a inafiançabilidade do porte ilegal (art. 14, parágrafo único) e do disparo (art. 15, parágrafo único) e a proibição de liberdade provisória (art. 21) (ADI 3112).",
+        "São hediondos: a posse ou o porte de arma de uso PROIBIDO, o comércio ilegal (art. 17) e o tráfico internacional (art. 18). Porte de arma DESMUNICIADA é crime (perigo abstrato); arma inapta, atestada por perícia, não é."
+      ],
+      "pegadinhas": [
+        "Posse é em casa ou no trabalho (detenção); porte é fora deles (reclusão). A banca troca as penas.",
+        "Conduzir arma no exercício de atividade comercial, sem autorização, é COMÉRCIO ILEGAL (art. 17), e não simples porte (PRF 2021, item 114).",
+        "Abolitio criminis temporária: só alcançou a POSSE (inclusive com numeração raspada) praticada até 23/10/2005 (Súmula 513 do STJ); não alcança o porte."
+      ],
+      "novidades": [
+        "Lei 15.358/2026 (Lei Antifacção): novo art. 21-A — nos crimes dos arts. 12, 14 e 16, a pena aumenta de 2/3 se o crime é praticado em concurso com crime da Lei de Drogas (Lei 11.343/2006).",
+        "Lei 15.474/2026: passou a disciplinar a comercialização, a aquisição e a posse do aerossol de extratos vegetais (spray de pimenta) e alterou o Estatuto do Desarmamento."
+      ],
+      "itens": [
+        {"t": "Conduzir arma de fogo, no exercício de atividade comercial, sem autorização, configura comércio ilegal de arma de fogo.", "r": "C", "j": "Art. 17 da Lei 10.826/2003. Item 114 da PRF 2021."},
+        {"t": "A posse irregular de arma de fogo de uso permitido é punida com reclusão de dois a quatro anos.", "r": "E", "j": "Art. 12: detenção de 1 a 3 anos e multa; reclusão de 2 a 4 é o porte (art. 14)."},
+        {"t": "O porte ilegal de arma de fogo de uso restrito é crime hediondo.", "r": "E", "j": "Só o de uso PROIBIDO (Lei 8.072, parágrafo único, II)."},
+        {"t": "Segundo o STF, é inconstitucional a vedação de liberdade provisória prevista no Estatuto do Desarmamento.", "r": "C", "j": "ADI 3112: art. 21 declarado inconstitucional."},
+        {"t": "O porte de arma de fogo desmuniciada configura crime, por se tratar de delito de perigo abstrato.", "r": "C", "j": "Entendimento do STF e do STJ."},
+        {"t": "No tráfico internacional de arma de fogo, a pena é aumentada da metade se a arma for de uso proibido ou restrito.", "r": "C", "j": "Art. 19 da Lei 10.826/2003."}
+      ],
+      "questoes": ["prf-2021-p1|item 114"]
+    },
+    {
+      "id": "drogas",
+      "bloco": "Drogas",
+      "titulo": "Lei de Drogas",
+      "edital": "9 Lei 11.343/2006",
+      "peso": 3,
+      "artigos": ["L11343 19", "L11343 27-47", "L11343 48-53"],
+      "palavras": ["lei de drogas", "lei 11343", "trafico de drogas", "traficante", "usuario de drogas", "porte de droga para consumo", "consumo pessoal", "maconha", "cannabis", "trafico privilegiado", "associacao para o trafico", "financiamento do trafico", "transnacionalidade", "interestadual", "droga no onibus", "drogas", "droga", "entorpecente", "entorpecentes"],
+      "pontos": [
+        "Usuário (art. 28): adquirir, guardar, ter em depósito, transportar ou trazer consigo droga para consumo pessoal sujeita a advertência, prestação de serviços à comunidade ou medida educativa — não há pena de prisão. Não se impõe prisão em flagrante ao usuário: ele é levado ao juízo ou, na falta, lavra-se termo circunstanciado (art. 48, § 2º).",
+        "Maconha para consumo: o STF (RE 635.659, Tema 506, 2024) decidiu que portar cannabis para uso pessoal não é infração penal (é ilícito extrapenal: a droga é apreendida e as sanções do art. 28, I e III, são aplicadas em procedimento não penal). Presume-se usuário quem tem até 40 gramas ou 6 plantas-fêmeas; a presunção é relativa: a polícia pode prender por tráfico abaixo disso se houver indícios de venda.",
+        "Tráfico (art. 33): importar, exportar, transportar, trazer consigo, guardar, vender, fornecer ainda que gratuitamente etc.: reclusão de 5 a 15 anos e 500 a 1.500 dias-multa. Oferecer droga eventualmente e sem lucro a pessoa do seu relacionamento, para juntos consumirem: detenção de 6 meses a 1 ano (§ 3º).",
+        "Tráfico privilegiado (art. 33, § 4º): redução de 1/6 a 2/3 para o agente primário, de bons antecedentes, que não se dedica a atividades criminosas nem integra organização criminosa. Não é hediondo.",
+        "Associação para o tráfico (art. 35): associarem-se DUAS ou mais pessoas para traficar, reiteradamente ou não: reclusão de 3 a 10 anos (exige vínculo estável e permanente). Financiar ou custear o tráfico (art. 36): reclusão de 8 a 20 anos. Colaborar como informante (art. 37): reclusão de 2 a 6 anos.",
+        "Aumento de 1/6 a 2/3 (art. 40): tráfico transnacional; entre estados ou com o DF (não precisa cruzar a divisa: Súmula 587 do STJ); com abuso de função pública; nas imediações de escolas, hospitais, unidades policiais ou em transporte público; com violência, grave ameaça ou arma de fogo; envolvendo criança ou adolescente.",
+        "Prevenção (art. 19): entre os princípios e diretrizes da prevenção do uso indevido está o fortalecimento da autonomia e da responsabilidade individual em relação ao uso de drogas (cobrado na PRF 2021)."
+      ],
+      "pegadinhas": [
+        "Associação para o tráfico precisa de só DUAS pessoas (art. 35); organização criminosa, de quatro (Lei 12.850).",
+        "Para STF e STJ, só usar o ônibus para levar a droga não atrai o aumento do 'transporte público': é preciso vender dentro dele.",
+        "Usuário nunca é preso em flagrante pelo art. 28; quem é preso em flagrante com pouca droga responde por tráfico se houver indícios de venda."
+      ],
+      "novidades": [
+        "Lei 15.358/2026 (Lei Antifacção): novo art. 40-A — as penas dos arts. 33 a 37 são aplicadas em DOBRO se o crime é praticado por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada, no contexto da atuação do grupo."
+      ],
+      "itens": [
+        {"t": "Ao usuário de drogas não se impõe prisão em flagrante, devendo ser lavrado termo circunstanciado quando não for possível o encaminhamento imediato ao juízo.", "r": "C", "j": "Art. 48, § 2º, da Lei 11.343/2006."},
+        {"t": "A associação de duas pessoas para a prática reiterada do tráfico de drogas configura o crime de associação para o tráfico.", "r": "C", "j": "Art. 35: duas ou mais pessoas, reiteradamente ou não."},
+        {"t": "A incidência da majorante do tráfico interestadual exige a efetiva transposição da divisa entre os estados.", "r": "E", "j": "Súmula 587 do STJ: basta a prova de que a droga se destinava a outro estado."},
+        {"t": "O tráfico privilegiado é equiparado a crime hediondo.", "r": "E", "j": "LEP, art. 112, § 5º: não é hediondo nem equiparado."},
+        {"t": "Entre as atividades de prevenção do uso indevido de drogas está o fortalecimento da autonomia e da responsabilidade individual em relação ao uso indevido dessas substâncias.", "r": "C", "j": "Art. 19 da Lei 11.343/2006. Item 113 da PRF 2021."},
+        {"t": "Segundo o STF, presume-se usuário quem traz consigo até 40 gramas de cannabis, presunção absoluta que impede a prisão por tráfico abaixo desse limite.", "r": "E", "j": "RE 635.659: a presunção é relativa; havendo indícios de mercancia, cabe flagrante por tráfico."}
+      ],
+      "questoes": ["prf-2021-p1|item 113"]
+    },
+    {
+      "id": "organizacoes-criminosas",
+      "bloco": "Crime organizado",
+      "titulo": "Organizações criminosas e Lei Antifacção",
+      "edital": "10 Lei 12.850/2013",
+      "peso": 3,
+      "artigos": ["L12850 1-21-B", "L15358 1-4"],
+      "palavras": ["organizacao criminosa", "organizacoes criminosas", "lei 12850", "faccao", "faccao criminosa", "lei antifaccao", "dominio social estruturado", "milicia", "colaboracao premiada", "delacao premiada", "acao controlada", "infiltracao de agentes", "agente infiltrado", "obstrucao de investigacao", "barricada", "bloqueio de rodovia por faccao", "faccoes", "crime organizado", "antifaccao"],
+      "pontos": [
+        "Organização criminosa (Lei 12.850, art. 1º, § 1º): associação de 4 ou mais pessoas, estruturalmente ordenada, com divisão de tarefas, ainda que informal, para obter vantagem de qualquer natureza por meio de infrações penais com pena máxima superior a 4 anos ou de caráter transnacional.",
+        "Promover, constituir, financiar ou integrar organização criminosa: reclusão de 3 a 8 anos e multa, sem prejuízo das penas dos demais crimes (art. 2º). A pena aumenta até a metade se houver emprego de arma de fogo (§ 2º) e é agravada para quem exerce o comando, mesmo sem praticar atos de execução (§ 3º).",
+        "Meios de obtenção de prova (art. 3º): colaboração premiada, captação ambiental, ação controlada, acesso a registros e dados, interceptação, afastamento de sigilos, infiltração de agentes e cooperação entre órgãos.",
+        "Ação controlada (art. 8º): retardar a intervenção policial para agir no momento mais eficaz. Basta COMUNICAÇÃO prévia ao juiz, que pode fixar limites e comunica o MP; não é necessária autorização. Infiltração de agentes (art. 10): depende de autorização judicial, por até 6 meses, renováveis; a infiltração virtual pode chegar a 720 dias no total (art. 10-A).",
+        "Colaboração premiada (art. 4º): pode render perdão judicial, redução de até 2/3 da pena ou substituição por restritiva de direitos. Nenhuma medida cautelar, recebimento de denúncia ou sentença condenatória pode se basear apenas nas declarações do colaborador (§ 16).",
+        "Lei 15.245/2025: quem impede ou embaraça a investigação de infração penal que envolva organização criminosa sofre as mesmas penas do art. 2º (§ 1º); novos crimes de obstrução de ações contra o crime organizado (art. 21-A) e de conspiração para essa obstrução (art. 21-B): reclusão de 4 a 12 anos e multa, com cumprimento em presídio federal de segurança máxima.",
+        "Lei 15.358/2026 (Lei Antifacção, em vigor desde 25/3/2026): crime de domínio social estruturado, para integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada (agrupamento de 3 ou mais pessoas que usa violência, grave ameaça ou coação para impor controle territorial ou social): reclusão de 20 a 40 anos. Entre as condutas: obstruir a ação policial com barricadas, bloqueios, incêndios ou destruição de vias; interromper o fluxo de transporte com explosivos ou armas; apoderar-se de meios de transporte ou destruí-los. Favorecimento ao domínio social estruturado: reclusão de 12 a 20 anos. Ambos são hediondos (sem anistia, graça, indulto ou fiança); no domínio social estruturado também não cabe livramento condicional."
+      ],
+      "pegadinhas": [
+        "Organização criminosa: 4 ou mais pessoas. Associação criminosa (CP, art. 288): 3 ou mais. Associação para o tráfico: 2 ou mais. Domínio social estruturado: agrupamento de 3 ou mais.",
+        "Na ação controlada da Lei 12.850 basta COMUNICAR o juiz; na infiltração, é preciso AUTORIZAÇÃO judicial.",
+        "A pena do art. 2º é sem prejuízo das penas dos crimes praticados pela organização (concurso material)."
+      ],
+      "novidades": [
+        "Lei 15.245/2025 (30/10/2025): também criou o § 2º do art. 288 do CP — responde por associação criminosa quem solicita ou contrata crime a integrante de associação criminosa.",
+        "Lei 15.358/2026: para os crimes de domínio social estruturado, o inquérito tem prazo de 90 dias (preso) ou 270 dias (solto); a prática do crime basta para a prisão preventiva (constitucionalidade questionada no STF); homicídios cometidos por membros dessas organizações passam às varas criminais colegiadas (CPP, art. 78, I, com constitucionalidade discutida).",
+        "Lei 15.487/2026: a pena da organização criminosa aumenta (art. 2º, § 4º, I) se há participação de criança ou adolescente ou se a organização se destina a crimes do ECA."
+      ],
+      "itens": [
+        {"t": "Para a caracterização de organização criminosa, exige-se a associação de, no mínimo, três pessoas.", "r": "E", "j": "Art. 1º, § 1º: quatro ou mais pessoas. Três é a associação criminosa do art. 288 do CP."},
+        {"t": "A ação controlada prevista na Lei 12.850/2013 depende de prévia autorização judicial.", "r": "E", "j": "Art. 8º, § 1º: exige comunicação prévia ao juiz, que pode estabelecer limites."},
+        {"t": "Nenhuma sentença condenatória será proferida com fundamento apenas nas declarações do colaborador.", "r": "C", "j": "Art. 4º, § 16, da Lei 12.850/2013."},
+        {"t": "A pena por integrar organização criminosa é agravada para quem exerce o comando, ainda que não pratique pessoalmente atos de execução.", "r": "C", "j": "Art. 2º, § 3º."},
+        {"t": "De acordo com a Lei 15.358/2026, obstruir a atuação policial com barricadas ou com a destruição de vias, por integrante de organização criminosa ultraviolenta, configura domínio social estruturado, punido com reclusão de 20 a 40 anos.", "r": "C", "j": "Lei 15.358/2026, art. 2º, III."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "susp",
+      "bloco": "Segurança pública",
+      "titulo": "SUSP: Sistema Único de Segurança Pública",
+      "edital": "11 Lei 13.675/2018",
+      "peso": 1,
+      "artigos": ["L13675 1-12"],
+      "palavras": ["susp", "sistema unico de seguranca publica", "lei 13675", "pnspds", "politica nacional de seguranca publica", "integrantes operacionais", "integrantes estrategicos", "sinesp"],
+      "pontos": [
+        "A Lei 13.675/2018 instituiu o Sistema Único de Segurança Pública (SUSP) e criou a Política Nacional de Segurança Pública e Defesa Social (PNSPDS), para preservar a ordem pública e a incolumidade das pessoas e do patrimônio pela atuação conjunta, coordenada, sistêmica e integrada dos órgãos de segurança pública da União, dos estados, do DF e dos municípios, em articulação com a sociedade (art. 1º).",
+        "O SUSP reúne os órgãos do art. 144 da Constituição e outros integrantes, que atuam nos limites das suas competências, de forma cooperativa, sistêmica e harmônica (art. 9º).",
+        "Integrantes estratégicos: a União, os estados, o DF e os municípios, por meio dos seus Poderes Executivos, e os conselhos de segurança pública e defesa social. Integrantes operacionais: entre outros, a Polícia Federal, a Polícia Rodoviária Federal, as polícias civis e militares, os corpos de bombeiros militares, as guardas municipais, os órgãos do sistema penitenciário, os institutos oficiais de criminalística, medicina legal e identificação, a Senasp e os agentes de trânsito (art. 9º, §§ 1º e 2º).",
+        "A atuação integrada pode ocorrer por operações combinadas, aceitação mútua de registros de ocorrência, compartilhamento de informações e intercâmbio de conhecimentos, entre outras formas (art. 10).",
+        "O Sinesp (Sistema Nacional de Informações de Segurança Pública) reúne e compartilha os dados de segurança pública; os entes que não fornecem os dados podem deixar de receber recursos federais da área."
+      ],
+      "pegadinhas": [
+        "A PRF é integrante OPERACIONAL do SUSP; integrantes estratégicos são os entes federados (por seus Executivos) e os conselhos.",
+        "O SUSP não tira a autonomia das polícias: cada órgão atua nos limites das suas competências."
+      ],
+      "novidades": [
+        "A PEC da Segurança Pública (PEC 18/2025), aprovada pelo Senado em 3/11/2026 e enviada à promulgação, põe o SUSP na Constituição (art. 144), com atuação integrada e descentralizada em regime de cooperação federativa. Confira se já foi promulgada."
+      ],
+      "itens": [
+        {"t": "A Polícia Rodoviária Federal é integrante operacional do Sistema Único de Segurança Pública.", "r": "C", "j": "Lei 13.675/2018, art. 9º, § 2º."},
+        {"t": "Os conselhos de segurança pública e defesa social são integrantes operacionais do SUSP.", "r": "E", "j": "São integrantes estratégicos (art. 9º, § 1º)."},
+        {"t": "A Lei 13.675/2018 instituiu o SUSP e criou a Política Nacional de Segurança Pública e Defesa Social.", "r": "C", "j": "Art. 1º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "abuso-autoridade",
+      "bloco": "Abuso de autoridade",
+      "titulo": "Abuso de autoridade",
+      "edital": "12 Lei 13.869/2019",
+      "peso": 3,
+      "artigos": ["L13869 1-38"],
+      "palavras": ["abuso de autoridade", "lei 13869", "agente publico abuso", "nota de culpa", "violencia institucional", "deixar de identificar se", "interrogatorio noturno", "repouso noturno do preso", "invadir casa", "mandado apos as 21h", "exibir o preso", "constranger o preso", "abuso"],
+      "pontos": [
+        "Sujeito ativo: qualquer agente público, servidor ou não, da administração direta, indireta ou fundacional de qualquer dos Poderes, inclusive quem exerce, ainda que transitoriamente ou sem remuneração, mandato, cargo, emprego ou função (art. 2º).",
+        "Só há crime se o agente age com a finalidade específica de prejudicar outrem ou beneficiar a si mesmo ou a terceiro, ou por mero capricho ou satisfação pessoal (art. 1º, § 1º). A divergência na interpretação da lei ou na avaliação de fatos e provas, por si só, não configura abuso (§ 2º).",
+        "A ação penal é pública incondicionada, admitida a ação privada subsidiária se o MP não agir no prazo (art. 3º). A inabilitação para cargo público (1 a 5 anos) e a perda do cargo dependem de reincidência em crime de abuso de autoridade e não são automáticas: o juiz declara na sentença, de forma motivada (art. 4º).",
+        "Prisão e preso: deixar de comunicar a prisão ao juiz no prazo legal, de comunicar a família, de entregar a nota de culpa em 24 horas ou prolongar a prisão sem motivo (art. 12, detenção de 6 meses a 2 anos); constranger o preso a exibir-se à curiosidade pública, a vexame ou a produzir prova contra si (art. 13, detenção de 1 a 4 anos); deixar de identificar-se, ou identificar-se falsamente, ao preso na captura (art. 16); interrogar o preso durante o repouso noturno, salvo flagrante ou consentimento dele, assistido (art. 18).",
+        "Domicílio (art. 22): invadir ou permanecer em imóvel alheio sem ordem judicial ou fora das condições legais: detenção de 1 a 4 anos e multa. Também é crime cumprir mandado de busca domiciliar depois das 21h ou antes das 5h. Não há crime se o ingresso for para prestar socorro ou houver fundados indícios de flagrante delito ou desastre.",
+        "Violência institucional (art. 15-A, Lei 14.321/2022): submeter a vítima de crime ou a testemunha de crimes violentos a procedimentos desnecessários, repetitivos ou invasivos que a façam reviver a violência: detenção de 3 meses a 1 ano e multa.",
+        "Também é abuso obter prova por meio manifestamente ilícito (art. 25) e antecipar, por meio de comunicação, inclusive rede social, a atribuição de culpa antes de concluídas as apurações e formalizada a acusação (art. 38)."
+      ],
+      "pegadinhas": [
+        "Não basta abusar: é preciso o dolo específico (prejudicar, beneficiar, capricho ou satisfação pessoal).",
+        "A perda do cargo NÃO é automática na Lei de Abuso de Autoridade (exige reincidência e declaração motivada); na Lei de Tortura, É automática.",
+        "Mandado de busca domiciliar: crime cumpri-lo depois das 21h ou antes das 5h (art. 22, § 1º, III)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Qualquer agente público, ainda que não seja servidor e não perceba remuneração, pode ser sujeito ativo do crime de abuso de autoridade.", "r": "C", "j": "Art. 2º da Lei 13.869/2019. Item 111 da PRF 2021."},
+        {"t": "A divergência na interpretação de lei, por si só, configura abuso de autoridade quando prejudica o investigado.", "r": "E", "j": "Art. 1º, § 2º: não configura abuso."},
+        {"t": "A perda do cargo é efeito automático da condenação por crime de abuso de autoridade.", "r": "E", "j": "Art. 4º, parágrafo único: exige reincidência e declaração motivada na sentença."},
+        {"t": "Cumprir mandado de busca e apreensão domiciliar às 22 horas configura crime de abuso de autoridade.", "r": "C", "j": "Art. 22, § 1º, III: após as 21h ou antes das 5h."},
+        {"t": "Os crimes de abuso de autoridade são de ação penal pública condicionada à representação do ofendido.", "r": "E", "j": "Art. 3º: ação penal pública incondicionada."},
+        {"t": "Deixar de se identificar ao preso por ocasião de sua captura pode configurar crime de abuso de autoridade.", "r": "C", "j": "Art. 16 da Lei 13.869/2019."}
+      ],
+      "questoes": ["prf-2021-p1|item 111"]
+    }
+  ]
+}
