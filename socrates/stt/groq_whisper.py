@@ -45,6 +45,11 @@ ALUCINACOES = {
 DICA = ("Sócrates, Bhaskara, Pitágoras, logaritmo, crase, regência, Cebraspe, AOCP, CTB, "
         "CONTRAN, PRF, CBMGO, Fuvest, ENEM, pomodoro, lacunas, Claude.")
 
+# Durante uma aula de Direito Penal: os termos que mais aparecem
+DICA_PENAL = ("Sócrates, Direito Penal, Cebraspe, PRF, dolo, culpa, tentativa, legítima defesa, "
+              "abolitio criminis, peculato, concussão, prevaricação, estelionato, receptação, "
+              "latrocínio, descaminho, imputabilidade, próximo.")
+
 # Durante um treino de questões, o que se espera ouvir são respostas curtas
 DICA_TREINO = ("Certo, errado, pular, próxima, repete, explica, dica, parar, "
                "letra A, letra B, letra C, letra D, letra E.")

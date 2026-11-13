@@ -29,7 +29,7 @@ class Caderno:
         self.arquivo = arquivo or ARQUIVO
         self.relogio = relogio
         self._trava = threading.Lock()
-        self.dados = {"itens": {}, "sessoes": [], "estudo": []}
+        self.dados = {"itens": {}, "sessoes": [], "estudo": [], "eventos": [], "aulas": {}}
         if self.arquivo.exists():
             try:
                 lido = json.loads(self.arquivo.read_text(encoding="utf-8"))
@@ -70,6 +70,7 @@ class Caderno:
             it["prox"] = (h + timedelta(days=INTERVALOS[0])).isoformat()
         it["ultima"] = h.isoformat()
         it["ok"] = acertou
+        self.anotar_evento("r", i=item_id, ok=acertou)
         return it
 
     def vencidos(self, prefixo: str = "") -> list[str]:
@@ -91,6 +92,24 @@ class Caderno:
         self.dados["estudo"].append({"data": self.relogio().isoformat(), "materia": materia,
                                      "minutos": round(minutos, 1)})
         self.dados["estudo"] = self.dados["estudo"][-2000:]
+
+    # ---------- diário (o que foi feito, dia a dia) ----------
+    MAX_EVENTOS = 6000
+
+    @property
+    def eventos(self) -> list[dict]:
+        return self.dados["eventos"]
+
+    def anotar_evento(self, tipo: str, **campos) -> dict:
+        """r = resposta; aula; artigo lido; duvida (pergunta sobre um tópico)."""
+        ev = {"d": self.relogio().isoformat(), "k": tipo, **campos}
+        self.dados["eventos"].append(ev)
+        if len(self.dados["eventos"]) > self.MAX_EVENTOS:
+            self.dados["eventos"] = self.dados["eventos"][-self.MAX_EVENTOS:]
+        return ev
+
+    def aula(self, chave: str) -> dict:
+        return self.dados["aulas"].setdefault(chave, {"vistos": 0, "total": 0, "concluida": False})
 
     def desde(self, dias: int) -> tuple[list[dict], list[dict]]:
         corte = (self.relogio() - timedelta(days=dias - 1)).isoformat()

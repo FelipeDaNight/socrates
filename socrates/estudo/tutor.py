@@ -1,4 +1,4 @@
-"""O tutor: entende os pedidos de estudo e cuida do treino em andamento.
+"""O tutor: entende os pedidos de estudo e cuida do treino ou da aula em andamento.
 
 Pedidos que ele resolve sozinho (rápido, sem gastar o limite grátis):
   "questões da PRF"                    "10 questões de trânsito da PRF"
@@ -6,7 +6,13 @@ Pedidos que ele resolve sozinho (rápido, sem gastar o limite grátis):
   "questões que eu errei"              "revisa meus erros"
   "lacunas do CTB" / "lacunas de hoje" "lê o artigo 165 do CTB"
   "como estou indo?"                   "o que eu estudo hoje?"
-Qualquer outra coisa segue para o cérebro (com os trechos da lei, se for o caso).
+Trilha de Direito Penal da PRF:
+  "me ensina legítima defesa"          "vamos estudar penal"      (aula guiada)
+  "o que eu estudo de penal?"          "qual o próximo passo?"    (direção)
+  "o que eu estudei hoje/essa semana?" "o que eu já aprendi?"     (diário e domínio)
+  "questões de penal" / "questões de furto"   "simulado de penal"   "mapa de penal"
+Qualquer outra coisa segue para o cérebro, levando junto as notas conferidas da trilha
+e os trechos da lei, quando a pergunta for sobre eles.
 """
 
 from __future__ import annotations
@@ -16,12 +22,15 @@ import random
 import re
 from dataclasses import dataclass
 
+from .aula import Aula
 from .caderno import Caderno
 from .lei import Leis, lei_citada
 from .material import ID_PRIVADO, Material
+from .progresso import Progresso, diario, periodo_da_fala
 from .respostas import norm
 from .treino import (NOME_LEI, Item, Saida, Sessao, fonte_curta, item_de_lacuna, item_de_questao,
                      plural)
+from .trilha import Topico, Trilha, carregar_trilhas
 
 log = logging.getLogger("socrates.tutor")
 
@@ -51,25 +60,63 @@ _NUMERO = re.compile(r"\b(\d{1,3})\s+(?:questoes|questao|itens|perguntas|lacunas
 _NUMEROS_FALADOS = {"cinco": 5, "dez": 10, "quinze": 15, "vinte": 20, "trinta": 30, "quarenta": 40,
                     "cinquenta": 50, "tres": 3}
 
+# ----- trilha -----
+_AULA = re.compile(r"\b(me ensina|me ensine|ensina|ensinar|aula|me da uma aula|vamos estudar|"
+                   r"quero estudar|bora estudar|estudar|proximo topico|proximo assunto|"
+                   r"continua a aula|continuar a aula|retoma a aula|retomar a aula)\b")
+_DIRECAO = re.compile(r"\b(o que (?:eu )?(?:estudo|devo estudar|vou estudar|falta|tenho que estudar)"
+                      r"|qual (?:e )?o proximo passo|proximo passo|por onde (?:eu )?(?:comeco|continuo|sigo)"
+                      r"|o que vem agora|me (?:da|de) uma direcao|me orienta|qual o proximo topico"
+                      r"|o que falta)\b")
+_ESTUDADO = re.compile(r"\b(o que (?:eu )?(?:ja )?estudei|o que (?:eu )?fiz (?:hoje|ontem|essa semana|"
+                       r"nessa semana|nesta semana|esta semana|no mes|esse mes)|meu historico|"
+                       r"historico de estudo|resumo (?:do|de) (?:hoje|dia|estudo|semana)|meu diario)\b")
+_APRENDIDO = re.compile(r"\b(o que (?:eu )?(?:ja )?aprendi|o que (?:eu )?(?:ja )?sei|o que (?:eu )?"
+                        r"(?:ja )?domino|o que (?:eu )?(?:ainda )?(?:erro|nao sei)|meus pontos fracos|"
+                        r"onde (?:eu )?(?:mais )?erro|como (?:eu )?(?:estou|to|tou|vou) (?:em|no|na))\b")
+_MAPA = re.compile(r"\b(mapa|minha trilha|a trilha|meu progresso|progresso (?:de|em|no))\b")
+_MAPA_SOLTO = re.compile(r"\b(meu mapa|mapa (?:de|do|da) (?:estudo|estudos|trilha|edital)|minha trilha|"
+                         r"meu progresso)\b")
+_EXPLICITO = re.compile(r"^(?:socrates )?(?:quero|vamos|bora|faz|faca|me da|me de|manda|comeca|"
+                        r"inicia|abre|mostra|le |leia|questoes|simulado|lacunas|revisa|me ensina|"
+                        r"ensina|aula|o que (?:eu )?(?:estudo|estudei|aprendi|falta)|qual o proximo|"
+                        r"para a aula|encerra a aula)")
+
 
 @dataclass
 class Pedido:
     tipo: str                    # questoes | simulado | revisao | lacunas | artigo | desempenho | plano
-    banco: str | None = None
+    banco: str | None = None     # | aula | direcao | estudado | aprendido | mapa
     materia: str | None = None
     n: int | None = None
     so_erradas: bool = False
     lei: str | None = None
+    trilha: Trilha | None = None
+    topico: Topico | None = None
+    periodo: str | None = None
+
+
+_CONSULTAS = ("artigo", "desempenho", "plano", "direcao", "estudado", "aprendido", "mapa")
 
 
 class Tutor:
-    def __init__(self, material: Material, caderno: Caderno, planilha=None, sortear=None):
+    def __init__(self, material: Material, caderno: Caderno, planilha=None, sortear=None,
+                 trilhas: list[Trilha] | None = None):
         self.material = material
         self.caderno = caderno
         self.planilha = planilha
         self.leis = Leis(material)
         self.sessao: Sessao | None = None
+        self.aula: Aula | None = None
         self.sortear = sortear or random.Random()
+        self.trilhas = carregar_trilhas() if trilhas is None else trilhas
+        self._progressos: dict[str, Progresso] = {}
+
+    def progresso(self, trilha: Trilha) -> Progresso:
+        if trilha.id not in self._progressos:
+            self._progressos[trilha.id] = Progresso(trilha, self.caderno, self.material.bancos,
+                                                    self._todas_lacunas())
+        return self._progressos[trilha.id]
 
     # ---------- entender o pedido ----------
     def _quantos(self, t: str) -> int | None:
@@ -95,9 +142,51 @@ class Tutor:
                     return bid, m
         return banco, None
 
+    def _trilha_da_fala(self, texto: str) -> tuple[Trilha | None, Topico | None]:
+        for tr in self.trilhas:
+            topico = tr.topico_citado(texto)
+            if topico or tr.menciona_materia(texto):
+                return tr, topico
+        return None, None
+
+    def _pedido_da_trilha(self, texto: str, t: str) -> Pedido | None:
+        tr, topico = self._trilha_da_fala(texto)
+        geral = self.trilhas[0] if self.trilhas else None
+        if _ESTUDADO.search(t):
+            return Pedido("estudado", trilha=tr, periodo=periodo_da_fala(t))
+        if _APRENDIDO.search(t) and (tr or not _DESEMPENHO.search(t)):
+            return Pedido("aprendido", trilha=tr or geral)
+        if tr is None and geral is not None and _MAPA_SOLTO.search(t):
+            return Pedido("mapa", trilha=geral)
+        if tr is None:
+            return None
+        if _MAPA.search(t):
+            return Pedido("mapa", trilha=tr)
+        if _DIRECAO.search(t) and not topico:
+            return Pedido("direcao", trilha=tr)
+        if _LER_ARTIGO.search(t) and self.leis.pedido_de_artigo(texto):
+            return None                     # "artigo 155 do CP" é leitura do artigo
+        if _AULA.search(t):
+            return Pedido("aula", trilha=tr, topico=topico)
+        if _LACUNAS.search(t):
+            return None                     # lacunas da lei seca (tratadas adiante)
+        if _REVISAO.search(t):
+            return Pedido("revisao", trilha=tr, n=self._quantos(t))
+        if "simulado" in t:
+            return Pedido("simulado", trilha=tr, topico=topico, n=self._quantos(t))
+        if _QUESTOES.search(t) or re.search(r"\b(me testa|me teste|treina|treinar|exercicios)\b", t):
+            return Pedido("questoes", trilha=tr, topico=topico, n=self._quantos(t),
+                          so_erradas=bool(_ERRADAS.search(t)))
+        if _DESEMPENHO.search(t):
+            return Pedido("aprendido", trilha=tr)
+        return None
+
     def entender(self, texto: str) -> Pedido | None:
         t = norm(texto)
         t = re.sub(r"^(?:socrates|ei socrates|ok)\s+", "", t)
+        trilha = self._pedido_da_trilha(texto, t)
+        if trilha is not None:
+            return trilha
         if _DESEMPENHO.search(t):
             return Pedido("desempenho")
         if _PLANO.search(t):
@@ -174,22 +263,59 @@ class Tutor:
 
     def _escolher_revisao(self, p: Pedido) -> list[Item]:
         vencidos = self.caderno.vencidos()
+        if p.trilha is not None:
+            vencidos = [v for v in vencidos if v in self.progresso(p.trilha).todos]
         if not vencidos:
             return []
         indice = {i.id: i for b in self.material.bancos for i in self._itens_do_banco(b)}
         indice.update({i.id: i for i in self._todas_lacunas()})
+        for tr in self.trilhas:
+            indice.update(self.progresso(tr).itens)
         return [indice[v] for v in vencidos if v in indice][: p.n or 15]
+
+    def _escolher_da_trilha(self, p: Pedido) -> tuple[list[Item], str]:
+        """Questões da trilha: do tópico pedido, ou da matéria toda, priorizando o que
+        o aluno já estudou e onde ele está mais fraco."""
+        tr = p.trilha
+        prog = self.progresso(tr)
+        if p.topico is not None:
+            itens = tr.itens_do_topico(p.topico, self.material.bancos)
+            titulo = f"{tr.materia}: {p.topico.titulo}"
+        else:
+            ordem = {"fraco": 0, "praticando": 1, "comecou": 1, "esfriando": 2, "dominado": 3, "novo": 4}
+            sits = sorted(prog.situacoes(), key=lambda s: (ordem[s.estado], s.topico.ordem))
+            itens = []
+            for s in sits:
+                itens += tr.itens_do_topico(s.topico, self.material.bancos)
+            titulo = tr.materia
+        unicos = list({i.id: i for i in itens}.values())
+        if p.so_erradas:
+            unicos = [i for i in unicos if self.caderno.itens.get(i.id, {}).get("erros")]
+            return unicos[: p.n or POR_SESSAO], f"{titulo}, questões que você errou"
+        if p.tipo == "simulado":
+            n = min(p.n or SIMULADO_PADRAO, len(unicos))
+            return self.sortear.sample(unicos, n), f"Simulado de {titulo}"
+        novas = [i for i in unicos if not self.caderno.visto(i.id)]
+        erradas = [i for i in unicos if self.caderno.itens.get(i.id, {}).get("ok") is False]
+        resto = [i for i in unicos if i not in novas and i not in erradas]
+        if p.topico is not None:
+            self.sortear.shuffle(novas)
+        self.sortear.shuffle(erradas)
+        self.sortear.shuffle(resto)
+        return (erradas[:3] + novas + erradas[3:] + resto)[: p.n or POR_SESSAO], titulo
 
     # ---------- atender ----------
     @property
     def em_treino(self) -> bool:
-        return self.sessao is not None
+        return self.sessao is not None or self.aula is not None
 
     def atender(self, texto: str) -> Saida | None:
         """Devolve o que fazer, ou None se o pedido não é de estudo (vai ao cérebro)."""
         p = self.entender(texto)
+        if self.aula is not None:
+            return self._na_aula(texto, p)
         if self.sessao is not None:
-            if p is not None and p.tipo in ("artigo", "desempenho", "plano"):
+            if p is not None and p.tipo in _CONSULTAS:
                 saida = self._consulta(p, texto)        # o treino continua depois
                 saida.fala += " Diga repete para voltar à questão."
                 return saida
@@ -206,25 +332,90 @@ class Tutor:
             return None
         return self._comecar(p, texto)
 
+    def _na_aula(self, texto: str, p: Pedido | None) -> Saida:
+        """Na aula, quase tudo é resposta ou dúvida sobre o ponto. Só muda de rumo um
+        pedido claro ("questões da PRF", "me ensina furto", "o que eu estudei hoje?")."""
+        explicito = p is not None and bool(_EXPLICITO.match(norm(texto)))
+        if explicito and p.tipo in _CONSULTAS and p.tipo != "direcao":
+            saida = self._consulta(p, texto)
+            if saida.contexto:
+                saida.contexto += ("\nNo fim, diga que, para voltar à aula, é só ele dizer "
+                                   "\"continua\".")
+            else:
+                saida.fala += " Diga continua para voltar à aula."
+            self.aula.interrompida = True
+            return saida
+        if p is not None and p.tipo == "aula" and p.topico in (None, self.aula.topico):
+            return self.aula.retomar()             # "me ensina <o mesmo tópico>" / "continua a aula"
+        if explicito and not (p.tipo == "aula" and (p.topico is None or p.topico is self.aula.topico)):
+            pausa = self.aula.pausar()
+            self.aula = None
+            nova = self._comecar(p, texto)
+            nova.fala = (pausa.fala + " " + nova.fala).strip()
+            return nova
+        saida = self.aula.atender(texto)
+        if saida.fim:
+            self.aula = None
+        return saida
+
     def _consulta(self, p: Pedido, texto: str) -> Saida:
         if p.tipo == "desempenho":
             return self.desempenho()
         if p.tipo == "plano":
             return self.plano()
+        if p.tipo == "direcao":
+            fala, quadro = self.progresso(p.trilha).mapa_resumido()
+            return Saida(fala=fala, quadro=quadro)
+        if p.tipo == "aprendido":
+            fala, quadro = self.progresso(p.trilha).resumo_aprendizado()
+            return Saida(fala=fala, quadro=quadro)
+        if p.tipo == "estudado":
+            fala, quadro = diario(self.caderno, p.periodo or "semana", self.trilhas)
+            return Saida(fala=fala, quadro=quadro)
+        if p.tipo == "mapa":
+            from .mapa import gerar
+            prog = self.progresso(p.trilha)
+            caminho = gerar(prog)
+            fala, quadro = prog.mapa_resumido()
+            return Saida(fala="Abri o mapa completo no navegador. " + fala, quadro=quadro,
+                         abrir_pagina=str(caminho))
         lei, num = self.leis.pedido_de_artigo(texto)
         a = self.leis.artigo(lei, num)
         if a is None:
             nome = NOME_LEI.get(lei, lei)
-            return Saida(fala=f"Não tenho o artigo {num[0]}{('-' + num[1]) if num[1] else ''} "
-                              f"do {nome} no material.")
+            rotulo = f"{num[0]}{('-' + num[1]) if num[1] else ''}"
+            for tr in self.trilhas:              # sem o texto literal: explica pelas notas da trilha
+                topico = next((t for t in tr.topicos if t.tem_artigo(lei, num)), None)
+                if topico is not None:
+                    notas, _ = tr.notas(f"{texto} {topico.titulo}")
+                    if not notas:
+                        notas = "\n".join(f"- {x}" for x in topico.pontos)
+                    self.caderno.anotar_evento("artigo", ref=f"art. {rotulo} do {nome}")
+                    return Saida(contexto=(
+                        f"O aluno pediu o artigo {rotulo} do {nome}. Você NÃO tem o texto literal "
+                        f"dele aqui; diga isso em uma frase e explique o que o artigo prevê com base "
+                        f"nas notas conferidas abaixo (tópico {topico.titulo}), sem inventar a "
+                        f"redação. Use o quadro para a pena e os elementos.\n{notas}"))
+            return Saida(fala=f"Não tenho o artigo {rotulo} do {nome} no material.")
+        self.caderno.anotar_evento("artigo", ref=f"{a.artigo['art'].replace('Art.', 'art.')} do "
+                                                  f"{NOME_LEI.get(lei, lei)}")
         fala, quadro = self.leis.apresentar(a)
         return Saida(fala=fala, quadro=quadro)
 
     def _comecar(self, p: Pedido, texto: str) -> Saida:
         log.info("pedido de estudo: %s", p)
-        if p.tipo in ("desempenho", "plano", "artigo"):
+        if p.tipo in _CONSULTAS:
             return self._consulta(p, texto)
-        if self.material.vazio:
+        if p.tipo == "aula":
+            return self._abrir_aula(p)
+        if p.trilha is not None and p.tipo in ("questoes", "simulado"):
+            itens, titulo = self._escolher_da_trilha(p)
+            if not itens:
+                return Saida(fala="Não achei questões para isso na trilha.")
+            modo = "simulado" if p.tipo == "simulado" else "treino"
+            self.sessao = Sessao(itens, modo, titulo, self.caderno)
+            return self.sessao.abrir()
+        if self.material.vazio and p.trilha is None:
             return Saida(fala="Ainda não tenho o material de estudo. Rode main.py --material "
                               "com a internet ligada.")
         if p.tipo == "lacunas":
@@ -235,7 +426,8 @@ class Tutor:
                 return Saida(fala="Não tenho lacunas novas nem vencidas" +
                                   (f" do {NOME_LEI.get(p.lei, p.lei)}." if p.lei else "."))
         elif p.tipo == "revisao":
-            itens, titulo, modo = self._escolher_revisao(p), "Revisão", "revisao"
+            itens, modo = self._escolher_revisao(p), "revisao"
+            titulo = "Revisão" + (f" de {p.trilha.materia}" if p.trilha else "")
             if not itens:
                 return Saida(fala="Nada para revisar hoje. Que tal questões novas ou lacunas?")
         else:
@@ -248,7 +440,29 @@ class Tutor:
                              self.material.bancos.get(p.banco) if p.banco else None)
         return self.sessao.abrir()
 
+    def _abrir_aula(self, p: Pedido) -> Saida:
+        tr = p.trilha
+        prog = self.progresso(tr)
+        topico = p.topico
+        if topico is None:                       # "vamos estudar penal": o tópico recomendado
+            passo = prog.proximo_passo()
+            topico = passo.topico or tr.topicos[0]
+        texto_lei = ""
+        for lei, ini, fim in topico.faixas()[:1]:
+            if ini == fim or ini[0] == fim[0]:
+                a = self.leis.artigo(lei, (ini[0], ini[1]))
+                if a:
+                    texto_lei = self.leis.texto(a, 700)
+        self.aula = Aula(tr, topico, self.caderno, tr.itens_do_topico(topico, self.material.bancos),
+                         texto_lei, prog)
+        self.caderno.anotar_evento("aula", t=self.aula.chave, p=self.aula.k + 1, fim=False)
+        return self.aula.abrir()
+
     def encerrar(self) -> Saida | None:
+        if self.aula is not None:
+            saida = self.aula.pausar()
+            self.aula = None
+            return saida
         if self.sessao is None:
             return None
         saida = self.sessao.encerrar()
@@ -276,6 +490,8 @@ class Tutor:
             if r.dada is None and s.modo != "simulado":
                 continue
             fonte = re.sub(r"\s*(?:·\s*)?(?:item \d+|Q\d+)$", "", r.item.fonte)
+            if not r.item.real:
+                fonte = f"Trilha {fonte.split(' ')[1] if ' ' in fonte else ''}".strip()
             g = grupos.setdefault((r.item.materia, r.item.topico, fonte), [0, 0, 0])
             g[0] += 1
             g[1] += r.ok
@@ -301,13 +517,30 @@ class Tutor:
 
     # ---------- o ouvido ----------
     def dica_do_ouvido(self) -> str | None:
-        if self.sessao is not None and self.sessao.espera_resposta_curta:
+        if self.aula is not None and self.aula.sessao is None:
+            from ..stt.groq_whisper import DICA_PENAL
+            return DICA_PENAL
+        sessao = self.sessao or (self.aula.sessao if self.aula else None)
+        if sessao is not None and sessao.espera_resposta_curta:
             from ..stt.groq_whisper import DICA_TREINO
             return DICA_TREINO
         return None
 
     def contexto_da_lei(self, pergunta: str) -> str:
-        return self.leis.trechos(pergunta)
+        """O que o cérebro recebe junto com uma pergunta livre: as notas conferidas da
+        trilha (se for sobre um tópico dela) e os trechos oficiais da lei."""
+        partes = []
+        for tr in self.trilhas:
+            notas, topicos = tr.notas(pergunta)
+            if notas:
+                partes.append(notas)
+                self.caderno.anotar_evento("duvida", t=f"{tr.id}:{topicos[0].id}",
+                                           q=pergunta.strip()[:120])
+                break
+        trechos = self.leis.trechos(pergunta)
+        if trechos:
+            partes.append(trechos)
+        return "\n\n".join(partes)
 
     # ---------- desempenho e plano ----------
     def _ultimos(self, dias: int):
@@ -326,7 +559,7 @@ class Tutor:
     def desempenho(self) -> Saida:
         sessoes, estudo, por = self._ultimos(7)
         minutos = sum(e["minutos"] for e in estudo) + sum(
-            s.get("minutos", 0) for s in sessoes if s.get("tipo") != "lacunas")
+            s.get("minutos", 0) for s in sessoes if s.get("tipo") not in ("lacunas", "fixacao"))
         feitas = sum(a + e for _, a, e in por.values())
         acertos = sum(a for _, a, _ in por.values())
         vencidos = len(self.caderno.vencidos())
@@ -379,11 +612,17 @@ class Tutor:
             linhas.append(f"- Revisar {plural(vencidos, 'item que venceu', 'itens que venceram')}"
                           " (diga: revisa meus erros)")
             falas.append(f"revisar {plural(vencidos, 'item que venceu', 'itens que venceram')} hoje")
+        for tr in self.trilhas[:1]:
+            passo = self.progresso(tr).proximo_passo()
+            if passo.acao != "revisao":
+                linhas.append(f"- {tr.materia}: {passo.motivo} (diga: {passo.comando})")
+                falas.append(f"em {tr.materia}, {passo.motivo[0].lower()}{passo.motivo[1:].rstrip('.')}")
         trecho = self._proximo_trecho_de_lei()
         if trecho:
             linhas.append(f"- Lei seca: {trecho[0]}, {trecho[1]} (diga: lacunas do {trecho[0]})")
             falas.append(f"a lei seca: {trecho[0]}, {trecho[1].split(' · ')[-1]}")
-        fracas = sorted(((m, a, e) for m, (_, a, e) in por.items() if a + e >= 3),
+        fracas = sorted(((m, a, e) for m, (_, a, e) in por.items() if a + e >= 3
+                         and m not in [t.materia for t in self.trilhas]),
                         key=lambda x: x[1] / (x[1] + x[2]))
         if fracas and fracas[0][1] / (fracas[0][1] + fracas[0][2]) < 0.75:
             m = fracas[0][0]
@@ -400,6 +639,9 @@ class Tutor:
     # ---------- pomodoro ----------
     def registrar_estudo(self, materia: str, minutos: float) -> str:
         nome = self.planilha.nome_da_materia(materia) if self.planilha else materia
+        tr, _ = self._trilha_da_fala(materia)
+        if tr is not None and (not self.planilha or nome == materia):
+            nome = tr.materia                       # "penal" -> "Direito Penal"
         self.caderno.anotar_estudo(nome, minutos)
         try:
             self.caderno.salvar()

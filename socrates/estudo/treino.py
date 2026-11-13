@@ -58,6 +58,8 @@ class Item:
     completo: str                # texto inteiro (Bloco de Notas e explicações)
     just: str = ""
     letras: str = "ABCDE"
+    real: bool = True            # questão de prova (False = item de fixação da trilha)
+    lei: str = ""                # lacunas: a lei de onde veio (CP, CTB...)
 
     def comentario(self) -> str:
         """O comentário do gabarito, se ele ensinar algo (não só "Gabarito: CERTO")."""
@@ -76,8 +78,9 @@ class Item:
 
     def contexto(self, revelar: bool, resposta_aluno: str | None = None) -> str:
         """O que o cérebro precisa saber para dar dica ou explicar sem inventar."""
-        linhas = [f"O aluno está treinando com uma questão real ({self.fonte}, {self.materia}, "
-                  f"tópico: {self.topico}). Texto da questão:", self.completo]
+        tipo = "uma questão real de prova" if self.real else "um item de fixação no estilo da banca"
+        linhas = [f"O aluno está treinando com {tipo} ({self.fonte}, {self.materia}, "
+                  f"tópico: {self.topico}). Texto:", self.completo]
         if revelar:
             linhas.append(f"Gabarito OFICIAL: {self.gabarito_falado()}.")
             if self.comentario():
@@ -153,7 +156,7 @@ def item_de_lacuna(bloco: dict, artigo: dict, lacuna: dict) -> Item:
                 materia="Lei seca", topico=f"{lei} · {artigo['art']}", fonte=f"{lei} · {artigo['art']}",
                 resp=lacuna["r"], fala=fala,
                 quadro=_quadro_seguro(f"{titulo}\n{frase.replace('____', '________')}"),
-                completo=texto_lei, just=artigo.get("resumo", ""))
+                completo=texto_lei, just=artigo.get("resumo", ""), lei=bloco.get("lei", ""))
 
 
 # ---------- a sessão ----------
@@ -166,6 +169,7 @@ class Saida:
     contexto: str | None = None     # se preenchido: o cérebro responde com este contexto
     fim: bool = False
     abrir_texto: str | None = None  # texto para abrir no Bloco de Notas
+    abrir_pagina: str | None = None # página (arquivo .html) para abrir no navegador
 
 
 @dataclass
@@ -211,6 +215,9 @@ class Sessao:
             intro = f"Vamos a {n} lacunas. Diga a palavra que falta. "
         elif self.modo == "revisao":
             intro = f"Revisão de {n} itens que você errou antes. "
+        elif self.modo == "fixacao":
+            intro = (f"Agora {plural(n, 'item', 'itens')} de fixação, no estilo da banca. "
+                     "Responda certo ou errado. ")
         else:
             intro = (f"{self.titulo}: {n} questões. Para cada uma, responda; diga dica, explica, "
                      "pular, repete ou parar quando quiser. ")

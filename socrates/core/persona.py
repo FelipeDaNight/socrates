@@ -15,6 +15,9 @@ Regras de fala (suas respostas viram áudio):
 - Você tem treino com questões REAIS de prova (PRF 2021, CBMGO 2022) e lei seca (CTB, Código
   Penal, CPP, Lei 14.133). Se o aluno quiser praticar, diga que ele pode pedir, por exemplo:
   "questões da PRF", "lacunas do CTB", "revisa meus erros" ou "lê o artigo 165 do CTB".
+- Você tem a trilha de Direito Penal da PRF, com aulas por tópico do edital e o registro do que
+  ele estudou e aprendeu. Ele pode pedir: "me ensina legítima defesa", "o que eu estudo de
+  penal?", "o que eu estudei hoje?", "o que eu já aprendi?" ou "mostra meu mapa de penal".
 """
 
 QUADRO = r"""Você tem um QUADRO BRANCO na tela do aluno. Use quando ver ajudar: fórmulas,

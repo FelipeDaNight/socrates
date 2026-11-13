@@ -14,6 +14,7 @@
     python main.py --material    baixar/atualizar as questões e a lei seca (do app estudo-prf)
     python main.py --planilha    testar o envio para a sua planilha do Google
     python main.py --atalho      criar um atalho do Sócrates na Área de Trabalho
+    python main.py --mapa        abrir o mapa da trilha de Direito Penal (o que estudou e o que falta)
 """
 
 from __future__ import annotations
@@ -258,6 +259,10 @@ async def conversar_texto(cfg: config.Config) -> None:
         if saida is not None:
             if saida.abrir_texto:
                 print(f"\n{saida.abrir_texto}\n")
+            if saida.abrir_pagina:
+                from socrates.maos_livres import abrir_pagina
+                print(f"[abrindo {saida.abrir_pagina}]")
+                abrir_pagina(saida.abrir_pagina)
             if saida.quadro:
                 mostrar_quadro_texto(saida.quadro)
             if saida.fala:
@@ -508,6 +513,20 @@ def script_atalho(raiz, python) -> str:
     ])
 
 
+def abrir_mapa() -> None:
+    from socrates.estudo import Caderno, Tutor, carregar
+    from socrates.estudo.mapa import gerar
+    from socrates.maos_livres import abrir_pagina
+    tutor = Tutor(carregar(), Caderno())
+    for trilha in tutor.trilhas:
+        prog = tutor.progresso(trilha)
+        caminho = gerar(prog)
+        fala, _ = prog.mapa_resumido()
+        print(fala)
+        print(f"Mapa: {caminho}")
+        abrir_pagina(str(caminho))
+
+
 def criar_atalho() -> str:
     """Atalho que abre o Sócrates (com o terminal, para você ver o que ele escreve)."""
     from pathlib import Path
@@ -565,6 +584,7 @@ def main() -> None:
     p.add_argument("--material", action="store_true", help="baixa/atualiza as questões e a lei seca")
     p.add_argument("--planilha", action="store_true", help="testa o envio para a planilha do Google")
     p.add_argument("--atalho", action="store_true", help="cria um atalho na Área de Trabalho")
+    p.add_argument("--mapa", action="store_true", help="abre o mapa da trilha de Direito Penal")
     args = p.parse_args()
 
     if args.local:   # não precisa de chave nenhuma
@@ -576,6 +596,9 @@ def main() -> None:
         sys.exit(0)
     if args.atalho:
         print(criar_atalho())
+        sys.exit(0)
+    if args.mapa:   # não precisa de chave nenhuma
+        abrir_mapa()
         sys.exit(0)
     if args.material:   # não precisa de chave nenhuma
         from socrates.estudo.material import FONTE, baixar

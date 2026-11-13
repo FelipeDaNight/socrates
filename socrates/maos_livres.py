@@ -18,6 +18,7 @@ import re
 import threading
 import unicodedata
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Callable
 
 import numpy as np
@@ -57,6 +58,11 @@ Estudo com questões reais e lei seca:
   "lacunas do CTB"   "revisa meus erros"   "lê o artigo 165 do CTB"
   "pomodoro de português"   "como estou indo?"   "o que eu estudo hoje?"
   No treino: certo/errado ou "letra B"; dica, explica, repete, próxima, parar.
+
+Direito Penal da PRF (aulas e direção):
+  "me ensina legítima defesa"   "vamos estudar penal"   "o que eu estudo de penal?"
+  "o que eu estudei hoje?"   "o que eu já aprendi?"   "questões de furto"   "mapa de penal"
+  Na aula: responda a pergunta dele; "próximo", "repete" ou "parar".
   Clique no visor (ou aperte Espaço) para ele parar de falar.
 
 Comandos (falados ou digitados):
@@ -262,12 +268,14 @@ class Conversa:
         if saida.abrir_texto:
             await asyncio.to_thread(ferramentas.executar, "escrever_no_bloco_de_notas",
                                     {"texto": saida.abrir_texto, "titulo": "questao"})
-        if saida.contexto:
-            await self.responder(pedido, extra=saida.contexto)
-            return
+        if getattr(saida, "abrir_pagina", None):
+            await asyncio.to_thread(abrir_pagina, saida.abrir_pagina)
         if saida.quadro:
             self._quadros_nesta = 0
             self._ao_quadro(saida.quadro)
+        if saida.contexto:                 # a aula: o ponto já está no quadro, o cérebro explica
+            await self.responder(pedido, extra=saida.contexto)
+            return
         if saida.fala:
             self.dizer_tela(f"{self.cfg.nome}: {saida.fala}")
             await self._interrompivel(self._falar(saida.fala, False))
@@ -416,6 +424,19 @@ class Conversa:
                      else "Até a próxima. Bons estudos!")
         self.dizer_tela(f"\n{self.cfg.nome}: {despedida}")
         await self.falar(despedida, False)
+
+
+def abrir_pagina(caminho: str) -> None:
+    """Abre uma página do Sócrates (o mapa da trilha) no navegador padrão."""
+    try:
+        from .ferramentas.computador import WINDOWS, _iniciar
+        if WINDOWS:
+            _iniciar(caminho)
+            return
+        import webbrowser
+        webbrowser.open(Path(caminho).as_uri())
+    except Exception as e:      # abrir a página é um extra: não derruba a conversa
+        log.warning("não consegui abrir %s: %s", caminho, e)
 
 
 def _comando_geral(pedido: str) -> bool:

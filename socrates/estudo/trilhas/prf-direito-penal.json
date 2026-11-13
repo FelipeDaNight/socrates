@@ -1,0 +1,542 @@
+{
+  "id": "prf-penal",
+  "materia": "Direito Penal",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe), o último publicado. Leis conferidas até a Lei 15.397/2026.",
+  "atualizado": "2026-11-13",
+  "topicos": [
+    {
+      "id": "principios",
+      "bloco": "Parte geral",
+      "titulo": "Princípios do Direito Penal",
+      "edital": "1 Princípios básicos",
+      "peso": 2,
+      "artigos": ["CP 1"],
+      "palavras": ["principio", "principios", "legalidade", "reserva legal", "anterioridade", "taxatividade", "insignificancia", "bagatela", "intervencao minima", "ultima ratio", "fragmentariedade", "subsidiariedade", "lesividade", "ofensividade", "adequacao social", "intranscendencia", "pessoalidade", "individualizacao da pena", "humanidade", "proporcionalidade"],
+      "pontos": [
+        "Legalidade (CF, art. 5º, XXXIX, e CP, art. 1º): não há crime sem lei anterior que o defina, nem pena sem prévia cominação legal. Só lei em sentido estrito, federal (CF, art. 22, I), cria crime e pena; medida provisória não pode tratar de direito penal (CF, art. 62, § 1º, I, b). A lei também precisa ser clara: é a taxatividade.",
+        "Irretroatividade (CF, art. 5º, XL): a lei penal mais grave nunca retroage; a mais benéfica sempre retroage, até depois do trânsito em julgado.",
+        "Intervenção mínima: o Direito Penal é a última ratio. Subsidiariedade: só entra quando os outros ramos do Direito não bastam. Fragmentariedade: protege só os bens mais importantes, contra os ataques mais graves.",
+        "Lesividade (ou ofensividade): só há crime se houver lesão ou perigo de lesão a bem jurídico de outra pessoa. Não se pune o pensamento, nem a autolesão em si.",
+        "Insignificância (bagatela): exclui a tipicidade material. O STF exige quatro vetores: mínima ofensividade da conduta, nenhuma periculosidade social da ação, reduzido grau de reprovabilidade e inexpressividade da lesão jurídica.",
+        "A insignificância não vale para crimes com violência ou grave ameaça (como o roubo), para crimes contra a administração pública (Súmula 599 do STJ, com exceção do descaminho na jurisprudência), para violência doméstica contra a mulher (Súmula 589 do STJ), nem para moeda falsa e tráfico de drogas. A reincidência, sozinha, não a afasta automaticamente: o juiz analisa o caso (STF).",
+        "Culpabilidade: não existe responsabilidade penal objetiva; precisa haver dolo ou culpa. Intranscendência (CF, art. 5º, XLV): a pena não passa da pessoa do condenado; só a obrigação de reparar o dano e o perdimento de bens podem alcançar os sucessores, até o limite do patrimônio transferido.",
+        "Humanidade (CF, art. 5º, XLVII): não há pena de morte (salvo em guerra declarada), de caráter perpétuo, de trabalhos forçados, de banimento ou cruéis. Individualização da pena (art. 5º, XLVI): cada condenado recebe a pena adequada ao seu caso."
+      ],
+      "pegadinhas": [
+        "Medida provisória não cria crime nem pena. Se a banca disser que MP pode tipificar conduta, está errado.",
+        "Adequação social não descriminaliza pirataria: vender CD ou DVD pirata é crime (Súmula 502 do STJ).",
+        "Insignificância exclui a tipicidade material, e não a ilicitude ou a culpabilidade."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Medida provisória pode criar tipo penal desde que haja relevância e urgência.", "r": "E", "j": "A Constituição proíbe medida provisória sobre direito penal (art. 62, § 1º, I, b). Crime e pena só por lei em sentido estrito."},
+        {"t": "O princípio da insignificância, quando aplicado, afasta a tipicidade material da conduta.", "r": "C", "j": "A bagatela exclui a tipicidade material: a lesão ao bem jurídico é tão pequena que não justifica a intervenção penal."},
+        {"t": "Segundo o STJ, o princípio da insignificância é aplicável aos crimes contra a administração pública quando o prejuízo ao erário for irrisório.", "r": "E", "j": "Súmula 599 do STJ: a insignificância é inaplicável aos crimes contra a administração pública. A exceção reconhecida é o descaminho."},
+        {"t": "Pelo princípio da intranscendência, a obrigação de reparar o dano pode ser estendida aos sucessores do condenado até o limite do patrimônio transferido.", "r": "C", "j": "CF, art. 5º, XLV: a pena não passa do condenado, mas a reparação do dano e o perdimento de bens podem alcançar os sucessores até o limite da herança."},
+        {"t": "A reincidência impede, por si só, a aplicação do princípio da insignificância.", "r": "E", "j": "Para o STF, a reincidência não afasta automaticamente a bagatela; é preciso analisar o caso concreto."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "lei-penal-tempo",
+      "bloco": "Parte geral",
+      "titulo": "Lei penal no tempo",
+      "edital": "2.2 Lei penal no tempo: tempo do crime; conflito de leis penais no tempo",
+      "peso": 3,
+      "artigos": ["CP 2-4"],
+      "palavras": ["lei penal no tempo", "aplicacao da lei penal", "tempo do crime", "conflito de leis", "abolitio criminis", "novatio legis", "retroatividade", "retroage", "retroagir", "ultratividade", "lei excepcional", "lei temporaria", "lei intermediaria", "teoria da atividade", "sumula 711", "combinacao de leis", "continuidade normativo"],
+      "pontos": [
+        "Tempo do crime (art. 4º): teoria da atividade. Considera-se praticado o crime no momento da ação ou omissão, ainda que outro seja o momento do resultado. Por isso a idade do agente é medida na data da conduta: quem atira aos 17 anos não é imputável, mesmo que a vítima morra depois de ele completar 18.",
+        "Abolitio criminis (art. 2º, caput): lei nova que deixa de considerar o fato crime. Cessam a execução e os efeitos PENAIS da condenação, inclusive a reincidência; os efeitos CIVIS, como o dever de indenizar, permanecem. É causa de extinção da punibilidade (art. 107, III).",
+        "Novatio legis in mellius (art. 2º, parágrafo único): a lei posterior que de qualquer modo favorece o agente retroage, ainda que o fato já tenha sido decidido por sentença condenatória transitada em julgado. Depois do trânsito, quem aplica é o juízo da execução (Súmula 611 do STF).",
+        "Novatio legis in pejus e lei que cria crime novo não retroagem. Entre várias leis sucessivas, aplica-se sempre a mais benéfica, inclusive uma lei intermediária que já foi revogada.",
+        "Lei excepcional e lei temporária (art. 3º) são ultra-ativas: aplicam-se aos fatos praticados durante a sua vigência, mesmo depois de terminado o período ou cessadas as circunstâncias que as justificaram.",
+        "Crime permanente e crime continuado: aplica-se a lei mais grave se a sua vigência é anterior à cessação da permanência ou da continuidade (Súmula 711 do STF).",
+        "Não se pode combinar as partes favoráveis de duas leis para criar uma terceira: a lei é aplicada por inteiro (Súmula 501 do STJ, sobre a Lei de Drogas). E, se a conduta só mudou de artigo, não houve abolitio: é a continuidade normativo-típica (ex.: o atentado violento ao pudor passou a ser estupro em 2009)."
+      ],
+      "pegadinhas": [
+        "LUTA: Lugar do crime = Ubiquidade; Tempo do crime = Atividade. A banca troca as teorias.",
+        "A abolitio criminis apaga os efeitos penais, mas não os civis: a vítima continua podendo cobrar a indenização.",
+        "A lei benéfica retroage mesmo depois do trânsito em julgado; quem disser que só até a sentença está errado."
+      ],
+      "novidades": [
+        "Exemplo atual de lei mais grave, que só vale para fatos posteriores: a Lei 15.397/2026 aumentou as penas de furto, roubo e receptação a partir de 4/5/2026."
+      ],
+      "itens": [
+        {"t": "Em relação ao tempo do crime, o Código Penal adotou a teoria do resultado.", "r": "E", "j": "O art. 4º adota a teoria da atividade: o crime se considera praticado no momento da ação ou omissão."},
+        {"t": "A lei posterior que deixa de considerar o fato como crime faz cessar a execução e os efeitos penais da sentença condenatória, mas não afasta a obrigação de reparar o dano.", "r": "C", "j": "Art. 2º, caput: a abolitio criminis extingue os efeitos penais; os efeitos civis permanecem."},
+        {"t": "A lei penal mais benéfica retroage somente até o trânsito em julgado da sentença condenatória.", "r": "E", "j": "Art. 2º, parágrafo único: retroage ainda que o fato tenha sido decidido por sentença transitada em julgado."},
+        {"t": "A lei temporária aplica-se ao fato praticado durante sua vigência, embora decorrido o período de sua duração.", "r": "C", "j": "Art. 3º: a lei excepcional ou temporária é ultra-ativa."},
+        {"t": "Ao crime permanente aplica-se a lei penal mais grave se a sua vigência for anterior à cessação da permanência.", "r": "C", "j": "Súmula 711 do STF, que vale também para o crime continuado."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "lei-penal-espaco",
+      "bloco": "Parte geral",
+      "titulo": "Lei penal no espaço e contagem de prazo",
+      "edital": "2.3 Lei penal no espaço: lugar do crime; territorialidade; extraterritorialidade",
+      "peso": 2,
+      "artigos": ["CP 5-12"],
+      "palavras": ["lei penal no espaco", "lugar do crime", "ubiquidade", "territorialidade", "territorio", "extraterritorialidade", "embarcacao", "aeronave", "alto mar", "embaixada", "pena cumprida no estrangeiro", "sentenca estrangeira", "contagem de prazo", "fracoes", "fracao de dia"],
+      "pontos": [
+        "Territorialidade temperada (art. 5º): aplica-se a lei brasileira ao crime cometido no território nacional, sem prejuízo de tratados e regras de direito internacional (ex.: imunidade diplomática).",
+        "Território por extensão (art. 5º, § 1º): embarcações e aeronaves brasileiras públicas ou a serviço do governo, onde quer que estejam; e as mercantes ou privadas brasileiras em alto-mar ou no espaço aéreo correspondente. Também vale a lei brasileira para crimes a bordo de aeronaves ou embarcações estrangeiras privadas em território brasileiro (§ 2º).",
+        "Lugar do crime (art. 6º): teoria da ubiquidade. É tanto o lugar da ação ou omissão, no todo ou em parte, quanto o lugar onde se produziu ou deveria produzir-se o resultado. Atenção: a competência territorial do processo penal usa outra regra (CPP, art. 70).",
+        "Extraterritorialidade incondicionada (art. 7º, I): crimes contra a vida ou a liberdade do Presidente da República; contra o patrimônio ou a fé pública da União, dos Estados, do DF, dos Municípios e de suas entidades; contra a administração pública, por quem está a seu serviço; e genocídio, se o agente for brasileiro ou domiciliado no Brasil. Aplica-se a lei brasileira ainda que o agente tenha sido absolvido ou condenado no estrangeiro.",
+        "Extraterritorialidade condicionada (art. 7º, II): crimes que o Brasil se obrigou a reprimir por tratado, crimes praticados por brasileiro e crimes em aeronaves ou embarcações brasileiras privadas no estrangeiro, quando lá não julgados. Condições (§ 2º): o agente entrar no território nacional, o fato ser punível também no outro país, estar entre os crimes que admitem extradição, não ter sido absolvido nem cumprido pena lá, e não estar extinta a punibilidade.",
+        "Crime de estrangeiro contra brasileiro fora do Brasil (art. 7º, § 3º): além das condições do § 2º, é preciso que a extradição não tenha sido pedida ou tenha sido negada e que haja requisição do Ministro da Justiça.",
+        "Pena cumprida no estrangeiro (art. 8º): atenua a pena imposta no Brasil pelo mesmo crime, quando diversas, ou nela é computada, quando idênticas. Sentença estrangeira (art. 9º) precisa de homologação (pelo STJ) para obrigar à reparação do dano ou sujeitar a medida de segurança.",
+        "Contagem de prazo (art. 10): o dia do começo inclui-se no cômputo, e dias, meses e anos contam-se pelo calendário comum. Frações (art. 11): desprezam-se as frações de dia nas penas privativas de liberdade e restritivas de direitos, e as frações de real na multa."
+      ],
+      "pegadinhas": [
+        "Embaixada estrangeira no Brasil NÃO é território estrangeiro: é território brasileiro, apenas inviolável.",
+        "Prazo penal (art. 10) inclui o dia do começo; prazo processual (CPP, art. 798, § 1º) exclui. A banca adora trocar.",
+        "Na extraterritorialidade incondicionada, a lei brasileira se aplica mesmo que o agente já tenha sido absolvido no estrangeiro."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Quanto ao lugar do crime, o Código Penal adotou a teoria da ubiquidade.", "r": "C", "j": "Art. 6º: considera-se praticado o crime tanto onde ocorreu a ação ou omissão quanto onde se produziu ou deveria produzir-se o resultado."},
+        {"t": "Crime praticado dentro de embaixada estrangeira situada em Brasília é considerado cometido em território estrangeiro.", "r": "E", "j": "A embaixada é inviolável, mas faz parte do território brasileiro."},
+        {"t": "Na contagem dos prazos penais, exclui-se o dia do começo e inclui-se o do vencimento.", "r": "E", "j": "Art. 10 do CP: o dia do começo inclui-se no cômputo do prazo. A regra de excluir o primeiro dia é do processo penal."},
+        {"t": "O crime contra o patrimônio da União praticado no exterior sujeita-se à lei brasileira, ainda que o agente tenha sido absolvido no estrangeiro.", "r": "C", "j": "Art. 7º, I, b, e § 1º: extraterritorialidade incondicionada."},
+        {"t": "Para que a lei brasileira se aplique ao crime cometido por brasileiro no exterior, é suficiente que o agente entre no território nacional.", "r": "E", "j": "É extraterritorialidade condicionada: além da entrada no território, exigem-se as demais condições do art. 7º, § 2º, como a dupla tipicidade."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "fato-tipico",
+      "bloco": "Parte geral",
+      "titulo": "Fato típico: dolo, culpa e nexo causal",
+      "edital": "3 Tipicidade. 3.1 Crime doloso e crime culposo",
+      "peso": 2,
+      "artigos": ["CP 13", "CP 18-19"],
+      "palavras": ["fato tipico", "tipicidade", "conduta", "dolo", "dolo eventual", "dolo direto", "culpa", "culpa consciente", "culposo", "doloso", "imprudencia", "negligencia", "impericia", "preterdoloso", "preterdolo", "nexo causal", "causalidade", "omissao", "omissivo", "garantidor", "dever de agir", "concausa", "causa superveniente"],
+      "pontos": [
+        "O fato típico tem quatro elementos: conduta, resultado, nexo causal e tipicidade. Sem conduta voluntária não há crime; por isso a coação FÍSICA irresistível e os atos reflexos afastam a própria conduta.",
+        "Dolo (art. 18, I): direto, quando o agente quer o resultado; eventual, quando assume o risco de produzi-lo. Culpa (art. 18, II): resultado não querido, causado por imprudência (agir sem cuidado), negligência (deixar de tomar o cuidado devido) ou imperícia (falta de aptidão técnica).",
+        "Na culpa consciente o agente prevê o resultado, mas acredita sinceramente que ele não vai acontecer; no dolo eventual ele prevê e não se importa. Em crimes de trânsito com racha ou embriaguez, os tribunais analisam caso a caso se houve dolo eventual.",
+        "O crime culposo é excepcional: só existe se a lei previr a forma culposa expressamente (art. 18, parágrafo único). Não existe, por exemplo, furto culposo.",
+        "Crime preterdoloso (art. 19): dolo na conduta inicial e culpa no resultado mais grave, como a lesão corporal seguida de morte. O agente só responde pelo resultado que agrava a pena se o causou ao menos culposamente.",
+        "Nexo causal (art. 13): causa é toda ação ou omissão sem a qual o resultado não teria ocorrido (equivalência dos antecedentes). Mas a causa superveniente relativamente independente que, por si só, produz o resultado exclui a imputação dele; o agente responde só pelos atos já praticados (§ 1º). Exemplo clássico: a vítima ferida morre no acidente da ambulância.",
+        "Omissão penalmente relevante (art. 13, § 2º): responde pelo resultado quem devia e podia agir para evitá-lo. O dever de agir é de quem tem por lei obrigação de cuidado, proteção ou vigilância (como o policial em serviço); de quem assumiu a responsabilidade de impedir o resultado; e de quem, com seu comportamento anterior, criou o risco."
+      ],
+      "pegadinhas": [
+        "Coação física irresistível exclui a conduta (fato típico); coação moral irresistível exclui a culpabilidade. A banca troca.",
+        "Omissão de socorro (art. 135) é crime omissivo próprio e não admite tentativa.",
+        "Culpa consciente não é dolo eventual: na primeira o agente confia que o resultado não ocorrerá."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Age com dolo eventual o agente que prevê o resultado e acredita sinceramente que poderá evitá-lo com sua habilidade.", "r": "E", "j": "Isso é culpa consciente. No dolo eventual, o agente assume o risco e é indiferente ao resultado."},
+        {"t": "Salvo os casos expressos em lei, ninguém pode ser punido por fato previsto como crime senão quando o pratica dolosamente.", "r": "C", "j": "Art. 18, parágrafo único: a forma culposa só existe se a lei a previr expressamente."},
+        {"t": "A superveniência de causa relativamente independente que, por si só, produziu o resultado exclui a imputação desse resultado ao agente.", "r": "C", "j": "Art. 13, § 1º: os fatos anteriores, porém, imputam-se a quem os praticou."},
+        {"t": "O policial rodoviário em serviço que, podendo agir sem risco pessoal, assiste a um roubo e nada faz pode responder pelo resultado.", "r": "C", "j": "Art. 13, § 2º, a: quem tem por lei o dever de proteção e vigilância é garantidor e responde pelo resultado que devia e podia evitar."},
+        {"t": "A coação moral irresistível exclui a conduta e, por consequência, o fato típico.", "r": "E", "j": "A coação moral irresistível exclui a culpabilidade (art. 22). Quem exclui a conduta é a coação física irresistível."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "erro-de-tipo",
+      "bloco": "Parte geral",
+      "titulo": "Erro de tipo",
+      "edital": "3.2 Erro de tipo",
+      "peso": 2,
+      "artigos": ["CP 20", "CP 73-74"],
+      "palavras": ["erro de tipo", "erro sobre a pessoa", "descriminante putativa", "descriminantes putativas", "legitima defesa putativa", "putativa", "erro na execucao", "aberratio ictus", "aberratio criminis", "erro provocado", "erro determinado por terceiro", "erro sobre o objeto", "erro essencial", "erro acidental"],
+      "pontos": [
+        "Erro de tipo essencial (art. 20, caput): o agente se engana sobre um elemento do tipo; não sabe o que faz. Exemplo: leva a mala de outra pessoa achando que é a sua. O erro sempre exclui o dolo; se era evitável, permite punir por culpa, se houver forma culposa.",
+        "Erro inevitável (escusável) exclui dolo e culpa. Erro evitável (inescusável) exclui só o dolo, e o agente responde por crime culposo, se previsto em lei.",
+        "Descriminante putativa (art. 20, § 1º): o agente imagina, por erro plenamente justificado, uma situação de fato que, se existisse, tornaria a ação legítima (ex.: legítima defesa putativa contra quem só ia pegar o celular). Fica isento de pena; se o erro derivou de culpa, responde por crime culposo (é a chamada culpa imprópria).",
+        "Erro determinado por terceiro (art. 20, § 2º): responde pelo crime o terceiro que provocou o erro.",
+        "Erro sobre a pessoa (art. 20, § 3º): o agente confunde a vítima. Não isenta de pena e consideram-se as condições da vítima que ele queria atingir, e não da atingida.",
+        "Erro na execução (aberratio ictus, art. 73): por acidente ou erro no uso dos meios, atinge pessoa diversa da pretendida. Responde como se tivesse atingido a pretendida; se atingir as duas, aplica-se o concurso formal. Resultado diverso do pretendido (aberratio criminis, art. 74): responde por culpa, se houver forma culposa.",
+        "Diferença essencial: no erro de tipo o agente não sabe o que faz; no erro de proibição (art. 21) ele sabe o que faz, mas acha que é permitido."
+      ],
+      "pegadinhas": [
+        "Erro sobre a pessoa não exclui o crime: consideram-se as qualidades da vítima pretendida (ex.: quis matar o pai e matou um estranho: incide a agravante de crime contra ascendente).",
+        "Erro de tipo evitável exclui o dolo, não a culpa. Erro de proibição evitável não exclui nada: apenas reduz a pena."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O erro sobre elemento constitutivo do tipo legal exclui o dolo, mas permite a punição por crime culposo, se previsto em lei.", "r": "C", "j": "Art. 20, caput."},
+        {"t": "No erro sobre a pessoa, consideram-se as condições ou qualidades da vítima efetivamente atingida.", "r": "E", "j": "Art. 20, § 3º: consideram-se as condições da pessoa contra quem o agente queria praticar o crime."},
+        {"t": "Quem, por erro plenamente justificado pelas circunstâncias, supõe estar sofrendo agressão injusta iminente e reage para se defender fica isento de pena.", "r": "C", "j": "Legítima defesa putativa: descriminante putativa por erro plenamente justificado (art. 20, § 1º)."},
+        {"t": "Responde pelo crime o terceiro que determina o erro.", "r": "C", "j": "Art. 20, § 2º."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "iter-criminis",
+      "bloco": "Parte geral",
+      "titulo": "Consumação, tentativa e crime impossível",
+      "edital": "3.3 Crime consumado e tentado; 3.4 Crime impossível",
+      "peso": 3,
+      "artigos": ["CP 14-17"],
+      "palavras": ["tentativa", "tentado", "consumado", "consumacao", "iter criminis", "atos preparatorios", "desistencia voluntaria", "arrependimento eficaz", "arrependimento posterior", "crime impossivel", "flagrante preparado", "flagrante esperado", "crime formal", "crime material", "sumula 145", "sumula 567"],
+      "pontos": [
+        "Iter criminis: cogitação, preparação, execução e consumação. Cogitar nunca é crime; os atos preparatórios, em regra, também não, salvo quando a lei os transforma em crime autônomo (ex.: petrechos para falsificação de moeda, associação criminosa).",
+        "Crime consumado (art. 14, I): reúne todos os elementos do tipo. Crime formal se consuma com a conduta, mesmo sem o resultado: a corrupção ativa se consuma com a oferta, ainda que o policial recuse, e a concussão com a exigência.",
+        "Tentativa (art. 14, II): iniciada a execução, o crime não se consuma por circunstâncias alheias à vontade do agente. Pena do consumado diminuída de um a dois terços (parágrafo único); quanto mais perto da consumação, menor a redução.",
+        "Não admitem tentativa: crimes culposos, preterdolosos, omissivos próprios, unissubsistentes e habituais, e as contravenções penais (a tentativa de contravenção não é punível).",
+        "Desistência voluntária e arrependimento eficaz (art. 15): o agente que voluntariamente desiste de prosseguir na execução ou impede que o resultado se produza só responde pelos atos já praticados. Basta ser voluntário; não precisa ser espontâneo.",
+        "Arrependimento posterior (art. 16): nos crimes sem violência ou grave ameaça à pessoa, reparado o dano ou restituída a coisa, por ato voluntário, até o recebimento da denúncia ou queixa, a pena é reduzida de um a dois terços. Depois do recebimento, vira só atenuante.",
+        "Crime impossível (art. 17): não se pune a tentativa quando, por ineficácia ABSOLUTA do meio ou absoluta impropriedade do objeto, é impossível consumar o crime. Se a ineficácia é relativa, há tentativa punível.",
+        "Súmula 145 do STF: não há crime quando a preparação do flagrante pela polícia torna impossível a consumação (flagrante preparado). O flagrante esperado é válido. Súmula 567 do STJ: vigilância ou monitoramento eletrônico na loja, por si só, não torna impossível o furto."
+      ],
+      "pegadinhas": [
+        "Corrupção ativa recusada pelo policial é crime CONSUMADO, não tentado (PRF 2021, item 103).",
+        "A banca considerou que a adulteração grosseira do chassi NÃO caracteriza crime impossível (PRF 2021, item 104).",
+        "Desistência voluntária exige voluntariedade, não espontaneidade: desistir porque alguém aconselhou ainda vale."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Se o policial rodoviário recusa o dinheiro oferecido pelo condutor para não ser autuado, a conduta do condutor configura corrupção ativa tentada.", "r": "E", "j": "A corrupção ativa é crime formal e se consuma com a simples oferta, ainda que recusada."},
+        {"t": "Salvo disposição em contrário, pune-se a tentativa com a pena do crime consumado, diminuída de um a dois terços.", "r": "C", "j": "Art. 14, parágrafo único."},
+        {"t": "O agente que, por ato voluntário, desiste de prosseguir na execução responde apenas pelos atos já praticados.", "r": "C", "j": "Art. 15 (desistência voluntária)."},
+        {"t": "No crime de roubo, se o agente devolve o bem à vítima antes do recebimento da denúncia, terá direito à redução de pena do arrependimento posterior.", "r": "E", "j": "O art. 16 só vale para crimes cometidos sem violência ou grave ameaça à pessoa, o que exclui o roubo."},
+        {"t": "A existência de sistema de vigilância eletrônica em estabelecimento comercial torna impossível a configuração do crime de furto.", "r": "E", "j": "Súmula 567 do STJ: a vigilância, por si só, não torna impossível o furto."},
+        {"t": "Não se admite tentativa nos crimes culposos.", "r": "C", "j": "Na tentativa o agente quer o resultado; no crime culposo, não. (A exceção doutrinária é a culpa imprópria.)"}
+      ],
+      "questoes": ["prf-2021-p1|item 103", "prf-2021-p1|item 104"]
+    },
+    {
+      "id": "punibilidade",
+      "bloco": "Parte geral",
+      "titulo": "Punibilidade e extinção da punibilidade",
+      "edital": "3.5 Punibilidade e causas de extinção",
+      "peso": 1,
+      "artigos": ["CP 107-120"],
+      "palavras": ["punibilidade", "extincao da punibilidade", "prescricao", "prescreve", "decadencia", "perempcao", "perdao judicial", "anistia", "graca", "indulto", "renuncia", "retratacao", "morte do agente", "imprescritivel", "imprescritiveis"],
+      "pontos": [
+        "Extinguem a punibilidade (art. 107): morte do agente; anistia, graça ou indulto; lei que deixa de considerar o fato crime (abolitio); prescrição, decadência ou perempção; renúncia ao direito de queixa ou perdão aceito, nos crimes de ação privada; retratação do agente, quando a lei admite; e perdão judicial, nos casos previstos em lei. A lista não é exaustiva (ex.: reparação do dano no peculato culposo).",
+        "Anistia é concedida por lei do Congresso e apaga os efeitos penais do fato; graça (individual) e indulto (coletivo) são concedidos por decreto do Presidente e só extinguem a pena.",
+        "Prescrição (art. 109), pelo máximo da pena em abstrato: mais de 12 anos prescreve em 20; mais de 8 até 12, em 16; mais de 4 até 8, em 12; mais de 2 até 4, em 8; de 1 até 2, em 4; menos de 1 ano, em 3 anos.",
+        "Os prazos de prescrição caem pela metade se o agente tinha menos de 21 anos na data do fato ou mais de 70 na data da sentença (art. 115). Desde a Lei 15.160/2025 essa redução (e a atenuante de idade do art. 65, I) não vale quando o crime envolver violência sexual contra a mulher.",
+        "Prescrição da pretensão punitiva ocorre antes do trânsito em julgado e apaga tudo; a da pretensão executória ocorre depois e só impede a execução da pena. A reincidência aumenta de um terço o prazo da prescrição executória (art. 110), mas não influi na punitiva (Súmula 220 do STJ).",
+        "São imprescritíveis, pela Constituição, o racismo e a ação de grupos armados contra a ordem constitucional e o Estado Democrático (art. 5º, XLII e XLIV).",
+        "Decadência: perda do direito de queixa ou representação, em regra 6 meses do dia em que a vítima soube quem é o autor (art. 103). Perempção: só na ação privada, por desídia do querelante. Perdão judicial: a sentença é declaratória e não gera reincidência nem efeitos da condenação (Súmula 18 do STJ)."
+      ],
+      "pegadinhas": [
+        "Graça e indulto extinguem a pena, mas não apagam os efeitos secundários da condenação, como a reincidência. A anistia apaga.",
+        "Perdão do ofendido só extingue a punibilidade se for aceito; perdão judicial independe de aceitação."
+      ],
+      "novidades": [
+        "Lei 15.160/2025: a redução da prescrição pela metade e a atenuante para menores de 21 e maiores de 70 não se aplicam aos crimes que envolvam violência sexual contra a mulher."
+      ],
+      "itens": [
+        {"t": "A anistia, a graça e o indulto são concedidos por decreto do Presidente da República.", "r": "E", "j": "Graça e indulto, sim; a anistia é concedida por lei do Congresso Nacional."},
+        {"t": "Crime cuja pena máxima é de 4 anos prescreve, em abstrato, em 8 anos.", "r": "C", "j": "Art. 109, IV: pena máxima superior a 2 e até 4 anos prescreve em 8 anos."},
+        {"t": "A sentença que concede o perdão judicial não será considerada para efeitos de reincidência.", "r": "C", "j": "Art. 120 e Súmula 18 do STJ: a sentença é declaratória da extinção da punibilidade."},
+        {"t": "A redução pela metade do prazo prescricional para o agente menor de 21 anos aplica-se a qualquer crime.", "r": "E", "j": "Desde a Lei 15.160/2025 a redução não vale para crimes que envolvam violência sexual contra a mulher."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ilicitude",
+      "bloco": "Parte geral",
+      "titulo": "Ilicitude: excludentes e excesso punível",
+      "edital": "4 Ilicitude: causas de exclusão; excesso punível",
+      "peso": 3,
+      "artigos": ["CP 23-25"],
+      "palavras": ["ilicitude", "antijuridicidade", "excludente", "excludentes", "legitima defesa", "estado de necessidade", "estrito cumprimento do dever legal", "exercicio regular de direito", "excesso punivel", "excesso", "consentimento do ofendido", "refem", "agente de seguranca publica"],
+      "pontos": [
+        "Não há crime quando o agente pratica o fato em estado de necessidade, em legítima defesa, em estrito cumprimento de dever legal ou no exercício regular de direito (art. 23). São as excludentes de ilicitude.",
+        "Estado de necessidade (art. 24): salvar de perigo ATUAL, que o agente não provocou por sua vontade e não podia evitar de outro modo, direito próprio ou alheio, cujo sacrifício não era razoável exigir. Quem tem o dever legal de enfrentar o perigo, como o policial ou o bombeiro, não pode alegá-lo (§ 1º). Se era razoável exigir o sacrifício, a pena pode ser reduzida de um a dois terços (§ 2º).",
+        "Legítima defesa (art. 25): repelir, usando moderadamente os meios necessários, injusta agressão, atual ou iminente, a direito seu ou de outrem. A agressão pode vir até de um inimputável. Contra ataque espontâneo de animal, a reação é estado de necessidade; se alguém atiçou o animal, é legítima defesa.",
+        "Desde o Pacote Anticrime (art. 25, parágrafo único), também está em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes, observados os requisitos do caput.",
+        "Estrito cumprimento do dever legal: o agente público age nos limites que a lei impõe (ex.: o policial que prende em flagrante e usa a força necessária). Exercício regular de direito: qualquer pessoa pode prender em flagrante (CPP, art. 301); lutas esportivas e intervenções médicas dentro das regras.",
+        "Excesso punível (art. 23, parágrafo único): em qualquer das excludentes, o agente responde pelo excesso doloso ou culposo. Ex.: depois de desarmar o agressor caído, continua batendo.",
+        "O consentimento do ofendido é causa supralegal de exclusão da ilicitude, válido só para bens disponíveis e com consentimento de pessoa capaz, dado antes ou durante o fato."
+      ],
+      "pegadinhas": [
+        "Legítima defesa exige agressão ATUAL ou IMINENTE; agressão passada (vingança) ou futura e incerta não autoriza.",
+        "Policial e bombeiro não podem alegar estado de necessidade para fugir do perigo que têm o dever legal de enfrentar.",
+        "Não cabe legítima defesa real contra legítima defesa real; cabe contra legítima defesa putativa e contra o excesso (legítima defesa sucessiva)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Não pode alegar estado de necessidade quem tinha o dever legal de enfrentar o perigo.", "r": "C", "j": "Art. 24, § 1º."},
+        {"t": "Age em legítima defesa quem repele agressão injusta já cessada, para evitar que o agressor volte a agir no futuro.", "r": "E", "j": "A agressão precisa ser atual ou iminente (art. 25). Agressão cessada não autoriza a reação."},
+        {"t": "Considera-se em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes.", "r": "C", "j": "Art. 25, parágrafo único, incluído pela Lei 13.964/2019, observados os requisitos do caput."},
+        {"t": "O excesso punível somente é admitido na forma dolosa.", "r": "E", "j": "Art. 23, parágrafo único: o agente responde pelo excesso doloso ou culposo."},
+        {"t": "Quem mata um cão que o ataca espontaneamente na rua age em legítima defesa.", "r": "E", "j": "Ataque espontâneo de animal não é agressão humana injusta; a reação configura estado de necessidade."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "culpabilidade",
+      "bloco": "Parte geral",
+      "titulo": "Culpabilidade: imputabilidade e erro de proibição",
+      "edital": "5 Culpabilidade: causas de exclusão; imputabilidade; erro de proibição",
+      "peso": 2,
+      "artigos": ["CP 21-22", "CP 26-28"],
+      "palavras": ["culpabilidade", "imputabilidade", "inimputavel", "inimputaveis", "semi-imputavel", "doenca mental", "menor de 18", "menoridade", "embriaguez", "actio libera in causa", "emocao", "paixao", "erro de proibicao", "coacao moral", "coacao irresistivel", "obediencia hierarquica", "exigibilidade de conduta diversa", "potencial consciencia"],
+      "pontos": [
+        "A culpabilidade tem três elementos: imputabilidade, potencial consciência da ilicitude e exigibilidade de conduta diversa. Faltando um, o agente fica isento de pena.",
+        "Inimputável por doença mental (art. 26): quem era, ao tempo da ação, inteiramente incapaz de entender o caráter ilícito do fato ou de se determinar de acordo com esse entendimento. É isento de pena e recebe medida de segurança (absolvição imprópria). O semi-imputável (parágrafo único) tem a pena reduzida de um a dois terços.",
+        "Menores de 18 anos são inimputáveis (art. 27 e CF, art. 228), pelo critério biológico, e ficam sujeitos ao ECA. A idade é medida na data da conduta.",
+        "Emoção e paixão não excluem a imputabilidade (art. 28, I). A embriaguez voluntária ou culposa também não exclui (art. 28, II): o agente responde porque se colocou nesse estado (actio libera in causa).",
+        "Só a embriaguez COMPLETA, proveniente de caso fortuito ou força maior, isenta de pena (art. 28, § 1º); se for incompleta, a pena é reduzida de um a dois terços (§ 2º). A embriaguez preordenada, para tomar coragem para o crime, é agravante (art. 61, II, l).",
+        "Erro de proibição (art. 21): o agente sabe o que faz, mas acredita que a conduta é permitida. Se inevitável, isenta de pena; se evitável, reduz a pena de um sexto a um terço. O desconhecimento da lei é inescusável.",
+        "Coação moral irresistível e obediência hierárquica (art. 22): só é punível o autor da coação ou da ordem. A obediência exige ordem não manifestamente ilegal de superior, em relação de direito público; se a ordem é manifestamente ilegal, os dois respondem."
+      ],
+      "pegadinhas": [
+        "Embriaguez voluntária completa NÃO isenta de pena. Só isenta a completa por caso fortuito ou força maior.",
+        "Obediência hierárquica não vale para relações privadas (patrão e empregado), nem para ordens manifestamente ilegais.",
+        "Erro de proibição evitável não exclui o crime: reduz a pena de 1/6 a 1/3."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A embriaguez completa, voluntária ou culposa, exclui a imputabilidade penal.", "r": "E", "j": "Art. 28, II: a embriaguez voluntária ou culposa não exclui a imputabilidade. Só a completa por caso fortuito ou força maior isenta (§ 1º)."},
+        {"t": "A emoção e a paixão não excluem a imputabilidade penal.", "r": "C", "j": "Art. 28, I."},
+        {"t": "No erro de proibição evitável, o agente responde por crime culposo.", "r": "E", "j": "O erro de proibição evitável apenas diminui a pena de um sexto a um terço (art. 21). Quem leva à forma culposa é o erro de tipo evitável."},
+        {"t": "Se o fato é cometido sob coação moral irresistível, só é punível o autor da coação.", "r": "C", "j": "Art. 22."},
+        {"t": "O empregado que cumpre ordem não manifestamente ilegal do patrão, em empresa privada, beneficia-se da obediência hierárquica.", "r": "E", "j": "A obediência hierárquica do art. 22 exige relação de direito público."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "crimes-pessoa",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra a pessoa",
+      "edital": "6 Crimes contra a pessoa",
+      "peso": 2,
+      "artigos": ["CP 121-154"],
+      "palavras": ["crimes contra a pessoa", "homicidio", "homicidio qualificado", "homicidio culposo", "feminicidio", "vicaricidio", "lesao corporal", "lesao grave", "lesao gravissima", "omissao de socorro", "ameaca", "perseguicao", "stalking", "violencia psicologica", "sequestro", "carcere privado", "trabalho escravo", "condicao analoga", "trafico de pessoas", "calunia", "difamacao", "injuria", "honra", "maus tratos", "abandono de incapaz", "infanticidio", "aborto"],
+      "pontos": [
+        "Homicídio (art. 121): simples, 6 a 20 anos; privilegiado (relevante valor social ou moral, ou violenta emoção logo após injusta provocação da vítima), pena reduzida de um sexto a um terço; qualificado, 12 a 30 anos e hediondo.",
+        "Qualificadoras do homicídio (art. 121, § 2º): paga ou motivo torpe; motivo fútil; veneno, fogo, explosivo, asfixia, tortura ou meio cruel; traição, emboscada ou recurso que dificulte a defesa; para assegurar outro crime; contra integrantes da segurança pública (como o PRF) e do sistema de justiça, no exercício da função ou em razão dela, e seus familiares; arma de fogo de uso restrito ou proibido; vítima menor de 14 anos; e, desde a Lei 15.159/2025, nas dependências de instituição de ensino.",
+        "Feminicídio virou crime autônomo (art. 121-A, Lei 14.994/2024): matar mulher por razões da condição do sexo feminino (violência doméstica e familiar ou menosprezo e discriminação), com pena de 20 a 40 anos, hediondo. Vicaricídio (art. 121-B, Lei 15.384/2026): matar descendente (como o filho), ascendente, enteado, dependente ou pessoa sob a guarda da mulher, em contexto de violência doméstica, para fazê-la sofrer, puni-la ou controlá-la; também 20 a 40 anos e hediondo.",
+        "Homicídio culposo do CP (art. 121, § 3º): detenção de 1 a 3 anos, com perdão judicial possível (§ 5º). Mas, na direção de veículo automotor, o homicídio e a lesão culposos são os do CTB (arts. 302 e 303), pelo princípio da especialidade.",
+        "Lesão corporal (art. 129): leve, detenção de 3 meses a 1 ano; grave, 1 a 5 anos (incapacidade para as ocupações habituais por mais de 30 dias, perigo de vida, debilidade permanente, aceleração de parto); gravíssima, 2 a 8 anos (incapacidade permanente para o trabalho, enfermidade incurável, perda ou inutilização de membro, sentido ou função, deformidade permanente, aborto); seguida de morte, 4 a 12 anos. Violência doméstica e lesão contra a mulher por razões do sexo feminino: reclusão de 2 a 5 anos (Lei 14.994/2024).",
+        "Omissão de socorro (art. 135) é crime omissivo próprio: não admite tentativa. Expor a perigo a vida de trabalhadores transportados em desacordo com as normas aumenta a pena do art. 132. Abandono de incapaz e maus-tratos passaram a ser punidos com reclusão de 2 a 5 anos (Lei 15.163/2025).",
+        "Liberdade individual: ameaça (art. 147), com pena em dobro e ação incondicionada se contra a mulher por razões do sexo feminino; perseguição ou stalking (art. 147-A); violência psicológica contra a mulher (art. 147-B); sequestro e cárcere privado (art. 148); redução a condição análoga à de escravo (art. 149, 2 a 8 anos); tráfico de pessoas (art. 149-A, 4 a 8 anos), muito fiscalizado nas rodovias.",
+        "Honra: calúnia é imputar falsamente fato definido como crime; difamação, fato ofensivo à reputação; injúria, ofender a dignidade ou o decoro, sem fato. A injúria racial saiu do CP e virou crime de racismo na Lei 7.716/89 (art. 2º-A), imprescritível e inafiançável. Ofensa a servidor em razão da função: ação pública condicionada à representação, ou queixa do próprio ofendido (Súmula 714 do STF)."
+      ],
+      "pegadinhas": [
+        "Feminicídio não é mais qualificadora do homicídio: desde a Lei 14.994/2024 é o crime autônomo do art. 121-A.",
+        "Homicídio culposo ao volante é crime do CTB (art. 302), não do art. 121, § 3º, do CP.",
+        "Matar policial rodoviário federal em razão da função é homicídio qualificado e hediondo (art. 121, § 2º, VII)."
+      ],
+      "novidades": [
+        "Lei 14.994/2024: feminicídio como crime autônomo (art. 121-A, 20 a 40 anos); lesão em violência doméstica e contra a mulher, 2 a 5 anos; ameaça contra a mulher, pena em dobro.",
+        "Lei 15.134/2025: a qualificadora do inciso VII passou a proteger também membros do Judiciário, do MP, da Defensoria, da Advocacia Pública e oficiais de justiça.",
+        "Lei 15.159/2025: homicídio nas dependências de instituição de ensino é qualificado (inciso X).",
+        "Lei 15.163/2025: abandono de incapaz e maus-tratos, reclusão de 2 a 5 anos.",
+        "Lei 15.384/2026: vicaricídio (art. 121-B), 20 a 40 anos, hediondo."
+      ],
+      "itens": [
+        {"t": "Desde a Lei 14.994/2024, o feminicídio deixou de ser qualificadora do homicídio e passou a ser crime autônomo, punido com reclusão de 20 a 40 anos.", "r": "C", "j": "Art. 121-A do CP, com a revogação do inciso VI do § 2º do art. 121."},
+        {"t": "O motorista que, por imprudência na direção de veículo automotor, mata um pedestre responde por homicídio culposo previsto no Código Penal.", "r": "E", "j": "Pelo princípio da especialidade, aplica-se o art. 302 do CTB."},
+        {"t": "Matar policial rodoviário federal no exercício da função configura homicídio qualificado e hediondo.", "r": "C", "j": "Art. 121, § 2º, VII, e Lei 8.072/90, art. 1º, I."},
+        {"t": "A lesão corporal que causa incapacidade para as ocupações habituais por mais de trinta dias é classificada como gravíssima.", "r": "E", "j": "É lesão grave (art. 129, § 1º, I). A gravíssima envolve, por exemplo, incapacidade PERMANENTE para o trabalho."},
+        {"t": "A omissão de socorro é crime omissivo próprio e, por isso, não admite tentativa.", "r": "C", "j": "Nos crimes omissivos próprios, ou o agente omite e o crime se consuma, ou age e não há crime."},
+        {"t": "A injúria qualificada pela utilização de elementos referentes a raça ou cor continua prevista no § 3º do art. 140 do Código Penal.", "r": "E", "j": "A Lei 14.532/2023 levou a injúria racial para a Lei 7.716/89 (art. 2º-A), equiparando-a ao racismo."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "crimes-patrimonio",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra o patrimônio",
+      "edital": "6 Crimes contra o patrimônio",
+      "peso": 3,
+      "artigos": ["CP 155-183"],
+      "palavras": ["crimes contra o patrimonio", "patrimonio", "furto", "furto qualificado", "furto privilegiado", "repouso noturno", "roubo", "roubo improprio", "latrocinio", "extorsao", "sequestro relampago", "extorsao mediante sequestro", "estelionato", "fraude eletronica", "conta laranja", "golpe", "apropriacao indebita", "receptacao", "dano", "imunidade", "escusa absolutoria"],
+      "pontos": [
+        "Furto (art. 155): subtrair coisa alheia móvel, sem violência nem grave ameaça. Pena de 1 a 6 anos e multa desde a Lei 15.397/2026 (antes, 1 a 4). Durante o repouso noturno, a pena aumenta de METADE (antes, um terço). Consuma-se com a inversão da posse, ainda que breve, sem exigir posse mansa e pacífica (STJ).",
+        "Furto privilegiado (§ 2º): agente primário e coisa de pequeno valor (a jurisprudência usa até um salário mínimo). O juiz pode trocar reclusão por detenção, reduzir de um a dois terços ou aplicar só multa; é compatível com qualificadora objetiva (Súmula 511 do STJ). Furto qualificado (§ 4º), 2 a 8 anos: rompimento de obstáculo, abuso de confiança, fraude, escalada, destreza, chave falsa ou concurso de duas ou mais pessoas.",
+        "Furtos com pena de 4 a 10 anos: com explosivo (§ 4º-A, hediondo); mediante fraude eletrônica (§ 4º-B); de veículo levado para outro Estado ou para o exterior (§ 5º); de celular, computador e semovente (§ 6º); de explosivos (§ 7º). Fios e cabos de energia e telecomunicação: 2 a 8 anos (§ 8º).",
+        "Roubo (art. 157): subtração com grave ameaça ou violência à pessoa, ou depois de reduzir a vítima à impossibilidade de resistência. Pena de 6 a 10 anos desde a Lei 15.397/2026 (antes, 4 a 10). Roubo impróprio (§ 1º): a violência vem logo depois da subtração, para garantir a coisa ou a fuga. Consuma-se com a inversão da posse, ainda que breve (Súmula 582 do STJ). Não cabe insignificância.",
+        "Aumentos do roubo: de um terço até metade (§ 2º) para concurso de pessoas, restrição da liberdade da vítima, arma branca, veículo levado a outro Estado e outras hipóteses; de dois terços com arma de fogo (§ 2º-A); em dobro com arma de fogo de uso restrito ou proibido (§ 2º-B). Lesão grave: 7 a 18 anos.",
+        "Latrocínio (art. 157, § 3º, II): roubo com morte, 24 a 30 anos desde a Lei 15.397/2026 (antes, 20 a 30), hediondo. É julgado por juiz singular, não pelo júri (Súmula 603 do STF). Há latrocínio consumado quando a morte se consuma, ainda que a subtração não se realize (Súmula 610 do STF).",
+        "Extorsão (art. 158): constranger a vítima, com violência ou grave ameaça, a fazer algo para dar vantagem econômica (ex.: entregar a senha). É crime formal: consuma-se independentemente de obter a vantagem (Súmula 96 do STJ). Sequestro-relâmpago (§ 3º): 6 a 12 anos. Extorsão mediante sequestro (art. 159): 8 a 15 anos, hedionda.",
+        "Estelionato (art. 171): obter vantagem ilícita induzindo ou mantendo alguém em erro, mediante fraude; 1 a 5 anos. Fraude eletrônica (§ 2º-A): 4 a 8 anos. Ceder conta bancária como 'conta laranja' para receber dinheiro do crime virou figura equiparada (§ 2º, VII). A Lei 15.397/2026 revogou o § 5º: o estelionato voltou a ser, como regra, crime de ação penal pública INCONDICIONADA. O falso que se esgota no estelionato é absorvido (Súmula 17 do STJ).",
+        "Apropriação indébita (art. 168): o agente já tinha a posse lícita e passa a agir como dono. Receptação (art. 180): adquirir, receber, transportar, conduzir ou ocultar coisa que sabe ser produto de crime, 2 a 6 anos (Lei 15.397/2026; antes, 1 a 4); qualificada no comércio, 3 a 8 anos; punível ainda que o autor do crime anterior seja desconhecido ou isento de pena. Imunidades (arts. 181 a 183): isento de pena quem furta, sem violência, do cônjuge, ascendente ou descendente; não vale para roubo, extorsão, crime com violência ou grave ameaça, nem se a vítima tem 60 anos ou mais."
+      ],
+      "pegadinhas": [
+        "Penas de furto, roubo, latrocínio e receptação SUBIRAM em 2026 (Lei 15.397). Materiais antigos trazem os números velhos.",
+        "Estelionato voltou a ser de ação pública incondicionada (§ 5º do art. 171 revogado em 2026).",
+        "Latrocínio é crime contra o patrimônio: juiz singular, não júri, ainda que haja morte dolosa."
+      ],
+      "novidades": [
+        "Lei 15.397/2026 (vigente desde 4/5/2026): furto 1 a 6 anos e repouso noturno com aumento de metade; furto de celular, computador ou semovente, de veículo para outro Estado e por fraude eletrônica, 4 a 10 anos; roubo 6 a 10 anos; latrocínio 24 a 30 anos; receptação 2 a 6 anos; receptação de animal (art. 180-A) 3 a 8 anos; 'conta laranja' no estelionato; revogação do § 5º do art. 171."
+      ],
+      "itens": [
+        {"t": "Após a Lei 15.397/2026, o crime de furto simples passou a ser punido com reclusão de 1 a 6 anos e multa.", "r": "C", "j": "A pena do caput do art. 155 era de 1 a 4 anos."},
+        {"t": "O crime de roubo se consuma com a inversão da posse do bem, mediante violência ou grave ameaça, ainda que por breve tempo e sem posse mansa e pacífica.", "r": "C", "j": "Súmula 582 do STJ."},
+        {"t": "O latrocínio, por envolver morte dolosa, é julgado pelo tribunal do júri.", "r": "E", "j": "Súmula 603 do STF: o latrocínio é crime contra o patrimônio, julgado por juiz singular."},
+        {"t": "O crime de extorsão consuma-se independentemente da obtenção da vantagem indevida.", "r": "C", "j": "Súmula 96 do STJ: crime formal."},
+        {"t": "Atualmente, o estelionato comum somente se processa mediante representação da vítima.", "r": "E", "j": "A Lei 15.397/2026 revogou o § 5º do art. 171; a regra voltou a ser a ação penal pública incondicionada."},
+        {"t": "O filho que, sem violência, subtrai dinheiro do pai de 65 anos fica isento de pena pela imunidade absoluta.", "r": "E", "j": "Art. 183, III: a imunidade não se aplica se a vítima tem 60 anos ou mais."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "dignidade-sexual",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra a dignidade sexual",
+      "edital": "6 Crimes contra a dignidade sexual",
+      "peso": 1,
+      "artigos": ["CP 213-234"],
+      "palavras": ["dignidade sexual", "estupro", "estupro de vulneravel", "importunacao sexual", "assedio sexual", "vulneravel", "exploracao sexual", "prostituicao", "corrupcao de menores", "satisfacao de lascivia", "divulgacao de cena", "registro nao autorizado", "rufianismo", "lenocinio"],
+      "pontos": [
+        "Estupro (art. 213): constranger alguém, mediante violência ou grave ameaça, a ter conjunção carnal ou a praticar ou permitir outro ato libidinoso. Pena de 6 a 10 anos; 8 a 12 se resulta lesão grave ou a vítima tem entre 14 e 18 anos; 12 a 30 se resulta morte. É hediondo, e homem ou mulher podem ser autor ou vítima.",
+        "Estupro de vulnerável (art. 217-A): conjunção carnal ou outro ato libidinoso com menor de 14 anos, ou com quem não tem discernimento por enfermidade ou deficiência mental, ou não pode oferecer resistência. Pena de 10 a 18 anos desde a Lei 15.280/2025 (antes, 8 a 15); 12 a 24 com lesão grave; 20 a 40 com morte. O consentimento e a experiência sexual anterior são irrelevantes (§ 5º e Súmula 593 do STJ).",
+        "Importunação sexual (art. 215-A): praticar contra alguém, sem anuência, ato libidinoso para satisfazer a própria lascívia ou a de terceiro (ex.: no transporte público), 1 a 5 anos, se não constituir crime mais grave. Assédio sexual (art. 216-A): constranger alguém para obter vantagem sexual, valendo-se de superioridade hierárquica ou ascendência no emprego.",
+        "Exploração sexual de vulnerável (art. 218-B): submeter, induzir ou atrair à prostituição ou outra forma de exploração sexual menor de 18 anos ou vulnerável, ou impedir que a abandone. Pena de 7 a 16 anos desde a Lei 15.280/2025, hediondo. Respondem também quem pratica o ato com o adolescente entre 14 e 18 anos nessa situação e o dono ou gerente do local. A PRF mapeia esses pontos nas rodovias.",
+        "Também aumentados pela Lei 15.280/2025: induzir menor de 14 a satisfazer a lascívia de outrem (art. 218), 6 a 14 anos; praticar ato libidinoso na presença de menor de 14 (art. 218-A), 5 a 12; divulgar cena de estupro, de sexo ou pornografia sem consentimento (art. 218-C), 4 a 10.",
+        "A ação penal nos crimes contra a liberdade sexual e nos crimes sexuais contra vulnerável é pública incondicionada (art. 225, Lei 13.718/2018)."
+      ],
+      "pegadinhas": [
+        "No estupro de vulnerável, o 'consentimento' do menor de 14 anos não afasta o crime.",
+        "Desde 2018 a ação penal nesses crimes não depende de representação: é incondicionada.",
+        "Estupro de vulnerável hoje é punido com 10 a 18 anos; materiais anteriores a dezembro de 2025 trazem 8 a 15."
+      ],
+      "novidades": [
+        "Lei 15.280/2025: estupro de vulnerável 10 a 18 anos (12 a 24 com lesão grave; 20 a 40 com morte); art. 218, 6 a 14; art. 218-A, 5 a 12; art. 218-B, 7 a 16; art. 218-C, 4 a 10."
+      ],
+      "itens": [
+        {"t": "No crime de estupro de vulnerável, o consentimento da vítima menor de 14 anos e sua experiência sexual anterior são irrelevantes para a configuração do crime.", "r": "C", "j": "Art. 217-A, § 5º, e Súmula 593 do STJ."},
+        {"t": "Nos crimes contra a liberdade sexual, a ação penal é pública condicionada à representação.", "r": "E", "j": "Desde a Lei 13.718/2018, é pública incondicionada (art. 225)."},
+        {"t": "Praticar, sem anuência da vítima, ato libidinoso em transporte coletivo para satisfazer a própria lascívia pode configurar importunação sexual.", "r": "C", "j": "Art. 215-A, se o ato não constituir crime mais grave."},
+        {"t": "O estupro de vulnerável é punido com reclusão de 10 a 18 anos.", "r": "C", "j": "Pena dada pela Lei 15.280/2025."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "incolumidade",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra a incolumidade pública",
+      "edital": "6 Crimes contra a incolumidade pública",
+      "peso": 1,
+      "artigos": ["CP 250-285"],
+      "palavras": ["incolumidade publica", "perigo comum", "incendio", "explosao", "arremesso de projetil", "atentado contra a seguranca", "meio de transporte", "interrupcao de servico", "telecomunicacao", "saude publica", "epidemia", "medicamento", "produto terapeutico", "falsificacao de medicamento", "envenenamento de agua"],
+      "pontos": [
+        "Crimes de perigo comum expõem a perigo um número indeterminado de pessoas. Incêndio (art. 250) e explosão (art. 251): 3 a 6 anos e multa, com aumento de um terço em casa habitada, edifício público, veículo de transporte coletivo e outros locais do § 1º. O incêndio é crime de perigo concreto: precisa ter exposto alguém ou algo a perigo real.",
+        "Atentado contra a segurança de outro meio de transporte (art. 262): expor a perigo transporte público, impedir ou dificultar seu funcionamento, detenção de 1 a 2 anos; se resulta desastre, reclusão de 2 a 5. Arremesso de projétil (art. 264): arremessar projétil contra veículo EM MOVIMENTO destinado ao transporte público por terra, água ou ar, detenção de 1 a 6 meses, mais grave se causa lesão ou morte.",
+        "Interrupção ou perturbação de serviço telefônico, telegráfico, informático, telemático ou de informação de utilidade pública (art. 266): 2 a 4 anos e multa desde a Lei 15.397/2026, em dobro em calamidade pública ou quando há subtração ou dano de equipamento de telecomunicação. Furtar fios e cabos é furto qualificado (art. 155, § 8º).",
+        "Saúde pública: falsificar, corromper ou adulterar produto terapêutico ou medicinal (art. 273) é hediondo. Para quem só importa medicamento sem registro na Anvisa (§ 1º-B, I), o STF (Tema 1003) considerou desproporcional a pena de 10 a 15 anos e mandou aplicar a pena original de 1 a 3 anos.",
+        "Epidemia com resultado morte (art. 267, § 1º) é hediondo. Porte e comércio de armas e drogas NÃO estão aqui: são da legislação especial (Estatuto do Desarmamento e Lei de Drogas)."
+      ],
+      "pegadinhas": [
+        "Arremesso de projétil exige veículo de transporte PÚBLICO em movimento; contra carro particular estacionado não se encaixa no art. 264.",
+        "Incêndio é crime de perigo concreto: sem perigo real a outras pessoas ou bens, pode ser apenas dano."
+      ],
+      "novidades": [
+        "Lei 15.397/2026: interrupção de serviço de telecomunicação (art. 266) passou a 2 a 4 anos e multa, em dobro em calamidade ou com subtração de equipamento."
+      ],
+      "itens": [
+        {"t": "Arremessar pedra contra ônibus de transporte coletivo em movimento em uma rodovia configura crime contra a incolumidade pública.", "r": "C", "j": "Art. 264 do CP (arremesso de projétil)."},
+        {"t": "Segundo o STF, a importação de medicamento sem registro sanitário deve ser punida com a pena de 10 a 15 anos do art. 273.", "r": "E", "j": "Tema 1003 do STF: para essa hipótese (§ 1º-B, I) aplica-se a pena original de 1 a 3 anos."},
+        {"t": "O crime de incêndio é de perigo concreto.", "r": "C", "j": "O art. 250 exige que o fogo exponha a perigo a vida, a integridade física ou o patrimônio de outrem."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "fe-publica",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra a fé pública",
+      "edital": "6 Crimes contra a fé pública",
+      "peso": 3,
+      "artigos": ["CP 289-311-A"],
+      "palavras": ["fe publica", "moeda falsa", "falsificacao", "documento falso", "documento publico", "documento particular", "falsidade ideologica", "falsidade material", "uso de documento falso", "falsa identidade", "chassi", "placa", "adulteracao", "sinal identificador", "remarcacao", "crlv", "crv", "cnh falsa", "certame", "fraude em concurso"],
+      "pontos": [
+        "Moeda falsa (art. 289): fabricar ou alterar moeda metálica ou papel-moeda de curso legal, 3 a 12 anos e multa. Quem recebe de boa-fé e repassa depois de saber da falsidade responde pela forma privilegiada (§ 2º). Falsificação grosseira, incapaz de enganar, não é moeda falsa: pode ser estelionato, da Justiça Estadual (Súmula 73 do STJ). Não cabe insignificância.",
+        "Falsificação de documento público (art. 297): 2 a 6 anos e multa. Equiparam-se a público o documento de entidade paraestatal, o título ao portador ou transmissível por endosso, as ações de sociedade comercial, os livros mercantis e o testamento particular. CNH e CRLV são documentos públicos. Documento particular (art. 298): 1 a 5 anos; cartão de crédito ou débito equipara-se a documento particular.",
+        "Falsidade material x ideológica: na material, a forma do documento é forjada ou alterada; na ideológica (art. 299), o documento é verdadeiro na forma, mas o conteúdo é falso (ex.: declarar endereço falso para obter um registro), com o fim de prejudicar direito, criar obrigação ou alterar a verdade sobre fato juridicamente relevante.",
+        "Uso de documento falso (art. 304): mesma pena da falsificação. Consuma-se com a apresentação, ainda que o documento tenha sido exigido pelo policial na fiscalização. Quem falsificou e usou responde só pela falsificação. A competência é definida pelo órgão a quem o documento foi apresentado (Súmula 546 do STJ): CNH falsa apresentada à PRF é caso da Justiça Federal.",
+        "Falsa identidade (art. 307): atribuir-se falsa identidade para obter vantagem ou causar dano, se não constituir crime mais grave. É crime mesmo para tentar escapar da prisão; a autodefesa não justifica (Súmula 522 do STJ). Usar como próprio documento de identidade alheio é o art. 308.",
+        "Adulteração de sinal identificador de veículo (art. 311, redação da Lei 14.562/2023): adulterar, remarcar ou suprimir número de chassi, monobloco, motor, placa ou qualquer sinal identificador de veículo automotor, elétrico, híbrido, reboque ou semirreboque, e de seus componentes, sem autorização do órgão competente. Pena de 3 a 6 anos e multa, aumentada de um terço se for funcionário público no exercício da função. Colocar fita isolante na placa para alterar o número configura o crime (STJ).",
+        "Pelo § 2º do art. 311, com as mesmas penas, responde também quem adquire, recebe, transporta, CONDUZ, oculta, desmonta, vende ou usa veículo ou peça que devia saber estar adulterado ou remarcado; quem fabrica ou guarda instrumento para adulterar; e o funcionário que contribui para licenciar ou registrar o veículo adulterado. No comércio, 4 a 8 anos (§ 3º).",
+        "Na prova da PRF 2021 (Cebraspe): remarcar o chassi com número novo e falsificar o CRV são dois crimes (arts. 311 e 297), e não crime único (item 100); e a adulteração grosseira do chassi NÃO foi considerada crime impossível (item 104). Fraude em certames (art. 311-A): divulgar ou usar conteúdo sigiloso de concurso público, 1 a 4 anos."
+      ],
+      "pegadinhas": [
+        "Apresentar CNH falsa porque o policial pediu continua sendo uso de documento falso.",
+        "Mentir o nome para fugir do flagrante é falsa identidade (Súmula 522 do STJ), não autodefesa.",
+        "Depois da Lei 14.562/2023, reboque e semirreboque estão expressamente no art. 311."
+      ],
+      "novidades": [
+        "Lei 14.562/2023: nova redação do art. 311, incluindo veículos elétricos, híbridos, reboques e semirreboques, as condutas de quem conduz ou comercializa veículo adulterado e a forma qualificada no comércio (4 a 8 anos)."
+      ],
+      "itens": [
+        {"t": "A remarcação de novo número no chassi e a falsificação do certificado de registro do veículo caracterizam crime único de falsificação de documento público.", "r": "E", "j": "São crimes distintos: adulteração de sinal identificador (art. 311) e falsificação de documento público (art. 297). Item 100 da PRF 2021."},
+        {"t": "Não se configura o crime de uso de documento falso quando o condutor apresenta a CNH falsificada somente após exigência do policial rodoviário.", "r": "E", "j": "A jurisprudência considera o crime consumado com a apresentação, mesmo quando exigida pela autoridade."},
+        {"t": "É típica a conduta de atribuir-se falsa identidade perante autoridade policial, ainda que em situação de alegada autodefesa.", "r": "C", "j": "Súmula 522 do STJ."},
+        {"t": "A competência para julgar o uso de CNH falsa, expedida por Detran, apresentada a policial rodoviário federal é da Justiça Estadual, por ser estadual o órgão expedidor.", "r": "E", "j": "Súmula 546 do STJ: importa o órgão a quem o documento foi apresentado (federal), não o expedidor."},
+        {"t": "Conduzir veículo que devia saber estar com o chassi adulterado sujeita o agente às mesmas penas da adulteração de sinal identificador.", "r": "C", "j": "Art. 311, § 2º, III, na redação da Lei 14.562/2023."},
+        {"t": "Cartão de crédito equipara-se a documento particular para fins do crime de falsificação.", "r": "C", "j": "Art. 298, parágrafo único."}
+      ],
+      "questoes": ["prf-2021-p1|item 100", "prf-2021-p1|item 101", "prf-2021-p1|item 104"]
+    },
+    {
+      "id": "adm-publica",
+      "bloco": "Crimes",
+      "titulo": "Crimes contra a Administração Pública",
+      "edital": "6 Crimes contra a Administração Pública",
+      "peso": 3,
+      "artigos": ["CP 312-359"],
+      "palavras": ["administracao publica", "funcionario publico", "corrupcao", "peculato", "peculato culposo", "concussao", "corrupcao passiva", "corrupcao ativa", "propina", "prevaricacao", "condescendencia", "advocacia administrativa", "resistencia", "desobediencia", "desacato", "trafico de influencia", "usurpacao", "descaminho", "contrabando", "denunciacao caluniosa", "falso testemunho", "favorecimento", "fuga de preso", "medida protetiva", "excesso de exacao"],
+      "pontos": [
+        "Funcionário público para fins penais (art. 327): quem exerce cargo, emprego ou função pública, ainda que transitoriamente ou sem remuneração. Equipara-se quem trabalha em entidade paraestatal e em empresa contratada ou conveniada para atividade típica da Administração. A pena aumenta de um terço para ocupantes de cargo em comissão ou função de direção ou assessoramento.",
+        "Peculato (art. 312), 2 a 12 anos: apropriar-se ou desviar dinheiro, valor ou bem de que tem a posse em razão do cargo; ou subtraí-lo valendo-se da facilidade do cargo (peculato-furto). Peculato culposo (§ 2º): reparar o dano antes da sentença irrecorrível extingue a punibilidade; depois, reduz a pena pela metade.",
+        "Concussão (art. 316): EXIGIR vantagem indevida em razão da função, 2 a 12 anos. Corrupção passiva (art. 317): SOLICITAR, RECEBER ou ACEITAR PROMESSA de vantagem indevida, 2 a 12 anos, com aumento de um terço se o funcionário retarda, deixa de praticar ou pratica o ato infringindo dever. Os dois são formais: consumam-se com a exigência ou a solicitação.",
+        "Corrupção ativa (art. 333): OFERECER ou PROMETER vantagem indevida a funcionário para que pratique, omita ou retarde ato de ofício, 2 a 12 anos. Consuma-se com a oferta, mesmo que o policial recuse (PRF 2021, itens 102 e 103). Como 'dar' não é verbo do tipo, o particular que apenas entrega o que o funcionário solicitou não comete corrupção ativa; e quem paga o que foi EXIGIDO é vítima de concussão.",
+        "Prevaricação (art. 319): retardar ou deixar de praticar ato de ofício, ou praticá-lo contra a lei, para satisfazer interesse ou sentimento pessoal (ex.: deixar de autuar um amigo), detenção de 3 meses a 1 ano. Condescendência criminosa (art. 320): deixar, por indulgência, de responsabilizar subordinado. Advocacia administrativa (art. 321): patrocinar interesse privado perante a Administração valendo-se da qualidade de funcionário.",
+        "Crimes de particular contra a Administração: resistência (art. 329) exige violência ou ameaça contra o funcionário que executa ato legal; desobediência (art. 330) é não cumprir ordem legal, e fugir de ordem de parada em policiamento ostensivo é desobediência (STJ, Tema 1060); desacato (art. 331) é ofender o funcionário no exercício da função ou em razão dela, e o STF o considera compatível com a Constituição. Se a lei já prevê sanção administrativa específica, sem ressalvar a penal, não há desobediência (ex.: recusa ao bafômetro é a infração do art. 165-A do CTB).",
+        "Descaminho (art. 334, 1 a 4 anos): iludir o pagamento de imposto devido pela entrada ou saída de mercadoria permitida. Contrabando (art. 334-A, 2 a 5 anos): importar ou exportar mercadoria proibida. A insignificância vale para o descaminho até R$ 20 mil de tributo (STF e STJ), mas, em regra, não para o contrabando. Fora o descaminho, não cabe insignificância nos crimes contra a Administração (Súmula 599 do STJ).",
+        "Contra a administração da justiça: denunciação caluniosa (art. 339, dar causa a investigação ou processo contra quem sabe inocente); comunicação falsa de crime (art. 340); falso testemunho (art. 342; a retratação antes da sentença extingue a punibilidade); favorecimento pessoal (art. 348; isento o cônjuge, ascendente, descendente ou irmão); e, desde a Lei 15.280/2025, descumprir medida protetiva de urgência (art. 338-A), reclusão de 2 a 5 anos, com fiança só pelo juiz."
+      ],
+      "pegadinhas": [
+        "Exigir = concussão; solicitar = corrupção passiva; oferecer = corrupção ativa. A banca troca os verbos.",
+        "Corrupção ativa não admite a forma 'tentada' só porque o policial recusou: já se consumou na oferta.",
+        "Insignificância cabe no descaminho (até R$ 20 mil), mas não nos demais crimes contra a Administração."
+      ],
+      "novidades": [
+        "Lei 15.280/2025: novo art. 338-A, descumprir decisão que defere medidas protetivas de urgência (em qualquer contexto), reclusão de 2 a 5 anos e multa; só o juiz pode conceder fiança."
+      ],
+      "itens": [
+        {"t": "Ao oferecer dinheiro para ser irregularmente liberado da blitz, o condutor pratica o crime de corrupção ativa.", "r": "C", "j": "Art. 333: oferecer vantagem indevida a funcionário para omitir ato de ofício. Item 102 da PRF 2021."},
+        {"t": "O policial que exige dinheiro de um motorista para não lavrar o auto de infração pratica corrupção passiva.", "r": "E", "j": "Exigir é o verbo da concussão (art. 316). Corrupção passiva é solicitar, receber ou aceitar promessa."},
+        {"t": "No peculato culposo, a reparação do dano, se anterior à sentença irrecorrível, extingue a punibilidade.", "r": "C", "j": "Art. 312, § 3º. Se posterior, reduz a pena pela metade."},
+        {"t": "Segundo o STJ, a desobediência à ordem legal de parada emanada por agentes públicos em contexto de policiamento ostensivo constitui o crime do art. 330 do CP.", "r": "C", "j": "Tese do Tema 1060 (REsp 1.859.933/SC, 2022)."},
+        {"t": "O princípio da insignificância não se aplica ao crime de descaminho, por ser crime contra a Administração Pública.", "r": "E", "j": "O STF e o STJ aplicam a insignificância ao descaminho quando o tributo iludido não supera R$ 20 mil."},
+        {"t": "Equipara-se a funcionário público, para fins penais, quem trabalha para empresa prestadora de serviço contratada para a execução de atividade típica da Administração.", "r": "C", "j": "Art. 327, § 1º."}
+      ],
+      "questoes": ["prf-2021-p1|item 102", "prf-2021-p1|item 103"]
+    },
+    {
+      "id": "concurso",
+      "bloco": "Complementar",
+      "titulo": "Concurso de pessoas e concurso de crimes",
+      "edital": "Fora da lista de 2021, mas cobrado em situações (PRF 2021, item 100)",
+      "peso": 1,
+      "artigos": ["CP 29-31", "CP 69-71"],
+      "palavras": ["concurso de pessoas", "coautoria", "coautor", "participacao", "participe", "autoria", "dominio do fato", "liame subjetivo", "participacao de menor importancia", "cooperacao dolosamente distinta", "comunicabilidade", "elementares", "concurso de crimes", "concurso material", "concurso formal", "crime continuado", "desígnios autonomos", "designios autonomos", "continuidade delitiva"],
+      "pontos": [
+        "Teoria monista (art. 29): quem, de qualquer modo, concorre para o crime incide nas penas a ele cominadas, na medida de sua culpabilidade. Requisitos do concurso de pessoas: pluralidade de agentes, relevância causal das condutas, liame subjetivo (vontade de participar da obra comum, sem precisar de acordo prévio) e identidade de infração.",
+        "Autor executa o verbo do tipo ou tem o domínio do fato; partícipe induz, instiga ou auxilia. Participação de menor importância reduz a pena de um sexto a um terço (§ 1º). Cooperação dolosamente distinta (§ 2º): quem quis participar de crime menos grave responde por ele, com pena aumentada até metade se o resultado mais grave era previsível.",
+        "Comunicabilidade (art. 30): circunstâncias e condições pessoais não se comunicam, salvo quando elementares do crime. Por isso o particular que ajuda o funcionário a desviar bem público, sabendo dessa condição, responde por peculato.",
+        "O ajuste, a determinação, a instigação e o auxílio não são puníveis se o crime não chega, pelo menos, a ser tentado (art. 31).",
+        "Concurso material (art. 69): mais de uma ação, dois ou mais crimes, e as penas se somam. Ex.: remarcar o chassi e depois falsificar o CRV (PRF 2021, item 100).",
+        "Concurso formal (art. 70): uma só ação, dois ou mais crimes. No próprio, aplica-se a pena mais grave aumentada de um sexto até metade; no impróprio, com desígnios autônomos, as penas se somam. O formal nunca pode resultar em pena maior que a soma (concurso material benéfico).",
+        "Crime continuado (art. 71): vários crimes da mesma espécie, em condições semelhantes de tempo, lugar e modo de execução, tratados como continuação do primeiro. Pena de um só, aumentada de um sexto a dois terços; com violência ou grave ameaça contra vítimas diferentes, pode chegar ao triplo (parágrafo único). O tempo máximo de cumprimento de pena é de 40 anos (art. 75)."
+      ],
+      "pegadinhas": [
+        "Concurso de pessoas não exige acordo prévio; basta o liame subjetivo, mesmo que só um saiba que está ajudando.",
+        "Condição pessoal elementar (ser funcionário público) se comunica ao comparsa que a conhece."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O concurso de pessoas exige prévio ajuste entre os agentes.", "r": "E", "j": "Basta o liame subjetivo, a vontade de participar do crime do outro; não é necessário acordo prévio."},
+        {"t": "As circunstâncias e as condições de caráter pessoal comunicam-se aos demais agentes quando elementares do crime.", "r": "C", "j": "Art. 30."},
+        {"t": "No concurso formal próprio, aplica-se a mais grave das penas cabíveis, aumentada de um sexto até metade.", "r": "C", "j": "Art. 70, caput, primeira parte."},
+        {"t": "O auxílio a um crime que não chegou a ser tentado é punível como participação.", "r": "E", "j": "Art. 31: ajuste, determinação, instigação e auxílio não são puníveis se o crime não chega a ser tentado."}
+      ],
+      "questoes": ["prf-2021-p1|item 100"]
+    }
+  ]
+}

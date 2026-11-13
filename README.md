@@ -115,6 +115,40 @@ Questões, Erros e Simulados), pelo mesmo script:
 
 Sem internet, os registros ficam guardados e vão depois.
 
+### Direito Penal da PRF: aulas, direção e o que você aprendeu
+
+O Sócrates tem uma **trilha de Direito Penal** montada sobre o último edital da PRF (2021,
+Cebraspe): 16 tópicos, do "Princípios" ao "Crimes contra a Administração Pública", com 117
+pontos-chave, 44 pegadinhas da banca e 79 itens de fixação com gabarito e justificativa. As leis
+estão conferidas até 2026, o que importa porque os modelos de IA ainda trazem penas antigas: o
+furto passou a 1 a 6 anos e o roubo a 6 a 10 (Lei 15.397/2026), o feminicídio virou crime
+autônomo (Lei 14.994/2024) e o estelionato voltou a ser de ação pública incondicionada.
+
+| Fale                                   | O que acontece                                             |
+|----------------------------------------|------------------------------------------------------------|
+| "vamos estudar penal"                  | Aula do tópico que ele recomenda para você agora           |
+| "me ensina legítima defesa"            | Aula de um tópico: ponto por ponto, com exemplos da rotina de um PRF |
+| "o que eu estudo de penal?"            | O próximo passo e onde você está no edital                 |
+| "o que eu estudei hoje?" / "ontem" / "essa semana" | Tempo, aulas, questões, lacunas, artigos e dúvidas |
+| "o que eu já aprendi?"                 | O que você domina, o que está praticando e o que ainda erra |
+| "questões de penal" / "questões de furto" | Itens da trilha e questões reais da prova ligadas ao tópico |
+| "simulado de penal"                    | 20 itens misturados, corrigidos só no fim                  |
+| "mostra meu mapa de penal"             | Abre no navegador o mapa completo (também: `main.py --mapa`) |
+
+**Como é a aula:** cada ponto aparece no quadro (o texto conferido) e o Sócrates explica falando
+e termina com uma pergunta. Você responde ou tira a dúvida; ele corrige com base no ponto.
+"Próximo" passa adiante, "repete" explica de outro jeito, "parar" pausa (e "me ensina ..." de novo
+continua de onde parou). No fim, itens de fixação estilo Cebraspe, corrigidos pelo gabarito.
+
+**Como ele decide o próximo passo:** primeiro as revisões vencidas, depois a aula que ficou pela
+metade, os tópicos em que você está fraco, os que você dominava mas não pratica há mais de 30
+dias, e então o próximo tópico do edital. O domínio de cada tópico vem dos seus acertos nos itens,
+nas questões reais e nas lacunas dos artigos dele; respostas antigas valem menos.
+
+Qualquer pergunta solta sobre o assunto ("qual a pena do roubo?", "concussão ou corrupção
+passiva?") vai ao cérebro junto com as notas conferidas do tópico, com a instrução de não
+contradizê-las.
+
 ### Ações no computador
 
 Sem nenhuma API: quem executa é o próprio Windows. O Groq só entende o pedido.
@@ -404,10 +438,15 @@ socrates/
   estudo/lei.py            acha o artigo pedido e os trechos que respondem uma dúvida
   estudo/material.py       baixa os bancos do app estudo-prf
   estudo/planilha.py       manda para a planilha do Google (mesmo script do app)
+  estudo/trilhas/*.json    trilhas do edital (Direito Penal da PRF), com conteúdo conferido
+  estudo/trilha.py         lê a trilha, acha o tópico na fala, monta itens e notas
+  estudo/aula.py           a aula guiada, ponto por ponto, com fixação no fim
+  estudo/progresso.py      domínio por tópico, próximo passo, o que estudou e aprendeu
+  estudo/mapa.py           o mapa da trilha em HTML
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     380 testes, rodam sem microfone nem internet
+tests/                     429 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -419,6 +458,8 @@ tests/                     380 testes, rodam sem microfone nem internet
 - [x] **Fase 2** — ações no computador, quadro branco com fórmulas e gráficos, visor maior, vozes novas
 - [x] **Fase 2.5** — interromper enquanto ele fala (clique ou Espaço no visor)
 - [x] **Fase 3** — estudo com o material real: questões, lacunas, revisão espaçada, pomodoro e planilha
+- [x] **Fase 4** — trilha de Direito Penal da PRF: aulas guiadas, direção, diário e mapa
+- [ ] **Próximas trilhas** — Processo Penal e Legislação Especial (o resto do bloco da PRF)
 
 ## Testes
 
