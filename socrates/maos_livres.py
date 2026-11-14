@@ -34,6 +34,7 @@ from .core.despertar import chamou
 from .core.narrador import ecoar, narrar
 from .core.orquestrador import Orquestrador
 from .llm import ErroCerebro
+from .llm.acoes import pede_acao
 from .stt import ErroOuvido
 from .tts import ErroVoz
 from .visor.painel import Painel
@@ -68,6 +69,10 @@ Trilhas da PRF: Penal, Processo Penal, Legislação Especial (aulas e direção)
 Autoestudo (ele estuda sozinho o edital enquanto você está quieto; veja no canto do visor):
   "o que você está aprendendo?"   "o que você aprendeu hoje?"   "aprende sobre crase"
   "pausa o aprendizado"   "volta a aprender"
+
+Ele decide sozinho (fale do seu jeito, pode pedir duas coisas juntas):
+  "abre o bloco de notas e coloca o artigo 7 do CTB"   "e os primeiros artigos do Código Penal?"
+  "lembra que minha prova é em março"   "o que você sabe de mim?"   "manda suas ideias para o Claude"
 
 Comandos (falados ou digitados):
   "modo explicar"    /explicar   explica e confere se você entendeu
@@ -105,9 +110,10 @@ def pede_quadro(pedido: str) -> bool:
 
 class Conversa:
     def __init__(self, cfg: Config, soc: Orquestrador, sentidos, painel: Painel,
-                 escrever: Callable[[str], None] | None = None, tutor=None):
+                 escrever: Callable[[str], None] | None = None, tutor=None, agente=None):
         self.cfg = cfg
         self.tutor = tutor
+        self.agente = agente          # o cérebro que decide (core/agente.py); None = só as regras
         self.soc = soc
         self.s = sentidos
         self.painel = painel
@@ -227,6 +233,83 @@ class Conversa:
 
         await self._interrompivel(tarefa())
 
+    async def falar_resposta(self, texto: str) -> None:
+        """Fala uma resposta pronta (a do agente), com o quadro e a interrupção de sempre."""
+        from .core.quadro_fluxo import separar_quadro
+
+        self.escrever(f"{self.cfg.nome}: ")
+
+        async def fonte():
+            yield texto
+
+        pedacos = ecoar(separar_quadro(fonte(), self._ao_quadro), self.escrever)
+
+        async def tarefa():
+            try:
+                await narrar(pedacos, self.s.voz,
+                             ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"))
+                self.dizer_tela()
+            except ErroAudio as e:
+                self.dizer_tela(f"\n[som] {e}")
+            finally:
+                self.painel.estado = "ocioso"
+
+        await self._interrompivel(tarefa())
+
+    async def _com_agente(self, pedido: str) -> bool:
+        """O cérebro que decide cuida da fala. False = ele falhou (sem internet, limite):
+        aí a conversa segue pelo caminho antigo (regras do tutor + conversa)."""
+        self.painel.estado = "pensando"
+        try:
+            r = await self.agente.atender(pedido, self.soc.historico, self.soc.modo)
+        except ErroCerebro as e:
+            log.warning("o cérebro que decide falhou (%s); seguindo pelas regras", e)
+            self.painel.estado = "ocioso"
+            return False
+        except Exception:
+            log.exception("o cérebro que decide quebrou; seguindo pelas regras")
+            self.painel.estado = "ocioso"
+            return False
+        if r.saida is not None:                 # o tutor assumiu (aula, treino, consulta)
+            await self.executar_saida(pedido, r.saida)
+            return True
+        self._quadros_nesta = 0
+        if r.quadro:
+            self._ao_quadro(r.quadro)
+        texto = r.texto or ("Pronto." if r.ferramentas else "")
+        if not texto:
+            self.painel.estado = "ocioso"
+            return False
+        self.soc.registrar(pedido, texto)
+        await self.falar_resposta(texto)
+        return True
+
+    def _atalho_do_tutor(self, pedido: str) -> bool:
+        """Pedido de estudo curto e claro ("questões da PRF", "me ensina furto", "meu
+        mapa"): o tutor resolve na hora, sem gastar o cérebro. Frase longa, duas coisas
+        juntas, correção ("não, eu quero...") ou coisa do PC vão para o cérebro que decide."""
+        if self.tutor is None:
+            return False
+        t = unicodedata.normalize("NFKD", pedido).encode("ascii", "ignore").decode().lower()
+        t = re.sub(r"[^a-z0-9 ]", " ", t).split()
+        if not t or len(t) > 7 or t[0] in ("nao", "mas", "e", "entao") \
+                or {"se", "depois", "mas", "tambem", "porque", "pq"} & set(t) or pede_acao(pedido):
+            return False
+        try:
+            return self.tutor.entender(pedido) is not None
+        except Exception:
+            return False
+
+    def _som_ligado(self) -> bool:
+        """Abriu vídeo ou música: o som do PC entra no microfone. Para não responder ao
+        vídeo, volta a esperar o nome "Sócrates"."""
+        if not ferramentas.SOM_LIGADO.is_set():
+            return False
+        ferramentas.SOM_LIGADO.clear()
+        self.painel.fechar_janela()
+        self.dizer_tela('(som tocando: me chame pelo nome, "Sócrates", para continuar)')
+        return True
+
     async def _interrompivel(self, coro) -> None:
         """Fala que o aluno pode cortar (clique ou Espaço no visor)."""
         self.interrompido = False
@@ -281,6 +364,7 @@ class Conversa:
             await self.responder(pedido, extra=saida.contexto)
             return
         if saida.fala:
+            self.soc.registrar(pedido, saida.fala)   # o "sim"/"vai" seguinte sabe do que se trata
             self.dizer_tela(f"{self.cfg.nome}: {saida.fala}")
             await self._interrompivel(self._falar(saida.fala, False))
 
@@ -320,6 +404,25 @@ class Conversa:
         log.info("ignorado (sem o nome): %r", texto)
         return None
 
+    def _saudacao(self, palavra: bool) -> str:
+        """Com o cérebro que decide, ele já chega com iniciativa: o plano do dia."""
+        fim = "É só me chamar pelo nome." if palavra else "Pode falar."
+        if (self.agente is not None and self.tutor is not None
+                and getattr(self.cfg, "agente", None) is not None
+                and self.cfg.agente.saudacao_com_plano):
+            try:
+                plano = self.tutor.plano()
+            except Exception:
+                log.exception("plano do dia")
+                plano = None
+            if plano is not None and plano.fala:
+                if plano.quadro:
+                    self._ao_quadro(plano.quadro)
+                fala = f"Olá! {plano.fala}"
+                self.soc.registrar(None, fala)
+                return fala
+        return f"Olá! Eu sou o {self.cfg.nome}. {fim}"
+
     # ---------- laço principal ----------
     async def rodar(self, fila: asyncio.Queue) -> None:
         palavra = self.cfg.escuta.palavra_ativacao
@@ -331,8 +434,7 @@ class Conversa:
         self.dizer_tela(f"\n{self.cfg.nome} pronto ({descricao_cerebro(self.cfg)}).")
         self.dizer_tela(AJUDA)
         if self.cfg.voz.saudacao:
-            await self.falar(f"Olá! Eu sou o {self.cfg.nome}. "
-                             + ("É só me chamar pelo nome." if palavra else "Pode falar."), False)
+            await self.falar(self._saudacao(palavra), False)
         self.dizer_tela('\nEsperando você dizer "Sócrates"...' if palavra else "\nOuvindo...")
 
         while True:
@@ -344,6 +446,7 @@ class Conversa:
                 continue
             if isinstance(item, Aviso):
                 self.dizer_tela(f"\n{self.cfg.nome}: {item.texto}")
+                self.soc.registrar(None, item.texto)
                 await self.falar(item.texto, False)
                 self.abrir_janela()
                 continue
@@ -354,8 +457,13 @@ class Conversa:
             self.painel.legenda = pedido
 
             if ferramentas.pendente_valido():   # "Posso mandar?" -> "sim"
+                qual = ferramentas.PENDENTE.nome if ferramentas.PENDENTE else ""
                 resposta = await asyncio.to_thread(ferramentas.resolver_confirmacao, pedido)
                 if resposta is not None:
+                    self.soc.registrar(pedido, resposta)
+                    if (qual == "pedir_ao_claude" and resposta.startswith(("Mandei", "Colei"))
+                            and getattr(self.agente, "memorias", None) is not None):
+                        self.agente.memorias.marcar_enviadas()   # as ideias de melhoria foram
                     self.dizer_tela(f"{self.cfg.nome}: {resposta}")
                     await self.falar(resposta, False)
                     if claude.REINICIAR.is_set():
@@ -368,7 +476,10 @@ class Conversa:
                 self.abrir_janela()
                 continue
 
-            if self.tutor is not None and self.tutor.em_treino and not _comando_geral(pedido):
+            no_pc = (self.agente is not None and pede_acao(pedido)
+                     and len(pedido.split()) >= 2)    # "abre o bloco de notas" no meio do treino
+            if (self.tutor is not None and self.tutor.em_treino and not _comando_geral(pedido)
+                    and not no_pc):
                 saida = self.tutor.atender(pedido)
                 if saida is not None:
                     await self.executar_saida(pedido, saida)
@@ -399,6 +510,12 @@ class Conversa:
                     self.abrir_janela()
                 continue
 
+            if (self.agente is not None and not self._atalho_do_tutor(pedido)
+                    and await self._com_agente(pedido)):
+                if not self._som_ligado():
+                    self.abrir_janela()
+                continue
+
             extra = None
             if self.tutor is not None:
                 try:
@@ -412,12 +529,7 @@ class Conversa:
                     continue
                 extra = self.tutor.contexto_da_lei(pedido) or None
             await self.responder(pedido, extra)
-            if ferramentas.SOM_LIGADO.is_set():
-                # Abriu vídeo ou música: o som do PC entra no microfone. Para não
-                # responder ao vídeo, volta a esperar o nome "Sócrates".
-                ferramentas.SOM_LIGADO.clear()
-                self.painel.fechar_janela()
-                self.dizer_tela('(som tocando: me chame pelo nome, "Sócrates", para continuar)')
+            if self._som_ligado():
                 continue
             self.abrir_janela()
 

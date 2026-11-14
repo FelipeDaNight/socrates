@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 
 from ..audio.alto_falante import AltoFalante
 from . import ErroVoz, Voz
 
 log = logging.getLogger("socrates.voz")
+
+TENTATIVAS = 3
+ESPERAS = (0.3, 0.8)          # segundos antes da 2ª e da 3ª tentativa
 
 
 class VozEdge(Voz):
@@ -19,6 +23,19 @@ class VozEdge(Voz):
         self.alto_falante = alto_falante or AltoFalante()
 
     async def sintetizar(self, texto: str) -> bytes:
+        """O serviço do Edge às vezes falha à toa ("No audio was received"): tenta de
+        novo duas vezes, rapidinho, antes de desistir (aí entra a voz reserva)."""
+        ultimo: ErroVoz | None = None
+        for tentativa in range(TENTATIVAS):
+            try:
+                return await self._uma_vez(texto)
+            except ErroVoz as e:
+                ultimo = e
+                if tentativa + 1 < TENTATIVAS:
+                    await asyncio.sleep(ESPERAS[min(tentativa, len(ESPERAS) - 1)])
+        raise ultimo
+
+    async def _uma_vez(self, texto: str) -> bytes:
         import edge_tts
 
         partes: list[bytes] = []

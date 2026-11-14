@@ -59,6 +59,7 @@ def criar_cerebro(cfg: ConfigLLM, pesquisa: bool = False, acoes: bool = False,
             maos = base
         cerebro = CerebroComAcoes(cerebro, maos, nomes)
         log.info("ações no PC: %s", ", ".join(nomes))
+    cerebro.base_rodizio = base     # o cérebro que decide (core/agente.py) usa o mesmo rodízio
     return cerebro
 
 

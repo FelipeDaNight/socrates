@@ -106,7 +106,9 @@ def achar_topico(planos: list[Plano], texto: str) -> TopicoPlano | None:
                 termos = top.termos()
                 if not termos:
                     continue
-                achados = sum(1 for p in termos if f" {p} " in t or f" {p[:-1]} " in t)
+                # plural vira singular ("crimes" acha "crime"), mas "poder" NÃO acha "pode"
+                achados = sum(1 for p in termos
+                              if f" {p} " in t or (p.endswith("s") and f" {p[:-1]} " in t))
                 if not achados:
                     continue
                 nota = achados / len(termos) + 0.5 * achados + (0.3 if materia_citada else 0)

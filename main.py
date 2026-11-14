@@ -95,6 +95,51 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
                         contexto=lambda: contexto.montar(cfg.local, pesquisa, acoes=cfg.acoes))
 
 
+def criar_agente(cfg: config.Config, soc: Orquestrador, tutor=None):
+    """O cérebro que decide (core/agente.py): entende a fala e escolhe sozinho as
+    ferramentas. None = segue só pelas regras fixas (modo local ou desligado)."""
+    if not cfg.agente.ativo or cfg.cerebro == "local":
+        return None
+    base = getattr(soc.cerebro, "base_rodizio", None)
+    if base is None or not hasattr(base, "com_ferramentas"):
+        return None
+    from socrates import ferramentas
+    from socrates.core import contexto
+    from socrates.core.agente import Agente
+    from socrates.core.memoria import Memorias
+
+    nomes = ferramentas.nomes_das_acoes() if cfg.acoes else []
+    agente = Agente(base, tutor=tutor, memorias=Memorias(), nome=cfg.nome,
+                    contexto=lambda: contexto.para_agente(cfg.local), acoes_pc=nomes)
+    print(f"[cérebro] decide sozinho: {len(agente.esquemas())} ferramentas, memória e lições "
+          "em Documentos\\Socrates")
+    return agente
+
+
+async def refletir_em_segundo_plano(cfg: config.Config, agente, avisar, espera: float = 25) -> None:
+    """Uma vez por dia ele relê o próprio registro e anota lições (core/reflexao.py)."""
+    from pathlib import Path
+
+    from socrates.config import RAIZ
+    from socrates.core.reflexao import Reflexao, aviso_da_reflexao
+
+    if agente is None or not cfg.agente.reflexao or not cfg.log_arquivo:
+        return
+    arquivo = Path(cfg.log_arquivo)
+    if not arquivo.exists():
+        arquivo = RAIZ / cfg.log_arquivo
+    await asyncio.sleep(espera)            # deixa a saudação e a primeira conversa passarem
+    try:
+        r = await Reflexao(agente.cerebro, agente.memorias, arquivo, nome=cfg.nome).refletir()
+    except Exception as e:                 # refletir é um extra: nunca derruba a conversa
+        logging.getLogger("socrates").warning("reflexão falhou: %s", e)
+        return
+    if r:
+        texto = aviso_da_reflexao(*r)
+        if texto:
+            avisar(texto)
+
+
 def criar_tutor(cfg: config.Config):
     """Questões, lei seca, revisão e pomodoro. Sem material, o resto funciona igual."""
     import os
@@ -221,11 +266,15 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
         if motor is not None:
             motor.iniciar()
 
+    agente = criar_agente(cfg, soc, tutor)
+    reflexao = asyncio.create_task(refletir_em_segundo_plano(
+        cfg, agente, lambda texto: fila.put_nowait(Aviso(texto))))
     ler_teclado(loop, fila)
     sentidos.escuta.iniciar(fila)
     try:
-        await Conversa(cfg, soc, sentidos, painel, tutor=tutor).rodar(fila)
+        await Conversa(cfg, soc, sentidos, painel, tutor=tutor, agente=agente).rodar(fila)
     finally:
+        reflexao.cancel()
         if motor is not None:
             motor.parar()
         sentidos.escuta.parar()
@@ -273,6 +322,7 @@ async def conversar_texto(cfg: config.Config) -> None:
 
     soc = criar_socrates(cfg)
     tutor = criar_tutor(cfg)
+    agente = criar_agente(cfg, soc, tutor)
     ultimo = [time.monotonic()]
     motor = None
     if tutor is not None:
@@ -317,6 +367,27 @@ async def conversar_texto(cfg: config.Config) -> None:
             print(AJUDA_TEXTO)
             continue
         extra = None
+        if agente is not None and saida is None:
+            try:
+                r = await agente.atender(texto, soc.historico, soc.modo)
+            except ErroCerebro as e:
+                print(f"[cérebro que decide] {e} Seguindo pelas regras.")
+                r = None
+            if r is not None and r.saida is not None:
+                saida = r.saida
+            elif r is not None and (r.texto or r.quadro):
+                if r.quadro:
+                    mostrar_quadro_texto(r.quadro)
+                if r.texto:
+                    async def _so(t=r.texto):
+                        yield t
+                    print(f"{cfg.nome}: ", end="", flush=True)
+                    async for pedaco in separar_quadro(_so(), mostrar_quadro_texto):
+                        print(pedaco, end="", flush=True)
+                    print()
+                soc.registrar(texto, r.texto or "(mostrei no quadro)")
+                ultimo[0] = time.monotonic()
+                continue
         if tutor is not None and saida is None:
             saida = tutor.atender(texto)
             extra = None if saida is not None else (tutor.contexto_da_lei(texto) or None)
@@ -331,6 +402,7 @@ async def conversar_texto(cfg: config.Config) -> None:
                 mostrar_quadro_texto(saida.quadro)
             if saida.fala:
                 print(f"{cfg.nome}: {saida.fala}")
+                soc.registrar(texto, saida.fala)
             if not saida.contexto:
                 continue
             extra = saida.contexto

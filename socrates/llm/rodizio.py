@@ -73,11 +73,16 @@ class CerebroRodizio(Cerebro):
         raise ultimo or ErroCerebro("Nenhum cérebro disponível agora.")
 
     # ---------- ações ----------
-    async def com_ferramentas(self, mensagens, esquemas, executar, max_rodadas: int = 4) -> str:
+    async def com_ferramentas(self, mensagens, esquemas, executar, max_rodadas: int = 4,
+                              parar=None) -> str:
         ultimo: Exception | None = None
         for m in self.ordem():
             try:
-                texto = await m.com_ferramentas(mensagens, esquemas, executar, max_rodadas)
+                if parar is None:
+                    texto = await m.com_ferramentas(mensagens, esquemas, executar, max_rodadas)
+                else:
+                    texto = await m.com_ferramentas(mensagens, esquemas, executar, max_rodadas,
+                                                    parar=parar)
             except ErroCerebro as e:
                 self._descansar(m, e)
                 ultimo = e

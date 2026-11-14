@@ -132,6 +132,21 @@ class Orquestrador:
         log.info("complemento %r -> %r", pedido[:50], texto[:600])
         return texto
 
+    def registrar(self, usuario: str | None, resposta: str | None) -> None:
+        """Guarda no histórico uma troca que não passou por conversar(): o tutor falou,
+        chegou um aviso, o agente respondeu. Assim a fala seguinte ("vai", "sim",
+        "e o próximo?") tem o contexto do que acabou de acontecer."""
+        if usuario and usuario.strip():
+            self.historico.append({"role": "user", "content": usuario.strip()})
+        if resposta and resposta.strip():
+            if self.historico and self.historico[-1]["role"] == "assistant" and not usuario:
+                self.historico[-1]["content"] += "\n" + resposta.strip()   # dois avisos seguidos
+            else:
+                self.historico.append({"role": "assistant", "content": resposta.strip()})
+        excesso = len(self.historico) - 4 * self.historico_max
+        if excesso > 0:
+            del self.historico[:excesso]
+
     def anexar_a_ultima_resposta(self, texto: str) -> None:
         if self.historico and self.historico[-1]["role"] == "assistant":
             self.historico[-1]["content"] += "\n" + texto

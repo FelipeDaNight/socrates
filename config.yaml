@@ -5,7 +5,7 @@
 nome: Sócrates
 modo_inicial: explicar        # explicar | testar
 historico_max: 12             # quantas mensagens ele lembra na conversa atual
-local: Morrinhos, Goiás       # usado para clima e perguntas sobre "aqui"
+cidade: Morrinhos, Goiás      # usado para clima e perguntas sobre "aqui"
 
 # Onde o Sócrates PENSA:
 #   nuvem: rodízio grátis (Groq, Mistral, Gemini); mais inteligente, precisa de internet
@@ -24,6 +24,11 @@ acoes:
   programas:                  # programas extras: nome falado: caminho do .exe
     # anki: 'C:\Program Files\Anki\anki.exe'
     # obsidian: '%LOCALAPPDATA%\Programs\Obsidian\Obsidian.exe'
+
+agente:                       # o "cérebro que decide": entende a fala e escolhe sozinho o que fazer
+  ativo: true                 # false = volta ao jeito antigo (regras fixas + conversa)
+  reflexao: true              # todo dia relê o próprio registro e escreve lições para si
+  saudacao_com_plano: true    # ao ligar, já sugere o que estudar hoje
 
 claude:                       # "Sócrates, pede pro Claude..." digita no app do Claude
   enviar_com_enter: true      # false = só cola a mensagem, você confere e aperta Enter

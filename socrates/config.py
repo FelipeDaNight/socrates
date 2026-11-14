@@ -89,6 +89,13 @@ class ConfigLocal:
 
 
 @dataclass
+class ConfigAgente:
+    ativo: bool = True              # o cérebro que decide (entende a fala e escolhe as ferramentas)
+    reflexao: bool = True           # todo dia relê o próprio registro e escreve lições
+    saudacao_com_plano: bool = True  # ao ligar, já sugere o que estudar
+
+
+@dataclass
 class Config:
     nome: str
     modo_inicial: str
@@ -112,6 +119,7 @@ class Config:
     cerebro: str = "nuvem"                       # nuvem (Groq/Mistral/Gemini) | local (Ollama)
     local_cfg: ConfigLocal = field(default_factory=ConfigLocal)
     claude_enter: bool = True
+    agente: ConfigAgente = field(default_factory=ConfigAgente)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -125,6 +133,15 @@ def descricao_cerebro(cfg: "Config") -> str:
 
 class ErroConfig(Exception):
     """Algo no config.yaml ou no .env está faltando ou errado."""
+
+
+def _cidade(dados: dict) -> str | None:
+    """A cidade do aluno. Antes ficava em "local:", que é também a seção do cérebro local
+    (e a segunda apagava a primeira); agora é "cidade:". "local: Cidade" ainda vale."""
+    cidade = dados.get("cidade")
+    if not cidade and isinstance(dados.get("local"), str):
+        cidade = dados["local"]
+    return str(cidade).strip() if cidade else None
 
 
 def _preencher(classe, dados: dict | None):
@@ -251,7 +268,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         microfone=_preencher(ConfigMic, dados.get("microfone")),
         escuta=_preencher(ConfigEscuta, dados.get("escuta")),
         visor=_preencher(ConfigVisor, dados.get("visor")),
-        local=dados.get("local"),
+        local=_cidade(dados),
         pesquisa=bool((dados.get("pesquisa") or {}).get("ativa", True)),
         acoes=bool((dados.get("acoes") or {}).get("ativas", True)),
         programas=(dados.get("acoes") or {}).get("programas") or {},
@@ -259,7 +276,9 @@ def carregar(caminho: Path | str | None = None) -> Config:
         claude_enter=bool((dados.get("claude") or {}).get("enviar_com_enter", True)),
         visoes=_visoes(dados, provedores),
         cerebro=modo_cerebro,
-        local_cfg=_preencher(ConfigLocal, dados.get("local")),
+        local_cfg=_preencher(ConfigLocal, dados.get("local") if isinstance(dados.get("local"), dict)
+                             else None),
+        agente=_preencher(ConfigAgente, dados.get("agente")),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

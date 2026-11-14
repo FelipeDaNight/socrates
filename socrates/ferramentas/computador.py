@@ -136,8 +136,8 @@ def abrir_programa(nome: str) -> str:
             return f"Não achei o {nome} instalado; abri o seu navegador padrão."
         return (f"O {nome} não foi encontrado neste computador. Se ele estiver instalado, "
                 "adicione o caminho do .exe em config.yaml, em acoes: programas:.")
-    if alvo.startswith("spotify"):
-        SOM_LIGADO.set()
+    # Abrir o Spotify não toca nada sozinho: a conversa continua sem exigir o nome.
+    # (Quem liga o som de verdade é buscar_no_navegador ou passar de música.)
     return f"Abri {nome}."
 
 

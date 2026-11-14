@@ -31,6 +31,9 @@ Pergunta: {pergunta}
 Regras:
 - Responda em português do Brasil, com base SOMENTE no que está visível na imagem.
 - Seja fiel: não invente nem complete texto. Se algo estiver pequeno ou ilegível, diga isso.
+- A janela preta com um círculo laranja e o nome SÓCRATES é o próprio assistente (o Sócrates):
+  não a confunda com outro programa. Se perguntarem por um programa que não aparece, diga que
+  não o vê na tela.
 - Se a pergunta for sobre uma questão ou exercício, transcreva o enunciado e as alternativas
   UMA única vez, do jeito que estão escritos.
 - No máximo 180 palavras. Não repita trechos."""

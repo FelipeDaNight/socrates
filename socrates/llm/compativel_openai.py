@@ -10,6 +10,7 @@ indica (se for curto) ou vai para o modelo reserva, que tem outro limite.
 from __future__ import annotations
 
 import asyncio
+import contextvars
 import json
 import logging
 import time
@@ -23,6 +24,10 @@ from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, Mensagem
 log = logging.getLogger("socrates.llm")
 
 ESPERA_MAX_SEG = 12   # esperar mais que isso calado parece travado: melhor usar a reserva
+# Quem tem pressa (o cérebro que decide, no meio da conversa) espera menos e passa logo
+# para o próximo do rodízio: ESPERA_LIMITE.set(3) vale só para a tarefa atual.
+ESPERA_LIMITE: contextvars.ContextVar[float] = contextvars.ContextVar("espera_limite",
+                                                                      default=ESPERA_MAX_SEG)
 
 
 def segundos_para_tentar(erro: openai.RateLimitError) -> float | None:
@@ -81,7 +86,7 @@ class CerebroCompativelOpenAI(Cerebro):
             except openai.RateLimitError as e:
                 espera = segundos_para_tentar(e)
                 log.warning("limite do %s (espera sugerida: %s s): %s", modelo, espera, e)
-                if not esperou and espera is not None and espera <= ESPERA_MAX_SEG:
+                if not esperou and espera is not None and espera <= ESPERA_LIMITE.get():
                     esperou = True
                     await asyncio.sleep(espera + 0.3)
                     continue
@@ -103,10 +108,12 @@ class CerebroCompativelOpenAI(Cerebro):
 
     # ---------- ferramentas ----------
     async def com_ferramentas(self, mensagens: list[Mensagem], esquemas: list[dict],
-                              executar, max_rodadas: int = 4) -> str:
+                              executar, max_rodadas: int = 4, parar=None) -> str:
         """O cérebro escolhe ferramentas; `executar(nome, args)` roda no seu PC.
 
-        Repete até o cérebro responder em texto (ou até max_rodadas).
+        Repete até o cérebro responder em texto (ou até max_rodadas). Se `parar()`
+        der True depois de uma rodada (ex.: o tutor assumiu e já tem o que falar),
+        devolve "" sem pedir mais nada ao cérebro.
         """
         msgs: list = [dict(m) for m in mensagens]
         feitos: list[str] = []
@@ -143,6 +150,8 @@ class CerebroCompativelOpenAI(Cerebro):
                 resultado = await executar(c.function.name, args)
                 feitos.append(resultado)
                 msgs.append({"role": "tool", "tool_call_id": c.id, "content": resultado})
+            if parar is not None and parar():
+                return ""
         return "Fiz o que pude, mas não consegui terminar o pedido."
 
     # ---------- pesquisa ----------

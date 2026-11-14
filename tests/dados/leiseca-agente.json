@@ -1,0 +1,398 @@
+{
+ "id": "leiseca-teste",
+ "tipo": "leiseca",
+ "blocos": [
+  {
+   "id": "cp",
+   "lei": "CP",
+   "rotulo": "Artigos 1º a 5º",
+   "artigos": [
+    {
+     "art": "Art. 1º",
+     "titulo": "Anterioridade da Lei.",
+     "secao": "PARTE GERAL — TÍTULO I — DA APLICAÇÃO DA LEI PENAL",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 1º. Não há crime sem lei anterior que o defina. Não há pena sem prévia cominação legal."
+      },
+      {
+       "k": "nota",
+       "t": "↳ Princípio da legalidade: lex certa, lex stricta, lex scripta, lex praevia."
+      }
+     ],
+     "lacunas": [],
+     "resumo": "Não há crime nem pena sem lei anterior que os defina. É o princípio da legalidade (reserva legal + anterioridade).",
+     "pontos": [
+      "Só lei em sentido formal cria crime e pena (medida provisória, decreto e costume não).",
+      "A lei precisa ser ANTERIOR ao fato."
+     ],
+     "dica": "Sem lei antes, sem crime; sem lei antes, sem pena."
+    },
+    {
+     "art": "Art. 2º",
+     "titulo": "Lei penal no tempo.",
+     "secao": "",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 2º. Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, CESSANDO em virtude dela a execução e os EFEITOS PENAIS da sentença condenatória."
+      },
+      {
+       "k": "nota",
+       "t": "• Efeitos penais primários: cessa a execução da pena."
+      },
+      {
+       "k": "nota",
+       "t": "• Efeitos penais secundários: não acarretam reincidência*"
+      },
+      {
+       "k": "nota",
+       "t": "* Não acarretam reincidência:"
+      },
+      {
+       "k": "nota",
+       "t": "- Anistia"
+      },
+      {
+       "k": "nota",
+       "t": "- Abolitio criminis"
+      },
+      {
+       "k": "nota",
+       "t": "- Perdão judicial (Súm. 18, STJ)"
+      },
+      {
+       "k": "nota",
+       "t": "- Porte de drogas para uso pessoal"
+      },
+      {
+       "k": "lei",
+       "t": "Parágrafo único. A lei POSTERIOR, que de qualquer modo FAVORECER o agente, APLICA-SE aos FATOS ANTERIORES, ainda que decididos por sentença condenatória transitada em julgado."
+      },
+      {
+       "k": "nota",
+       "t": "↳ Retroatividade da lei penal mais benéfica."
+      },
+      {
+       "k": "nota",
+       "t": "• Súmula nº 611, STF. Transitada em julgado a sentença condenatória, compete ao juízo das execuções a aplicação de lei mais benigna."
+      },
+      {
+       "k": "nota",
+       "t": "• Súmula nº 711, STF. A lei penal MAIS GRAVE aplica-se ao crime continuado ou ao crime permanente, se a sua vigência é ANTERIOR à cessação da continuidade ou da permanência."
+      },
+      {
+       "k": "nota",
+       "t": "↳ Independe do início da prática delitiva."
+      },
+      {
+       "k": "nota",
+       "t": "↳ Não há aqui retroatividade da lei mais grave, pois ela entrou em vigor DURANTE a prática criminosa."
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, ____ em virtude dela a execução e os EFEITOS PENAIS da sentença condenatória.",
+       "r": "CESSANDO",
+       "k": "lei",
+       "i": 0
+      },
+      {
+       "c": "Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, CESSANDO em virtude dela a execução e os ____ da sentença condenatória.",
+       "r": "EFEITOS PENAIS",
+       "k": "lei",
+       "i": 1
+      },
+      {
+       "c": "A lei ____, que de qualquer modo FAVORECER o agente, APLICA-SE aos FATOS ANTERIORES, ainda que decididos por sentença condenatória transitada em julgado.",
+       "r": "POSTERIOR",
+       "k": "lei",
+       "i": 2
+      },
+      {
+       "c": "A lei POSTERIOR, que de qualquer modo ____ o agente, APLICA-SE aos FATOS ANTERIORES, ainda que decididos por sentença condenatória transitada em julgado.",
+       "r": "FAVORECER",
+       "k": "lei",
+       "i": 3
+      },
+      {
+       "c": "A lei POSTERIOR, que de qualquer modo FAVORECER o agente, ____ aos FATOS ANTERIORES, ainda que decididos por sentença condenatória transitada em julgado.",
+       "r": "APLICA-SE",
+       "k": "lei",
+       "i": 4
+      },
+      {
+       "c": "A lei POSTERIOR, que de qualquer modo FAVORECER o agente, APLICA-SE aos ____, ainda que decididos por sentença condenatória transitada em julgado.",
+       "r": "FATOS ANTERIORES",
+       "k": "lei",
+       "i": 5
+      },
+      {
+       "c": "A lei penal ____ aplica-se ao crime continuado ou ao crime permanente, se a sua vigência é ANTERIOR à cessação da continuidade ou da permanência.",
+       "r": "MAIS GRAVE",
+       "k": "nota",
+       "i": 6
+      },
+      {
+       "c": "A lei penal MAIS GRAVE aplica-se ao crime continuado ou ao crime permanente, se a sua vigência é ____ à cessação da continuidade ou da permanência.",
+       "r": "ANTERIOR",
+       "k": "nota",
+       "i": 7
+      },
+      {
+       "c": "↳ Não há aqui retroatividade da lei mais grave, pois ela entrou em vigor ____ a prática criminosa.",
+       "r": "DURANTE",
+       "k": "nota",
+       "i": 8
+      }
+     ],
+     "resumo": "A lei nova que deixa de considerar o fato crime (abolitio criminis) apaga a condenação; a lei nova mais benéfica retroage sempre.",
+     "pontos": [
+      "Abolitio criminis: cessam a execução e os efeitos PENAIS da sentença; os efeitos CIVIS permanecem.",
+      "Lei posterior mais favorável retroage, mesmo depois do trânsito em julgado.",
+      "Lei mais gravosa NÃO retroage."
+     ],
+     "dica": "Retroatividade só para beneficiar o réu."
+    },
+    {
+     "art": "Art. 3º",
+     "titulo": "Lei excepcional ou temporária.",
+     "secao": "",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 3º. A lei excepcional (circunstâncias) ou temporária (período), embora decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, aplica-se ao fato praticado DURANTE SUA VIGÊNCIA."
+      },
+      {
+       "k": "nota",
+       "t": "⇾ A lei excepcional ou temporária possuem duas características essenciais:"
+      },
+      {
+       "k": "lei",
+       "t": "1) Autorrevogabilidade;"
+      },
+      {
+       "k": "lei",
+       "t": "2) Ultratividade"
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "A lei excepcional (circunstâncias) ou temporária (período), embora decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, aplica-se ao fato praticado ____.",
+       "r": "DURANTE SUA VIGÊNCIA",
+       "k": "lei",
+       "i": 0
+      }
+     ],
+     "resumo": "Leis excepcionais ou temporárias continuam valendo para fatos cometidos durante sua vigência, mesmo depois de revogadas ou de acabar o prazo.",
+     "pontos": [
+      "É a ultratividade: exceção à retroatividade da lei benéfica.",
+      "Evita que o autor se aproveite do fim da vigência para escapar da pena."
+     ]
+    },
+    {
+     "art": "Art. 4º",
+     "titulo": "Tempo do crime (TEORIA DA ATIVIDADE OU AÇÃO)",
+     "secao": "",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 4º. Considera-se praticado o crime no MOMENTO DA AÇÃO OU OMISSÃO, ainda que outro seja o momento do resultado."
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "Considera-se praticado o crime no ____, ainda que outro seja o momento do resultado.",
+       "r": "MOMENTO DA AÇÃO OU OMISSÃO",
+       "k": "lei",
+       "i": 0
+      }
+     ],
+     "resumo": "Considera-se praticado o crime no momento da ação ou da omissão, ainda que o resultado ocorra depois.",
+     "pontos": [
+      "Teoria adotada: ATIVIDADE (não importa quando o resultado aparece).",
+      "Ex.: menor de 18 anos que atira e a vítima morre quando ele já é maior continua inimputável."
+     ],
+     "dica": "Tempo do crime = atividade. Lugar do crime = ubiquidade (art. 6º)."
+    },
+    {
+     "art": "Art. 5º",
+     "titulo": "Territorialidade",
+     "secao": "",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 5º. Aplica-se a lei brasileira, sem prejuízo de convenções, tratados e regras de Direito Internacional, ao crime cometido no território nacional."
+      },
+      {
+       "k": "nota",
+       "t": "↳ Territorialidade mitigada, matizada, temperada."
+      },
+      {
+       "k": "lei",
+       "t": "§ 1º. Para os efeitos penais, consideram-se como EXTENSÃO do território nacional as embarcações e aeronaves brasileiras, de NATUREZA PÚBLICA ou A SERVIÇO DO GOVERNO BRASILEIRO onde quer que se encontrem, bem como as aeronaves e as embarcações brasileiras, mercantes ou de propriedade privada, que se achem, respectivamente, no espaço aéreo correspondente ou em alto-mar."
+      },
+      {
+       "k": "lei",
+       "t": "§ 2º. É também aplicável a lei brasileira aos crimes praticados a bordo de aeronaves ou embarcações ESTRANGEIRAS de PROPRIEDADE PRIVADA, achando-se aquelas em pouso no território nacional ou em voo no espaço aéreo correspondente, e estas em porto ou mar territorial do Brasil."
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "Para os efeitos penais, consideram-se como ____ do território nacional as embarcações e aeronaves brasileiras, de NATUREZA PÚBLICA ou A SERVIÇO DO GOVERNO BRASILEIRO onde quer que se encontrem, bem como as aeronaves e as embarcações brasileiras, mercantes ou de propriedade privada, que se achem, respectivamente, no espaço aéreo correspondente ou em alto-mar.",
+       "r": "EXTENSÃO",
+       "k": "lei",
+       "i": 0
+      },
+      {
+       "c": "Para os efeitos penais, consideram-se como EXTENSÃO do território nacional as embarcações e aeronaves brasileiras, de ____ ou A SERVIÇO DO GOVERNO BRASILEIRO onde quer que se encontrem, bem como as aeronaves e as embarcações brasileiras, mercantes ou de propriedade privada, que se achem, respectivamente, no espaço aéreo correspondente ou em alto-mar.",
+       "r": "NATUREZA PÚBLICA",
+       "k": "lei",
+       "i": 1
+      },
+      {
+       "c": "Para os efeitos penais, consideram-se como EXTENSÃO do território nacional as embarcações e aeronaves brasileiras, de NATUREZA PÚBLICA ou A ____ onde quer que se encontrem, bem como as aeronaves e as embarcações brasileiras, mercantes ou de propriedade privada, que se achem, respectivamente, no espaço aéreo correspondente ou em alto-mar.",
+       "r": "SERVIÇO DO GOVERNO BRASILEIRO",
+       "k": "lei",
+       "i": 2
+      },
+      {
+       "c": "É também aplicável a lei brasileira aos crimes praticados a bordo de aeronaves ou embarcações ____ de PROPRIEDADE PRIVADA, achando-se aquelas em pouso no território nacional ou em voo no espaço aéreo correspondente, e estas em porto ou mar territorial do Brasil.",
+       "r": "ESTRANGEIRAS",
+       "k": "lei",
+       "i": 3
+      },
+      {
+       "c": "É também aplicável a lei brasileira aos crimes praticados a bordo de aeronaves ou embarcações ESTRANGEIRAS de ____, achando-se aquelas em pouso no território nacional ou em voo no espaço aéreo correspondente, e estas em porto ou mar territorial do Brasil.",
+       "r": "PROPRIEDADE PRIVADA",
+       "k": "lei",
+       "i": 4
+      }
+     ],
+     "resumo": "Aplica-se a lei brasileira ao crime cometido no território nacional (territorialidade temperada: tratados e convenções podem ressalvar).",
+     "pontos": [
+      "Território por extensão: embarcações e aeronaves públicas ou a serviço do governo brasileiro, onde estiverem; as privadas brasileiras, em alto-mar ou espaço aéreo correspondente.",
+      "Embarcações e aeronaves estrangeiras privadas em porto ou mar territorial brasileiro também sujeitam-se à lei brasileira."
+     ],
+     "dica": "Pública/oficial = onde estiver. Privada = só em alto-mar/espaço aéreo."
+    }
+   ]
+  },
+  {
+   "id": "ctb",
+   "lei": "CTB",
+   "rotulo": "Arts. 6 e 7",
+   "artigos": [
+    {
+     "art": "Art. 6º",
+     "titulo": "",
+     "secao": "Cap. II — Do Sistema Nacional de Trânsito",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 6º São objetivos básicos do Sistema Nacional de Trânsito:"
+      },
+      {
+       "k": "lei",
+       "t": "I - estabelecer diretrizes da Política Nacional de Trânsito, com vistas à segurança, à fluidez, ao conforto, à defesa ambiental e à educação para o trânsito, e fiscalizar seu cumprimento;"
+      },
+      {
+       "k": "lei",
+       "t": "II - fixar, mediante normas e procedimentos, a padronização de critérios técnicos, financeiros e administrativos para a execução das atividades de trânsito;"
+      },
+      {
+       "k": "lei",
+       "t": "III - estabelecer a sistemática de fluxos permanentes de informações entre os seus diversos órgãos e entidades, a fim de facilitar o processo decisório e a integração do Sistema."
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "(São objetivos básicos do Sistema Nacional de Trânsito) I - estabelecer diretrizes da ____, com vistas à segurança, à fluidez, ao conforto, à defesa ambiental e à educação para o trânsito, e fiscalizar seu cumprimento;",
+       "r": "Política Nacional de Trânsito",
+       "k": "lei",
+       "i": "h1"
+      },
+      {
+       "c": "(São objetivos básicos do Sistema Nacional de Trânsito) II - fixar, mediante normas e procedimentos, a padronização de ____ para a execução das atividades de trânsito;",
+       "r": "critérios técnicos, financeiros e administrativos",
+       "k": "lei",
+       "i": "h2"
+      },
+      {
+       "c": "(São objetivos básicos do Sistema Nacional de Trânsito) III - estabelecer a sistemática de ____ entre os seus diversos órgãos e entidades, a fim de facilitar o processo decisório e a integração do Sistema.",
+       "r": "fluxos permanentes de informações",
+       "k": "lei",
+       "i": "h3"
+      }
+     ]
+    },
+    {
+     "art": "Art. 7º",
+     "titulo": "",
+     "secao": "Cap. II — Do Sistema Nacional de Trânsito",
+     "itens": [
+      {
+       "k": "lei",
+       "t": "Art. 7º Compõem o Sistema Nacional de Trânsito os seguintes órgãos e entidades:"
+      },
+      {
+       "k": "lei",
+       "t": "I - o Conselho Nacional de Trânsito - CONTRAN, coordenador do Sistema e órgão máximo normativo e consultivo;"
+      },
+      {
+       "k": "lei",
+       "t": "II - os Conselhos Estaduais de Trânsito - CETRAN e o Conselho de Trânsito do Distrito Federal - CONTRANDIFE, órgãos normativos, consultivos e coordenadores;"
+      },
+      {
+       "k": "lei",
+       "t": "III - os órgãos e entidades executivos de trânsito da União, dos Estados, do Distrito Federal e dos Municípios;"
+      },
+      {
+       "k": "lei",
+       "t": "IV - os órgãos e entidades executivos rodoviários da União, dos Estados, do Distrito Federal e dos Municípios;"
+      },
+      {
+       "k": "lei",
+       "t": "V - a Polícia Rodoviária Federal;"
+      },
+      {
+       "k": "lei",
+       "t": "VI - as Polícias Militares dos Estados e do Distrito Federal; e"
+      },
+      {
+       "k": "lei",
+       "t": "VII - as Juntas Administrativas de Recursos de Infrações - JARI."
+      }
+     ],
+     "lacunas": [
+      {
+       "c": "(Compõem o Sistema Nacional de Trânsito os seguintes órgãos e entidades) I - o Conselho Nacional de Trânsito - CONTRAN, ____;",
+       "r": "coordenador do Sistema e órgão máximo normativo e consultivo",
+       "k": "lei",
+       "i": "h1"
+      },
+      {
+       "c": "(Compõem o Sistema Nacional de Trânsito os seguintes órgãos e entidades) II - os Conselhos Estaduais de Trânsito - CETRAN e o Conselho de Trânsito do Distrito Federal - CONTRANDIFE, órgãos ____;",
+       "r": "normativos, consultivos e coordenadores",
+       "k": "lei",
+       "i": "h2"
+      },
+      {
+       "c": "(Compõem o Sistema Nacional de Trânsito os seguintes órgãos e entidades) V - a ____;",
+       "r": "Polícia Rodoviária Federal",
+       "k": "lei",
+       "i": "h3"
+      },
+      {
+       "c": "(Compõem o Sistema Nacional de Trânsito os seguintes órgãos e entidades) VII - as ____ - JARI.",
+       "r": "Juntas Administrativas de Recursos de Infrações",
+       "k": "lei",
+       "i": "h4"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

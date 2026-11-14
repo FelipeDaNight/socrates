@@ -633,9 +633,10 @@ class Tutor:
             return DICA_TREINO
         return None
 
-    def contexto_da_lei(self, pergunta: str) -> str:
+    def contexto_da_lei(self, pergunta: str, anotar: bool = True) -> str:
         """O que o cérebro recebe junto com uma pergunta livre: as notas da trilha mais
-        ligada à pergunta (se for sobre um tópico dela) e os trechos oficiais da lei."""
+        ligada à pergunta (se for sobre um tópico dela) e os trechos oficiais da lei.
+        `anotar=False`: só consulta (o cérebro que decide anota depois, se era dúvida)."""
         partes = []
         if self.aula is None and self.sessao is None:
             self._talvez_recarregar()
@@ -644,12 +645,22 @@ class Tutor:
             notas, topicos = tr.notas(pergunta)
             if notas:
                 partes.append(notas)
-                self.caderno.anotar_evento("duvida", t=f"{tr.id}:{topicos[0].id}",
-                                           q=pergunta.strip()[:120])
+                if anotar:
+                    self.caderno.anotar_evento("duvida", t=f"{tr.id}:{topicos[0].id}",
+                                               q=pergunta.strip()[:120])
         trechos = self.leis.trechos(pergunta)
         if trechos:
             partes.append(trechos)
         return "\n\n".join(partes)
+
+    def anotar_duvida(self, pergunta: str) -> None:
+        """A pergunta livre foi sobre um tópico da trilha: conta como dúvida no diário."""
+        tr, _ = self._trilha_da_fala(pergunta)
+        if tr is not None:
+            notas, topicos = tr.notas(pergunta)
+            if notas and topicos:
+                self.caderno.anotar_evento("duvida", t=f"{tr.id}:{topicos[0].id}",
+                                           q=pergunta.strip()[:120])
 
     # ---------- desempenho e plano ----------
     def _ultimos(self, dias: int):

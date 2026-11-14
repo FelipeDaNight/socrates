@@ -5,8 +5,9 @@ de Sócrates: em vez de só entregar respostas, ele **pergunta** até você apre
 
 <p align="center"><img src="docs/visor.gif" width="330" alt="Visor do Sócrates"></p>
 
-> Status: **fase 2** — mãos livres: diga "Sócrates" e fale. Mexe no seu computador,
-> desenha fórmulas e gráficos num quadro branco, pesquisa na internet e sabe a data de hoje.
+> Status: **fase 10** — o cérebro que decide: ele entende o pedido e escolhe sozinho o que
+> fazer (ler a lei oficial, dar aula, mexer no PC, pesquisar, lembrar de você), aprende com
+> os próprios erros e propõe melhorias no código dele.
 
 ## Como rodar (Windows)
 
@@ -60,6 +61,42 @@ também funciona.
 | "apaga o quadro"    | `/apagar`   | Apaga só o quadro branco                            |
 | "obrigado"          | `/dormir`   | Encerra o assunto; volta a esperar o nome           |
 | "encerrar"          | `/sair`     | Desliga o Sócrates                                  |
+
+### O cérebro que decide
+
+Antes, cada fala passava por uma fila de regras fixas e a primeira que encaixava decidia
+("bloco de notas + artigo 7" virava só "mostrar o artigo"). Agora a fala vai ao modelo junto
+com uma caixa de ferramentas e **ele decide** o que fazer, combinando várias se precisar:
+
+| Você fala                                                    | Ele faz                                         |
+|--------------------------------------------------------------|-------------------------------------------------|
+| "abre o bloco de notas e coloca o artigo 7 do CTB"           | lê o texto oficial e escreve no Bloco de Notas  |
+| "e os primeiros artigos do Código Penal?"                    | põe os arts. 1 a 5 no quadro (nunca de cabeça)  |
+| "lê o artigo 144 da Constituição"                            | busca a lei no Planalto (guardada por 7 dias)   |
+| "resume o 1º capítulo de Vidas Secas; se não tiver, aprenda" | pesquisa na internet e põe o livro no autoestudo|
+| "minha prova é em março" / "esquece isso"                    | guarda (ou apaga) na memória de longo prazo     |
+| "você consegue ver o Claude aberto?"                         | olha as janelas e a tela, e responde            |
+| "vai", "pode", "os próximos"                                 | continua o que acabou de fazer ou oferecer      |
+
+- **Lei só com o texto oficial.** Artigo, pena e prazo vêm da lei seca do app ou da lei do
+  Planalto já guardada no PC. Se não tiver o texto, ele diz que não tem.
+- **Age primeiro.** Nada de "resumir ou detalhar?": ele escolhe e faz. Pergunta só quando
+  errar sairia caro.
+- **Memória de longo prazo** (`Documentos\Socrates\memoria.json`): data da prova,
+  dificuldades, preferências. Dá para abrir e corrigir à mão.
+- **Aprende com os erros.** Quando você corrige o jeito dele, ele anota uma lição
+  (`licoes.json`) e segue essa regra dali em diante. Uma vez por dia ele também relê o
+  próprio registro (`socrates.log`), acha onde errou e escreve lições sozinho.
+- **Melhora o próprio código, com o seu OK.** O que exige mudar o código vira uma ideia em
+  `melhorias.json`. Diga "manda suas ideias para o Claude" e ele as manda ao Claude (que
+  programa o Sócrates); depois é só "se atualiza".
+- **Chega com iniciativa.** Ao ligar, já sugere o plano do dia (revisões vencidas, próximo
+  tópico, lei seca) e mostra no quadro.
+- Pedido de estudo curto e claro ("questões da PRF", "me ensina furto", "meu mapa") vai
+  direto ao tutor, na hora, sem gastar o limite grátis. No meio de um treino ou aula,
+  "certo", "letra B" e "próximo" também. Sem internet ou no limite grátis, ele volta
+  sozinho ao jeito antigo.
+- Para desligar: `agente: ativo: false` no `config.local.yaml`.
 
 ### Estudar com questões reais e lei seca
 
@@ -512,7 +549,11 @@ socrates/
   ferramentas/estudo.py    pomodoro que anota os minutos
   ferramentas/aparencia.py cor do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
-tests/                     582 testes, rodam sem microfone nem internet
+  core/agente.py           o cérebro que decide: a fala vai ao modelo com as ferramentas de estudo e do PC
+  core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
+  core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
+  tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
+tests/                     642 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -532,6 +573,9 @@ tests/                     582 testes, rodam sem microfone nem internet
 - [x] **Fase 7** — trilha de Direito Constitucional; tela de Resumos no app
 - [x] **Fase 8** — trilha de Direito Administrativo (com a carreira de PRF)
 - [x] **Fase 9** — trilhas de Ética e Cidadania e de Direitos Humanos: todo o bloco jurídico do edital da PRF
+- [x] **Fase 10** — o cérebro que decide: entende o pedido e escolhe as ferramentas (lei oficial,
+  aula, questões, PC, internet, memória); lições tiradas dos próprios erros; ideias de melhoria
+  para o Claude; voz que não cala (tenta de novo e usa a voz do Windows)
 - [ ] **Próximo** — Português, RLM, Informática, Física e Geopolítica; depois CBMGO
 
 ## Testes

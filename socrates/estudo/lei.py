@@ -33,7 +33,9 @@ _TRANSITO = re.compile(r"\b(transito|multa|infracao|infracoes|habilitacao|cnh|co
 _VAZIAS = {"qual", "quais", "como", "quando", "onde", "porque", "sobre", "segundo", "artigo",
            "lei", "codigo", "transito", "brasileiro", "penal", "pena", "para", "pelo", "pela",
            "esta", "isso", "essa", "esse", "seria", "tem", "existe", "diz", "fala", "explica",
-           "socrates", "me", "voce", "quero", "saber", "ctb", "dele", "dela", "nos", "uma"}
+           "socrates", "me", "voce", "quero", "saber", "ctb", "dele", "dela", "nos", "uma",
+           "artigos", "primeiro", "primeiros", "ultimos", "proximos", "fale", "falar", "sobre",
+           "mostra", "mostre", "leia", "coloca", "coloque", "bloco", "notas", "favor", "pode"}
 
 
 @dataclass

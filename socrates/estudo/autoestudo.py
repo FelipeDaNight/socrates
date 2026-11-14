@@ -882,12 +882,21 @@ class Autoestudo:
         self._acordar.set()
         return "Voltei a estudar sozinho. Eu só estudo quando você estiver quieto."
 
-    def pedir(self, texto: str) -> tuple[str, TopicoPlano | None]:
+    def pedir_assunto(self, assunto: str) -> tuple[str, TopicoPlano | None]:
+        """O cérebro que decide já sabe o assunto exato ("Vidas Secas"): nada de
+        garimpar a frase inteira (era assim que "você pode..." virava "Poder constituinte")."""
+        assunto = re.sub(r"\s+", " ", assunto or "").strip(" ,.?!")
+        if not assunto:
+            return "Sobre o que você quer que eu estude?", None
+        return self.pedir(f"aprende sobre {assunto}", assunto=assunto)
+
+    def pedir(self, texto: str, assunto: str | None = None) -> tuple[str, TopicoPlano | None]:
         """"aprende sobre X": põe X na frente da fila. Fora do edital, vira um assunto extra."""
-        topico = achar_topico(self.planos, texto)
+        alvo = assunto or _assunto_da_fala(texto) or texto
+        topico = achar_topico(self.planos, alvo)
         if topico is None:
             materia = achar_materia(self.planos, texto)
-            assunto = _assunto_da_fala(texto)
+            assunto = assunto or _assunto_da_fala(texto)
             if not assunto:
                 return "Sobre o que você quer que eu estude?", None
             if materia is not None and norm(assunto) in [norm(a) for a in materia.apelidos]:

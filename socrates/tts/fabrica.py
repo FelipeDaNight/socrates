@@ -14,8 +14,14 @@ log = logging.getLogger("socrates.voz")
 
 
 def criar_voz(cfg, alto_falante: AltoFalante, avisar=None) -> Voz:
-    """cfg é o ConfigVoz. Com provedor gemini, o Edge fica de reserva."""
+    """cfg é o ConfigVoz. Com provedor gemini, o Edge fica de reserva. No Windows, a voz
+    do próprio sistema (sem internet) é a última reserva: o Sócrates nunca fica mudo."""
+    from .reserva import VozComReserva
+    from .windows import VozWindows
+
     edge = VozEdge(cfg.nome, cfg.velocidade, alto_falante, cfg.tom)
+    if VozWindows.disponivel():
+        edge = VozComReserva(edge, VozWindows(alto_falante, cfg.velocidade), avisar)
     if cfg.provedor != "gemini":
         return edge
     chave = os.getenv("GEMINI_API_KEY")
@@ -25,7 +31,6 @@ def criar_voz(cfg, alto_falante: AltoFalante, avisar=None) -> Voz:
             avisar("Falta GEMINI_API_KEY no .env para a voz do Gemini. Usando a voz do Edge.")
         return edge
     from .gemini import VozGemini
-    from .reserva import VozComReserva
     gemini = VozGemini(chave, cfg.gemini_voz, cfg.gemini_modelo, cfg.gemini_estilo, alto_falante)
     return VozComReserva(gemini, edge, avisar)
 

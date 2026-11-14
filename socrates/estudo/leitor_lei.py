@@ -240,6 +240,19 @@ class Biblioteca:
     def _arquivo(self, sigla: str) -> Path:
         return self.pasta / f"{re.sub(r'[^A-Za-z0-9_-]', '_', sigla)}.json"
 
+    def em_cache(self, sigla: str) -> dict[str, Artigo] | None:
+        """A cópia já guardada (de qualquer idade), sem internet: para ler na hora."""
+        if sigla in self._memoria:
+            return self._memoria[sigla]
+        try:
+            guardado = json.loads(self._arquivo(sigla).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None
+        if not guardado.get("artigos") or guardado.get("url") != self.url(sigla):
+            return None
+        return {k: Artigo(v["n"], v["s"], v["t"], [tuple(x) for x in v.get("m", [])])
+                for k, v in guardado["artigos"].items()}
+
     def artigos(self, sigla: str) -> dict[str, Artigo]:
         if sigla in self._memoria:
             return self._memoria[sigla]

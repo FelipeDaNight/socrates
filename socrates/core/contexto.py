@@ -72,3 +72,13 @@ def data_e_lugar(local: str | None, momento: datetime | None = None) -> str:
     if local:
         texto += f" O aluno mora em {local}."
     return texto
+
+
+def para_agente(local: str | None, momento: datetime | None = None) -> str:
+    """O "agora" para o cérebro que decide (core/agente.py)."""
+    momento = momento or agora()
+    texto = f"Agora é {data_por_extenso(momento)} (horário de Brasília)."
+    if local:
+        texto += (f" O aluno mora em {local}; use esse lugar quando ele perguntar sobre clima "
+                  "ou algo \"aqui\" sem dizer a cidade.")
+    return texto
