@@ -8,3 +8,19 @@ __pycache__/
 memoria/*.db
 config.local.yaml
 material/
+# No Windows, Documentos\Socrates (os dados do Sócrates) e Documentos\socrates (esta pasta)
+# são a MESMA pasta: o que ele grava sozinho não deve aparecer no git.
+/memoria.json
+/licoes.json
+/melhorias.json
+/reflexao.json
+/caderno.json
+/anotacoes.md
+/aprendizado.json
+/autoestudo.json
+/leis/
+/notas/
+/trilhas/
+/questoes/
+/mapas/
+*.tmp
