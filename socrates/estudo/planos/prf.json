@@ -42,6 +42,7 @@
         {"id": "tipologia", "titulo": "Tipos e gêneros textuais", "edital": "2 Reconhecimento de tipos e gêneros textuais", "peso": 1, "pesquisa": "tipos textuais e gêneros textuais diferença concurso"},
         {"id": "ortografia", "titulo": "Ortografia oficial e acentuação", "edital": "3 Domínio da ortografia oficial", "peso": 1, "pesquisa": "ortografia oficial acentuação novo acordo ortográfico regras concurso"},
         {"id": "coesao", "titulo": "Coesão textual: referência, substituição e conectores", "edital": "4 Mecanismos de coesão textual", "peso": 2, "pesquisa": "coesão textual referenciação conectores sequenciação tempos verbais concurso"},
+        {"id": "tempos-verbais", "titulo": "Tempos e modos verbais", "edital": "4.2 Emprego de tempos e modos verbais", "peso": 1, "pesquisa": "emprego de tempos e modos verbais correlação verbal futuro do subjuntivo concurso"},
         {"id": "classes-palavras", "titulo": "Classes de palavras", "edital": "5.1 Emprego das classes de palavras", "peso": 1, "pesquisa": "classes de palavras emprego concurso Cebraspe"},
         {"id": "periodo", "titulo": "Coordenação e subordinação", "edital": "5.2 Relações de coordenação e subordinação", "peso": 2, "pesquisa": "orações coordenadas e subordinadas classificação concurso"},
         {"id": "pontuacao", "titulo": "Pontuação", "edital": "5.3 Emprego dos sinais de pontuação", "peso": 3, "pesquisa": "regras de pontuação vírgula concurso Cebraspe"},

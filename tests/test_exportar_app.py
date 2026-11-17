@@ -24,7 +24,7 @@ def test_banco_no_formato_do_app(tmp_path):
     banco = json.loads((app / ex.ARQUIVO).read_text(encoding="utf-8"))
     conferidas = [t for t in carregar_trilhas() if not t.auto]
     assert total == novos == sum(len(t.itens) for tr in conferidas for t in tr.topicos)
-    assert banco["tipo"] == "ce" and not banco["sincroniza_simulado"] and "13/11/2026" in banco["aviso"]
+    assert banco["tipo"] == "ce" and not banco["sincroniza_simulado"] and "16/11/2026" in banco["aviso"]
     ns = [q["n"] for q in banco["questoes"]]
     assert ns == list(range(1, total + 1))
     q = banco["questoes"][0]
@@ -76,7 +76,7 @@ def test_resumos_vao_para_o_app_na_ordem_do_edital(tmp_path):
     ex.atualizar_app(app)
     r = json.loads((app / ex.ARQUIVO_RESUMOS).read_text(encoding="utf-8"))
     conferidas = [t for t in carregar_trilhas() if not t.auto and t.plano in ("", "prf")]
-    assert r["id"] == ex.ID_RESUMOS and r["atualizado"] == "2026-11-13" and "13/11/2026" in r["aviso"]
+    assert r["id"] == ex.ID_RESUMOS and r["atualizado"] == "2026-11-16" and "16/11/2026" in r["aviso"]
     assert {m["trilha"] for m in r["materias"]} == {t.id for t in conferidas}
     assert r["materias"][0]["materia"] == "Legislação de Trânsito"          # a que mais cai
     banco = json.loads((app / ex.ARQUIVO).read_text(encoding="utf-8"))

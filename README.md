@@ -154,7 +154,7 @@ Sem internet, os registros ficam guardados e vão depois.
 
 ### Trilhas da PRF: aulas, direção e o que você aprendeu
 
-O Sócrates tem oito **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
+O Sócrates tem nove **trilhas conferidas** montadas sobre o último edital da PRF (2021, Cebraspe),
 com as leis conferidas nas fontes oficiais até novembro de 2026:
 
 | Trilha | Tópicos | O que tem |
@@ -166,10 +166,11 @@ com as leis conferidas nas fontes oficiais até novembro de 2026:
 | Direitos Humanos | 4 | teoria e dimensões, a CF e os tratados (status de emenda e supralegal, SV 25, ADI 4275), DUDH e Pacto de São José (Decreto 678/1992) |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
+| Língua Portuguesa | 14 | gramática da norma padrão (ortografia pelo Acordo de 1990, classes, coordenação e subordinação, pontuação, concordância, regência, crase, colocação, tempos verbais, coesão, tipologia, reescrita e interpretação) e o Manual de Redação da Presidência, 3ª ed. (atributos, padrão ofício, pronomes de tratamento, fechos, e-mail com certificação ICP-Brasil), conferido em 16/11/2026 |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 83 tópicos, 519 pontos-chave e 430 itens de fixação com gabarito e justificativa, e as questões
-reais da PRF 2021 (os 26 itens de trânsito e os itens 46 a 50 e 86 a 120) entram no tópico certo. Questão de
+São 97 tópicos, 611 pontos-chave e 512 itens de fixação com gabarito e justificativa, e as questões
+reais da PRF 2021 (os itens 9 a 26 de português, os 26 de trânsito e os itens 46 a 50 e 86 a 120) entram no tópico certo. Questão de
 prova cuja lei mudou depois (ex.: item 82, tolerância por eixo) é treinada pelo gabarito de hoje, e
 o Sócrates explica que a prova antiga cobrava a regra anterior. Isso importa porque os modelos de IA
 ainda trazem leis velhas: o furto passou a 1 a 6 anos (Lei 15.397/2026), a Lei Antifacção criou o
@@ -553,7 +554,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     642 testes, rodam sem microfone nem internet
+tests/                     660 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

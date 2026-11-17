@@ -1,0 +1,454 @@
+{
+  "id": "prf-portugues",
+  "materia": "Língua Portuguesa",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Gramática normativa (norma padrão, Acordo Ortográfico de 1990, vigente desde 2009) e Manual de Redação da Presidência da República, 3ª ed. (2018), conferido em 16/11/2026; questões da PRF 2021 (Cebraspe), itens 9 a 26.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["portugues", "lingua portuguesa", "gramatica", "redacao oficial"],
+  "nao_confundir": ["portugues no brasil", "portugueses no brasil", "portugues residente", "quase nacionalidade", "cidadao portugues", "nacionalidade portuguesa"],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "interpretacao",
+      "bloco": "Texto",
+      "titulo": "Compreensão e interpretação de textos",
+      "edital": "1 Compreensão e interpretação de textos de gêneros variados",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["interpretacao", "interpretacao de texto", "compreensao", "inferencia", "infere se", "depreende se", "conclui se", "pressuposto", "subentendido", "ideia central", "tese do autor"],
+      "pontos": [
+        "Compreensão = o que o texto diz (está escrito). Interpretação = o que se conclui a partir dele (inferência). Cebraspe usa: 'infere-se', 'depreende-se', 'conclui-se', 'o texto sugere' — todos pedem que a conclusão esteja AUTORIZADA pelo texto.",
+        "Método: leia o comando primeiro, depois o texto; volte ao parágrafo indicado e compare palavra por palavra. A resposta tem de estar ancorada em um trecho, não na sua opinião ou no conhecimento geral.",
+        "Erros mais comuns da banca: extrapolação (afirma mais do que o texto diz), redução (diz que o texto trata só de uma parte), contradição (inverte a ideia) e troca de causa e consequência (item 14 da PRF 2021: o texto não diz que o monopólio da violência foi uma reação aos índices — Errado).",
+        "Palavras absolutas ('sempre', 'nunca', 'apenas', 'exclusivamente', 'todos') costumam tornar o item Errado quando o texto é mais cauteloso ('em geral', 'pode', 'muitas vezes').",
+        "Pressuposto: informação que decorre de palavras do texto ('Ele PAROU de fumar' pressupõe que fumava). Subentendido: insinuação que depende do contexto e do leitor.",
+        "Distinga a opinião do autor das vozes que ele cita (no texto da PRF 2021, a ideia de autocontrole é de Norbert Elias — item 12, Certo)."
+      ],
+      "pegadinhas": [
+        "Item que 'parece verdade no mundo real' mas não está no texto é Errado: julgue só pelo texto.",
+        "Trocar 'pode' por 'deve', ou 'alguns' por 'todos', é a extrapolação mais comum."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Nas questões de interpretação, uma afirmação verdadeira no mundo real deve ser julgada certa ainda que o texto não a sustente.", "r": "E", "j": "Método de interpretação: a conclusão precisa estar autorizada pelo texto."},
+        {"t": "A frase 'O motorista deixou de beber antes de dirigir' pressupõe que ele bebia antes de dirigir.", "r": "C", "j": "Gramática normativa: pressuposto marcado pelo verbo 'deixar de'."},
+        {"t": "Afirmar que 'todos os condutores' agem de certo modo, quando o texto fala em 'muitos condutores', configura extrapolação.", "r": "C", "j": "Método de interpretação."},
+        {"t": "Inferir é repetir literalmente uma informação explícita do texto.", "r": "E", "j": "Inferência é a conclusão implícita, autorizada pelo texto."},
+        {"t": "Quando o autor cita a opinião de um estudioso, essa opinião deve sempre ser atribuída ao próprio autor.", "r": "E", "j": "Método de interpretação: distinga as vozes do texto."}
+      ],
+      "questoes": ["prf-2021-p1|item 9", "prf-2021-p1|item 11", "prf-2021-p1|item 12", "prf-2021-p1|item 13", "prf-2021-p1|item 14", "prf-2021-p1|item 16"]
+    },
+    {
+      "id": "tipologia",
+      "bloco": "Texto",
+      "titulo": "Tipos e gêneros textuais",
+      "edital": "2 Reconhecimento de tipos e gêneros textuais",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["tipos textuais", "generos textuais", "texto narrativo", "texto dissertativo", "texto argumentativo", "texto descritivo", "texto injuntivo", "tipologia textual", "genero textual"],
+      "pontos": [
+        "Tipo textual é a estrutura (a forma de organizar o texto): narrativo, descritivo, dissertativo (expositivo ou argumentativo), injuntivo (instrucional) e dialogal. São poucos e fixos.",
+        "Gênero textual é o texto concreto do dia a dia, com função social: notícia, editorial, artigo de opinião, crônica, ofício, receita, manual, bula, carta. São muitos.",
+        "Um gênero pode misturar tipos: uma notícia narra fatos e descreve; um artigo de opinião é predominantemente dissertativo-argumentativo.",
+        "Narrativo: fatos em sequência no tempo, com personagens, verbos de ação no passado. Descritivo: características, retrato, verbos de estado. Expositivo: informa e explica, sem defender tese. Argumentativo: defende ponto de vista com argumentos. Injuntivo: instrui, com verbos no imperativo.",
+        "Nas provas da Cebraspe, os textos costumam ser dissertativos (expositivos ou argumentativos) sobre segurança, sociedade e história — como o texto sobre polícia e violência da PRF 2021."
+      ],
+      "pegadinhas": [
+        "A banca confunde 'tipo' e 'gênero': 'notícia' é gênero; 'narrativo' é tipo.",
+        "Texto expositivo explica sem defender tese; se o autor defende uma posição, é argumentativo."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O artigo de opinião é um gênero textual em que predomina o tipo dissertativo-argumentativo.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Narração, descrição e dissertação são exemplos de gêneros textuais.", "r": "E", "j": "Gramática normativa: são tipos textuais."},
+        {"t": "Uma receita culinária é exemplo de texto em que predomina o tipo injuntivo.", "r": "C", "j": "Gramática normativa."},
+        {"t": "O texto expositivo tem como objetivo principal defender uma tese por meio de argumentos.", "r": "E", "j": "Gramática normativa: isso é o argumentativo; o expositivo informa e explica."},
+        {"t": "Um mesmo gênero textual pode apresentar trechos de tipos textuais diferentes.", "r": "C", "j": "Gramática normativa."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ortografia",
+      "bloco": "Palavra",
+      "titulo": "Ortografia oficial e acentuação",
+      "edital": "3 Domínio da ortografia oficial",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["ortografia", "acentuacao", "acento", "hifen", "novo acordo ortografico", "por que porque", "por que e porque", "porques", "uso dos porques", "mal ou mau", "onde aonde", "trema", "acento diferencial"],
+      "pontos": [
+        "Proparoxítonas: todas são acentuadas (médico, público, lâmpada). É a regra que nunca tem exceção.",
+        "Paroxítonas: acentuam-se as terminadas em l, n, r, x, ps, i(s), us, um/uns, ã(s)/ão(s) e ditongo (fácil, hífen, caráter, tórax, bíceps, júri, vírus, álbum, órfã, órgão, história). Não se acentuam as terminadas em a(s), e(s), o(s), em(ns) (casa, item, itens).",
+        "Oxítonas: acentuam-se as terminadas em a(s), e(s), o(s), em/ens (sofá, café, avô, também, parabéns). Monossílabos tônicos seguem a mesma regra (pá, pé, pó).",
+        "Acordo Ortográfico (em vigor desde 2009, obrigatório desde 2016): caiu o trema (linguiça, frequente); caiu o acento dos ditongos abertos ei/oi em paroxítonas (ideia, assembleia, heroico — mas papéis e herói, oxítonas, mantêm); caiu o acento de 'voo' e 'enjoo' e de 'creem', 'leem', 'veem', 'deem'.",
+        "Acentos diferenciais que sobraram: pôde (passado) × pode (presente); pôr (verbo) × por (preposição); têm/vêm (plural) × tem/vem (singular). Caíram os de 'para' (verbo), 'pelo', 'polo' e 'pera'.",
+        "Hífen com prefixo: usa-se quando a palavra seguinte começa por h (anti-higiênico) ou pela mesma vogal em que o prefixo termina (micro-ondas, anti-inflamatório). Com vogais diferentes, junta (autoestrada, infraestrutura); antes de r ou s, dobra a consoante (antirrábico, contrassenso).",
+        "Porquês: 'por que' = pergunta ou 'pelo qual' (Por que saiu? O motivo por que saiu); 'por quê' no fim da frase; 'porque' = explicação (saiu porque choveu); 'porquê' = substantivo, com artigo (o porquê da demora).",
+        "Mal × mau: mal se opõe a bem (agiu mal; o mal); mau se opõe a bom (mau motorista). Onde = lugar fixo (onde você mora); aonde = movimento, com verbos que pedem 'a' (aonde você vai)."
+      ],
+      "pegadinhas": [
+        "A banca troca 'por que' e 'porque' em reescritas: veja se a frase pergunta/equivale a 'pelo qual' ou se explica.",
+        "Heroico e ideia perderam o acento, mas herói e papéis mantêm, porque são oxítonas/monossílabas: a queda vale só para paroxítonas."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A palavra 'ideia' deixou de ser acentuada com o Acordo Ortográfico, mas 'herói' continua acentuada.", "r": "C", "j": "Gramática normativa: queda do acento só nos ditongos abertos de paroxítonas."},
+        {"t": "Em 'Ninguém sabe o porque da demora', a grafia do termo destacado está correta.", "r": "E", "j": "Gramática normativa: substantivado, com artigo, escreve-se 'porquê'."},
+        {"t": "'Microondas' e 'antiinflamatório' seguem a grafia oficial vigente.", "r": "E", "j": "Gramática normativa: prefixo terminado na mesma vogal que inicia a palavra seguinte pede hífen: micro-ondas, anti-inflamatório."},
+        {"t": "As palavras 'júri', 'vírus' e 'hífen' são acentuadas por serem paroxítonas terminadas, respectivamente, em i, us e n.", "r": "C", "j": "Gramática normativa: regra das paroxítonas."},
+        {"t": "Em 'Ontem ele não pode comparecer', a forma verbal está corretamente grafada sem acento.", "r": "E", "j": "Gramática normativa: no passado, 'pôde' mantém o acento diferencial."},
+        {"t": "'Mau' é antônimo de 'bom', e 'mal' é antônimo de 'bem'.", "r": "C", "j": "Gramática normativa."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "coesao",
+      "bloco": "Texto",
+      "titulo": "Coesão textual: referência, substituição e conectores",
+      "edital": "4 e 4.1 Mecanismos de coesão textual",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["coesao", "coesao textual", "referenciacao", "retomada", "anafora", "catafora", "conectivo", "conector", "conectores", "elemento de coesao", "a que se refere", "termo retoma"],
+      "pontos": [
+        "Coesão é a ligação entre as partes do texto. Duas formas: referencial (um termo retoma ou antecipa outro) e sequencial (conectores que ligam ideias com sentido de causa, oposição, conclusão etc.).",
+        "Anáfora retoma o que já foi dito ('O agente chegou. ELE ...'); catáfora antecipa o que vem ('Disse ISTO: ...'). Pronomes, sinônimos, hiperônimos ('o veículo' retomando 'a carreta') e a elipse (omissão: 'Chegou e [ele] saiu') fazem a retomada.",
+        "Nas questões 'o termo X retoma Y', volte ao texto e teste a substituição: troque o pronome pelo termo indicado e veja se o sentido se mantém.",
+        "Conectores e seus sentidos: adição (e, além disso, ademais); oposição (mas, porém, contudo, no entanto); concessão (embora, ainda que, apesar de); causa (porque, visto que, já que, uma vez que); conclusão (logo, portanto, por isso); finalidade (para que, a fim de que); condição (se, caso, desde que); proporção (à medida que, à proporção que).",
+        "Trocar conector por outro do MESMO valor mantém o sentido; de valor diferente, muda ('na medida em que' = causa × 'à medida que' = proporção, item 19 da PRF 2021). Atenção também ao modo verbal exigido (embora + subjuntivo).",
+        "Artigo definido também faz coesão: 'os vários campos' indica campos determinados; tirá-lo muda o sentido (item 21 da PRF 2021, Errado).",
+        "Coerência é a lógica do texto (o sentido); coesão é a amarração das palavras. Um texto pode ser coeso e incoerente."
+      ],
+      "pegadinhas": [
+        "A banca afirma que um pronome retoma o termo errado (o mais próximo, e não o certo). Faça sempre o teste da substituição.",
+        "'Embora' e 'mas' não são equivalentes diretos: trocar um pelo outro exige reestruturar a frase e o modo verbal."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A substituição de 'porém' por 'contudo' mantém o sentido adversativo do período.", "r": "C", "j": "Gramática normativa."},
+        {"t": "A conjunção 'embora' introduz ideia de causa.", "r": "E", "j": "Gramática normativa: embora é concessiva."},
+        {"t": "Em 'O caminhão tombou na curva; o veículo transportava grãos', o termo 'o veículo' retoma 'O caminhão' por hiperonímia.", "r": "C", "j": "Gramática normativa."},
+        {"t": "As locuções 'à medida que' e 'na medida em que' têm o mesmo sentido e podem ser trocadas sem alteração semântica.", "r": "E", "j": "Gramática normativa: proporção × causa."},
+        {"t": "A elipse do sujeito em 'O motorista desceu e entregou os documentos' é um recurso de coesão.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Um texto coeso é sempre coerente.", "r": "E", "j": "Gramática normativa: coesão e coerência são distintas."}
+      ],
+      "questoes": ["prf-2021-p1|item 15", "prf-2021-p1|item 19", "prf-2021-p1|item 21"]
+    },
+    {
+      "id": "tempos-verbais",
+      "bloco": "Texto",
+      "titulo": "Tempos e modos verbais",
+      "edital": "4.2 Emprego de tempos e modos verbais",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["tempos verbais", "modos verbais", "subjuntivo", "indicativo", "imperativo", "futuro do preterito", "preterito imperfeito", "se ele vir", "quando eu puder", "correlacao verbal"],
+      "pontos": [
+        "Indicativo = fato tido como certo (ele estuda, estudou, estudará). Subjuntivo = hipótese, desejo, dúvida (que ele estude, se estudasse, quando estudar). Imperativo = ordem ou pedido.",
+        "Pretérito perfeito = ação concluída (estudou); imperfeito = ação habitual ou em andamento no passado (estudava); mais-que-perfeito = passado anterior a outro passado (estudara/tinha estudado).",
+        "Futuro do pretérito (estudaria) indica hipótese ligada a condição ou fato incerto; muito usado para dar distanciamento em notícias ('o suspeito teria fugido' = não confirmado).",
+        "Correlação: 'Se + imperfeito do subjuntivo' combina com futuro do pretérito ('Se estudasse, passaria'); 'Se/quando + futuro do subjuntivo' combina com futuro do presente ('Se estudar, passará').",
+        "Futuro do subjuntivo de verbos irregulares: ver → quando eu vir, se ele vir (não 'ver'); vir → se ele vier; pôr → se ele puser; fazer → se fizer; manter/deter/reter → se mantiver, se detiver (não 'deter').",
+        "Trocar o tempo verbal numa reescrita pode manter a correção e mudar o sentido (fato real × hipótese): a banca cobra esse efeito na coesão do texto."
+      ],
+      "pegadinhas": [
+        "'Se eu ver' e 'quando ele deter o suspeito' são Errados: o futuro do subjuntivo é 'vir' e 'detiver'.",
+        "Futuro do pretérito em notícia indica informação não confirmada, e não fato passado certo."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Se o policial ver a infração, deverá autuar', a forma verbal está correta.", "r": "E", "j": "Gramática normativa: futuro do subjuntivo de ver é 'vir'."},
+        {"t": "Em 'Quando a equipe detiver o veículo, fará a vistoria', a forma 'detiver' está correta.", "r": "C", "j": "Gramática normativa: deter conjuga-se como ter."},
+        {"t": "Em 'O suspeito teria fugido pela BR-153', o futuro do pretérito indica que a informação não está confirmada.", "r": "C", "j": "Gramática normativa."},
+        {"t": "A frase 'Se estudasse mais, passará na prova' respeita a correlação entre os tempos verbais.", "r": "E", "j": "Gramática normativa: imperfeito do subjuntivo combina com futuro do pretérito: passaria."},
+        {"t": "O pretérito imperfeito do indicativo pode indicar ação habitual no passado.", "r": "C", "j": "Gramática normativa."},
+        {"t": "O modo subjuntivo exprime fatos apresentados como certos.", "r": "E", "j": "Gramática normativa: certeza é o indicativo; o subjuntivo exprime hipótese, dúvida ou desejo."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "classes-palavras",
+      "bloco": "Palavra",
+      "titulo": "Classes de palavras",
+      "edital": "5.1 Emprego das classes de palavras",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["classes de palavras", "classe gramatical", "substantivo", "adjetivo", "adverbio", "pronome", "preposicao", "conjuncao", "artigo", "palavra que", "palavra se", "funcao do que", "funcao do se"],
+      "pontos": [
+        "São 10 classes: substantivo, adjetivo, artigo, numeral, pronome, verbo (variáveis) e advérbio, preposição, conjunção, interjeição (invariáveis).",
+        "A classe depende do uso: 'o jantar' (substantivo) × 'vou jantar' (verbo); 'fala alto' (advérbio) × 'homem alto' (adjetivo). Na prova, sempre analise a palavra DENTRO da frase.",
+        "'Que' pode ser pronome relativo (substitui o termo anterior e equivale a 'o qual': o livro QUE li), conjunção integrante (introduz oração que completa o verbo e pode ser trocada por 'isso': quero QUE venha) ou conjunção causal/explicativa (= porque).",
+        "'Se' pode ser pronome apassivador (vendem-SE casas = casas são vendidas; verbo concorda), índice de indeterminação do sujeito (precisa-SE de ajudantes; verbo fica no singular), conjunção condicional (= caso) ou integrante (não sei SE vem).",
+        "Pronomes demonstrativos: 'este/isto' = o que vai ser dito ou está perto de quem fala; 'esse/isso' = o que já foi dito ou está perto de quem ouve; 'aquele' = distante. 'Isso', retomando ideia anterior, não equivale a 'o que' (item 15 da PRF 2021).",
+        "Preposições e conjunções ligam termos e orações e dão sentido: 'apesar de', 'embora' (concessão); 'porque', 'visto que' (causa); 'portanto', 'logo' (conclusão); 'mas', 'porém' (oposição).",
+        "Advérbio modifica verbo, adjetivo ou outro advérbio e é invariável: 'Elas estavam MEIO cansadas' (meio = um pouco, não varia); 'MEIA garrafa' (numeral, varia)."
+      ],
+      "pegadinhas": [
+        "'Meio' advérbio não varia: 'ela estava meio nervosa' (nunca 'meia nervosa').",
+        "Trocar 'que' relativo por 'o qual' é o teste para não confundir com a conjunção integrante."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Vendem-se casas na praia', o 'se' é pronome apassivador, e o verbo concorda com 'casas'.", "r": "C", "j": "Gramática normativa: voz passiva sintética."},
+        {"t": "Em 'Precisam-se de motoristas', a concordância está correta.", "r": "E", "j": "Gramática normativa: com índice de indeterminação do sujeito (verbo + preposição), o verbo fica no singular: precisa-se."},
+        {"t": "Em 'Ela ficou meia preocupada', a palavra 'meia' está corretamente flexionada.", "r": "E", "j": "Gramática normativa: advérbio é invariável: meio preocupada."},
+        {"t": "Em 'O documento que recebi estava rasurado', o vocábulo 'que' é pronome relativo, substituível por 'o qual'.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Em 'Quero que você chegue cedo', o 'que' introduz oração que funciona como complemento do verbo 'querer'.", "r": "C", "j": "Gramática normativa: conjunção integrante (oração substantiva objetiva direta)."},
+        {"t": "A palavra 'alto' é sempre adjetivo, independentemente do contexto.", "r": "E", "j": "Gramática normativa: em 'falou alto' é advérbio."}
+      ],
+      "questoes": ["prf-2021-p1|item 15"]
+    },
+    {
+      "id": "periodo",
+      "bloco": "Frase",
+      "titulo": "Coordenação e subordinação",
+      "edital": "5.2 e 5.3 Coordenação e subordinação entre orações e termos",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["coordenacao", "subordinacao", "oracao coordenada", "oracao subordinada", "oracao adjetiva", "oracao restritiva", "oracao explicativa", "sujeito e predicado", "termos da oracao", "periodo composto"],
+      "pontos": [
+        "Termos essenciais: sujeito e predicado. Integrantes: objeto direto, objeto indireto, complemento nominal, agente da passiva. Acessórios: adjunto adnominal, adjunto adverbial e aposto. Vocativo fica fora da oração.",
+        "Coordenação: orações independentes sintaticamente, ligadas por conjunção (ou só por vírgula). Tipos: aditiva (e, nem), adversativa (mas, porém, contudo), alternativa (ou...ou), conclusiva (logo, portanto) e explicativa (pois, porque).",
+        "Subordinação: uma oração é termo da outra. Substantiva = faz papel de substantivo (sujeito, objeto: 'É necessário QUE ESTUDE'); adjetiva = de adjetivo (introduzida por pronome relativo); adverbial = de advérbio (causa, condição, concessão, tempo, finalidade, consequência, proporção, comparação, conformidade).",
+        "Adjetiva restritiva (sem vírgula) limita o sentido: 'Os policiais que estavam de folga foram chamados' — só alguns. Explicativa (entre vírgulas) generaliza: 'Os policiais, que estavam de folga, foram chamados' — todos estavam de folga. Pôr ou tirar as vírgulas MUDA o sentido.",
+        "Proporção × condição: 'à medida que' = proporção (à medida que estudava, aprendia); 'na medida em que' = causa (na medida em que faltou, foi punido). Trocar uma pela outra mantém a correção, mas muda o sentido (item 19 da PRF 2021).",
+        "Concessivas (embora, ainda que, mesmo que, conquanto) pedem subjuntivo: 'Embora ESTEJA cansado'. Trocar 'embora' por 'apesar de' exige ajustar o verbo: 'apesar de ESTAR cansado'."
+      ],
+      "pegadinhas": [
+        "Inserir ou retirar vírgulas em oração adjetiva transforma restritiva em explicativa: a frase continua correta, mas o sentido muda.",
+        "'Porque' explicativo (coordenada) × causal (subordinada): na prova, o que importa é se a reescrita mantém a relação de causa ou explicação."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Os candidatos, que estudaram, foram aprovados', a oração entre vírgulas indica que todos os candidatos estudaram.", "r": "C", "j": "Gramática normativa: oração adjetiva explicativa."},
+        {"t": "A retirada das vírgulas em 'Os carros, que estavam sem licenciamento, foram removidos' preservaria o sentido original do período.", "r": "E", "j": "Gramática normativa: a oração passaria a restritiva (só alguns carros)."},
+        {"t": "A locução 'à medida que' expressa ideia de proporção.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Em 'Estudou muito, mas não passou', a oração introduzida por 'mas' é coordenada adversativa.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Em 'Embora estava cansado, continuou o plantão', o modo verbal está de acordo com a norma padrão.", "r": "E", "j": "Gramática normativa: oração concessiva com 'embora' pede subjuntivo: estivesse."},
+        {"t": "Na oração 'É preciso que todos colaborem', a oração 'que todos colaborem' exerce a função de sujeito.", "r": "C", "j": "Gramática normativa: oração subordinada substantiva subjetiva."}
+      ],
+      "questoes": ["prf-2021-p1|item 19"]
+    },
+    {
+      "id": "pontuacao",
+      "bloco": "Frase",
+      "titulo": "Pontuação",
+      "edital": "5.4 Emprego dos sinais de pontuação",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["pontuacao", "virgula", "uso da virgula", "ponto e virgula", "dois pontos", "travessao", "parenteses", "virgula antes do e", "virgula entre sujeito e verbo"],
+      "pontos": [
+        "Regra de ouro: NÃO se separa por vírgula sujeito de verbo, verbo de complemento, nem nome de complemento nominal — mesmo que o sujeito seja longo ('Os agentes que atuaram na operação de ontem receberam elogios', sem vírgula depois de 'ontem').",
+        "Vírgula obrigatória: vocativo (Senhor Diretor, ...); aposto explicativo (Brasília, capital do país, ...); oração adjetiva explicativa; expressões explicativas (isto é, ou seja, por exemplo); termos de mesma função em sequência (sem 'e'); local e data (Brasília, 9 de maio).",
+        "Adjunto adverbial deslocado (no início ou no meio da frase): vírgula facultativa se for curto ('Ontem saímos' ou 'Ontem, saímos'); recomendada se for longo. A banca costuma considerar correto com ou sem vírgula quando o adjunto é curto.",
+        "Conjunções 'porém, contudo, entretanto, todavia, portanto' deslocadas para o meio da oração vêm entre vírgulas ('Ele, porém, não veio'). 'Mas' fica sempre no início da oração.",
+        "Vírgula antes do 'e': quando as orações têm sujeitos diferentes ('O pai saiu, e a filha ficou'), quando o 'e' tem valor adversativo ('Estudou, e não passou') ou quando se repete (polissíndeto).",
+        "Ponto e vírgula separa itens de enumeração e orações longas que já têm vírgulas; dois-pontos anunciam explicação, enumeração ou citação; travessões e parênteses isolam intercalações (podem trocar as vírgulas do aposto).",
+        "Na reescrita, tirar ou pôr vírgula em oração adjetiva muda o sentido (restritiva × explicativa), embora a frase continue correta."
+      ],
+      "pegadinhas": [
+        "Sujeito longo engana: a banca coloca vírgula entre sujeito e verbo e diz que está correto (Errado).",
+        "Trocar vírgulas por travessões ou parênteses em aposto mantém a correção — a banca costuma dizer que prejudica (Errado)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Os policiais que participaram da operação na rodovia federal, foram condecorados', a vírgula está empregada corretamente.", "r": "E", "j": "Gramática normativa: não se separa sujeito do verbo."},
+        {"t": "O vocativo deve ser isolado por vírgula.", "r": "C", "j": "Gramática normativa; também no MRPR, item 4.4."},
+        {"t": "Em 'O motorista, contudo, recusou o teste', as vírgulas isolam conjunção adversativa deslocada e são obrigatórias.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Em 'O agente saiu e o colega ficou na base', a inserção de vírgula antes de 'e' seria incorreta.", "r": "E", "j": "Gramática normativa: sujeitos diferentes admitem vírgula antes do 'e'."},
+        {"t": "A substituição das vírgulas que isolam um aposto por travessões prejudica a correção gramatical.", "r": "E", "j": "Gramática normativa: travessões podem isolar o aposto."},
+        {"t": "Adjunto adverbial curto anteposto ao verbo admite ou não a vírgula, conforme a ênfase.", "r": "C", "j": "Gramática normativa."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "concordancia",
+      "bloco": "Regras da frase",
+      "titulo": "Concordância verbal e nominal",
+      "edital": "5.5 Concordância verbal e nominal",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["concordancia", "concordancia verbal", "concordancia nominal", "sujeito composto", "verbo haver", "verbo fazer", "haviam", "faz anos", "e proibido entrada", "anexo", "obrigado", "bastante"],
+      "pontos": [
+        "Regra geral: o verbo concorda com o núcleo do sujeito em número e pessoa — encontre o sujeito, mesmo que esteja depois do verbo ('Surgiram novos casos') ou longe dele.",
+        "Haver no sentido de existir/acontecer e fazer indicando tempo são impessoais: ficam no singular, inclusive na locução ('Havia muitos carros'; 'Deve haver soluções'; 'Faz dez anos'). Existir concorda normalmente ('Existiam problemas').",
+        "Pronome relativo 'que': o verbo concorda com o antecedente ('Fui eu que FIZ'; 'as emoções que acabaram por se IMPOR' — infinitivo da locução não flexiona, item 18 da PRF 2021). Com 'quem', 3ª pessoa ('Fui eu quem fez').",
+        "Voz passiva sintética: o verbo concorda com o sujeito paciente ('Alugam-se salas'). Com verbo + preposição o 'se' indetermina e o verbo fica no singular ('Trata-se de casos graves').",
+        "Sujeito composto anteposto: plural ('O pai e o filho chegaram'). Posposto: plural ou concordância com o mais próximo ('Chegaram/Chegou o pai e o filho'). 'Um dos que': o verbo vai, de regra, para o plural.",
+        "Concordância nominal: adjetivo com o substantivo. 'Anexo', 'incluso', 'obrigado', 'mesmo', 'quite' variam ('Seguem anexas as notas'; 'Ela disse: obrigada'). 'Menos' e 'alerta' não variam. 'Bastante' varia quando é adjetivo (bastantes provas) e não varia quando é advérbio (bastante cansados).",
+        "'É proibido entrada' × 'É proibida a entrada': com o substantivo sem determinante, a expressão fica invariável; com artigo, concorda ('É necessária a presença'; 'É necessário presença')."
+      ],
+      "pegadinhas": [
+        "A banca põe o sujeito depois do verbo ou longe dele para você errar a concordância — sempre pergunte 'o que/quem' faz a ação.",
+        "'Haviam muitos acidentes' é Errado: haver = existir é impessoal; o auxiliar da locução também fica no singular ('Deve haver')."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Houveram muitos acidentes no feriado', a concordância está correta.", "r": "E", "j": "Gramática normativa: haver = acontecer é impessoal: houve."},
+        {"t": "Em 'Devem existir outras soluções', a flexão do auxiliar está correta.", "r": "C", "j": "Gramática normativa: existir é pessoal e concorda com 'soluções'."},
+        {"t": "Em 'Seguem anexo os documentos', a concordância nominal está correta.", "r": "E", "j": "Gramática normativa: 'anexo' é adjetivo e concorda: anexos."},
+        {"t": "Em 'Faz cinco anos que ele ingressou na PRF', o verbo fazer está corretamente no singular.", "r": "C", "j": "Gramática normativa: fazer indicando tempo é impessoal."},
+        {"t": "Em 'Fui eu quem resolveu o problema', a concordância está de acordo com a norma.", "r": "C", "j": "Gramática normativa: com 'quem', 3ª pessoa (também se admite 'resolvi')."},
+        {"t": "Em 'Precisa-se de agentes', o verbo deveria ir para o plural.", "r": "E", "j": "Gramática normativa: verbo com preposição + se (índice de indeterminação) fica no singular."}
+      ],
+      "questoes": ["prf-2021-p1|item 18"]
+    },
+    {
+      "id": "regencia",
+      "bloco": "Regras da frase",
+      "titulo": "Regência verbal e nominal",
+      "edital": "5.6 Regência verbal e nominal",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["regencia", "regencia verbal", "regencia nominal", "assistir ao jogo", "visar", "aspirar", "obedecer", "preferir", "chegar a", "implicar", "namorar", "esquecer de"],
+      "pontos": [
+        "Regência é a relação entre um termo (verbo ou nome) e seu complemento, com ou sem preposição. Muda o sentido: 'assistir o doente' (ajudar, VTD) × 'assistir ao filme' (ver, VTI com 'a').",
+        "Verbos clássicos: aspirar ao cargo (desejar, 'a') × aspirar o ar (sorver, direto); visar ao sucesso (objetivar, 'a') × visar o cheque (rubricar) e visar o alvo (mirar); obedecer/desobedecer a (sempre com 'a'); preferir uma coisa A outra (sem 'mais' e sem 'do que').",
+        "Verbos de movimento pedem 'a': chegar a, ir a, voltar a ('Cheguei ao posto', não 'no posto'). Implicar (acarretar) é direto: 'A infração implica multa' (sem 'em').",
+        "Pagar e perdoar: direto para a coisa, 'a' para a pessoa (pagou a conta ao frentista). Informar, avisar, certificar: 'informar alguém de algo' ou 'informar algo a alguém'.",
+        "Esquecer/lembrar: sem pronome, diretos ('esqueci o nome'); com pronome, pedem 'de' ('esqueci-me do nome'). 'Esqueci de' sem o pronome é coloquial.",
+        "Regência nominal: nomes também pedem preposição — 'acessível a', 'apto a/para', 'compatível com', 'favorável a', 'obediência a', 'respeito a/por', 'responsável por', 'residente em'.",
+        "Pronome relativo herda a preposição do verbo: 'O cargo A QUE aspiro'; 'A lei DE QUE precisamos'; 'O filme A QUE assisti'. Tirar a preposição numa reescrita torna a frase incorreta."
+      ],
+      "pegadinhas": [
+        "A banca reescreve trocando a preposição antes do pronome relativo ('o cargo que aspiro'): fica Errado.",
+        "'Preferir mais do que' e 'implicar em' (sentido de acarretar) são a forma coloquial que a banca marca como incorreta."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Prefiro trabalhar na rua do que no escritório', a regência do verbo preferir segue a norma padrão.", "r": "E", "j": "Gramática normativa: prefere-se uma coisa A outra."},
+        {"t": "Em 'O policial assistiu ao acidente', o verbo assistir tem sentido de presenciar e pede a preposição 'a'.", "r": "C", "j": "Gramática normativa."},
+        {"t": "A frase 'A infração implica em multa' está de acordo com a norma padrão.", "r": "E", "j": "Gramática normativa: implicar (acarretar) é transitivo direto."},
+        {"t": "Em 'Esse é o cargo a que aspiro', a preposição antes do relativo é exigida pelo verbo aspirar.", "r": "C", "j": "Gramática normativa: aspirar (desejar) pede 'a'."},
+        {"t": "Em 'Cheguei no posto às 6h', a regência segue a norma padrão escrita.", "r": "E", "j": "Gramática normativa: chegar pede 'a': cheguei ao posto."},
+        {"t": "O verbo obedecer é transitivo indireto e exige a preposição 'a'.", "r": "C", "j": "Gramática normativa."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "crase",
+      "bloco": "Regras da frase",
+      "titulo": "Crase",
+      "edital": "5.7 Emprego do sinal indicativo de crase",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["crase", "a com acento", "acento grave", "as 10 horas", "a moda de", "a medida que", "crase antes de palavra masculina", "crase facultativa", "ate a"],
+      "pontos": [
+        "Crase = fusão da preposição 'a' com o artigo 'a' (ou com o 'a' inicial de aquele/aquela/aquilo, a qual). Só há crase se o termo anterior pede 'a' E o termo seguinte aceita artigo feminino 'a'.",
+        "Teste prático: troque por uma palavra masculina. Se virar 'ao', há crase: 'Fui à escola' → 'Fui ao colégio'. Para nome de lugar: 'vou a, volto da' → crase ('Vou à Bahia', volto da Bahia); 'vou a, volto de' → sem crase ('Vou a Goiás', volto de Goiás).",
+        "Proibida: antes de palavra masculina (a pé, a cavalo), de verbo (começou a chover), de pronomes pessoais e de tratamento (a ela, a Vossa Senhoria), de 'esta/essa', entre palavras repetidas (cara a cara, gota a gota) e antes de 'a' no singular seguido de palavra no plural (a vítimas).",
+        "Obrigatória: horas exatas (às 10 horas; das 8h às 18h), locuções femininas adverbiais, prepositivas e conjuntivas (às pressas, à noite, à medida que, à custa de, à procura de) e na expressão 'à moda de', mesmo subentendida (bife à milanesa).",
+        "Facultativa: antes de pronome possessivo feminino singular (a/à sua mãe), de nome próprio feminino de pessoa (a/à Maria) e depois de 'até' (até a/à porta).",
+        "Com 'aquele/aquela/aquilo': há crase se o termo anterior pede 'a' ('Refiro-me àquele caso'). Com 'a qual/as quais': há crase se o verbo da oração pede 'a' ('A norma à qual obedeço')."
+      ],
+      "pegadinhas": [
+        "Crase antes de verbo ou de palavra masculina é sempre Errado — é o erro mais cobrado.",
+        "A banca diz que a crase em 'até à porta' ou 'à sua chefe' é obrigatória ou proibida: é facultativa."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'O condutor foi multado devido à alta velocidade', o acento grave está empregado corretamente.", "r": "C", "j": "Gramática normativa: 'devido a' + artigo 'a'."},
+        {"t": "Em 'Ele começou à estudar para a PRF', o acento grave é obrigatório.", "r": "E", "j": "Gramática normativa: não há crase antes de verbo."},
+        {"t": "O acento grave em 'Entregue o relatório à sua chefe' é facultativo.", "r": "C", "j": "Gramática normativa: antes de possessivo feminino singular a crase é facultativa."},
+        {"t": "Em 'O plantão vai das 19h às 7h', o uso do acento grave está correto.", "r": "C", "j": "Gramática normativa: horas determinadas."},
+        {"t": "Em 'Fiquei frente à frente com o suspeito', o acento grave está correto.", "r": "E", "j": "Gramática normativa: entre palavras repetidas não há crase: frente a frente."},
+        {"t": "Em 'Vou a Goiânia amanhã', a ausência do acento grave está correta, pois se diz 'volto de Goiânia'.", "r": "C", "j": "Gramática normativa: regra do 'vou a, volto de'."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "colocacao-pronominal",
+      "bloco": "Regras da frase",
+      "titulo": "Colocação pronominal",
+      "edital": "5.8 Colocação dos pronomes átonos",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["colocacao pronominal", "proclise", "enclise", "mesoclise", "pronome atono", "me disse", "nao se", "far-se-a", "pronome obliquo"],
+      "pontos": [
+        "Pronomes átonos: me, te, se, o, a, lhe, nos, vos, os, as, lhes. Podem vir antes do verbo (próclise), depois (ênclise) ou no meio (mesóclise).",
+        "Ênclise é a regra quando nada atrai o pronome. Na norma padrão escrita, NÃO se inicia frase com pronome átono: 'Disseram-me', e não 'Me disseram'.",
+        "Próclise obrigatória com palavras atrativas: negativas (não, nunca, ninguém), advérbios sem vírgula (aqui se fala), pronomes relativos (o que se faz), indefinidos (tudo se resolve), conjunções subordinativas (quando o viu) e em frases exclamativas/optativas (Deus o ajude!).",
+        "Mesóclise só com futuro do presente e do pretérito, sem palavra atrativa: 'Far-se-á a vistoria'; 'Dir-lhe-ia a verdade'. Se houver atrativa, volta a próclise: 'Não se fará'.",
+        "Nunca há ênclise com futuro do presente/pretérito nem com particípio ('Tinha-se dado', nunca 'dado-se').",
+        "Nas locuções verbais, sem atrativa, o pronome pode vir depois do auxiliar (com hífen) ou depois do verbo principal no infinitivo/gerúndio: 'Vou-lhe dizer' ou 'Vou dizer-lhe'."
+      ],
+      "pegadinhas": [
+        "Palavra atrativa obriga próclise: 'Não lhe disse' — a banca troca por 'Não disse-lhe' e marca como correto (Errado).",
+        "Pronome átono no início da frase é Errado na norma padrão escrita."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em 'Me informaram sobre a operação', a colocação do pronome está de acordo com a norma padrão escrita.", "r": "E", "j": "Gramática normativa: não se inicia frase com pronome átono: Informaram-me."},
+        {"t": "Em 'Não se sabe o motivo', a próclise é obrigatória por causa do advérbio de negação.", "r": "C", "j": "Gramática normativa."},
+        {"t": "A forma 'Realizará-se a perícia amanhã' está correta.", "r": "E", "j": "Gramática normativa: com futuro do presente, sem atrativa, usa-se mesóclise: Realizar-se-á."},
+        {"t": "Em 'Quando o vi, reconheci-o', ambas as colocações estão corretas.", "r": "C", "j": "Gramática normativa: a conjunção 'quando' atrai o pronome; 'reconheci-o' é ênclise sem atrativa."},
+        {"t": "Em 'Tudo se resolveu', a próclise se justifica pela presença de pronome indefinido.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Com verbo no particípio, a ênclise é a colocação recomendada pela norma padrão.", "r": "E", "j": "Gramática normativa: não há ênclise com particípio."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "reescrita",
+      "bloco": "Texto",
+      "titulo": "Reescrita de frases e parágrafos",
+      "edital": "6 Reescrita de frases e parágrafos do texto",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["reescrita", "reescrever", "mantem a correcao", "mantem o sentido", "substituicao de palavras", "significado das palavras", "sinonimo", "reorganizacao do periodo", "voz passiva", "sentido do vocabulo"],
+      "pontos": [
+        "Toda questão de reescrita pede dois testes separados: (1) a frase nova está gramaticalmente correta? (2) o sentido original foi mantido? A banca costuma errar só um deles.",
+        "Significação das palavras: sinônimos dependem do contexto ('irrupção' = entrada súbita, violenta, item 17 da PRF 2021, Certo; cuidado com parônimos: 'irrupção' × 'erupção', 'descrição' × 'discrição', 'eminente' × 'iminente', 'ratificar' × 'retificar').",
+        "Voz ativa × passiva: 'A PRF apreendeu a carga' = 'A carga foi apreendida pela PRF' (mesmo sentido, tempo verbal mantido). Na passiva sintética, o verbo concorda com o sujeito ('Apreenderam-se as cargas').",
+        "Trocar conector por outro de valor diferente, mudar o tempo/modo verbal, tirar um artigo ou um advérbio de intensidade e mexer em vírgulas de oração adjetiva costumam MUDAR o sentido.",
+        "Para checar a correção, reveja as regras do edital: concordância (o verbo acompanhou o novo sujeito?), regência (a preposição foi mantida?), crase, colocação pronominal e pontuação (não separou sujeito do verbo?).",
+        "Reescritas com termos mais genéricos ou que trocam o agente da ação geralmente alteram o sentido (item 10 da PRF 2021: trocar quem praticou a ação e a relação causal tornou a reescrita Errada)."
+      ],
+      "pegadinhas": [
+        "A banca diz 'mantém a correção E o sentido' quando só um dos dois foi mantido.",
+        "Parônimos (eminente × iminente) são usados para trocar o sentido de propósito."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A frase 'A PRF apreendeu a carga' pode ser reescrita como 'A carga foi apreendida pela PRF' sem prejuízo do sentido.", "r": "C", "j": "Gramática normativa: transposição para a voz passiva analítica."},
+        {"t": "'Eminente' e 'iminente' são sinônimos e podem ser trocados em qualquer contexto.", "r": "E", "j": "Gramática normativa: eminente = ilustre; iminente = prestes a acontecer."},
+        {"t": "A substituição de 'retificar o documento' por 'ratificar o documento' mantém o sentido original.", "r": "E", "j": "Gramática normativa: retificar = corrigir; ratificar = confirmar."},
+        {"t": "Uma reescrita pode estar gramaticalmente correta e, ainda assim, alterar o sentido do texto original.", "r": "C", "j": "Gramática normativa."},
+        {"t": "Em 'Apreenderam-se várias cargas', a substituição por 'Foram apreendidas várias cargas' mantém a correção e o sentido.", "r": "C", "j": "Gramática normativa: passiva sintética → analítica."},
+        {"t": "A retirada das vírgulas que isolam uma oração adjetiva explicativa nunca altera o sentido do texto.", "r": "E", "j": "Gramática normativa: ela passa a restritiva."}
+      ],
+      "questoes": ["prf-2021-p1|item 10", "prf-2021-p1|item 17", "prf-2021-p1|item 20"]
+    },
+    {
+      "id": "redacao-oficial",
+      "bloco": "Redação oficial",
+      "titulo": "Redação oficial (Manual da Presidência)",
+      "edital": "7 Correspondência oficial (Manual de Redação da Presidência da República)",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["redacao oficial", "manual de redacao", "mrpr", "oficio", "padrao oficio", "pronome de tratamento", "vossa excelencia", "vossa senhoria", "fecho", "respeitosamente", "atenciosamente", "vocativo", "email oficial"],
+      "pontos": [
+        "Atributos da redação oficial (MRPR, 3ª ed., 2018): clareza e precisão, objetividade, concisão, coesão e coerência, impessoalidade, formalidade e padronização e uso da norma padrão. 'Informatividade' NÃO está na lista (item 22 da PRF 2021).",
+        "Padrão ofício: a 3ª edição acabou com o aviso e o memorando — tudo é 'ofício'. Partes: cabeçalho, identificação do expediente, local e data, endereçamento, assunto, texto, fecho, identificação do signatário e numeração de páginas.",
+        "Assunto: a palavra 'Assunto' seguida de dois-pontos; descrição com inicial maiúscula, sem verbo, de preferência 4 a 5 palavras, em negrito, com ponto-final, alinhada à esquerda. Ex.: 'Assunto: Realização de concurso público.' (item 26, Certo).",
+        "Vocativo: sempre seguido de vírgula (item 24, Certo). 'Excelentíssimo Senhor' + cargo só para chefes de Poder (Presidente da República, do Congresso, do STF); demais autoridades: 'Senhor' ou 'Senhora' + cargo (Senhora Ministra,). 'Digníssimo' (DD) e 'Ilustríssimo' (Ilmo.) foram abolidos.",
+        "Pronomes de tratamento: o verbo e os possessivos vão para a 3ª pessoa (Vossa Senhoria designará SEU substituto, e não 'vosso'); o adjetivo concorda com o sexo da pessoa (Vossa Excelência está atarefada, para uma mulher). 'Vossa' = falando com a pessoa; 'Sua' = falando dela.",
+        "Fechos: 'Respeitosamente,' para autoridade de hierarquia superior (inclusive o Presidente da República); 'Atenciosamente,' para mesma hierarquia, inferior ou demais casos.",
+        "Signatário: nome em maiúsculas, sem negrito; cargo com iniciais maiúsculas e flexionado no feminino quando for mulher (Ministra, Secretária-Executiva) — por isso o item 23 da PRF 2021 é Errado.",
+        "E-mail: só tem valor documental (vale como original) com certificação digital que ateste a identidade do remetente, na ICP-Brasil; sem isso, o destinatário pode aceitar, mas não é obrigado (item 25 da PRF 2021, Errado)."
+      ],
+      "pegadinhas": [
+        "A banca inventa atributos ('informatividade', 'erudição') ou tira um da lista: decore os sete do MRPR.",
+        "O verbo com pronome de tratamento fica na 3ª pessoa, mesmo quando você fala diretamente com a autoridade.",
+        "E-mail institucional não é documento original por si só: precisa de certificação digital."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Nas comunicações oficiais, o fecho 'Respeitosamente' é empregado para autoridades de hierarquia superior à do remetente.", "r": "C", "j": "MRPR, 3ª ed., item 5.1.7."},
+        {"t": "Segundo o Manual de Redação da Presidência da República, o tratamento 'Digníssimo' deve ser usado para autoridades do Poder Judiciário.", "r": "E", "j": "MRPR, 3ª ed., item 4.4: 'Digníssimo' e 'Ilustríssimo' foram abolidos."},
+        {"t": "Em 'Vossa Excelência deve trazer vossos documentos', o possessivo está empregado de acordo com o Manual.", "r": "E", "j": "MRPR, 3ª ed., item 4.1.1: com pronome de tratamento, o possessivo é da 3ª pessoa (seus documentos)."},
+        {"t": "Na 3ª edição do Manual, o memorando e o aviso foram reunidos sob o nome de ofício.", "r": "C", "j": "MRPR, 3ª ed., item 5."},
+        {"t": "Dirigindo-se a uma ministra, a concordância correta é 'Vossa Excelência está atarefada'.", "r": "C", "j": "MRPR, 3ª ed., item 4.1.1: o adjetivo concorda com o sexo da pessoa."},
+        {"t": "O e-mail institucional, por si só, tem valor de documento original.", "r": "E", "j": "MRPR, 3ª ed., item 6.4.2: exige certificação digital na ICP-Brasil."}
+      ],
+      "questoes": ["prf-2021-p1|item 22", "prf-2021-p1|item 23", "prf-2021-p1|item 24", "prf-2021-p1|item 25", "prf-2021-p1|item 26"]
+    }
+  ]
+}

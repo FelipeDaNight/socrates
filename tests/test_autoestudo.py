@@ -115,7 +115,7 @@ def test_plano_usa_os_mesmos_ids_das_trilhas_conferidas():
 
 
 def test_acha_o_topico_do_edital_na_fala():
-    assert achar_topico(PLANOS, "aprende sobre crase").id == "crase"
+    assert achar_topico(PLANOS, "aprende sobre probabilidade").id == "probabilidade"
     assert achar_topico(PLANOS, "me ensina concordância verbal").id == "concordancia"
     assert achar_topico(PLANOS, "estuda teoria do fogo").id == "teoria-fogo"
     assert achar_topico(PLANOS, "bom dia") is None
@@ -252,25 +252,25 @@ def test_sem_lei_pesquisa_na_internet(tmp_path):
     def buscar(q):
         buscas.append(q)
         return [{"title": "Vídeo", "href": "https://youtube.com/x"},
-                {"title": "Blog", "href": "https://blog.exemplo.com/crase"},
-                {"title": "Gov", "href": "https://www.gov.br/crase"}]
+                {"title": "Blog", "href": "https://blog.exemplo.com/probabilidade"},
+                {"title": "Gov", "href": "https://www.gov.br/probabilidade"}]
 
     lidas = []
 
     def ler(url):
         lidas.append(url)
-        return "Crase é a fusão da preposição a com o artigo a. " * 30
+        return "Probabilidade é a fusão da preposição a com o artigo a. " * 30
 
     esc = Escritor()
     m = motor(tmp_path, esc, Conferente(contra=(), sem_apoio=(1,), erra_itens=()), buscar, ler)
-    r = asyncio.run(m.estudar(tarefa("prf-portugues:crase")))
+    r = asyncio.run(m.estudar(tarefa("prf-rlm:probabilidade")))
     assert r.ok
-    assert "crase" in buscas[0]
-    assert lidas[0] == "https://www.gov.br/crase"      # site oficial primeiro; vídeo fica de fora
+    assert "probabilidade" in buscas[0]
+    assert lidas[0] == "https://www.gov.br/probabilidade"      # site oficial primeiro; vídeo fica de fora
     assert "youtube" not in " ".join(lidas)
     top = carregar_trilhas(extra=tmp_path / "Socrates" / "trilhas")
-    crase = next(t for t in top if t.id == "prf-portugues").topico("crase")
-    assert len(crase.pontos) == 7                      # sem lei, o "não trata" fica
+    probabilidade = next(t for t in top if t.id == "prf-rlm").topico("probabilidade")
+    assert len(probabilidade.pontos) == 7                      # sem lei, o "não trata" fica
 
 
 def test_pouco_conteudo_confiavel_nao_grava_e_espera(tmp_path):
@@ -371,8 +371,8 @@ def test_respeita_o_limite_do_dia_e_a_pausa(tmp_path):
 @pytest.mark.parametrize("fala,cmd", [
     ("Sócrates, o que você está aprendendo?", "status"), ("o que você aprendeu hoje?", "hoje"),
     ("o que você aprendeu essa semana?", "semana"), ("pausa o aprendizado", "pausar"),
-    ("para de aprender", "pausar"), ("volta a aprender", "retomar"), ("aprende sobre crase", "pedir"),
-    ("estuda pra mim o ECA", "pedir"), ("o que eu aprendi?", None), ("me ensina crase", None),
+    ("para de aprender", "pausar"), ("volta a aprender", "retomar"), ("aprende sobre probabilidade", "pedir"),
+    ("estuda pra mim o ECA", "pedir"), ("o que eu aprendi?", None), ("me ensina probabilidade", None),
 ])
 def test_entende_os_comandos(fala, cmd):
     r = auto.entender(fala)
@@ -381,9 +381,9 @@ def test_entende_os_comandos(fala, cmd):
 
 def test_pedido_vai_para_a_frente_da_fila(tmp_path):
     m = motor(tmp_path)
-    fala, t = m.pedir("aprende sobre crase")
-    assert "vou estudar Crase" in fala
-    assert m.proxima().topico.id == "crase"
+    fala, t = m.pedir("aprende sobre probabilidade")
+    assert "vou estudar Probabilidade" in fala
+    assert m.proxima().topico.id == "probabilidade"
     fala, t = m.pedir("aprende sobre a história do xadrez")
     assert t.materia.id == "extras" and "A história do xadrez" in fala
     assert m.proxima().tipo == "pedido"
@@ -425,21 +425,21 @@ def tutor_com_motor(tmp_path, monkeypatch):
 
 def test_aula_de_assunto_que_falta_pede_ao_autoestudo(tutor_com_motor):
     t, m = tutor_com_motor
-    s = t.atender("me ensina crase")
+    s = t.atender("me ensina probabilidade")
     assert s.contexto and "ainda não tem a aula completa" in s.contexto
-    assert m.fila and m.fila[0].topico.id == "crase"
-    assert "o que você está aprendendo" and "Na fila: Crase" in t.atender("o que você está aprendendo?").fala
+    assert m.fila and m.fila[0].topico.id == "probabilidade"
+    assert "o que você está aprendendo" and "Na fila: Probabilidade" in t.atender("o que você está aprendendo?").fala
 
 
 def test_depois_de_aprender_a_aula_existe(tutor_com_motor):
     t, m = tutor_com_motor
-    asyncio.run(m.estudar(tarefa("prf-portugues:crase")))
-    s = t.atender("me ensina crase")
+    asyncio.run(m.estudar(tarefa("prf-rlm:probabilidade")))
+    s = t.atender("me ensina probabilidade")
     assert t.aula is not None and t.aula.topico.auto
-    assert "Crase · 1/7" in s.quadro
+    assert "Probabilidade · 1/7" in s.quadro
     assert "autoestudo" in s.contexto
     t.encerrar()
-    q = t.atender("questões de crase")
+    q = t.atender("questões de probabilidade")
     assert t.sessao is not None and q.fala
 
 
@@ -447,8 +447,8 @@ def test_mapa_geral_com_o_autoestudo(tutor_com_motor, tmp_path, monkeypatch):
     from socrates.estudo import mapa
     t, m = tutor_com_motor
     monkeypatch.setattr(mapa, "PASTA", tmp_path / "Socrates")
-    asyncio.run(m.estudar(tarefa("prf-portugues:crase")))
+    asyncio.run(m.estudar(tarefa("prf-rlm:probabilidade")))
     s = t.atender("mostra meu mapa")
     html = Path(s.abrir_pagina).read_text(encoding="utf-8")
-    assert "Meu mapa de estudo" in html and "Língua Portuguesa" in html and "autoestudo" in html
-    assert "Direito Penal" in html and "Crase" in html
+    assert "Meu mapa de estudo" in html and "Raciocínio Lógico-Matemático" in html and "autoestudo" in html
+    assert "Direito Penal" in html and "Probabilidade" in html

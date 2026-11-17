@@ -109,7 +109,7 @@ def test_penas_atualizadas_ate_2026():
     ("questões de furto", "crimes-patrimonio"), ("o que é abolitio criminis?", "lei-penal-tempo"),
     ("CNH falsa apresentada ao PRF", "fe-publica"), ("feminicídio", "crimes-pessoa"),
     ("crime impossível", "iter-criminis"), ("embriaguez exclui a imputabilidade?", "culpabilidade"),
-    ("corrupção de menores", "dignidade-sexual"), ("o que é crase?", None),
+    ("corrupção de menores", "dignidade-sexual"), ("o que é probabilidade?", None),
 ])
 def test_acha_o_topico_na_fala(fala, topico):
     t = TRILHA.topico_citado(fala)
@@ -292,7 +292,7 @@ def test_pergunta_livre_leva_as_notas_atualizadas(tutor):
     ctx = tutor.contexto_da_lei("qual a pena do roubo?")
     assert "Notas CONFERIDAS" in ctx and "6 a 10 anos" in ctx and "NÃO contradiga" in ctx
     assert tutor.caderno.eventos[-1]["k"] == "duvida"
-    assert tutor.contexto_da_lei("o que é crase?") == ""
+    assert tutor.contexto_da_lei("o que é probabilidade?") == ""
 
 
 def test_artigo_do_cp_sem_texto_vira_explicacao_pelas_notas(tutor):

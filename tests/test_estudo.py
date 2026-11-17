@@ -118,7 +118,7 @@ def test_lacuna_aceita_jeitos_de_dizer():
     ("simulado de 20 questões do CBMGO", "simulado"), ("lacunas do CTB", "lacunas"),
     ("revisa meus erros", "revisao"), ("lê o artigo 165 do CTB", "artigo"),
     ("como estou indo?", "desempenho"), ("o que eu estudo hoje?", "plano"),
-    ("me testa em crase", None), ("o que cai na PRF?", None), ("o que é crase?", None),
+    ("me testa em probabilidade", None), ("o que cai na PRF?", None), ("o que é probabilidade?", None),
 ])
 def test_entende_pedidos_de_estudo(tutor, fala, tipo):
     p = tutor.entender(fala)
@@ -241,7 +241,7 @@ def test_le_o_artigo_com_ficha(tutor):
 def test_trechos_da_lei_para_o_cerebro(tutor):
     t = tutor.contexto_da_lei("quantos pontos tem dirigir sem cinto?")
     assert "Art. 167" in t and "Trechos OFICIAIS" in t
-    assert tutor.contexto_da_lei("o que é crase?") == ""
+    assert tutor.contexto_da_lei("o que é probabilidade?") == ""
 
 
 # ---------- desempenho, plano e pomodoro ----------
@@ -267,7 +267,7 @@ def test_pomodoro_anota_os_minutos(tutor, monkeypatch):
     computador.TIMER.timer.cancel()
     computador.TIMER._tocar()                     # o tempo acabou
     assert "Fim do pomodoro de português" in avisos[0] and "Anotei 1 minutos" in avisos[0]
-    assert tutor.caderno.dados["estudo"][-1]["materia"] == "português"
+    assert tutor.caderno.dados["estudo"][-1]["materia"] == "Língua Portuguesa"
     estudo.TUTOR = None
 
 
