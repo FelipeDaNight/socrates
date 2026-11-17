@@ -35,8 +35,8 @@ def tutor(tmp_path):
 
 
 def test_trilha_bem_formada():
-    assert CTB.atualizado == "2026-11-13" and CTB.plano == "prf" and "ctb" in CTB.apelidos
-    assert len(CTB.topicos) == 15
+    assert CTB.atualizado == "2026-11-17" and CTB.plano == "prf" and "ctb" in CTB.apelidos
+    assert len(CTB.topicos) == 20
     for t in CTB.topicos:
         assert len(t.pontos) >= 2 and len(t.itens) >= 2 and t.palavras and t.faixas(), t.id
         respostas = {it["r"] for it in t.itens}

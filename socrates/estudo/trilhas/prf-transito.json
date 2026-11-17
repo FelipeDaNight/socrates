@@ -3,8 +3,8 @@
   "materia": "Legislação de Trânsito",
   "concurso": "PRF",
   "banca": "Cebraspe",
-  "fonte": "CTB (Lei 9.503/1997) compilado do Planalto em 04/11/2026 (o mesmo do app estudo-prf), com as Leis 14.071/2020, 14.229/2021 e 14.599/2023; Lei 5.970/1973.",
-  "atualizado": "2026-11-13",
+  "fonte": "CTB (Lei 9.503/1997) compilado do Planalto em 04/11/2026 (o mesmo do app estudo-prf), com as Leis 14.071/2020, 14.229/2021 e 14.599/2023; Lei 5.970/1973. Resoluções do CONTRAN aprofundadas em 17/11/2026 pela página oficial de resoluções (Ministério dos Transportes) e pelos textos das Res. 1.031/2026, 525/2015, 940/2022, 1.020/2025, 882/2021 e 798/2020.",
+  "atualizado": "2026-11-17",
   "apelidos": ["legislacao de transito", "transito", "codigo de transito", "codigo de transito brasileiro", "ctb"],
   "nao_confundir": ["quem legisla sobre transito", "lei estadual de transito", "lei municipal de transito", "competencia para legislar sobre transito"],
   "plano": "prf",
@@ -464,6 +464,177 @@
         {"t": "Ônibus, micro-ônibus e caminhões podem circular com até três danos no para-brisa fora da área crítica de visão, com trinca de até 20 cm ou fratura circular de até 4 cm.", "r": "C", "j": "Res. CONTRAN 960/2022, art. 15."}
       ],
       "questoes": ["prf-2021-p1|item 61", "prf-2021-p1|item 64", "prf-2021-p1|item 65", "prf-2021-p1|item 68", "prf-2021-p1|item 70", "prf-2021-p1|item 71", "prf-2021-p1|item 72", "prf-2021-p1|item 73", "prf-2021-p1|item 74", "prf-2021-p1|item 75", "prf-2021-p1|item 81", "prf-2021-p1|item 82", "prf-2021-p1|item 84", "prf-2021-p1|item 85"]
+    },
+    {
+      "id": "contran-alcool",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Fiscalização de álcool e drogas (Res. 1.031/2026)",
+      "edital": "Resolução CONTRAN 432/2013 (hoje Resolução CONTRAN 1.031/2026)",
+      "peso": 3,
+      "artigos": ["CTB 165", "CTB 276-277", "CTB 306"],
+      "palavras": ["resolucao 1031", "resolucao 432", "fiscalizacao de alcool", "teste do bafometro", "drogometro", "aparelho de drogas", "sinais de alteracao da capacidade psicomotora", "margem do etilometro", "erro maximo do etilometro", "valor considerado", "medicao realizada", "teste passivo", "pre teste", "lei seca"],
+      "pontos": [
+        "A Res. CONTRAN 1.031, de 17/8/2026 (publicada em 18/8/2026), substituiu a 432/2013, que era a resolução do edital de 2021. Vale para o álcool e para outras substâncias psicoativas.",
+        "Como se constata (art. 3º): álcool, por ETILÔMETRO ou por SINAIS de alteração da capacidade psicomotora; outras substâncias, por APARELHO de detecção da substância (o chamado drogômetro, certificado pelo Inmetro) ou por sinais. Imagem, vídeo e outros meios de prova admitidos em direito podem complementar, a critério do agente.",
+        "Pré-teste e teste passivo (art. 4º) são só INDICATIVOS: não caracterizam a infração nem fundamentam a autuação.",
+        "Infração do art. 165 pelo etilômetro (art. 8º): medição igual ou superior a 0,05 mg de álcool por litro de ar alveolar, descontado o erro máximo admissível (0,032 mg/L abaixo de 0,40 mg/L). Exemplo do Anexo I: medição de 0,05 mg/L dá valor considerado de 0,01 mg/L, que já é infração. No auto, o limite regulamentado é sempre 0,00.",
+        "Crime do art. 306 (art. 9º): etilômetro com medição igual ou superior a 0,34 mg/L (valor considerado 0,30 mg/L), exame de sangue com 6 dg/L ou mais, resultado positivo no aparelho de outras substâncias ou sinais de alteração. O exame de sangue é obrigatório para perícia nos casos de óbito (art. 13).",
+        "Sinais (art. 7º e Anexo II): são necessários PELO MENOS DOIS sinais que, em conjunto, comprovem a alteração, descritos no auto ou em termo próprio. O anexo lista 18 sinais em 5 grupos: aparência, atitude, orientação, memória e capacidade motora e verbal.",
+        "Recusa (art. 8º, §§ 1º a 3º): sem dois sinais, aplica-se o art. 165-A; com dois sinais, aplica-se o art. 165, sem prejuízo do crime do art. 306. O condutor NÃO escolhe a modalidade de verificação.",
+        "Medidas (arts. 11 e 12): o veículo fica retido até a apresentação de condutor habilitado (que também é fiscalizado); sem ele, vai ao depósito. O agente NÃO recolhe o documento de habilitação nessas infrações; a suspensão do direito de dirigir segue o processo próprio."
+      ],
+      "pegadinhas": [
+        "0,05 mg/L é a MEDIÇÃO que já configura infração (valor considerado 0,01); 0,34 mg/L de medição (0,30 considerado) é o crime. A banca troca medição por valor considerado.",
+        "Um sinal só não basta: são pelo menos dois sinais.",
+        "O CTB fala em recolhimento do documento de habilitação no art. 165, mas a Res. 1.031/2026 manda o agente não recolher; na prova, leia se a pergunta é pela letra do CTB ou pela resolução."
+      ],
+      "novidades": [
+        "Res. CONTRAN 1.031/2026 (DOU de 18/8/2026): revogou a 432/2013, criou o procedimento com aparelho para outras substâncias psicoativas e fixou que o agente não recolhe a habilitação nessas infrações."
+      ],
+      "itens": [
+        {"t": "Pela Resolução CONTRAN 1.031/2026, o resultado do pré-teste ou do teste passivo de alcoolemia basta para fundamentar a autuação.", "r": "E", "j": "Res. CONTRAN 1.031/2026, art. 4º: pré-teste e teste passivo têm caráter apenas indicativo."},
+        {"t": "A constatação da infração por sinais de alteração da capacidade psicomotora exige pelo menos dois sinais, descritos no auto de infração ou em termo próprio.", "r": "C", "j": "Res. CONTRAN 1.031/2026, art. 7º, §§ 1º e 2º."},
+        {"t": "Na fiscalização por etilômetro, a medição de 0,05 mg de álcool por litro de ar alveolar, descontado o erro máximo, já caracteriza a infração do art. 165 do CTB.", "r": "C", "j": "Res. CONTRAN 1.031/2026, art. 8º, I, e Anexo I (valor considerado 0,01 mg/L)."},
+        {"t": "O condutor fiscalizado pode escolher entre o etilômetro e o exame de sangue; se o agente não oferecer a opção, não há recusa.", "r": "E", "j": "Res. CONTRAN 1.031/2026, art. 8º, § 3º: a recusa é a negativa ao procedimento adequado, e não cabe ao condutor escolher a modalidade."},
+        {"t": "Constatada a infração de alcoolemia, o veículo fica retido até a apresentação de condutor habilitado e, se não houver, é recolhido ao depósito.", "r": "C", "j": "Res. CONTRAN 1.031/2026, art. 11 e § 1º."},
+        {"t": "Para o crime do art. 306 do CTB, a resolução considera a medição do etilômetro igual ou superior a 0,34 mg/L, descontado o erro máximo admissível.", "r": "C", "j": "Res. CONTRAN 1.031/2026, art. 9º, I, e Anexo I (valor considerado 0,30 mg/L)."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "contran-jornada",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Tempo de direção do motorista profissional (Res. 525/2015)",
+      "edital": "Resolução CONTRAN 525/2015",
+      "peso": 2,
+      "artigos": ["CTB 67", "CTB 230"],
+      "palavras": ["resolucao 525", "tempo de descanso", "descanso do motorista", "jornada do caminhoneiro", "lei do motorista", "diario de bordo", "papeleta", "ficha de trabalho", "descanso de 11 horas", "motorista profissional"],
+      "pontos": [
+        "A Res. CONTRAN 525/2015 (em vigor) regulamenta a fiscalização do tempo de direção e descanso do motorista profissional (arts. 67-C e 67-E do CTB, com a Lei 13.103/2015). Vale para transporte escolar, transporte de passageiros com MAIS DE 10 lugares e carga com PBT SUPERIOR A 4.536 kg (art. 1º).",
+        "Tempos (art. 3º): no máximo 5 horas e meia de direção ininterrupta (carga e passageiros); carga: 30 minutos de descanso a cada 6 horas; passageiros: 30 minutos a cada 4 horas; em 24 horas, 11 horas de descanso, que podem ser fracionadas e gozadas no veículo, com 8 horas ininterruptas no primeiro período e o veículo estacionado.",
+        "Fracionamento (art. 4º): no transporte de passageiros, frações de no mínimo 5 minutos; 1 hora para refeição, que pode ser dividida em dois períodos.",
+        "Dois motoristas no mesmo veículo (art. 3º, XI): o descanso pode ser com o veículo em movimento, desde que haja 6 horas consecutivas fora do veículo a cada 72 horas.",
+        "Meios de fiscalização (art. 2º): primeiro o registrador do veículo (disco ou fita do tacógrafo ou meio eletrônico homologado); só se ele não comprovar o tempo, o diário de bordo, a papeleta ou a ficha de trabalho externo (empregado) ou a ficha de trabalho do autônomo, que leva as últimas 24 horas. Tolerância: 2 minutos a cada 24 horas e 10 minutos a cada 7 dias.",
+        "Infração e retenção (art. 6º): art. 230, XXIII, do CTB. O veículo fica retido por 30 minutos se faltou o descanso de 30 minutos e por 11 horas se faltou o descanso diário (pode ser em depósito). A retenção acaba se outro motorista habilitado e descansado assumir; perto de local adequado, o agente pode liberar o veículo para descansar lá, ficando com o CRLV.",
+        "Por excesso de tempo de direção, o agente pode deixar de reter ônibus com passageiros, carga perecível ou produtos perigosos (art. 6º, § 6º)."
+      ],
+      "pegadinhas": [
+        "Passageiros: 30 minutos a cada 4 horas; carga: 30 minutos a cada 6 horas. Mas a direção ininterrupta máxima é 5 horas e meia para os DOIS.",
+        "Os documentos em papel (diário de bordo, papeleta, ficha) são usados só quando o registrador do veículo não comprova o tempo."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A Resolução CONTRAN 525/2015 alcança o motorista profissional de veículo de carga com peso bruto total superior a 4.536 kg.", "r": "C", "j": "Res. CONTRAN 525/2015, art. 1º."},
+        {"t": "No transporte rodoviário de passageiros, o motorista deve observar 30 minutos de descanso a cada 6 horas de direção.", "r": "E", "j": "Res. CONTRAN 525/2015, art. 3º, III: no transporte de passageiros, 30 minutos a cada 4 horas; a cada 6 horas é a regra da carga."},
+        {"t": "Descumprido o descanso diário de 11 horas, o veículo pode ficar retido por 11 horas, inclusive em depósito oficial.", "r": "C", "j": "Res. CONTRAN 525/2015, art. 6º, § 1º, II, e § 2º."},
+        {"t": "A retenção por descumprimento do tempo de descanso é mantida mesmo que outro condutor habilitado, que cumpriu os descansos, assuma a direção.", "r": "E", "j": "Res. CONTRAN 525/2015, art. 6º, § 3º: a retenção é encerrada com a substituição por condutor habilitado que cumpriu as regras."},
+        {"t": "O diário de bordo é o meio principal de comprovação do tempo de direção, prevalecendo sobre o registrador instantâneo do veículo.", "r": "E", "j": "Res. CONTRAN 525/2015, art. 2º, § 1º: os documentos em papel são usados somente quando o registrador do veículo não comprovar o tempo."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "contran-capacete",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Capacete do motociclista (Res. 940/2022)",
+      "edital": "Resolução CONTRAN 453/2013 (hoje Resolução CONTRAN 940/2022)",
+      "peso": 2,
+      "artigos": ["CTB 54-55", "CTB 169", "CTB 244"],
+      "palavras": ["resolucao 940", "resolucao 453", "viseira", "viseira levantada", "oculos de protecao", "capacete sem viseira", "capacete escamoteavel", "capacete modular", "jugular do capacete", "selo do inmetro no capacete"],
+      "pontos": [
+        "A Res. CONTRAN 940/2022 (em vigor desde 1º/4/2022) revogou a 453/2013. O capacete é obrigatório para condutor e passageiro de motocicleta, motoneta, ciclomotor, triciclo e quadriciclo motorizados, exceto os de cabine fechada, e deve estar preso pela jugular e pela fivela, sob o maxilar inferior.",
+        "Requisitos: certificação por organismo acreditado pelo Inmetro; nos capacetes fabricados a partir de 1º/8/2007, dispositivos retrorrefletivos nas laterais e na parte traseira e selo ou etiqueta do Inmetro. Capacete de numeração acima de 64 comprado no exterior por pessoa física é dispensado da certificação.",
+        "Viseira: obrigatória; sem ela, óculos de proteção. A viseira só pode ser levantada com o veículo PARADO e volta para a frente antes de andar; no capacete modular (escamoteável), a queixeira fica totalmente abaixada e travada. À noite, viseira cristal (transparente). É proibido aplicar película na viseira ou nos óculos.",
+        "Óculos de sol, de grau ou de segurança do trabalho NÃO substituem os óculos de proteção; os óculos de proteção devem permitir o uso junto com eles.",
+        "Enquadramentos citados pela resolução: art. 169 (capacete mal afivelado, tamanho errado ou queixeira levantada), art. 230, X (capacete fora das especificações), art. 244, I ou II (sem capacete ou capacete inadequado) e art. 244, X ou XI (sem viseira ou óculos, ou fora do padrão)."
+      ],
+      "pegadinhas": [
+        "Viseira levantada só com a moto PARADA; levantar em movimento é infração.",
+        "Óculos de sol não substituem os óculos de proteção.",
+        "À noite, só viseira cristal."
+      ],
+      "novidades": [
+        "Res. CONTRAN 940/2022: revogou as Res. 453/2013, 680/2017 e 846/2021."
+      ],
+      "itens": [
+        {"t": "Segundo a Resolução CONTRAN 940/2022, o condutor de motocicleta pode manter a viseira levantada em velocidade reduzida em vias urbanas.", "r": "E", "j": "Res. CONTRAN 940/2022: a viseira só pode ser levantada com o veículo parado."},
+        {"t": "O motociclista que usa capacete sem viseira deve usar óculos de proteção, que não podem ser substituídos por óculos de sol.", "r": "C", "j": "Res. CONTRAN 940/2022: óculos de sol, de grau ou de segurança do trabalho não substituem os óculos de proteção."},
+        {"t": "No período noturno, é obrigatório o uso de viseira cristal.", "r": "C", "j": "Res. CONTRAN 940/2022."},
+        {"t": "A obrigatoriedade do capacete alcança também o condutor de triciclo motorizado com cabine fechada.", "r": "E", "j": "Res. CONTRAN 940/2022: os triciclos e quadriciclos com cabine fechada estão fora da regra."},
+        {"t": "É permitida a aplicação de película na viseira do capacete, desde que seja transparente.", "r": "E", "j": "Res. CONTRAN 940/2022: é proibida a aplicação de película na viseira e nos óculos de proteção."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "contran-habilitacao",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Formação e habilitação de condutores (Res. 1.020/2025)",
+      "edital": "Resolução CONTRAN 789/2020, Anexo I, e 360/2010 (hoje Resolução CONTRAN 1.020/2025)",
+      "peso": 2,
+      "artigos": ["CTB 140-148", "CTB 143"],
+      "palavras": ["resolucao 1020", "resolucao 789", "autoescola", "auto escola", "instrutor autonomo", "aulas praticas", "aula pratica", "curso teorico", "exame teorico", "prova do detran", "condutor estrangeiro", "carteira estrangeira", "habilitacao estrangeira", "cursos especializados", "cnh sem autoescola"],
+      "pontos": [
+        "A Res. CONTRAN 1.020, de 1º/12/2025 (DOU de 9/12/2025), passou a regular aprendizagem, habilitação e documentos de condutores, revogando, entre outras, a 789/2020 (formação de condutores, cujo Anexo I estava no edital) e a 933/2022 (que tinha substituído a 360/2010, do condutor estrangeiro).",
+        "Curso teórico (arts. 20 e 21): o candidato escolhe onde fazer, inclusive no órgão federal, que oferece EaD; não há carga horária mínima para o curso teórico, e a autoescola (CFC) deixou de ser obrigatória.",
+        "Aulas práticas (arts. 35, 36 e 38): obrigatórias para a CNH (dispensadas só para a ACC), com mínimo de DUAS HORAS, contínuas ou fracionadas, por categoria; podem ser dadas por instrutor autônomo.",
+        "Exames: aptidão física e mental, avaliação psicológica, exame teórico de 30 questões com no mínimo 20 acertos (sem limite de tentativas, tempo mínimo de 1 hora, em dobro para dislexia, TDAH ou TEA) e exame de direção, em que a nota começa em zero, soma pesos de 1 a 6 pelas faltas e aprova com até 10 pontos.",
+        "Permissão para Dirigir (arts. 48 a 51): vale 1 ano; ao final, a CNH é emitida automaticamente, sem requerimento; infrações graves, gravíssimas ou reincidência em média só impedem depois de decisão administrativa definitiva.",
+        "Mudança de categoria (art. 53): para C, 1 ano na B e no máximo uma gravíssima nos últimos 12 meses; para D, mais de 21 anos e 2 anos na B ou 1 ano na C; para E, mais de 21 anos e 1 ano na C.",
+        "Condutor estrangeiro (art. 102): com acordo e reciprocidade, dirige no Brasil por até 180 dias com a habilitação do país de origem válida, portando também identificação e comprovante da data de entrada; depois disso, para a CNH, faz exames de aptidão física e mental e avaliação psicológica.",
+        "Cursos especializados (arts. 67 a 75): para condutores de transporte coletivo, escolar, produtos perigosos, emergência (inclusive ambulância), carga indivisível e transporte remunerado com motocicleta; ficam registrados no RENACH, sem nova CNH. O certificado de ambulância vale 5 anos."
+      ],
+      "pegadinhas": [
+        "Desde dezembro de 2025, a autoescola não é obrigatória e o curso teórico não tem carga horária mínima; já as aulas práticas continuam obrigatórias (mínimo de 2 horas).",
+        "Estrangeiro: 180 dias com a habilitação do país de origem, se houver acordo e reciprocidade.",
+        "A CNH definitiva sai automaticamente ao fim do ano da Permissão; a infração só pesa depois de decisão administrativa definitiva."
+      ],
+      "novidades": [
+        "Res. CONTRAN 1.020/2025 (DOU de 9/12/2025): revogou a 789/2020 e a 933/2022, entre outras; autoescola facultativa, instrutor autônomo e curso teórico EaD do órgão federal."
+      ],
+      "itens": [
+        {"t": "Pela Resolução CONTRAN 1.020/2025, o candidato à CNH pode fazer as aulas práticas com instrutor autônomo, com carga mínima de duas horas por categoria.", "r": "C", "j": "Res. CONTRAN 1.020/2025, arts. 36, I, e 38."},
+        {"t": "O curso teórico de formação de condutores exige carga horária mínima de 45 horas-aula em centro de formação de condutores.", "r": "E", "j": "Res. CONTRAN 1.020/2025, arts. 20 e 21: não há carga horária mínima e o candidato escolhe onde fazer o curso; o CFC não é obrigatório."},
+        {"t": "No exame teórico, o candidato é aprovado se acertar no mínimo 20 das 30 questões.", "r": "C", "j": "Res. CONTRAN 1.020/2025, arts. 31 a 34."},
+        {"t": "Encerrado o prazo da Permissão para Dirigir, a CNH definitiva é emitida automaticamente, sem necessidade de requerimento.", "r": "C", "j": "Res. CONTRAN 1.020/2025, art. 50."},
+        {"t": "O condutor estrangeiro de país com acordo e reciprocidade pode dirigir no Brasil com sua habilitação de origem por até um ano.", "r": "E", "j": "Res. CONTRAN 1.020/2025, art. 102: até 180 dias."},
+        {"t": "Para mudar para a categoria D, o condutor deve ter mais de 21 anos e estar habilitado há pelo menos dois anos na categoria B ou um ano na categoria C.", "r": "C", "j": "Res. CONTRAN 1.020/2025, art. 53, II, a."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "contran-mapa",
+      "bloco": "Resoluções do CONTRAN",
+      "titulo": "Resoluções do edital: o que vale hoje",
+      "edital": "Resoluções do CONTRAN do edital de 2021 (lista retificada) e as que as substituíram",
+      "peso": 3,
+      "artigos": ["CTB 12"],
+      "palavras": ["resolucoes do edital", "lista de resolucoes", "resolucao revogada", "resolucoes revogadas", "qual resolucao vale", "autorizacao especial de transito", "aet", "cvc", "combinacao de veiculos", "rodotrem", "bitrem", "tolerancia do radar", "tolerancia de velocidade", "velocidade considerada", "transferencia digital", "transferencia pelo celular"],
+      "pontos": [
+        "O edital da PRF de 2021, depois da retificação de 26/1/2021, cobrava 34 resoluções do CONTRAN. Entre 2020 e 2026 o CONTRAN consolidou quase todas: estudar só o número antigo é estudar norma revogada. O CTB (art. 12) dá ao CONTRAN a competência de regulamentar.",
+        "Continuam em vigor: 508/2014 (passageiros em veículo de carga), 525/2015 (tempo de direção), 735/2018 (transporte de veículos e cargas paletizadas), 798/2020 (medidores de velocidade, alterada pela 804/2020) e 810/2020 (classificação de danos de veículo acidentado, alterada pela 851/2021).",
+        "Viraram outras: 14/1998 → 993/2023 (equipamentos obrigatórios); 4/1998 → 911/2022 (veículo novo antes do registro); 24/1998 → 968/2022 (identificação do veículo); 92/1999 → 938/2022 (tacógrafo); 160/2004 → 973/2022 (sinalização); 210, 211, 290, 520/2015 e 803/2020 → 882/2021 (pesos, dimensões e excesso de peso); 216/2006, 253 e 254/2007 → 960/2022 (vidros e películas); 227/2007 e 667/2017 → 970/2022 (iluminação e sinalização do veículo).",
+        "Mais trocas: 349/2010 → 955/2022 (carga e bicicletas em partes externas); 441/2013 → 946/2022 (granel); 471/2013 → 909/2022 (videomonitoramento); 552/2015 → 945/2022 (amarração); 561/2015 → 985/2022 (Manual Brasileiro de Fiscalização); 740/2018 → 1.004/2023 (PNATRANS); 780/2019 → 969/2022 (placas); 432/2013 → 1.031/2026 (álcool); 789/2020 e 360/2010 → 1.020/2025 (habilitação); 809/2020 → 1.027/2026 (registro e transferência); 806/2020 (campanhas de 2021) → hoje 1.014/2024.",
+        "AET (Res. 882/2021, arts. 18 a 22): exigida para combinação com mais de duas unidades com PBTC acima de 57 t ou comprimento acima de 19,80 m; limite de até 74 t de PBTC; emitida pelo órgão com circunscrição sobre a via, por viagem ou por período. Essas combinações só circulam do amanhecer ao pôr do sol, a no máximo 80 km/h, salvo pista dupla com separador e duas ou mais faixas por sentido.",
+        "Velocidade considerada (Res. 798/2020, art. 8º e Anexo III): é a medida menos o erro máximo admitido (7 km/h nas velocidades da tabela; acima dela, 7%). Ex.: 60 medidos = 53 considerados; 100 medidos = 93. O medidor portátil só em vias urbanas com limite de 60 km/h ou mais, rodovias com 80 km/h ou mais e estradas com 60 km/h ou mais, longe pelo menos 500 m (urbana) ou 2.000 m (rural) de um medidor fixo, operado por agente uniformizado.",
+        "Placa R-19 antes do medidor fixo (Res. 798/2020, Anexo IV): em via urbana, 400 a 500 m se o limite é 80 km/h ou mais e 100 a 300 m se é menor; em via rural, 1.000 a 2.000 m (80 km/h ou mais) e 300 a 1.000 m (menos). A R-19 não pode ser temporária para fins de fiscalização.",
+        "Transferência (Res. 1.027/2026, DOU de 18/8/2026): a transferência de propriedade pode ser convencional, eletrônica ou eletrônica custodiada (o valor fica retido até concluir a operação). O prazo de 30 dias do comprador continua sendo o do CTB (art. 123, § 1º)."
+      ],
+      "pegadinhas": [
+        "Número de resolução do edital antigo não é o que vale hoje: a banca pode cobrar a substituta (ex.: equipamentos obrigatórios = 993/2023; álcool = 1.031/2026).",
+        "AET: mais de 57 t OU mais de 19,80 m; limite de 74 t; só de dia, salvo pista dupla com duas ou mais faixas por sentido.",
+        "Tolerância do radar não é 'até 10%': é o erro máximo da tabela (7 km/h) e 7% acima da faixa da tabela."
+      ],
+      "novidades": [
+        "Revogações recentes conferidas na página oficial de resoluções do CONTRAN em 17/11/2026: 432/2013 pela 1.031/2026; 809/2020 pela 1.027/2026; 789/2020 pela 1.020/2025; 623/2016 (remoção e leilão) pela 1.025/2026; 573/2015 (quadriciclos) pela 1.022/2026."
+      ],
+      "itens": [
+        {"t": "A Resolução CONTRAN 432/2013, sobre fiscalização do consumo de álcool, continua em vigor.", "r": "E", "j": "Res. CONTRAN 1.031/2026, art. 15: revogou a 432/2013."},
+        {"t": "Combinação de veículos de carga com mais de duas unidades e PBTC acima de 57 t depende de Autorização Especial de Trânsito.", "r": "C", "j": "Res. CONTRAN 882/2021, art. 18."},
+        {"t": "As combinações que dependem de AET podem circular a qualquer hora em qualquer rodovia, desde que a no máximo 80 km/h.", "r": "E", "j": "Res. CONTRAN 882/2021, art. 20: só do amanhecer ao pôr do sol, salvo pista dupla com separador e duas ou mais faixas por sentido."},
+        {"t": "Em via com limite de 60 km/h, um veículo medido a 60 km/h pelo radar tem velocidade considerada de 53 km/h.", "r": "C", "j": "Res. CONTRAN 798/2020, art. 8º e Anexo III."},
+        {"t": "O medidor de velocidade portátil pode ser usado em via urbana com limite de 40 km/h.", "r": "E", "j": "Res. CONTRAN 798/2020, art. 7º: em via urbana, só com limite igual ou superior a 60 km/h."},
+        {"t": "Em rodovia com limite de 80 km/h ou mais, a placa R-19 deve estar entre 1.000 m e 2.000 m antes do medidor fixo.", "r": "C", "j": "Res. CONTRAN 798/2020, Anexo IV."}
+      ],
+      "questoes": []
     }
   ]
 }
