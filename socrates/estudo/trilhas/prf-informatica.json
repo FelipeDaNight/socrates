@@ -3,7 +3,7 @@
   "materia": "Informática",
   "concurso": "PRF",
   "banca": "Cebraspe",
-  "fonte": "Conceitos de informática do edital PRF 2021 (Cebraspe): internet e intranet, Windows, transformação digital, segurança e computação em nuvem. São definições usuais da área (as mesmas da Cartilha de Segurança para Internet, do CERT.br, e do modelo de nuvem do NIST), escritas em 16/11/2026; questões da PRF 2021, itens 33 a 38, com o gabarito oficial.",
+  "fonte": "Conceitos de informática do edital PRF 2021 (Cebraspe): internet e intranet, Windows, transformação digital, segurança e computação em nuvem. Códigos maliciosos, golpes, mecanismos de segurança e criptografia conferidos na Cartilha de Segurança para Internet (CERT.br) e computação em nuvem na NIST SP 800-145, em 16/11/2026; os demais são conceitos usuais da área; questões da PRF 2021, itens 33 a 38, com o gabarito oficial.",
   "atualizado": "2026-11-16",
   "apelidos": ["informatica", "nocoes de informatica"],
   "nao_confundir": [],
@@ -123,7 +123,7 @@
         "WORM (verme): NÃO precisa de hospedeiro nem de ação do usuário; propaga-se sozinho pelas redes, explorando vulnerabilidades, e consome banda e recursos.",
         "CAVALO DE TROIA (trojan): parece um programa útil, mas executa funções maliciosas escondidas; não se replica. BACKDOOR abre uma 'porta dos fundos' para o invasor voltar; ROOTKIT esconde a presença do invasor e de outros malwares.",
         "RANSOMWARE: sequestra os dados — criptografa os arquivos (ou bloqueia o equipamento) e exige resgate, geralmente em criptomoeda. Não se define por inserir cópias de si em arquivos (isso é vírus: item 37 da PRF 2021, Errado). A melhor defesa é o backup atualizado e desconectado.",
-        "SPYWARE espiona o usuário: KEYLOGGER grava as teclas digitadas; SCREENLOGGER grava a tela e os cliques; ADWARE exibe propagandas. BOT é o computador 'zumbi' controlado a distância; BOTNET é a rede de bots (usada em ataques e envio de spam).",
+        "SPYWARE espiona o usuário: KEYLOGGER grava as teclas digitadas; SCREENLOGGER grava a tela e os cliques; ADWARE exibe propagandas. BOT é o programa que permite ao invasor controlar o computador a distância; o computador infectado é chamado de ZUMBI, e BOTNET é a rede de computadores zumbis (usada em ataques e envio de spam).",
         "PHISHING não é malware: é golpe de engenharia social — mensagem ou página falsa que imita instituição confiável para 'pescar' senhas e dados. PHARMING redireciona o usuário para sítio falso, alterando o DNS. Engenharia social é enganar a pessoa, não a máquina.",
         "DoS e DDoS: ataques que sobrecarregam um serviço para tirá-lo do ar (o DDoS parte de muitas máquinas ao mesmo tempo, em geral de uma botnet)."
       ],
@@ -188,7 +188,7 @@
         "Computação em nuvem: uso de recursos de computação (servidores, armazenamento, programas) pela internet, sob demanda, pagando pelo que se usa, sem manter infraestrutura própria. Características: autosserviço sob demanda, amplo acesso pela rede, elasticidade rápida, recursos compartilhados e serviço medido.",
         "Modelos de serviço: IaaS (Infraestrutura como Serviço) — aluga-se máquina virtual, rede e armazenamento, e o cliente instala e gerencia o resto; PaaS (Plataforma como Serviço) — ambiente pronto para DESENVOLVER e publicar aplicativos; SaaS (Software como Serviço) — o programa pronto, usado pelo navegador (webmail, editores on-line).",
         "Item 38 da PRF 2021 (Errado): 'ambiente em nuvem no qual os usuários podem construir e disponibilizar aplicativos' é PaaS, não SaaS.",
-        "Modelos de implantação: nuvem pública (o provedor atende a vários clientes pela internet), privada (exclusiva de uma organização), híbrida (combina as duas) e comunitária (compartilhada por organizações com interesses comuns).",
+        "Modelos de implantação: nuvem pública (o provedor atende a vários clientes pela internet), privada (exclusiva de uma organização), comunitária (exclusiva de uma comunidade de organizações com interesses comuns) e híbrida (composição de duas ou mais nuvens distintas: privada, comunitária ou pública).",
         "Armazenamento em nuvem (Google Drive, OneDrive, iCloud): arquivos acessíveis de qualquer dispositivo, com sincronização. Depende de conexão e da segurança da conta.",
         "Backup é a cópia de segurança para recuperar dados. Completo: copia tudo. Incremental: copia o que mudou desde o ÚLTIMO backup de qualquer tipo (rápido de fazer; para restaurar, precisa do completo e de todos os incrementais). Diferencial: copia o que mudou desde o último backup COMPLETO (restaura com o completo e o último diferencial).",
         "Boas práticas: guardar cópia em local diferente do original (regra 3-2-1: três cópias, em dois tipos de mídia, uma fora do local), testar a restauração e manter uma cópia desconectada (protege contra ransomware)."
