@@ -3,8 +3,8 @@
   "materia": "Ética e Cidadania",
   "concurso": "PRF",
   "banca": "Cebraspe",
-  "fonte": "Decretos 1.171/1994, 6.029/2007, 7.203/2010, 7.724/2012 (com o 11.527/2023) e 9.203/2017; Leis 12.527/2011 e 12.813/2013 (textos da Câmara dos Deputados e compilações conferidas em 13/11/2026); CF, arts. 1º e 37.",
-  "atualizado": "2026-11-13",
+  "fonte": "Decretos 1.171/1994, 6.029/2007, 7.203/2010, 7.724/2012 (com o 11.527/2023) e 9.203/2017; Leis 12.527/2011 e 12.813/2013 (textos da Câmara dos Deputados e compilações conferidas em 13/11/2026); CF, arts. 1º e 37. Código de Conduta da Alta Administração Federal (texto atualizado da Câmara dos Deputados, com os Decretos 10.478/2020 e 10.571/2020) e Decreto 10.889/2021, conferidos em 16/11/2026.",
+  "atualizado": "2026-11-16",
   "apelidos": ["etica e cidadania", "etica no servico publico", "etica"],
   "nao_confundir": [],
   "plano": "prf",
@@ -129,6 +129,45 @@
         {"t": "Os trabalhos nas comissões de ética têm prioridade sobre as atribuições próprias dos cargos de seus membros.", "r": "C", "j": "Decreto 6.029/2007, art. 19."}
       ],
       "questoes": ["prf-2021-p1|item 48"]
+    },
+    {
+      "id": "conduta-alta-administracao",
+      "bloco": "Normas de ética do Executivo federal",
+      "titulo": "Código de Conduta da Alta Administração Federal",
+      "edital": "5 Código de Conduta da Alta Administração Federal",
+      "peso": 1,
+      "artigos": ["CCAAF 1-19"],
+      "palavras": ["codigo de conduta da alta administracao federal", "codigo de conduta da alta administracao", "conduta da alta administracao", "alta administracao federal", "alta administracao", "codigo de conduta", "ccaaf", "exposicao de motivos 37", "receber presente", "receber presentes", "aceitar presente", "aceitar presentes", "ganhar presente", "presentes e brindes", "brinde", "brindes", "periodo de interdicao", "opinar publicamente", "sugestao de demissao"],
+      "pontos": [
+        "O Código de Conduta da Alta Administração Federal não é lei nem decreto numerado: foi proposto na Exposição de Motivos nº 37, de 18/8/2000, da Casa Civil, e aprovado pelo Presidente da República em 21/8/2000. Vale só para a cúpula do Executivo federal (art. 2º): Ministros e Secretários de Estado; titulares de cargos de natureza especial, secretários-executivos, secretários ou equivalentes ocupantes de DAS nível 6; e presidentes e diretores de agências nacionais, autarquias (inclusive as especiais), fundações mantidas pelo Poder Público, empresas públicas e sociedades de economia mista. O servidor em geral, como o PRF, segue o Decreto 1.171/1994.",
+        "Finalidades (art. 1º): tornar claras as regras éticas de conduta das autoridades, para a sociedade aferir a integridade e a lisura do processo decisório; aperfeiçoar os padrões éticos A PARTIR DO EXEMPLO das autoridades de nível superior; preservar a imagem e a reputação do administrador que age conforme as normas; fixar regras sobre conflito de interesses e limites às atividades posteriores ao cargo; e criar mecanismo de consulta. A autoridade deve pautar-se pela integridade, moralidade, clareza de posições e decoro, para motivar o respeito e a confiança do público, inclusive na relação entre suas atividades públicas e privadas (art. 3º).",
+        "Patrimônio: alterações relevantes devem ser imediatamente comunicadas à Comissão de Ética Pública (CEP), como a transferência de bens a cônjuge, ascendente, descendente ou parente colateral e a aquisição, direta ou indireta, do controle de empresa (art. 5º). É vedado investir em bens cujo valor possa ser afetado por decisão governamental sobre a qual a autoridade tenha informação privilegiada, inclusive renda variável, commodities, contratos futuros e moedas para fim especulativo (art. 5º, § 1º). Quem tiver participação SUPERIOR A 5% do capital de sociedade de economia mista, de instituição financeira ou de empresa que negocie com o Poder Público deve tornar público esse fato (art. 6º).",
+        "Remuneração e favores (arts. 7º e 8º): a autoridade não pode receber salário ou outra remuneração de fonte privada em desacordo com a lei, nem transporte, hospedagem ou favores de particulares que possam gerar dúvida sobre sua probidade ou honorabilidade. Pode participar de seminários e congressos, desde que torne pública eventual remuneração e o pagamento das despesas de viagem pelo promotor do evento, que não pode ter interesse em decisão a ser tomada por ela. Pode exercer encargo de mandatário NÃO REMUNERADO, sem atos de comércio ou incompatíveis com o cargo.",
+        "Presentes (art. 9º): é vedado aceitá-los, SALVO de autoridades estrangeiras, nos casos protocolares em que houver reciprocidade. Não são presentes os brindes sem valor comercial nem os distribuídos como cortesia, propaganda, divulgação habitual ou em eventos e datas comemorativas que não ultrapassem R$ 100,00. Regra geral para TODO agente público do Executivo federal (Decreto 10.889/2021): é vedado receber presente de quem tenha interesse em decisão sua ou de colegiado de que participe; brinde é o item de baixo valor (menos de 1% do teto constitucional) distribuído de forma generalizada; o presente que não puder ser recusado ou devolvido é entregue ao setor de patrimônio do órgão em até 7 dias.",
+        "Relacionamento e opiniões (arts. 10 a 12-A): a autoridade deve esclarecer a existência de conflito de interesses e comunicar o que a impeça de participar de decisão coletiva ou de órgão colegiado. Divergências entre autoridades resolvem-se internamente, por coordenação administrativa, sem manifestação pública sobre matéria fora da sua área de competência. É vedado opinar publicamente sobre a honorabilidade e o desempenho funcional de outra autoridade pública federal e sobre o mérito de questão que lhe será submetida para decisão. Nas estatais, não se divulga sem autorização informação capaz de impactar a cotação dos títulos da empresa; ato ou fato relevante é comunicado ao Diretor de Relações com Investidores e, se ele se omitir, à CVM.",
+        "Depois do cargo (arts. 13 a 15): propostas de trabalho ou de negócio futuro no setor privado devem ser imediatamente informadas à CEP, aceitas ou não. Quem deixou o cargo não pode atuar em processo ou negócio de que participou em razão dele nem prestar consultoria valendo-se de informações não divulgadas publicamente. Na ausência de lei com prazo diverso, o período de interdição é de QUATRO MESES, contados da exoneração: nesse prazo, não aceitar cargo de administrador ou conselheiro nem vínculo profissional com quem manteve relacionamento oficial direto e relevante nos seis meses anteriores à exoneração. Hoje há lei com prazo diverso: a Lei 12.813/2013 (art. 6º, II) fixa quarentena de 6 meses.",
+        "Sanções e processo (arts. 17 a 19): a violação acarreta, conforme a gravidade, ADVERTÊNCIA (autoridade no exercício do cargo) ou CENSURA ÉTICA (autoridade que já deixou o cargo). Quem aplica é a CEP, que pode, conforme o caso, encaminhar SUGESTÃO DE DEMISSÃO à autoridade hierarquicamente superior. O processo é instaurado pela CEP, de ofício ou por denúncia fundamentada, desde que haja indícios suficientes; a autoridade é oficiada para se manifestar em 5 dias e, concluídas as diligências, tem nova manifestação em 3 dias. A CEP também responde a consultas das autoridades e pode sugerir normas complementares ao Presidente da República."
+      ],
+      "pegadinhas": [
+        "São DUAS sanções: advertência para quem está no cargo e censura ética para quem já saiu. No Decreto 1.171/1994 (servidor comum), a única pena é a censura.",
+        "A CEP aplica a sanção, mas NÃO demite: só encaminha sugestão de demissão ao superior hierárquico.",
+        "Números que a banca troca: interdição de 4 meses no Código x quarentena de 6 meses na Lei 12.813/2013; participação SUPERIOR a 5%; brinde de até R$ 100,00; manifestação em 5 dias e depois em 3 dias."
+      ],
+      "novidades": [
+        "Decreto 10.478/2020: incluiu os arts. 12-A (informações de estatais com impacto no mercado) e 12-B (dirigentes de estatais seguem também o Código de Conduta e Integridade da empresa, Lei 13.303/2016).",
+        "Decreto 10.571/2020: revogou o art. 4º (informar a situação patrimonial à CEP). Hoje as declarações de bens e de situações que possam gerar conflito de interesses são apresentadas em sistema eletrônico da CGU; a de conflito de interesses dos Ministros, dos ocupantes de DAS 5 ou superior e dos dirigentes da administração indireta é apresentada à CEP.",
+        "Decreto 10.889/2021: regras de presentes, brindes e hospitalidades e agenda pública (sistema e-Agendas, da CGU) para os agentes públicos do Executivo federal."
+      ],
+      "itens": [
+        {"t": "De acordo com o Código de Conduta da Alta Administração Federal, a violação de suas normas acarreta advertência, aplicável às autoridades no exercício do cargo, ou censura ética, aplicável às que já o tiverem deixado.", "r": "C", "j": "Código de Conduta da Alta Administração Federal, art. 17, I e II."},
+        {"t": "A Comissão de Ética Pública pode demitir a autoridade que violar o Código de Conduta da Alta Administração Federal.", "r": "E", "j": "Código de Conduta da Alta Administração Federal, art. 17, parágrafo único: a CEP aplica advertência ou censura ética e pode apenas encaminhar sugestão de demissão à autoridade hierarquicamente superior."},
+        {"t": "O Código de Conduta da Alta Administração Federal aplica-se a todos os servidores públicos civis do Poder Executivo federal.", "r": "E", "j": "Código de Conduta da Alta Administração Federal, art. 2º: alcança Ministros e Secretários de Estado, cargos de natureza especial, secretários-executivos e equivalentes (DAS 6) e presidentes e diretores de entidades da administração indireta. O servidor em geral segue o Decreto 1.171/1994."},
+        {"t": "A autoridade pública que mantiver participação superior a cinco por cento do capital de sociedade de economia mista, de instituição financeira ou de empresa que negocie com o Poder Público deve tornar público esse fato.", "r": "C", "j": "Código de Conduta da Alta Administração Federal, art. 6º."},
+        {"t": "É permitido à autoridade pública aceitar presentes de empresas privadas, de qualquer valor, desde que os declare à Comissão de Ética Pública.", "r": "E", "j": "Código de Conduta da Alta Administração Federal, art. 9º: é vedada a aceitação de presentes, salvo de autoridades estrangeiras nos casos protocolares em que houver reciprocidade; brinde de até R$ 100,00 não é presente."},
+        {"t": "As propostas de trabalho ou de negócio futuro no setor privado devem ser imediatamente informadas pela autoridade pública à Comissão de Ética Pública, independentemente de sua aceitação ou rejeição.", "r": "C", "j": "Código de Conduta da Alta Administração Federal, art. 13."},
+        {"t": "É permitido à autoridade pública opinar publicamente sobre o desempenho funcional de outra autoridade pública federal, desde que a matéria seja de sua área de competência.", "r": "E", "j": "Código de Conduta da Alta Administração Federal, art. 12, I: é vedado opinar publicamente sobre a honorabilidade e o desempenho funcional de outra autoridade pública federal."}
+      ],
+      "questoes": []
     },
     {
       "id": "lai",

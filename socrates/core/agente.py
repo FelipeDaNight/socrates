@@ -126,6 +126,7 @@ _LEIS = [  # (o que o aluno fala, sigla no registro de leis)
     (r"identificacao criminal", "L12037"),
     (r"antifaccao|faccoes criminosas", "L15358"),
     (r"carreira (?:de )?(?:policial )?rodoviari\w*", "L9654"),
+    (r"codigo de conduta da alta administracao(?: federal)?|alta administracao federal|ccaaf", "CCAAF"),
     (r"codigo de etica", "D1171"),
     (r"pacto de sao jose|convencao americana", "D678"),
 ]

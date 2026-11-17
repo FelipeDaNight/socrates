@@ -188,6 +188,7 @@
         {"id": "etica-funcao-publica", "titulo": "Ética e função pública", "edital": "4 Ética e função pública", "peso": 1, "pesquisa": "ética no serviço público princípios função pública concurso"},
         {"id": "codigo-etica", "titulo": "Código de Ética do servidor (Decreto 1.171/1994)", "edital": "5 Decreto 1.171/1994", "peso": 3, "fontes": ["D1171 1-3"]},
         {"id": "gestao-etica", "titulo": "Sistema de Gestão da Ética (Decreto 6.029/2007)", "edital": "5 Decreto 6.029/2007", "peso": 2, "fontes": ["D6029 1-28"]},
+        {"id": "conduta-alta-administracao", "titulo": "Código de Conduta da Alta Administração Federal", "edital": "5 Código de Conduta da Alta Administração Federal", "peso": 1, "fontes": ["CCAAF 1-19"]},
         {"id": "lai", "titulo": "Lei de Acesso à Informação e Decreto 7.724/2012", "edital": "5 Lei 12.527/2011", "peso": 2, "fontes": ["L12527 1-47"]},
         {"id": "conflito-interesses", "titulo": "Conflito de interesses e nepotismo", "edital": "5 Lei 12.813/2013 e Decreto 7.203/2010", "peso": 2, "fontes": ["L12813 1-14", "D7203 1-7"]},
         {"id": "governanca", "titulo": "Governança pública (Decreto 9.203/2017)", "edital": "5 Decreto 9.203/2017", "peso": 1, "fontes": ["D9203 1-20"]}

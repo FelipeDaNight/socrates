@@ -162,7 +162,7 @@ com as leis conferidas nas fontes oficiais até novembro de 2026:
 | Legislação de Trânsito | 15 | o CTB inteiro, conferido no texto compilado do Planalto (04/11/2026): SNT e competências da PRF, velocidades e tempo de direção, pedestres, sinalização, veículos, escolares e motofrete, habilitação, infrações, penalidades (20/30/40 pontos), medidas administrativas, processo, crimes de trânsito e Lei 5.970/1973; e as resoluções do CONTRAN em vigor (pesos e dimensões com a tolerância de 12,5% por eixo, tacógrafo, videomonitoramento, radares, placas, vidros, amarração de carga) |
 | Direito Constitucional | 10 | conferida na CF atualizada (13/11/2026): poder constituinte, art. 5º com as teses do STF (domicílio, reunião, confisco), remédios, direitos sociais e greve de policial, nacionalidade pela EC 131/2023, direitos políticos, competências (trânsito é privativa da União), Executivo (posse em 5 de janeiro), segurança pública com a PEC 18/2025 aguardando promulgação, estados de defesa e sítio, ordem social |
 | Direito Administrativo | 9 | organização, ato administrativo (Lei 9.784), agentes públicos e PAD (Lei 8.112), carreira de PRF (Lei 9.654 e Decreto 8.282: 120, 150 e 360 horas de cursos para promoção), poderes e poder de polícia (STF, Tema 532), licitações pela Lei 14.133, controle, responsabilidade civil (Tema 940) e princípios (SV 13) |
-| Ética e Cidadania | 7 | ética e moral, ética na função pública, Código de Ética (Decreto 1.171/1994), Sistema de Gestão da Ética (Decreto 6.029/2007), LAI e Decreto 7.724 (com o Decreto 11.527/2023), conflito de interesses (Lei 12.813) e nepotismo (Decreto 7.203), governança (Decreto 9.203/2017) |
+| Ética e Cidadania | 8 | ética e moral, ética na função pública, Código de Ética (Decreto 1.171/1994), Sistema de Gestão da Ética (Decreto 6.029/2007), Código de Conduta da Alta Administração Federal (com os Decretos 10.478/2020, 10.571/2020 e 10.889/2021), LAI e Decreto 7.724 (com o Decreto 11.527/2023), conflito de interesses (Lei 12.813) e nepotismo (Decreto 7.203), governança (Decreto 9.203/2017) |
 | Direitos Humanos | 4 | teoria e dimensões, a CF e os tratados (status de emenda e supralegal, SV 25, ADI 4275), DUDH e Pacto de São José (Decreto 678/1992) |
 | Direito Penal | 16 | dos princípios aos crimes contra a Administração; furto e roubo pela Lei 15.397/2026, feminicídio autônomo, Lei Antifacção |
 | Processo Penal | 10 | ação penal, TCO (a PRF pode lavrar: STF, 2023), prova e local de crime, busca pessoal e veicular, flagrante e custódia por videoconferência (Lei 15.358/2026), preventiva, identificação criminal, inquérito |
@@ -174,7 +174,7 @@ com as leis conferidas nas fontes oficiais até novembro de 2026:
 | Língua Inglesa | 2 | leitura (skimming, scanning, falsos cognatos) e gramática para entender o texto (modais, conectores, voz passiva) |
 | Legislação Especial | 12 | Lei 5.553, ECA, hediondos, competências da PRF (Decreto 1.655 e Decreto 11.348/2023), juizados, tortura, crimes ambientais, armas, drogas, organizações criminosas e Lei Antifacção, SUSP, abuso de autoridade |
 
-São 131 tópicos, 848 pontos-chave e 719 itens de fixação com gabarito e justificativa, e as questões
+São 132 tópicos, 856 pontos-chave e 726 itens de fixação com gabarito e justificativa, e as questões
 reais da PRF 2021 (os itens 9 a 38, 40 a 44 e 46 a 55 do Bloco I, os 26 de trânsito e os itens 86 a 120) entram no tópico certo. Questão de
 prova cuja lei mudou depois (ex.: item 82, tolerância por eixo) é treinada pelo gabarito de hoje, e
 o Sócrates explica que a prova antiga cobrava a regra anterior. Isso importa porque os modelos de IA
@@ -559,7 +559,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     711 testes, rodam sem microfone nem internet
+tests/                     719 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

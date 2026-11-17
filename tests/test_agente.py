@@ -34,6 +34,7 @@ DADOS = Path(__file__).parent / "dados"
     ("Lei de Drogas", "L11343"), ("lei 11.343", "L11343"), ("Lei nº 8.112/1990", "L8112"),
     ("L14133", "L14133"), ("Maria da Penha", "L11340"), ("lei 9.503", "CTB"),
     ("Estatuto do Desarmamento", "L10826"), ("decreto 1.171", "D1171"),
+    ("Código de Conduta da Alta Administração Federal", "CCAAF"), ("código de ética", "D1171"),
 ])
 def test_sigla_da_lei(fala, sigla):
     registro = json.loads((Path(__file__).parents[1] / "socrates/estudo/planos/leis.json")
