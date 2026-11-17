@@ -1,0 +1,351 @@
+{
+  "id": "prf-geopolitica",
+  "materia": "Geopolítica",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Geografia do Brasil conforme o edital PRF 2021 (Cebraspe), itens 1 a 10 de Geopolítica. Dados conferidos em 16/11/2026: IBGE (Censo 2022, estimativas de 2025, área territorial de 2024, biomas, REGIC 2018, Amazônia Legal e regiões geográficas), Plano Nacional de Logística 2035, CF, Leis 6.938/1981, 9.985/2000, 12.651/2012 e 15.190/2025, Mercosul e BRICS; questões da PRF 2021, itens 51 a 55, com o gabarito oficial.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["geopolitica", "geografia", "geografia e transportes"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "nacao-territorio",
+      "bloco": "Território",
+      "titulo": "O Brasil político: nação e território",
+      "edital": "1 O Brasil político: nação e território",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["nacao e territorio", "territorio brasileiro", "formacao territorial", "tratado de tordesilhas", "tratado de madri", "fronteiras do brasil", "paises que fazem fronteira com o brasil", "pontos extremos", "fusos horarios", "mar territorial", "zona economica exclusiva", "amazonia azul"],
+      "pontos": [
+        "Estado é a organização político-jurídica (povo, território e governo soberano); nação é o conjunto de pessoas unidas por identidade cultural e histórica; território é o espaço sobre o qual o Estado exerce soberania (solo, subsolo, águas e espaço aéreo).",
+        "O Brasil tem cerca de 8,51 milhões de km² (8.509.379,576 km², segundo o IBGE, referência 2024): é o 5º maior país do mundo e ocupa quase metade da América do Sul.",
+        "Formação territorial: o Tratado de Tordesilhas (1494) dividia as terras entre Portugal e Espanha; a expansão para oeste (bandeiras, pecuária, missões, drogas do sertão) foi reconhecida pelo Tratado de Madri (1750), com base no uti possidetis (a terra é de quem a ocupa). O Acre foi incorporado pelo Tratado de Petrópolis (1903), com a Bolívia; as fronteiras atuais foram consolidadas na época do Barão do Rio Branco.",
+        "Fronteiras: o Brasil faz fronteira terrestre com 10 países — todos os da América do Sul, EXCETO Chile e Equador. A maior fronteira é com a Bolívia. A faixa de até 150 km de largura ao longo das fronteiras terrestres é a faixa de fronteira, considerada fundamental para a defesa do território (CF, art. 20, § 2º).",
+        "Pontos extremos: norte — nascente do rio Ailã, no Monte Caburaí (RR); sul — Arroio Chuí (RS); leste — Ponta do Seixas (PB); oeste — nascente do rio Moa, na Serra do Divisor (AC). O extremo norte NÃO é o Oiapoque (AP).",
+        "Posição: cortado pela linha do Equador (ao norte) e pelo Trópico de Capricórnio (ao sul), tem cerca de 93% do território no hemisfério sul e a maior parte na zona tropical. São 4 fusos horários (de UTC−2, nas ilhas oceânicas, a UTC−5, no Acre); a hora oficial é a de Brasília (UTC−3).",
+        "Mar: mar territorial de 12 milhas náuticas (soberania plena); zona contígua até 24 milhas; zona econômica exclusiva (ZEE) até 200 milhas, com direito exclusivo de explorar os recursos (Lei 8.617/1993). 'Amazônia Azul' é o nome dado a essa área marítima, onde está o pré-sal."
+      ],
+      "pegadinhas": [
+        "Chile e Equador são os dois países sul-americanos que NÃO fazem fronteira com o Brasil.",
+        "O ponto mais ao norte é o Monte Caburaí (RR), não o Oiapoque (AP).",
+        "Estado, nação e território não são sinônimos."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O Brasil faz fronteira com todos os países da América do Sul, exceto Chile e Equador.", "r": "C", "j": "Geografia: são 10 países limítrofes."},
+        {"t": "O ponto extremo norte do território brasileiro localiza-se no Oiapoque, no Amapá.", "r": "E", "j": "IBGE: fica no Monte Caburaí, em Roraima."},
+        {"t": "A faixa de até 150 km de largura ao longo das fronteiras terrestres é considerada fundamental para a defesa do território nacional.", "r": "C", "j": "CF, art. 20, § 2º."},
+        {"t": "O Tratado de Madri (1750) adotou o princípio do uti possidetis, reconhecendo a Portugal terras ocupadas além da linha de Tordesilhas.", "r": "C", "j": "Geografia: formação territorial do Brasil."},
+        {"t": "A zona econômica exclusiva brasileira estende-se até 12 milhas náuticas da costa.", "r": "E", "j": "Lei 8.617/1993: 12 milhas é o mar territorial; a ZEE vai até 200 milhas."},
+        {"t": "A maior parte do território brasileiro situa-se no hemisfério norte.", "r": "E", "j": "Geografia: cerca de 93% do território está no hemisfério sul."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "estado-brasileiro",
+      "bloco": "Território",
+      "titulo": "Organização do Estado brasileiro",
+      "edital": "2 Organização do Estado brasileiro",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["organizacao do estado brasileiro", "divisao regional do brasil", "regioes do brasil", "regioes geograficas", "macrorregioes", "amazonia legal", "complexos regionais", "regioes geoeconomicas", "estados e capitais", "quantos municipios", "regioes intermediarias"],
+      "pontos": [
+        "O Brasil é uma república federativa formada pela união indissolúvel de 26 estados, do Distrito Federal e dos municípios, todos autônomos (CF, arts. 1º e 18). Brasília é a capital federal; o DF não se divide em municípios (CF, art. 32).",
+        "São 5.569 municípios (o mais novo é Boa Esperança do Norte, em MT, que entrou na conta em 2025); somando o Distrito Federal e Fernando de Noronha, o IBGE trabalha com 5.571 unidades. Hoje não há territórios federais: Roraima e Amapá viraram estados em 1988, e Fernando de Noronha foi incorporado a Pernambuco.",
+        "As 5 grandes regiões do IBGE: Norte (7 estados, a maior em área), Nordeste (9 estados, a que tem mais estados), Centro-Oeste (3 estados e o DF), Sudeste (4 estados, a mais populosa e industrializada) e Sul (3 estados, a menor em área). Tocantins, criado em 1988, pertence à região Norte.",
+        "Desde 2017 o IBGE divide os estados em 133 regiões geográficas intermediárias e 510 imediatas, que substituíram as mesorregiões e microrregiões de 1989.",
+        "Complexos regionais (regiões geoeconômicas, de Pedro Geiger): Amazônia, Nordeste e Centro-Sul. Não seguem as divisas dos estados: o norte de Minas fica no complexo Nordeste; o oeste do Maranhão, na Amazônia; o sul de Mato Grosso e de Tocantins, no Centro-Sul.",
+        "Amazônia Legal: área de planejamento criada por lei em 1953. Abrange 9 estados — AC, AP, AM, PA, RO, RR, TO, MT e parte do MA —, com 772 municípios e cerca de 59% do território nacional. Não é o mesmo que o bioma Amazônia (49,5% do território) nem que a região Norte.",
+        "Outras regionalizações: Milton Santos propôs os 'quatro Brasis' — Região Concentrada (Sudeste e Sul), Centro-Oeste, Nordeste e Amazônia —, conforme a densidade de técnica, ciência e informação no território."
+      ],
+      "pegadinhas": [
+        "Amazônia Legal ≠ bioma Amazônia ≠ região Norte: inclui Mato Grosso e parte do Maranhão.",
+        "Os complexos regionais não respeitam as divisas dos estados; as regiões do IBGE respeitam.",
+        "O Nordeste é a região com mais estados (9); o Norte é a maior em área."
+      ],
+      "novidades": [
+        "Boa Esperança do Norte (MT) passou a constar como o 5.569º município nas estimativas do IBGE de 2025."
+      ],
+      "itens": [
+        {"t": "A Amazônia Legal abrange apenas os sete estados da região Norte.", "r": "E", "j": "IBGE: inclui também Mato Grosso e parte do Maranhão (9 estados)."},
+        {"t": "A região Nordeste é a que possui o maior número de estados.", "r": "C", "j": "IBGE: são 9 estados."},
+        {"t": "Na divisão em complexos regionais (regiões geoeconômicas), os limites das regiões não coincidem necessariamente com as divisas estaduais.", "r": "C", "j": "Geografia: proposta de Pedro Geiger."},
+        {"t": "Desde 2017, o IBGE adota as regiões geográficas intermediárias e imediatas, em substituição às mesorregiões e microrregiões.", "r": "C", "j": "IBGE: 133 intermediárias e 510 imediatas."},
+        {"t": "O Distrito Federal divide-se em municípios, sendo Brasília o principal deles.", "r": "E", "j": "CF, art. 32: é vedada a divisão do Distrito Federal em municípios."},
+        {"t": "O estado de Tocantins integra a região Centro-Oeste.", "r": "E", "j": "IBGE: desde a sua criação, em 1988, pertence à região Norte."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "divisao-trabalho",
+      "bloco": "Economia e espaço",
+      "titulo": "Divisão inter-regional do trabalho e da produção",
+      "edital": "3 A divisão inter-regional do trabalho e da produção no Brasil",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["divisao inter regional do trabalho", "divisao regional do trabalho", "concentracao industrial", "desconcentracao industrial", "guerra fiscal", "zona franca de manaus", "sudene", "matopiba", "regiao concentrada", "especializacao regional"],
+      "pontos": [
+        "Divisão inter-regional do trabalho é a especialização produtiva de cada região e a troca entre elas. No Brasil colonial e imperial havia 'arquipélagos econômicos' voltados para fora (açúcar no Nordeste, ouro em Minas, café no Sudeste, borracha na Amazônia), pouco ligados entre si.",
+        "A industrialização do século XX (substituição de importações, a partir de 1930) concentrou-se no Sudeste, sobretudo em São Paulo, graças ao capital do café, à mão de obra, ao mercado consumidor e à infraestrutura. As demais regiões passaram a fornecer matérias-primas, alimentos e trabalhadores, e o mercado nacional se integrou.",
+        "Desconcentração industrial (a partir dos anos 1970, mais forte nos 1990): indústrias saem da Grande São Paulo para o interior paulista, o Sul, Minas, o Centro-Oeste e o Nordeste, atraídas por incentivos fiscais (a guerra fiscal entre estados), mão de obra e terrenos mais baratos e novas rodovias. O Sudeste continua sendo o principal polo, e o comando (sedes, finanças, tecnologia) segue em São Paulo.",
+        "Políticas regionais: Sudene (1959, Nordeste), Sudam (1966, Amazônia) e Zona Franca de Manaus (1967), polo industrial incentivado cujos benefícios foram prorrogados até 2073 pela EC 83/2014; construção de Brasília e a 'marcha para o oeste'.",
+        "Especializações atuais: Centro-Oeste e MATOPIBA (Maranhão, Tocantins, Piauí e Bahia) — fronteira agrícola de grãos; Norte — mineração (Carajás), energia e Zona Franca; Nordeste — polos petroquímico e automotivo, fruticultura irrigada, turismo e energia eólica e solar; Sul — agroindústria e indústria metalmecânica; Sudeste — indústria diversificada, serviços avançados e petróleo (pré-sal).",
+        "O resultado é um território desigual: a 'Região Concentrada' (Sudeste e Sul) reúne a maior parte da indústria, da ciência e da infraestrutura. São as redes de transporte e de comunicação que permitem a integração entre as regiões."
+      ],
+      "pegadinhas": [
+        "Desconcentração industrial não é o fim da indústria no Sudeste: a região segue líder, e o comando continua em São Paulo.",
+        "A concentração industrial em São Paulo decorre principalmente do capital e da infraestrutura do café, não só de decisão do governo.",
+        "MATOPIBA fica no Cerrado do Norte e do Nordeste, não na Amazônia."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A concentração industrial no Sudeste, ao longo do século XX, relaciona-se à acumulação de capital da economia cafeeira e à infraestrutura por ela gerada.", "r": "C", "j": "Geografia: industrialização brasileira."},
+        {"t": "A desconcentração industrial iniciada no final do século XX retirou do Sudeste a condição de principal região industrial do país.", "r": "E", "j": "Geografia: houve dispersão relativa, mas o Sudeste continua sendo o principal polo."},
+        {"t": "A chamada guerra fiscal consiste na concessão de incentivos por estados e municípios para atrair empresas.", "r": "C", "j": "Geografia: fator da desconcentração industrial."},
+        {"t": "MATOPIBA designa a área de expansão da fronteira agrícola que abrange partes do Maranhão, de Tocantins, do Piauí e da Bahia.", "r": "C", "j": "Geografia: fronteira agrícola do Cerrado."},
+        {"t": "A Zona Franca de Manaus foi criada para estimular a ocupação e o desenvolvimento industrial da Amazônia por meio de incentivos fiscais.", "r": "C", "j": "Geografia: criada em 1967; incentivos prorrogados até 2073 pela EC 83/2014."},
+        {"t": "No período colonial, as regiões brasileiras formavam um mercado interno integrado, com intensa troca de mercadorias entre si.", "r": "E", "j": "Geografia: eram 'arquipélagos econômicos' voltados para a exportação."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "urbanizacao",
+      "bloco": "População e cidades",
+      "titulo": "Estrutura urbana e grandes metrópoles",
+      "edital": "4 A estrutura urbana brasileira e as grandes metrópoles",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["urbanizacao", "estrutura urbana", "metropole", "metropoles", "regiao metropolitana", "rede urbana", "hierarquia urbana", "regic", "conurbacao", "megalopole", "cidades medias", "exodo rural", "macrocefalia urbana"],
+      "pontos": [
+        "O Brasil se urbanizou rápido: a população urbana ultrapassou a rural na década de 1960, puxada pela industrialização e pelo êxodo rural. No Censo 2022, 87,4% da população (177,5 milhões de pessoas) vivia em áreas urbanas; o Sudeste é a região mais urbanizada (94,4%) e o Nordeste, a menos (77,6%).",
+        "Rede urbana é o conjunto de cidades ligadas por fluxos de pessoas, mercadorias, serviços e informações; hierarquia urbana é a posição de cada cidade conforme a sua área de influência. O estudo do IBGE sobre o tema é a REGIC (Regiões de Influência das Cidades), cuja edição mais recente é a de 2018.",
+        "REGIC 2018 — cinco níveis: Metrópoles, Capitais Regionais, Centros Sub-regionais, Centros de Zona e Centros Locais. São 15 metrópoles: São Paulo (Grande Metrópole Nacional); Rio de Janeiro e Brasília (Metrópoles Nacionais); e 12 Metrópoles — Belém, Belo Horizonte, Campinas, Curitiba, Florianópolis, Fortaleza, Goiânia, Manaus, Porto Alegre, Recife, Salvador e Vitória.",
+        "Campinas, Florianópolis e Vitória entraram no grupo das metrópoles em 2018; Campinas é a única que não é capital. Ribeirão Preto e Uberlândia são Capitais Regionais (segundo nível), não metrópoles (item 55 da PRF 2021, Errado).",
+        "Metrópole é o centro que exerce influência direta sobre os demais níveis da rede urbana (item 54 da PRF 2021, Certo). Região metropolitana é criada por lei complementar ESTADUAL (CF, art. 25, § 3º) para integrar funções públicas de interesse comum; conurbação é a junção física das manchas urbanas de municípios vizinhos; megalópole é a união de metrópoles (eixo Rio–São Paulo).",
+        "Tendências: crescimento mais forte das cidades médias e do interior, expansão do entorno das capitais e interiorização ligada ao agronegócio.",
+        "Problemas urbanos: segregação socioespacial, favelas e ocupações irregulares, déficit de moradia, mobilidade dependente do transporte rodoviário, enchentes, ilhas de calor e violência."
+      ],
+      "pegadinhas": [
+        "Região metropolitana é instituída pelos ESTADOS, por lei complementar — não pela União nem pelos municípios.",
+        "Só São Paulo é Grande Metrópole Nacional; Rio de Janeiro e Brasília são Metrópoles Nacionais.",
+        "Metrópole (hierarquia do IBGE) não é o mesmo que região metropolitana (criada por lei)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Segundo o Censo 2022, mais de 85% da população brasileira vive em áreas urbanas.", "r": "C", "j": "IBGE: 87,4%."},
+        {"t": "Na hierarquia urbana do IBGE (REGIC 2018), São Paulo, Rio de Janeiro e Brasília são classificadas como Grande Metrópole Nacional.", "r": "E", "j": "IBGE: só São Paulo; Rio de Janeiro e Brasília são Metrópoles Nacionais."},
+        {"t": "As regiões metropolitanas são instituídas pelos estados, mediante lei complementar.", "r": "C", "j": "CF, art. 25, § 3º."},
+        {"t": "Ribeirão Preto (SP) e Uberlândia (MG) ocupam o primeiro nível da hierarquia urbana brasileira.", "r": "E", "j": "IBGE: são Capitais Regionais (segundo nível)."},
+        {"t": "Conurbação é o processo de junção física das áreas urbanas de municípios vizinhos.", "r": "C", "j": "Geografia urbana: conceito de conurbação."},
+        {"t": "A região Nordeste é a mais urbanizada do país, segundo o Censo 2022.", "r": "E", "j": "IBGE: é a menos urbanizada (77,6%); a mais urbanizada é o Sudeste (94,4%)."}
+      ],
+      "questoes": ["prf-2021-p1|item 54", "prf-2021-p1|item 55"]
+    },
+    {
+      "id": "populacao",
+      "bloco": "População e cidades",
+      "titulo": "População e migrações",
+      "edital": "5 Distribuição espacial da população no Brasil e movimentos migratórios internos",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["populacao brasileira", "distribuicao da populacao", "densidade demografica", "migracoes", "migracao interna", "transicao demografica", "envelhecimento da populacao", "censo 2022", "taxa de fecundidade", "piramide etaria", "bonus demografico", "migracao pendular"],
+      "pontos": [
+        "O Censo 2022 contou 203,1 milhões de habitantes; a estimativa do IBGE para 2025 é de 213,4 milhões. O Brasil é populoso (um dos dez países com mais habitantes), mas pouco povoado: a densidade média é de cerca de 24 hab./km².",
+        "A distribuição é desigual: a população se concentra na faixa litorânea e no Centro-Sul, herança da colonização. O Sudeste é a região mais populosa (cerca de 42% do total), seguido do Nordeste; o Norte tem a menor densidade. São Paulo é o estado e o município mais populoso.",
+        "Transição demográfica: queda da mortalidade e, depois, da fecundidade (hoje abaixo do nível de reposição, de 2,1 filhos por mulher). O crescimento populacional desacelerou muito entre 2010 e 2022.",
+        "Envelhecimento: a idade mediana subiu de 29 anos (2010) para 35 anos (2022); as pessoas com 65 anos ou mais passaram de 14,1 milhões para 22,2 milhões (10,9% da população). A pirâmide etária estreita a base e alarga o topo; o bônus demográfico (muita gente em idade ativa) está no fim.",
+        "As mulheres são maioria: 51,5% da população (2022). O Norte é a região mais jovem (idade mediana de 29 anos) e o Sudeste, a mais velha (37 anos); o Rio Grande do Sul é o estado mais envelhecido.",
+        "Migrações internas: êxodo rural e fluxo Nordeste → Sudeste no século XX (industrialização); 'marcha para o oeste' e ocupação do Centro-Oeste e da Amazônia (Brasília, fronteira agrícola, grandes projetos). Hoje predominam os fluxos entre cidades (urbano-urbano), a migração de retorno ao Nordeste, a atração das cidades médias e do Centro-Oeste e os movimentos pendulares diários nas metrópoles.",
+        "Migrações internacionais: o Brasil recebeu europeus e asiáticos do fim do século XIX a meados do XX, passou a ter emigração a partir dos anos 1980 (EUA, Europa, Japão) e recebe hoje venezuelanos (por Roraima), haitianos e bolivianos."
+      ],
+      "pegadinhas": [
+        "Populoso (muita gente) ≠ povoado (muita gente por km²): o Brasil é populoso e pouco povoado.",
+        "A banca afirma que o êxodo rural e o fluxo Nordeste → Sudeste continuam sendo os principais: hoje predominam fluxos urbano-urbano, cidades médias e migração de retorno.",
+        "O envelhecimento decorre da queda da fecundidade somada ao aumento da expectativa de vida."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O Brasil é um país populoso, mas com baixa densidade demográfica média.", "r": "C", "j": "IBGE: 203,1 milhões de habitantes e cerca de 24 hab./km² (Censo 2022)."},
+        {"t": "Entre os Censos de 2010 e 2022, a idade mediana da população brasileira diminuiu.", "r": "E", "j": "IBGE: subiu de 29 para 35 anos."},
+        {"t": "A região Sudeste concentra a maior parcela da população brasileira.", "r": "C", "j": "IBGE: cerca de 42% (Censo 2022)."},
+        {"t": "A taxa de fecundidade brasileira situa-se atualmente acima do nível de reposição populacional.", "r": "E", "j": "IBGE: está abaixo de 2,1 filhos por mulher."},
+        {"t": "No Censo 2022, as mulheres eram maioria na população brasileira.", "r": "C", "j": "IBGE: 51,5%."},
+        {"t": "Atualmente, o êxodo rural é o principal tipo de migração interna no Brasil.", "r": "E", "j": "Geografia: predominam os fluxos urbano-urbano e pendulares; o êxodo rural marcou o século XX."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "industria-agro",
+      "bloco": "Economia e espaço",
+      "titulo": "Indústria, cidade e campo",
+      "edital": "6 Integração entre indústria e estrutura urbana e setor agrícola no Brasil",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["agronegocio", "modernizacao do campo", "complexo agroindustrial", "agroindustria", "fronteira agricola", "revolucao verde", "estrutura fundiaria", "agricultura familiar", "relacao campo cidade", "commodities agricolas"],
+      "pontos": [
+        "Campo e cidade estão integrados: a indústria fornece ao campo máquinas, fertilizantes, sementes e defensivos, e o campo fornece matérias-primas e alimentos à indústria e às cidades. Esse encadeamento forma o complexo agroindustrial; 'agronegócio' é a cadeia inteira (insumos, produção, processamento, transporte e comércio).",
+        "A modernização do campo (a partir dos anos 1960–70, com a 'revolução verde', crédito rural e pesquisa da Embrapa) aumentou a produtividade, mas foi 'conservadora': manteve a concentração de terras, expulsou trabalhadores (êxodo rural) e acelerou a urbanização.",
+        "A correção dos solos ácidos do Cerrado permitiu a expansão da fronteira agrícola para o Centro-Oeste e o MATOPIBA. O Brasil está entre os maiores produtores e exportadores mundiais de soja, café, açúcar, suco de laranja, carnes e milho.",
+        "Estrutura fundiária concentrada: poucos estabelecimentos grandes ocupam a maior parte da área. A agricultura familiar reúne a maioria dos estabelecimentos (mas a menor parte da área) e é importante na produção de alimentos para o mercado interno; o agronegócio patronal domina as commodities de exportação.",
+        "A agropecuária, sozinha, responde por parcela pequena do PIB, mas o agronegócio como cadeia pesa bem mais e sustenta o saldo comercial do país.",
+        "'Cidades do agronegócio' crescem como centros de serviços, comércio de insumos e agroindústria; a indústria se interioriza junto com a produção.",
+        "Impactos: desmatamento e pressão sobre o Cerrado e a Amazônia, uso intensivo de água e de agrotóxicos, conflitos por terra e dependência das rodovias para escoar a safra até os portos."
+      ],
+      "pegadinhas": [
+        "Agronegócio não é só a fazenda: inclui a indústria de insumos, o processamento e a distribuição.",
+        "A modernização agrícola aumentou a produção sem desconcentrar a terra (modernização conservadora).",
+        "Agricultura familiar: maioria dos estabelecimentos, minoria da área."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O agronegócio abrange, além da produção agropecuária, os setores de insumos, processamento e distribuição.", "r": "C", "j": "Geografia agrária: conceito de complexo agroindustrial."},
+        {"t": "A modernização da agricultura brasileira, a partir da década de 1960, reduziu a concentração fundiária no país.", "r": "E", "j": "Geografia agrária: a modernização foi conservadora e manteve a concentração de terras."},
+        {"t": "A expansão da fronteira agrícola no Cerrado esteve associada à correção da acidez dos solos e à pesquisa agropecuária.", "r": "C", "j": "Geografia agrária: papel da pesquisa (Embrapa)."},
+        {"t": "A mecanização do campo contribuiu para o êxodo rural e para a aceleração da urbanização brasileira.", "r": "C", "j": "Geografia: integração entre campo e cidade."},
+        {"t": "A agricultura familiar concentra a maior parte da área dos estabelecimentos agropecuários do país.", "r": "E", "j": "IBGE (Censo Agropecuário 2017): reúne a maioria dos estabelecimentos, mas a menor parte da área."},
+        {"t": "A expansão da soja no Centro-Oeste dispensou a integração com a indústria, por se tratar de cultura de baixa tecnologia.", "r": "E", "j": "Geografia agrária: é cultura mecanizada, dependente de insumos industriais."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "transportes",
+      "bloco": "Transportes",
+      "titulo": "Rede de transportes: modais e infraestrutura",
+      "edital": "7 Rede de transporte no Brasil: modais e principais infraestruturas",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["rede de transportes", "matriz de transportes", "modal rodoviario", "modal ferroviario", "modal hidroviario", "modais de transporte", "ferrovias", "hidrovias", "cabotagem", "rodoviarismo", "multimodalidade", "intermodalidade", "nomenclatura das rodovias", "custo brasil"],
+      "pontos": [
+        "A matriz de transporte de cargas do Brasil é desequilibrada: o modal rodoviário leva entre 60% e 66% das cargas (66,2% segundo o Plano Nacional de Logística 2035; 62,2% segundo a Fundação Dom Cabral), seguido do ferroviário e do aquaviário. Para um país continental e exportador de grãos e minérios, isso encarece o frete (o chamado custo Brasil).",
+        "Origem do rodoviarismo: a partir dos anos 1950 (governo JK, indústria automobilística, construção de Brasília), as políticas públicas priorizaram as rodovias em detrimento de ferrovias e hidrovias (item 53 da PRF 2021, Certo).",
+        "Comparação dos modais: RODOVIÁRIO — flexível, porta a porta, ideal para curtas e médias distâncias, mas caro, poluente e com mais acidentes; FERROVIÁRIO — grande capacidade e baixo custo em longas distâncias para cargas pesadas (minério, grãos), mas pouco flexível, com malha pequena e bitolas diferentes; AQUAVIÁRIO (hidrovias e cabotagem) — o mais barato por tonelada, porém lento e dependente de rios navegáveis e portos; DUTOVIÁRIO — petróleo, gás e minério; AÉREO — rápido e caro, para cargas de alto valor.",
+        "A rede NÃO é integrada nem eficiente (item 52 da PRF 2021, Errado): há poucas conexões entre modais, rodovias em mau estado (só cerca de 12% das estradas do país são pavimentadas, segundo a CNT) e gargalos nos portos. O caminho apontado é a multimodalidade: duplicar os eixos rodoviários, ampliar e modernizar as ferrovias e mudar o modelo de investimento e de exploração (item 51 da PRF 2021, Certo).",
+        "Rodovias federais (BR): 0xx radiais, que partem de Brasília (BR-040, BR-060); 1xx longitudinais, de sentido norte–sul (BR-101, pelo litoral; BR-116; BR-153, a Transbrasiliana, que corta Goiás); 2xx transversais, leste–oeste (BR-230, a Transamazônica; BR-262; BR-277); 3xx diagonais (BR-364, BR-381); 4xx de ligação.",
+        "Ferrovias e hidrovias: Estrada de Ferro Carajás (minério do Pará ao porto de Ponta da Madeira, no Maranhão) e Vitória–Minas (minério até Tubarão, no Espírito Santo); Ferrovia Norte–Sul, espinha dorsal do sistema; hidrovias Tietê–Paraná, do Madeira, do Tapajós e do Paraguai. O Arco Norte (portos da Amazônia) ganhou peso no escoamento de grãos; o porto de Santos é o maior do país em movimentação de contêineres.",
+        "Cabotagem é a navegação entre portos do próprio país (Lei 9.432/1997); a Lei 14.301/2022 (BR do Mar) criou um programa de estímulo a ela, e a Lei 14.273/2021 (Lei das Ferrovias) passou a permitir ferrovias privadas por autorização."
+      ],
+      "pegadinhas": [
+        "O modal rodoviário predomina, mas NÃO é o mais barato nem o mais adequado para longas distâncias e cargas pesadas.",
+        "A banca descreve a rede brasileira como 'integrada, diversa e eficiente': é o contrário.",
+        "BR-1xx são longitudinais (norte–sul); BR-2xx, transversais (leste–oeste); BR-0xx, radiais (saem de Brasília)."
+      ],
+      "novidades": [
+        "Lei 14.273/2021 (Lei das Ferrovias): ferrovias privadas por autorização. Lei 14.301/2022 (BR do Mar): estímulo à cabotagem."
+      ],
+      "itens": [
+        {"t": "O modal rodoviário responde por mais da metade do transporte de cargas no Brasil.", "r": "C", "j": "PNL 2035: cerca de 66%; Fundação Dom Cabral: cerca de 62%."},
+        {"t": "Para o transporte de grandes volumes de minério e de grãos a longas distâncias, o modal rodoviário é o de menor custo por tonelada.", "r": "E", "j": "Geografia dos transportes: o ferroviário e o aquaviário têm custo menor nessas condições."},
+        {"t": "A prioridade dada ao transporte rodoviário no Brasil está associada à implantação da indústria automobilística, a partir da década de 1950.", "r": "C", "j": "Geografia dos transportes: rodoviarismo."},
+        {"t": "As rodovias federais cuja numeração começa por 1, como a BR-101 e a BR-116, são longitudinais, de sentido norte–sul.", "r": "C", "j": "Geografia dos transportes: nomenclatura das rodovias federais."},
+        {"t": "A cabotagem é a navegação realizada entre portos de países diferentes.", "r": "E", "j": "Lei 9.432/1997: cabotagem é a navegação entre portos do território brasileiro."},
+        {"t": "A malha ferroviária brasileira é extensa e bem distribuída, integrando todas as regiões com bitola padronizada.", "r": "E", "j": "Geografia dos transportes: a malha é pequena, concentrada e de bitolas diferentes."}
+      ],
+      "questoes": ["prf-2021-p1|item 51", "prf-2021-p1|item 52", "prf-2021-p1|item 53"]
+    },
+    {
+      "id": "economia-global",
+      "bloco": "Economia e espaço",
+      "titulo": "O Brasil na economia internacional",
+      "edital": "8 A integração do Brasil ao processo de internacionalização da economia",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["economia internacional", "globalizacao", "comercio exterior", "mercosul", "brics", "balanca comercial", "exportacoes brasileiras", "blocos economicos", "organizacao mundial do comercio", "acordo mercosul uniao europeia", "g20", "parceiros comerciais"],
+      "pontos": [
+        "O Brasil está entre as maiores economias do mundo (em torno da 10ª posição), mas tem participação pequena no comércio mundial e pauta de exportação concentrada em commodities: soja, petróleo bruto, minério de ferro, carnes, açúcar, café e celulose. Importa principalmente manufaturados, combustíveis, fertilizantes e eletrônicos.",
+        "A China é o principal parceiro comercial do Brasil desde 2009; também são grandes parceiros a União Europeia, os Estados Unidos e a Argentina (importante destino de manufaturados, como automóveis).",
+        "Mercosul: criado pelo Tratado de Assunção (1991) por Argentina, Brasil, Paraguai e Uruguai; é uma união aduaneira (imperfeita), com Tarifa Externa Comum. A Venezuela está suspensa desde 2016–2017; a Bolívia tornou-se Estado Parte em 2024 (protocolo de adesão em vigor desde agosto de 2024), com até quatro anos para adotar as normas do bloco.",
+        "Acordo Mercosul–União Europeia: negociado desde 1999, foi assinado em 17/1/2026; a parte comercial passou a vigorar de forma provisória em 1º/5/2026, criando uma das maiores áreas de livre comércio do mundo (cerca de 718 milhões de pessoas).",
+        "BRICS: grupo de cooperação entre economias emergentes — Brasil, Rússia, Índia, China e África do Sul (esta desde 2011) —, ampliado em 2024–2025 com Arábia Saudita, Egito, Emirados Árabes Unidos, Etiópia, Irã e Indonésia. Não é bloco econômico nem área de livre comércio. Criou o Novo Banco de Desenvolvimento, com sede em Xangai.",
+        "O Brasil integra o G20 (presidiu o grupo em 2024, com cúpula no Rio de Janeiro) e a OMC, e sediou a COP30 do clima, em Belém, em novembro de 2025.",
+        "Globalização: integração de mercados, cadeias produtivas e fluxos financeiros. Para o Brasil, trouxe abertura comercial (anos 1990), privatizações, entrada de multinacionais, maior peso das commodities nas exportações e maior exposição a crises externas."
+      ],
+      "pegadinhas": [
+        "BRICS não é bloco econômico com tarifa comum; o Mercosul é união aduaneira.",
+        "A banca troca o principal parceiro comercial: é a China, não os EUA.",
+        "Chile, Colômbia, Peru e Equador são Estados ASSOCIADOS do Mercosul, não Estados Partes."
+      ],
+      "novidades": [
+        "Acordo Mercosul–União Europeia: assinado em 17/1/2026; a parte comercial vigora provisoriamente desde 1º/5/2026.",
+        "Bolívia: Estado Parte do Mercosul desde agosto de 2024."
+      ],
+      "itens": [
+        {"t": "A China é, atualmente, o principal parceiro comercial do Brasil.", "r": "C", "j": "Geografia econômica: posição ocupada desde 2009."},
+        {"t": "O Mercosul foi criado em 1991 pelo Tratado de Assunção, firmado por Argentina, Brasil, Paraguai e Uruguai.", "r": "C", "j": "Tratado de Assunção (1991)."},
+        {"t": "O BRICS é um bloco econômico que adota tarifa externa comum entre seus membros.", "r": "E", "j": "Geografia econômica: é grupo de cooperação, sem tarifa comum; quem tem Tarifa Externa Comum é o Mercosul."},
+        {"t": "A pauta de exportações brasileira é dominada por produtos manufaturados de alta tecnologia.", "r": "E", "j": "Geografia econômica: predominam commodities como soja, petróleo e minério de ferro."},
+        {"t": "A Bolívia tornou-se Estado Parte do Mercosul em 2024.", "r": "C", "j": "Tratado: o protocolo de adesão entrou em vigor em agosto de 2024."},
+        {"t": "A parte comercial do acordo entre o Mercosul e a União Europeia passou a ser aplicada provisoriamente em 2026.", "r": "C", "j": "Tratado assinado em 17/1/2026, com vigência provisória da parte comercial desde 1º/5/2026."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "gestao-ambiental",
+      "bloco": "Meio ambiente",
+      "titulo": "Geografia e gestão ambiental",
+      "edital": "9 Geografia e gestão ambiental",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["gestao ambiental", "politica nacional do meio ambiente", "sisnama", "conama", "licenciamento ambiental", "unidades de conservacao", "snuc", "codigo florestal", "reserva legal ambiental", "reserva legal do imovel rural", "area de preservacao permanente", "desmatamento", "mudancas climaticas", "desenvolvimento sustentavel"],
+      "pontos": [
+        "Política Nacional do Meio Ambiente (Lei 6.938/1981): criou o SISNAMA, sistema que reúne os órgãos ambientais da União, dos estados e dos municípios, com o CONAMA como órgão consultivo e deliberativo. Instrumentos: licenciamento, avaliação de impactos (EIA/RIMA), zoneamento ambiental e padrões de qualidade.",
+        "IBAMA: licenciamento e fiscalização ambiental na esfera federal. ICMBio: gestão das unidades de conservação federais. A CF, art. 225, garante a todos o meio ambiente ecologicamente equilibrado e impõe ao poder público e à coletividade o dever de defendê-lo.",
+        "Licenciamento ambiental: tradicionalmente em três fases — Licença Prévia (LP), de Instalação (LI) e de Operação (LO). A Lei 15.190/2025 (Lei Geral do Licenciamento Ambiental) está em vigor desde 4/2/2026, e a Lei 15.300/2025 criou a Licença Ambiental Especial (LAE), para empreendimentos estratégicos. As duas são questionadas no STF (ADIs 7913, 7916 e 7919).",
+        "Unidades de conservação (SNUC, Lei 9.985/2000), em dois grupos: PROTEÇÃO INTEGRAL (só uso indireto: estação ecológica, reserva biológica, parque nacional, monumento natural e refúgio de vida silvestre) e USO SUSTENTÁVEL (conciliam conservação e uso: área de proteção ambiental — APA, área de relevante interesse ecológico, floresta nacional, reserva extrativista, reserva de fauna, reserva de desenvolvimento sustentável e RPPN).",
+        "Código Florestal (Lei 12.651/2012): Área de Preservação Permanente (APP) protege margens de rios, nascentes, encostas e topos de morro; Reserva Legal é a parte do imóvel rural que deve manter vegetação nativa — 80% em área de floresta na Amazônia Legal, 35% em cerrado na Amazônia Legal e 20% nas demais regiões. O CAR (Cadastro Ambiental Rural) é o registro eletrônico dos imóveis rurais.",
+        "Principais problemas: desmatamento e queimadas (Amazônia e Cerrado, monitorados pelo INPE), garimpo ilegal, poluição e falta de saneamento nas cidades, desertificação no Semiárido, erosão e assoreamento e eventos extremos ligados às mudanças climáticas (como as enchentes de 2024 no Rio Grande do Sul).",
+        "Clima: pelo Acordo de Paris (2015), cada país define a sua meta de redução de emissões (NDC). No Brasil, as maiores fontes de emissão são a mudança de uso da terra (desmatamento) e a agropecuária, e não a geração de eletricidade, pois a matriz elétrica é majoritariamente renovável (hidrelétricas, eólica e solar)."
+      ],
+      "pegadinhas": [
+        "Parque nacional é de PROTEÇÃO INTEGRAL (só uso indireto); a APA é de uso sustentável e admite ocupação humana.",
+        "IBAMA licencia e fiscaliza; ICMBio gere as unidades de conservação federais.",
+        "Reserva Legal (percentual do imóvel rural) ≠ APP (locais frágeis, como margens de rios)."
+      ],
+      "novidades": [
+        "Lei 15.190/2025 (Lei Geral do Licenciamento Ambiental): em vigor desde 4/2/2026, depois de o Congresso derrubar a maior parte dos vetos em 27/11/2025. Lei 15.300/2025: Licença Ambiental Especial. Ambas são questionadas no STF (ADIs 7913, 7916 e 7919)."
+      ],
+      "itens": [
+        {"t": "No Sistema Nacional de Unidades de Conservação, o parque nacional pertence ao grupo de proteção integral.", "r": "C", "j": "Lei 9.985/2000 (SNUC)."},
+        {"t": "A área de proteção ambiental (APA) é unidade de proteção integral, na qual é proibida a ocupação humana.", "r": "E", "j": "Lei 9.985/2000: a APA é de uso sustentável e admite ocupação."},
+        {"t": "Em imóvel rural situado em área de floresta na Amazônia Legal, a reserva legal mínima é de 80%.", "r": "C", "j": "Lei 12.651/2012, art. 12."},
+        {"t": "A gestão das unidades de conservação federais compete ao ICMBio.", "r": "C", "j": "Lei 11.516/2007, que criou o ICMBio."},
+        {"t": "No Brasil, a principal fonte de emissões de gases de efeito estufa é a geração de energia elétrica.", "r": "E", "j": "Geografia ambiental: são a mudança de uso da terra (desmatamento) e a agropecuária; a matriz elétrica é majoritariamente renovável."},
+        {"t": "O CONAMA é o órgão consultivo e deliberativo do Sistema Nacional do Meio Ambiente.", "r": "C", "j": "Lei 6.938/1981."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "biomas",
+      "bloco": "Meio ambiente",
+      "titulo": "Biomas e domínios morfoclimáticos",
+      "edital": "10 Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["biomas", "bioma", "dominios morfoclimaticos", "amazonia", "cerrado", "caatinga", "mata atlantica", "pantanal", "pampa", "mata dos cocais", "mares de morros", "hotspot de biodiversidade"],
+      "pontos": [
+        "O IBGE reconhece 6 biomas continentais: Amazônia (49,5% do território), Cerrado (23,3%), Mata Atlântica (13%), Caatinga (10,1%), Pampa (2,3%) e Pantanal (1,8%).",
+        "AMAZÔNIA: maior floresta tropical do mundo, clima equatorial (quente e úmido) e a maior bacia hidrográfica; tem mata de terra firme, de várzea e de igapó; os solos são pobres, mantidos pela própria floresta. Ameaças: desmatamento (no chamado arco do desmatamento), pecuária, garimpo e queimadas.",
+        "CERRADO: a savana brasileira, de clima tropical com estação seca; árvores tortuosas, de casca grossa e raízes profundas. É o 'berço das águas': abriga nascentes de grandes bacias (Tocantins-Araguaia, São Francisco, Paraná). É o bioma mais pressionado pela fronteira agrícola.",
+        "MATA ATLÂNTICA: floresta tropical do litoral, a mais devastada (restam pouco mais de 12% da floresta original, segundo a SOS Mata Atlântica), onde vive a maior parte da população. Cerrado e Mata Atlântica são os dois hotspots brasileiros (alta biodiversidade muito ameaçada).",
+        "CAATINGA: único bioma EXCLUSIVAMENTE brasileiro; clima semiárido, chuvas irregulares e rios intermitentes; vegetação xerófila (adaptada à seca), que perde as folhas na estiagem. Há risco de desertificação.",
+        "PANTANAL: maior planície alagável do mundo (MT e MS), com ciclo anual de cheias e secas; é o menor bioma. PAMPA: campos do Rio Grande do Sul, de clima subtropical e relevo de coxilhas, com pecuária tradicional; sofre arenização.",
+        "Domínios morfoclimáticos (Aziz Ab'Sáber) combinam relevo, clima e vegetação. São 6: Amazônico, Cerrado, Mares de Morros (Mata Atlântica), Caatinga, Araucárias e Pradarias, além das faixas de transição (como a Mata dos Cocais e o Pantanal)."
+      ],
+      "pegadinhas": [
+        "O Pantanal é bioma para o IBGE, mas faixa de transição na classificação de Ab'Sáber.",
+        "A Caatinga é o único bioma exclusivamente brasileiro; a Amazônia se estende por outros países.",
+        "O Cerrado é o segundo maior bioma e o 'berço das águas' — a banca atribui isso à Amazônia."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A Amazônia é o maior bioma brasileiro e ocupa quase metade do território nacional.", "r": "C", "j": "IBGE: 49,5%."},
+        {"t": "A Caatinga é o único bioma exclusivamente brasileiro.", "r": "C", "j": "Geografia: bioma do Semiárido."},
+        {"t": "O Pantanal é o segundo maior bioma brasileiro em extensão.", "r": "E", "j": "IBGE: é o menor (1,8%); o segundo maior é o Cerrado (23,3%)."},
+        {"t": "O Cerrado abriga nascentes de importantes bacias hidrográficas brasileiras, sendo conhecido como berço das águas.", "r": "C", "j": "Geografia: bacias do Tocantins-Araguaia, do São Francisco e do Paraná."},
+        {"t": "A Mata Atlântica é o bioma brasileiro mais preservado, por situar-se em áreas de baixa ocupação humana.", "r": "E", "j": "Geografia: é o mais devastado e concentra a maior parte da população."},
+        {"t": "Na classificação dos domínios morfoclimáticos de Aziz Ab'Sáber, o domínio dos Mares de Morros corresponde à área de Mata Atlântica.", "r": "C", "j": "Geografia: domínios morfoclimáticos."}
+      ],
+      "questoes": []
+    }
+  ]
+}

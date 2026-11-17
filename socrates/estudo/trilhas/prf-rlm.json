@@ -1,0 +1,376 @@
+{
+  "id": "prf-rlm",
+  "materia": "Raciocínio Lógico-Matemático",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Matemática do ensino médio (conteúdo do edital PRF 2021, Cebraspe, itens 1 a 10 de Raciocínio Lógico-Matemático), com exemplos resolvidos e conferidos em 16/11/2026; questões da PRF 2021, itens 27 a 32.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["raciocinio logico", "rlm", "matematica", "logica"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "equacoes",
+      "bloco": "Álgebra",
+      "titulo": "Equações, inequações e sistemas lineares",
+      "edital": "1 Modelagem de situações-problema por meio de equações do 1º e 2º graus e sistemas lineares",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["equacao", "equacoes", "equacao do primeiro grau", "equacao do segundo grau", "bhaskara", "sistema linear", "sistemas lineares", "sistema de equacoes", "inequacao", "modelagem de problemas", "soma e produto das raizes"],
+      "pontos": [
+        "Modelar é traduzir o texto em conta: escolha a incógnita (x = o que se pede), monte a equação com os dados e resolva. Ex.: 'o dobro de um número mais 6 é 20' → 2x + 6 = 20 → x = 7.",
+        "Equação do 1º grau (ax + b = 0): isole o x fazendo a mesma operação dos dois lados. Ex.: 3x − 5 = 16 → 3x = 21 → x = 7.",
+        "Sistema linear com duas incógnitas: resolva por substituição (isola uma letra e troca na outra equação) ou por adição (soma as equações para eliminar uma letra). Ex.: x + y = 10 e x − y = 4 → somando: 2x = 14 → x = 7 e y = 3.",
+        "Exemplo típico: num pátio há 20 veículos, entre carros (4 rodas) e motos (2 rodas), somando 64 rodas. c + m = 20 e 4c + 2m = 64 → 2c = 24 → c = 12 carros e m = 8 motos.",
+        "Equação do 2º grau (ax² + bx + c = 0): Δ = b² − 4ac e x = (−b ± √Δ) / 2a. Δ > 0: duas raízes reais diferentes; Δ = 0: uma raiz real (dupla); Δ < 0: não há raiz real.",
+        "Soma e produto das raízes: S = −b/a e P = c/a. Ex.: x² − 5x + 6 = 0 → soma 5 e produto 6 → raízes 2 e 3.",
+        "Inequação: resolve-se como equação, mas, ao multiplicar ou dividir por número NEGATIVO, o sinal da desigualdade inverte. Ex.: −2x > 6 → x < −3."
+      ],
+      "pegadinhas": [
+        "Em inequação, dividir por número negativo inverte o sinal — a banca 'esquece' de inverter.",
+        "Leia a pergunta final: às vezes o problema pede o dobro de x, ou a soma, e não o x.",
+        "Δ negativo significa que não há raiz REAL, e não que a conta está errada."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Se em um pátio há 20 veículos, entre carros e motos, e 64 rodas no total, então há 12 carros.", "r": "C", "j": "Cálculo: c + m = 20 e 4c + 2m = 64 → 2c = 24 → c = 12."},
+        {"t": "A equação x² − 5x + 6 = 0 tem raízes 2 e 3.", "r": "C", "j": "Cálculo: soma das raízes 5 e produto 6."},
+        {"t": "A solução da inequação −2x > 6 é x > −3.", "r": "E", "j": "Regra: ao dividir por −2, o sinal inverte: x < −3."},
+        {"t": "A equação x² + 4x + 5 = 0 possui duas raízes reais distintas.", "r": "E", "j": "Cálculo: Δ = 16 − 20 = −4 < 0: não há raiz real."},
+        {"t": "Se o triplo de um número menos 5 é igual a 16, esse número é 7.", "r": "C", "j": "Cálculo: 3x − 5 = 16 → x = 7."},
+        {"t": "No sistema x + y = 10 e x − y = 4, o valor de y é 7.", "r": "E", "j": "Cálculo: somando as equações, x = 7; logo y = 3."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "funcoes",
+      "bloco": "Álgebra",
+      "titulo": "Funções e gráficos (afim, quadrática, exponencial, logarítmica)",
+      "edital": "2 Noção de função; análise gráfica; funções afim, quadrática, exponencial e logarítmica; aplicações",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["funcao afim", "funcao quadratica", "funcao do segundo grau", "funcao do primeiro grau", "funcao exponencial", "funcao logaritmica", "logaritmo", "vertice da parabola", "parabola", "grafico de funcao", "coeficiente angular", "funcoes e graficos", "valor maximo da funcao"],
+      "pontos": [
+        "Função é uma regra que liga cada valor de x a um único valor de y. No gráfico, x fica na horizontal e y na vertical; lê-se onde a função cresce, onde decresce e onde corta os eixos.",
+        "Função afim: f(x) = ax + b; o gráfico é uma reta. 'a' é a taxa de variação (quanto y muda quando x aumenta 1): a > 0 cresce, a < 0 decresce; 'b' é onde a reta corta o eixo y; a raiz é x = −b/a. Ex.: corrida com tarifa fixa de R$ 5 mais R$ 3 por km: f(x) = 3x + 5.",
+        "Função quadrática: f(x) = ax² + bx + c; o gráfico é uma parábola. a > 0: boca para cima (tem MÍNIMO); a < 0: boca para baixo (tem MÁXIMO). Vértice: xv = −b/2a; o valor máximo ou mínimo é f(xv).",
+        "Exemplo da PRF 2021 (itens 27 a 30): espalhamento E = p·(1 − p) = p − p², com p entre 0 e 1. É parábola de boca para baixo: o máximo está em p = 0,5 e vale 0,25 (25%). Com p = 0,3: E = 0,3 × 0,7 = 0,21 (21%). Logo o espalhamento nunca passa de 25% e não cresce sempre com p; E = 16% ocorre tanto com p = 20% quanto com p = 80%.",
+        "Função exponencial: f(x) = a^x (a > 0 e a ≠ 1). Cresce se a > 1 e decresce se 0 < a < 1; passa sempre por (0, 1). Modela o que é multiplicado por um fator fixo a cada período: juros compostos, população, contágio. Ex.: valor que dobra a cada ano: V = V0·2^t.",
+        "Logaritmo é o expoente: log de b na base a é x quando a^x = b. Ex.: log₂ 8 = 3, porque 2³ = 8; log₁₀ 1000 = 3. Propriedades: log(A·B) = log A + log B; log(A/B) = log A − log B; log(A^n) = n·log A.",
+        "Como escolher o modelo: variação constante por unidade → afim; produto de duas quantidades que somam um total fixo → quadrática (tem máximo); multiplicação por fator constante a cada período → exponencial."
+      ],
+      "pegadinhas": [
+        "Função quadrática com a < 0 tem valor máximo: a banca afirma que a grandeza 'cresce sempre' (item 30 da PRF 2021, Errado).",
+        "O máximo de p·(1 − p) é 0,25, em p = 0,5 — não 0,5 nem 1.",
+        "log(A + B) NÃO é log A + log B: a propriedade vale para o produto."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A função f(x) = −2x + 8 é decrescente e sua raiz é x = 4.", "r": "C", "j": "Cálculo: a = −2 < 0 e −b/a = 4."},
+        {"t": "O valor máximo de f(p) = p·(1 − p), para p entre 0 e 1, é 0,5.", "r": "E", "j": "Cálculo: o vértice está em p = 0,5 e f(0,5) = 0,25."},
+        {"t": "A parábola de f(x) = x² − 4x + 3 tem concavidade voltada para cima e vértice em x = 2.", "r": "C", "j": "Cálculo: a = 1 > 0 e xv = −b/2a = 2."},
+        {"t": "O logaritmo de 32 na base 2 é igual a 5.", "r": "C", "j": "Definição: 2⁵ = 32."},
+        {"t": "Se uma grandeza triplica a cada hora, ela é descrita por uma função afim.", "r": "E", "j": "Definição: multiplicar por fator constante a cada período é crescimento exponencial."},
+        {"t": "Para f(x) = 3x + 5, quando x aumenta 2 unidades, f(x) aumenta 6 unidades.", "r": "C", "j": "Propriedade: a taxa de variação é 3 por unidade de x."}
+      ],
+      "questoes": ["prf-2021-p1|item 27", "prf-2021-p1|item 28", "prf-2021-p1|item 29", "prf-2021-p1|item 30"]
+    },
+    {
+      "id": "razao-proporcao",
+      "bloco": "Proporcionalidade",
+      "titulo": "Razão, proporção e regra de três",
+      "edital": "3 Taxas de variação de grandezas; razão e proporção; regra de três simples e composta",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["razao e proporcao", "proporcao", "regra de tres", "regra de tres simples", "regra de tres composta", "grandezas diretamente proporcionais", "grandezas inversamente proporcionais", "divisao proporcional", "converter km h em m s"],
+      "pontos": [
+        "Razão é a divisão entre duas grandezas (a/b); proporção é a igualdade entre duas razões (a/b = c/d), em que vale a multiplicação cruzada: a·d = b·c.",
+        "Grandezas DIRETAMENTE proporcionais: uma aumenta, a outra aumenta na mesma proporção (distância e combustível). INVERSAMENTE proporcionais: uma aumenta, a outra diminui na mesma proporção, e o produto fica constante (velocidade e tempo; número de agentes e dias de trabalho).",
+        "Regra de três simples direta: 3 viaturas gastam 120 L; 5 viaturas gastam x → 3/5 = 120/x → x = 200 L. Inversa: 6 agentes fazem a tarefa em 10 dias; 4 agentes fazem em x → 6 × 10 = 4 × x → x = 15 dias.",
+        "Regra de três composta: compare cada grandeza com a da incógnita, uma de cada vez. Ex.: 4 agentes fiscalizam 240 veículos em 6 h; 6 agentes em 8 h fiscalizam x. Mais agentes → mais veículos (direta); mais horas → mais veículos (direta): x = 240 × (6/4) × (8/6) = 480.",
+        "Divisão proporcional: para dividir R$ 1.200 em partes proporcionais a 2, 3 e 5, some os pesos (10), ache a constante (1.200 ÷ 10 = 120) e multiplique: 240, 360 e 600.",
+        "Velocidade média = distância ÷ tempo. A 80 km/h, 240 km levam 3 h; a 120 km/h, levam 2 h. Conversão: km/h ÷ 3,6 = m/s (90 km/h = 25 m/s).",
+        "Taxas (km/L, veículos por hora, R$ por kg) são razões: deixe as unidades coerentes antes de montar a proporção."
+      ],
+      "pegadinhas": [
+        "Tratar grandeza inversa como direta: mais trabalhadores → MENOS dias.",
+        "Na regra de três composta, a banca mistura uma grandeza direta e uma inversa na mesma questão.",
+        "Esquecer de converter unidades (minutos em horas, km/h em m/s)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Se 6 agentes concluem uma vistoria em 10 dias, 4 agentes, no mesmo ritmo, a concluirão em 15 dias.", "r": "C", "j": "Cálculo: grandezas inversas: 6 × 10 = 4 × x → x = 15."},
+        {"t": "Se 3 viaturas consomem 120 L de combustível, 5 viaturas, nas mesmas condições, consumirão 180 L.", "r": "E", "j": "Cálculo: grandezas diretas: 120 × 5/3 = 200 L."},
+        {"t": "Para percorrer uma distância fixa, velocidade e tempo são grandezas inversamente proporcionais.", "r": "C", "j": "Definição: o produto velocidade × tempo é constante."},
+        {"t": "Dividindo-se R$ 1.200 em partes diretamente proporcionais a 2, 3 e 5, a maior parte será de R$ 600.", "r": "C", "j": "Cálculo: 1.200 ÷ 10 = 120; 5 × 120 = 600."},
+        {"t": "Se 4 agentes fiscalizam 240 veículos em 6 horas, então 6 agentes, no mesmo ritmo, fiscalizarão 480 veículos em 8 horas.", "r": "C", "j": "Cálculo: 240 × (6/4) × (8/6) = 480."},
+        {"t": "Um veículo a 90 km/h percorre 30 metros por segundo.", "r": "E", "j": "Cálculo: 90 ÷ 3,6 = 25 m/s."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "porcentagem",
+      "bloco": "Proporcionalidade",
+      "titulo": "Porcentagem e juros",
+      "edital": "4 Porcentagem",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["porcentagem", "percentual", "aumento percentual", "aumentos sucessivos", "descontos sucessivos", "juros simples", "juros compostos", "fator de aumento", "por cento", "pontos percentuais"],
+      "pontos": [
+        "Porcentagem é fração de denominador 100: 25% = 25/100 = 0,25. Para calcular x% de um valor, multiplique: 15% de 800 = 0,15 × 800 = 120.",
+        "Fator de aumento e de desconto: aumentar 20% é multiplicar por 1,20; descontar 20% é multiplicar por 0,80. Ex.: R$ 500 com 12% de aumento = 500 × 1,12 = 560.",
+        "Aumentos e descontos sucessivos NÃO se somam: multiplicam-se os fatores. Dois aumentos de 10% = 1,1 × 1,1 = 1,21 (21%, e não 20%). Aumento de 20% seguido de desconto de 20% = 1,2 × 0,8 = 0,96 (perda de 4%).",
+        "Variação percentual = (valor final − valor inicial) ÷ valor inicial. De 80 para 100 acidentes: 20/80 = 25% de aumento. De 100 para 80: 20/100 = 20% de queda — a base muda.",
+        "Descobrir o valor original: se depois de 25% de aumento o preço é R$ 250, o original é 250 ÷ 1,25 = 200 (não se tira 25% de 250).",
+        "Porcentagem de porcentagem: 30% de 70% = 0,3 × 0,7 = 0,21 = 21% (conta do item 27 da PRF 2021). Pontos percentuais: passar de 10% para 15% é subir 5 pontos percentuais, o que equivale a um aumento de 50%.",
+        "Juros simples: J = C·i·t (crescem em linha reta). Juros compostos: M = C·(1 + i)^t (juros sobre juros); para mais de um período, rendem mais que os simples."
+      ],
+      "pegadinhas": [
+        "Somar aumentos sucessivos (10% + 10% = 20%) é o erro que a banca espera: o certo é 21%.",
+        "Aumentar 25% e depois reduzir 25% não volta ao valor inicial.",
+        "Confundir 'pontos percentuais' com 'por cento'."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Dois aumentos sucessivos de 10% equivalem a um único aumento de 21%.", "r": "C", "j": "Cálculo: 1,1 × 1,1 = 1,21."},
+        {"t": "Um produto que sofre aumento de 20% e, em seguida, desconto de 20% volta ao preço original.", "r": "E", "j": "Cálculo: 1,2 × 0,8 = 0,96: fica 4% mais barato."},
+        {"t": "Se o número de acidentes passou de 80 para 100, o aumento foi de 25%.", "r": "C", "j": "Cálculo: 20 ÷ 80 = 0,25."},
+        {"t": "Se, após um aumento de 25%, um produto passou a custar R$ 250, o preço original era R$ 187,50.", "r": "E", "j": "Cálculo: 250 ÷ 1,25 = 200."},
+        {"t": "30% de 70% de uma população correspondem a 21% dessa população.", "r": "C", "j": "Cálculo: 0,3 × 0,7 = 0,21."},
+        {"t": "Em juros simples, um capital de R$ 1.000 aplicado a 2% ao mês rende R$ 60 em 3 meses.", "r": "C", "j": "Fórmula: J = 1.000 × 0,02 × 3 = 60."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "sequencias",
+      "bloco": "Sequências",
+      "titulo": "Sequências, PA e PG",
+      "edital": "5 Regularidades e padrões em sequências; sequências numéricas; progressão aritmética e progressão geométrica",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["sequencia numerica", "sequencias", "progressao aritmetica", "progressao geometrica", "pa e pg", "termo geral", "soma dos termos", "padrao numerico", "razao da pa"],
+      "pontos": [
+        "Sequência é uma lista ordenada de números que segue um padrão. Para descobri-lo, calcule as diferenças entre termos vizinhos (se forem iguais, é PA) ou as divisões (se forem iguais, é PG).",
+        "PA (progressão aritmética): soma-se sempre a mesma razão r. Termo geral: an = a1 + (n − 1)·r. Ex.: 20, 40, 60... (r = 20): a10 = 20 + 9 × 20 = 200.",
+        "Soma dos n primeiros termos da PA: Sn = (a1 + an)·n / 2. Ex.: 20 + 40 + ... + 200 (10 termos) = (20 + 200) × 10 / 2 = 1.100.",
+        "PG (progressão geométrica): multiplica-se sempre pela mesma razão q. Termo geral: an = a1·q^(n − 1). Ex.: 3, 6, 12, 24... (q = 2): a6 = 3 × 2⁵ = 96. Soma: Sn = a1·(q^n − 1)/(q − 1).",
+        "Exemplo da PRF 2021 (itens 31 e 32): totais acumulados 20, 60, 120, 200, 300. O que se fiscalizou em cada hora foi 20, 40, 60, 80, 100: uma PA de razão 20 (item 32, Certo). Até a 7ª hora: 300 + 120 + 140 = 560 > 550 (item 31, Certo).",
+        "Quando as diferenças formam uma PA (como no exemplo), a sequência original NÃO é PA: é de segunda ordem. No exemplo, o acumulado até a hora n é 10·n·(n + 1).",
+        "Propriedade: na PA, cada termo é a média aritmética dos vizinhos (a2 = (a1 + a3)/2); na PG, o quadrado de cada termo é o produto dos vizinhos (a2² = a1·a3)."
+      ],
+      "pegadinhas": [
+        "Confundir a sequência dos totais acumulados com a do que acontece em cada período: leia o que o item pede.",
+        "No termo geral, usa-se (n − 1), não n: o primeiro termo ainda não recebeu a razão.",
+        "Diferenças constantes = PA; quocientes constantes = PG."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Na sequência 20, 60, 120, 200, 300, as diferenças entre termos consecutivos formam uma progressão aritmética de razão 20.", "r": "C", "j": "Cálculo: as diferenças são 40, 60, 80 e 100."},
+        {"t": "O décimo termo da PA 5, 8, 11, ... é 35.", "r": "E", "j": "Fórmula: a10 = 5 + 9 × 3 = 32."},
+        {"t": "A soma dos 10 primeiros termos da PA 20, 40, 60, ... é 1.100.", "r": "C", "j": "Fórmula: (20 + 200) × 10 / 2 = 1.100."},
+        {"t": "Na PG 3, 6, 12, ..., o sexto termo é 96.", "r": "C", "j": "Fórmula: a6 = 3 × 2⁵ = 96."},
+        {"t": "A sequência 2, 6, 18, 54 é uma progressão aritmética de razão 4.", "r": "E", "j": "Definição: é PG de razão 3 (cada termo é o triplo do anterior)."},
+        {"t": "Em toda PA, cada termo, a partir do segundo, é a média aritmética entre o anterior e o seguinte.", "r": "C", "j": "Propriedade da progressão aritmética."}
+      ],
+      "questoes": ["prf-2021-p1|item 31", "prf-2021-p1|item 32"]
+    },
+    {
+      "id": "conjuntos",
+      "bloco": "Conjuntos",
+      "titulo": "Teoria dos conjuntos",
+      "edital": "8 Noções básicas de teoria dos conjuntos",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["conjuntos", "teoria dos conjuntos", "uniao e intersecao", "intersecao de conjuntos", "diagrama de venn", "subconjunto", "conjunto complementar", "uniao de conjuntos"],
+      "pontos": [
+        "Conjunto é uma coleção de elementos. Pertinência (∈) liga elemento e conjunto; inclusão (⊂) liga conjunto e conjunto. O conjunto vazio é subconjunto de qualquer conjunto.",
+        "União (A ∪ B): elementos que estão em A OU em B (ou nos dois). Interseção (A ∩ B): os que estão em A E em B. Diferença (A − B): os que estão em A e não estão em B. Complementar: o que falta para completar o universo.",
+        "Número de elementos da união: n(A ∪ B) = n(A) + n(B) − n(A ∩ B) — desconta-se quem foi contado duas vezes.",
+        "Exemplo: de 100 motoristas abordados, 60 estavam sem cinto, 30 usavam o celular e 10 cometiam as duas infrações. Pelo menos uma: 60 + 30 − 10 = 80. Nenhuma: 100 − 80 = 20. SÓ sem cinto: 60 − 10 = 50.",
+        "Diagrama de Venn: comece SEMPRE pelo centro (a interseção) e preencha para fora, subtraindo o que já foi colocado.",
+        "Três conjuntos: n(A ∪ B ∪ C) = n(A) + n(B) + n(C) − n(A∩B) − n(A∩C) − n(B∩C) + n(A∩B∩C).",
+        "Um conjunto com n elementos tem 2^n subconjuntos (com 3 elementos: 8, contando o vazio e o próprio conjunto)."
+      ],
+      "pegadinhas": [
+        "'60 estavam sem cinto' inclui quem também usava o celular; 'SÓ sem cinto' exclui a interseção.",
+        "Somar os conjuntos sem descontar a interseção conta gente duas vezes.",
+        "União é 'ou' (pelo menos um); interseção é 'e' (os dois)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Se, de 100 motoristas, 60 estavam sem cinto, 30 usavam celular e 10 cometiam as duas infrações, então 20 não cometiam nenhuma das duas.", "r": "C", "j": "Cálculo: 60 + 30 − 10 = 80; 100 − 80 = 20."},
+        {"t": "Se 60 motoristas estavam sem cinto e 10 deles também usavam celular, então 60 motoristas cometiam apenas a infração de não usar o cinto.", "r": "E", "j": "Cálculo: apenas sem cinto = 60 − 10 = 50."},
+        {"t": "Se n(A) = 15, n(B) = 12 e n(A ∩ B) = 5, então n(A ∪ B) = 27.", "r": "E", "j": "Fórmula: 15 + 12 − 5 = 22."},
+        {"t": "Um conjunto com 4 elementos possui 16 subconjuntos.", "r": "C", "j": "Fórmula: 2⁴ = 16."},
+        {"t": "O conjunto vazio é subconjunto de qualquer conjunto.", "r": "C", "j": "Propriedade da inclusão."},
+        {"t": "A interseção de dois conjuntos reúne os elementos que pertencem a pelo menos um deles.", "r": "E", "j": "Definição: isso é a união; a interseção reúne os que pertencem aos dois."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "contagem",
+      "bloco": "Contagem e probabilidade",
+      "titulo": "Análise combinatória",
+      "edital": "6 Noções de contagem",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["analise combinatoria", "principio fundamental da contagem", "contagem", "permutacao", "arranjo", "combinacao", "fatorial", "anagramas", "de quantas maneiras"],
+      "pontos": [
+        "Princípio fundamental da contagem: se uma escolha tem m opções E a seguinte tem n, há m × n maneiras. Ex.: 3 camisas e 2 calças = 6 trajes. 'E' multiplica; 'OU' soma.",
+        "Fatorial: n! = n × (n − 1) × ... × 1; 5! = 120; 0! = 1. Permutação de n elementos distintos (todas as ordens possíveis): n!. Ex.: 4 viaturas em fila: 4! = 24.",
+        "Permutação com repetição: divide-se pelo fatorial das repetições. Anagramas de ARARA: 5!/(3!·2!) = 10.",
+        "Arranjo: escolhem-se p entre n e a ORDEM importa (pódio, senha, cargos diferentes): A(n,p) = n!/(n − p)!. Ex.: presidente e vice entre 5 pessoas: 5 × 4 = 20.",
+        "Combinação: escolhem-se p entre n e a ordem NÃO importa (equipe, comissão, dupla): C(n,p) = n!/[p!·(n − p)!]. Ex.: duplas entre 5 agentes: C(5,2) = 10; equipes de 3 entre 10: C(10,3) = 120.",
+        "Pergunta-chave: trocar a ordem dos escolhidos gera um resultado diferente? Sim → arranjo (ou princípio multiplicativo); não → combinação.",
+        "Placas e senhas: multiplique as opções de cada posição. Placa no padrão Mercosul (LLLNLNN): 26⁴ × 10³ combinações. Senha de 4 algarismos distintos: 10 × 9 × 8 × 7 = 5.040."
+      ],
+      "pegadinhas": [
+        "Usar arranjo quando a ordem não importa conta em dobro: a equipe {A, B} é a mesma que {B, A}.",
+        "'Pelo menos um' costuma sair mais fácil pelo complementar: total − nenhum.",
+        "'E' multiplica as possibilidades; 'ou' soma."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O número de equipes distintas de 2 agentes que podem ser formadas com 5 agentes é 20.", "r": "E", "j": "Fórmula: a ordem não importa: C(5,2) = 10."},
+        {"t": "Com 5 pessoas, há 20 maneiras de escolher um presidente e um vice-presidente.", "r": "C", "j": "Cálculo: 5 × 4, pois a ordem importa."},
+        {"t": "A sigla PRF tem 6 anagramas.", "r": "C", "j": "Fórmula: 3! = 6."},
+        {"t": "Há 5.040 senhas de 4 algarismos distintos.", "r": "C", "j": "Cálculo: 10 × 9 × 8 × 7."},
+        {"t": "O número de comissões de 3 pessoas escolhidas entre 10 é 720.", "r": "E", "j": "Fórmula: C(10,3) = 120; 720 é o arranjo."},
+        {"t": "Se há 3 rotas de ida e 4 rotas de volta, há 7 maneiras de fazer o percurso de ida e volta.", "r": "E", "j": "Regra: 'e' multiplica: 3 × 4 = 12."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "probabilidade",
+      "bloco": "Contagem e probabilidade",
+      "titulo": "Probabilidade",
+      "edital": "6 Noções de probabilidade",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["probabilidade", "eventos independentes", "probabilidade condicional", "espaco amostral", "evento complementar", "lancamento de dado", "lancamento de moeda", "qual a chance"],
+      "pontos": [
+        "Probabilidade = casos favoráveis ÷ casos possíveis (quando todos têm a mesma chance). Vai de 0 (impossível) a 1 (certo), ou de 0% a 100%. Dado: P(número par) = 3/6 = 1/2.",
+        "Evento complementar: P(não A) = 1 − P(A). 'Pelo menos um' = 1 − P(nenhum). Ex.: em 2 lançamentos de moeda, P(pelo menos uma cara) = 1 − 1/4 = 3/4.",
+        "'E' multiplica (eventos independentes): P(A e B) = P(A) × P(B). Dois dados: P(6 e 6) = 1/6 × 1/6 = 1/36.",
+        "'OU' soma, descontando a interseção: P(A ou B) = P(A) + P(B) − P(A e B). Se os eventos não podem ocorrer juntos (mutuamente exclusivos), basta somar.",
+        "Sem reposição, a segunda probabilidade muda. Urna com 3 bolas vermelhas e 2 azuis: P(duas vermelhas) = 3/5 × 2/4 = 3/10.",
+        "Probabilidade condicional: P(A | B) = P(A e B) ÷ P(B) — o universo se reduz ao que já se sabe que ocorreu. Ex.: sabendo que o dado deu par, P(ser 6) = 1/3.",
+        "Com contagem: P = combinações favoráveis ÷ combinações possíveis. Sortear 2 agentes entre 5 (2 mulheres e 3 homens): P(duas mulheres) = C(2,2)/C(5,2) = 1/10."
+      ],
+      "pegadinhas": [
+        "Somar probabilidades de eventos que podem ocorrer juntos sem descontar a interseção.",
+        "Esquecer que, sem reposição, o total diminui na segunda retirada.",
+        "Probabilidade nunca é maior que 1 (100%)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "No lançamento de dois dados, a probabilidade de sair 6 em ambos é 1/36.", "r": "C", "j": "Cálculo: 1/6 × 1/6."},
+        {"t": "Em dois lançamentos de uma moeda, a probabilidade de sair pelo menos uma cara é 1/2.", "r": "E", "j": "Cálculo: 1 − P(nenhuma cara) = 1 − 1/4 = 3/4."},
+        {"t": "De uma urna com 3 bolas vermelhas e 2 azuis, retirando-se duas sem reposição, a probabilidade de ambas serem vermelhas é 3/10.", "r": "C", "j": "Cálculo: 3/5 × 2/4 = 3/10."},
+        {"t": "Se a probabilidade de chover é 0,3, a de não chover é 0,7.", "r": "C", "j": "Regra do evento complementar."},
+        {"t": "Sabendo-se que o resultado de um dado foi par, a probabilidade de ter saído o número 6 é 1/6.", "r": "E", "j": "Cálculo: o universo se reduz a {2, 4, 6}: 1/3."},
+        {"t": "A probabilidade de um evento pode ser maior que 1 quando há muitos casos favoráveis.", "r": "E", "j": "Definição: a probabilidade varia de 0 a 1."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "estatistica",
+      "bloco": "Dados",
+      "titulo": "Estatística descritiva",
+      "edital": "7 Descrição e análise de dados; leitura e interpretação de tabelas e gráficos; cálculo de médias e análise de desvios",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["estatistica", "media aritmetica", "media ponderada", "mediana", "moda estatistica", "desvio padrao", "variancia", "tabelas e graficos", "leitura de graficos", "media e mediana"],
+      "pontos": [
+        "Média aritmética = soma dos valores ÷ quantidade. Ex.: 4, 6, 8, 10, 12 → 40/5 = 8. Média ponderada: multiplica-se cada valor pelo seu peso e divide-se pela soma dos pesos.",
+        "Mediana = valor central com os dados EM ORDEM. Quantidade ímpar: o do meio; par: a média dos dois centrais. Ex.: 2, 3, 3, 5, 12 → mediana 3. A mediana não é afetada por valores extremos; a média é (aqui, a média é 25/5 = 5).",
+        "Moda = valor que mais se repete (pode haver mais de uma, ou nenhuma). No exemplo acima, a moda é 3.",
+        "Dispersão: amplitude = maior − menor. Desvio = valor − média (a soma dos desvios é sempre zero). Variância = média dos quadrados dos desvios; desvio padrão = raiz quadrada da variância.",
+        "Exemplo: 4, 6, 8, 10, 12 (média 8). Desvios: −4, −2, 0, 2, 4. Quadrados: 16, 4, 0, 4, 16 (soma 40). Variância populacional = 40/5 = 8; desvio padrão = √8 ≈ 2,83. Quanto maior o desvio padrão, mais espalhados os dados.",
+        "Somar uma constante a todos os dados soma a mesma constante à média e NÃO muda o desvio padrão; multiplicar todos por k multiplica a média e o desvio padrão por k.",
+        "Tabelas e gráficos: leia título, eixos, unidade e escala antes dos números. Barras comparam categorias; linhas mostram evolução no tempo; setores (pizza) mostram partes de um todo (100%)."
+      ],
+      "pegadinhas": [
+        "Calcular a mediana sem ordenar os dados.",
+        "Gráfico cujo eixo vertical não começa no zero exagera as diferenças: confira a escala.",
+        "Média alta não significa que a maioria está acima dela: um valor extremo puxa a média."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A mediana do conjunto 12, 3, 5, 2, 3 é 5.", "r": "E", "j": "Regra: ordenando (2, 3, 3, 5, 12), o valor central é 3."},
+        {"t": "A média aritmética de 4, 6, 8, 10 e 12 é 8.", "r": "C", "j": "Cálculo: 40 ÷ 5."},
+        {"t": "Somando-se 10 a todos os valores de um conjunto de dados, o desvio padrão aumenta 10 unidades.", "r": "E", "j": "Propriedade: o desvio padrão não muda; só a média aumenta 10."},
+        {"t": "A variância populacional do conjunto 4, 6, 8, 10, 12 é 8.", "r": "C", "j": "Cálculo: (16 + 4 + 0 + 4 + 16) ÷ 5 = 8."},
+        {"t": "A soma dos desvios de cada valor em relação à média aritmética é sempre igual a zero.", "r": "C", "j": "Propriedade da média aritmética."},
+        {"t": "Em um conjunto de dados, a moda é o valor que ocupa a posição central.", "r": "E", "j": "Definição: a moda é o valor mais frequente; o central é a mediana."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "geometria",
+      "bloco": "Geometria",
+      "titulo": "Geometria: escalas, áreas e volumes",
+      "edital": "9 e 10 Figuras planas, mapas e plantas; escalas; figuras espaciais; métrica: áreas e volumes; estimativas",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["geometria", "escala de mapa", "escala cartografica", "area do retangulo", "area do circulo", "area do triangulo", "volume do cilindro", "volume do paralelepipedo", "teorema de pitagoras", "pitagoras", "perimetro", "planificacao", "figuras planas", "areas e volumes"],
+      "pontos": [
+        "Escala = medida no desenho ÷ medida real (na mesma unidade). Em 1:50.000, 1 cm no mapa = 50.000 cm = 500 m reais; então 4 cm no mapa = 2 km.",
+        "Escala 'maior' mostra mais detalhes de uma área menor: 1:10.000 é MAIOR que 1:100.000 (a fração é maior). Plantas de casa usam 1:50 ou 1:100; mapas rodoviários usam escalas pequenas.",
+        "Áreas: retângulo = base × altura; triângulo = base × altura ÷ 2; trapézio = (B + b) × h ÷ 2; círculo = π·r². Comprimento da circunferência = 2·π·r.",
+        "Teorema de Pitágoras (triângulo retângulo): hipotenusa² = cateto² + cateto². Triângulo 3-4-5 e seus múltiplos (6-8-10). Serve para distância em linha reta: 3 km ao norte e 4 km a leste = 5 km do ponto de partida.",
+        "Volumes: paralelepípedo = comprimento × largura × altura; cubo = aresta³; cilindro = π·r²·h. 1 m³ = 1.000 litros; 1 dm³ = 1 L; 1 cm³ = 1 mL.",
+        "Ampliar uma figura por um fator k multiplica os comprimentos por k, as ÁREAS por k² e os VOLUMES por k³. Dobrar o lado de um quadrado quadruplica a área.",
+        "Conversões: 1 km = 1.000 m; 1 m² = 10.000 cm²; 1 km² = 1.000.000 m²; 1 hectare = 10.000 m². Planificação é a figura espacial 'aberta' no plano (o cubo vira 6 quadrados); projeções e cortes mostram as vistas de frente, de lado e de cima."
+      ],
+      "pegadinhas": [
+        "Converter área como se fosse comprimento: 1 m² são 10.000 cm², não 100.",
+        "Dobrar as dimensões não dobra a área (quadruplica) nem o volume (multiplica por 8).",
+        "Escala 1:10.000 é maior que 1:100.000."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em um mapa na escala 1:50.000, uma distância de 4 cm corresponde a 2 km reais.", "r": "C", "j": "Cálculo: 4 × 50.000 cm = 200.000 cm = 2 km."},
+        {"t": "Dobrando-se o lado de um quadrado, sua área dobra.", "r": "E", "j": "Propriedade: a área é multiplicada por 4 (k²)."},
+        {"t": "Um reservatório em forma de paralelepípedo com 2 m × 3 m × 1 m comporta 6.000 litros.", "r": "C", "j": "Cálculo: 6 m³ × 1.000 L/m³."},
+        {"t": "Um triângulo retângulo de catetos 6 cm e 8 cm tem hipotenusa de 10 cm.", "r": "C", "j": "Fórmula: √(36 + 64) = 10."},
+        {"t": "A escala 1:100.000 é maior que a escala 1:10.000.", "r": "E", "j": "Definição: 1/10.000 é fração maior, portanto escala maior (mais detalhe)."},
+        {"t": "A área de um círculo de raio 2 m é 4π m².", "r": "C", "j": "Fórmula: π·r² = 4π."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "logica",
+      "bloco": "Lógica",
+      "titulo": "Lógica proposicional",
+      "edital": "Proposições, conectivos, equivalências e negações (assunto clássico da Cebraspe; não constou do edital da PRF 2021)",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["logica proposicional", "proposicao", "proposicoes", "tabela verdade", "conectivos logicos", "negacao de proposicao", "equivalencia logica", "proposicao condicional", "se entao", "bicondicional", "contrapositiva", "leis de de morgan"],
+      "pontos": [
+        "Proposição é uma frase declarativa que pode ser julgada verdadeira (V) ou falsa (F). Perguntas, ordens e exclamações não são proposições. (No edital da PRF 2021 este assunto não apareceu, mas é clássico da Cebraspe e pode voltar.)",
+        "Conectivos: conjunção 'e' (∧) só é V se as duas forem V; disjunção 'ou' (∨) só é F se as duas forem F; disjunção exclusiva 'ou... ou' é V quando só uma é V.",
+        "Condicional 'se P, então Q' (P → Q): só é F quando P é V e Q é F. P é condição suficiente para Q; Q é condição necessária para P.",
+        "Bicondicional 'P se e somente se Q' (P ↔ Q): é V quando as duas têm o mesmo valor (as duas V ou as duas F).",
+        "Negações (leis de De Morgan): não (P e Q) = não P ou não Q; não (P ou Q) = não P e não Q. Negação do condicional: não (P → Q) = P e não Q (mantém a primeira E nega a segunda).",
+        "Equivalências do condicional: P → Q equivale à contrapositiva não Q → não P (inverte e nega) e a 'não P ou Q' (nega a primeira OU mantém a segunda).",
+        "Quantificadores: a negação de 'todo A é B' é 'algum A não é B'; a negação de 'algum A é B' é 'nenhum A é B'. A tabela-verdade com n proposições simples tem 2^n linhas."
+      ],
+      "pegadinhas": [
+        "A negação de 'se P, então Q' NÃO é outro 'se... então': é 'P e não Q'.",
+        "'Se P, então Q' não equivale a 'se Q, então P' nem a 'se não P, então não Q'.",
+        "A negação de 'todos' não é 'nenhum': é 'pelo menos um não'."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A negação de 'Se o motorista bebeu, então foi autuado' é 'O motorista bebeu e não foi autuado'.", "r": "C", "j": "Regra: a negação de P → Q é P e não Q."},
+        {"t": "A proposição 'Se chove, então a pista fica molhada' é equivalente a 'Se a pista não fica molhada, então não chove'.", "r": "C", "j": "Regra: contrapositiva."},
+        {"t": "A proposição composta 'P ou Q' é falsa sempre que uma das proposições simples é falsa.", "r": "E", "j": "Definição: a disjunção só é falsa quando as duas são falsas."},
+        {"t": "A negação de 'Todo policial é concursado' é 'Nenhum policial é concursado'.", "r": "E", "j": "Regra: a negação é 'Algum policial não é concursado'."},
+        {"t": "A tabela-verdade de uma proposição composta por 3 proposições simples tem 8 linhas.", "r": "C", "j": "Fórmula: 2³ = 8."},
+        {"t": "A frase 'Feche a porta!' é uma proposição.", "r": "E", "j": "Definição: uma ordem não pode ser julgada verdadeira ou falsa."}
+      ],
+      "questoes": []
+    }
+  ]
+}

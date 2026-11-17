@@ -1,0 +1,79 @@
+{
+  "id": "prf-ingles",
+  "materia": "Língua Inglesa",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Inglês instrumental para leitura (edital PRF 2021, Cebraspe: compreensão de texto e itens gramaticais relevantes), escrito em 16/11/2026. A prova de 2021 trouxe 8 itens sobre uma notícia em inglês.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["ingles", "lingua inglesa"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "ingles-texto",
+      "bloco": "Leitura",
+      "titulo": "Inglês: compreensão de textos",
+      "edital": "1 Compreensão de texto escrito em língua inglesa",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["interpretacao em ingles", "texto em ingles", "leitura em ingles", "skimming", "scanning", "cognatos", "falsos cognatos", "false friends", "vocabulario em ingles", "prefixos e sufixos em ingles"],
+      "pontos": [
+        "Na PRF são 8 itens Certo/Errado sobre um texto em inglês (em 2021, uma notícia sobre o apagão de energia no Texas). Os itens vêm em inglês e cobram principalmente compreensão: ideia principal, informações explícitas, inferências e sentido de palavras no contexto.",
+        "Estratégias: leia primeiro os itens; faça o skimming (leitura rápida para captar o assunto: título e primeira frase de cada parágrafo) e depois o scanning (busca de informação específica: nomes, números, datas). Não é preciso traduzir palavra por palavra.",
+        "Cognatos (palavras parecidas com as do português e de mesmo sentido) são a maioria e ajudam: information, important, energy, production, government, different, problem, temperature.",
+        "Falsos cognatos mais cobrados: actually = na verdade (atualmente = currently); pretend = fingir (pretender = intend); push = empurrar (puxar = pull); parents = pais (parentes = relatives); college = faculdade; library = biblioteca (livraria = bookstore); eventually = por fim; realize = perceber; attend = comparecer; policy = política, diretriz (polícia = police); fabric = tecido; lecture = palestra; prejudice = preconceito; sensible = sensato.",
+        "Os itens da Cebraspe em inglês usam os mesmos truques dos de português: extrapolação (o texto diz 'some' e o item diz 'all'), troca de causa e consequência, palavras absolutas (always, never, only) e contradição sutil. Compare cada item com o trecho exato do texto.",
+        "Prefixos e sufixos ajudam a deduzir o sentido: un-, dis-, im-/in- (negação: unimpeded = sem impedimento; unable = incapaz); re- (de novo); over- (em excesso); -less (sem: powerless = sem energia, sem poder); -ful (cheio de); -ly (advérbio: quickly); -er/-or (quem faz: driver); -ness e -tion (substantivos).",
+        "Palavras de referência (it, they, this, that, which, who, its, their) retomam termos anteriores — a banca pergunta a que se referem, como nas questões de coesão em português."
+      ],
+      "pegadinhas": [
+        "'Actually' não é 'atualmente'; 'eventually' não é 'eventualmente'; 'policy' não é 'polícia'.",
+        "O item pode ser verdadeiro no mundo real e, mesmo assim, Errado, por não estar no texto.",
+        "'Some' (alguns) não autoriza concluir 'all' (todos)."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em inglês, a palavra 'actually' equivale a 'atualmente' em português.", "r": "E", "j": "Vocabulário: 'actually' significa 'na verdade'; 'atualmente' é 'currently'."},
+        {"t": "A palavra 'unimpeded' pode ser entendida como 'sem impedimento', pois o prefixo 'un-' indica negação.", "r": "C", "j": "Vocabulário: formação de palavras por prefixo."},
+        {"t": "A técnica de scanning consiste em percorrer o texto em busca de uma informação específica, como um número ou um nome.", "r": "C", "j": "Estratégia de leitura: scanning."},
+        {"t": "Na frase 'The police support the new policy', a palavra 'policy' significa 'polícia'.", "r": "E", "j": "Vocabulário: 'policy' é 'política, diretriz'; 'polícia' é 'police'."},
+        {"t": "Se o texto afirma que 'some states produce energy', é correto concluir que 'all states produce energy'.", "r": "E", "j": "Interpretação: 'some' (alguns) não autoriza 'all' (todos): extrapolação."},
+        {"t": "A palavra 'parents' corresponde a 'pais' (pai e mãe), e não a 'parentes'.", "r": "C", "j": "Vocabulário: falso cognato; 'parentes' é 'relatives'."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "ingles-gramatica",
+      "bloco": "Gramática",
+      "titulo": "Inglês: gramática para entender o texto",
+      "edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["gramatica do ingles", "verbos modais", "modal verbs", "conectivos em ingles", "linking words", "voz passiva em ingles", "tempos verbais em ingles", "present perfect", "comparativo e superlativo", "simple past"],
+      "pontos": [
+        "Tempos verbais básicos: simple present (fatos e rotinas: 'Texas produces energy'); present continuous (am/is/are + -ing: ação em andamento); simple past (ação concluída: 'created', 'went'); present perfect (have/has + particípio: ação passada com efeito no presente ou em tempo não definido: 'has changed'); futuro com will ou going to.",
+        "Verbos modais mudam o grau de certeza ou de obrigação: can (poder, capacidade), could (poderia), may e might (possibilidade: pode ser que), must (dever, obrigação ou dedução forte), should (deveria, conselho), would (condicional: -ria). Trocar 'may' por 'must' num item transforma possibilidade em certeza.",
+        "Conectores (linking words): adição — and, also, moreover, in addition, besides; contraste — but, however, although, though, despite, in spite of, nevertheless, whereas; causa — because, since, as, due to; consequência — so, therefore, thus; condição — if, unless (a menos que); finalidade — to, in order to; exemplo — for example, such as.",
+        "'Despite' e 'in spite of' (apesar de) vêm seguidos de substantivo ou de verbo com -ing: 'Despite the cold temperatures...'. 'Although' (embora) vem seguido de oração com sujeito e verbo.",
+        "Voz passiva: to be + particípio ('The power grid was damaged by the storm' = a rede elétrica foi danificada pela tempestade). É muito usada em notícias e textos técnicos; o agente vem depois de 'by'.",
+        "Comparativo e superlativo: adjetivo curto + -er/-est (colder, the coldest); adjetivo longo com more/the most (more efficient, the most efficient); irregulares: good–better–best; bad–worse–worst. 'As... as' indica igualdade; 'similar to' = semelhante a.",
+        "Negativas e quantificadores: no, none, neither, never, hardly (quase não), few/little (pouco) × a few/a little (algum); many/much (muito), most (a maioria), some (alguns), any (qualquer, nenhum). 'Hardly' NÃO significa 'duramente'."
+      ],
+      "pegadinhas": [
+        "'Unless' significa 'a menos que' (if not).",
+        "'Few' (poucos, quase nenhum) tem sentido negativo; 'a few' (alguns) tem sentido positivo.",
+        "'May' e 'might' indicam possibilidade; 'must' indica obrigação ou quase certeza."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O conector 'however' introduz uma ideia de contraste em relação ao que foi dito antes.", "r": "C", "j": "Gramática: conectores de contraste."},
+        {"t": "Em 'Despite the cold temperatures, energy production continued', o termo 'despite' expressa causa.", "r": "E", "j": "Gramática: 'despite' expressa concessão (apesar de)."},
+        {"t": "A frase 'The bridge was closed by the police' está na voz passiva.", "r": "C", "j": "Gramática: to be + particípio, com o agente introduzido por 'by'."},
+        {"t": "O verbo modal 'may' indica obrigação, equivalendo a 'must'.", "r": "E", "j": "Gramática: 'may' indica possibilidade ou permissão."},
+        {"t": "A forma 'colder' é o comparativo de superioridade do adjetivo 'cold'.", "r": "C", "j": "Gramática: adjetivo curto + -er."},
+        {"t": "A conjunção 'unless' equivale a 'if not' (a menos que).", "r": "C", "j": "Gramática: conectores de condição."}
+      ],
+      "questoes": []
+    }
+  ]
+}

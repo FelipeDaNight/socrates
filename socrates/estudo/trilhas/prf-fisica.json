@@ -1,0 +1,181 @@
+{
+  "id": "prf-fisica",
+  "materia": "Física",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Mecânica clássica do ensino médio (conteúdo do edital PRF 2021, Cebraspe, itens 1 a 9 de Física), com exemplos resolvidos e conferidos em 16/11/2026 (g = 10 m/s²); questões da PRF 2021, itens 40 a 44, com o gabarito oficial.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["fisica"],
+  "nao_confundir": ["integridade fisica", "pessoa fisica", "pessoas fisicas", "deficiencia fisica", "violencia fisica", "agressao fisica", "coacao fisica", "atividade fisica", "educacao fisica", "aptidao fisica", "forca fisica", "lesao fisica", "dependencia fisica", "capacidade fisica", "preparacao fisica", "avaliacao fisica", "presenca fisica", "estrutura fisica"],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "cinematica",
+      "bloco": "Movimento",
+      "titulo": "Cinemática escalar e vetorial",
+      "edital": "1 Cinemática escalar, cinemática vetorial",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["cinematica", "mru", "mruv", "movimento uniforme", "movimento uniformemente variado", "velocidade media", "aceleracao", "equacao de torricelli", "torricelli", "queda livre", "lancamento obliquo", "lancamento horizontal", "distancia de frenagem", "movimento retilineo"],
+      "pontos": [
+        "Velocidade média = deslocamento ÷ tempo (vm = Δs/Δt). Conversão: km/h ÷ 3,6 = m/s; m/s × 3,6 = km/h. 72 km/h = 20 m/s; 108 km/h = 30 m/s.",
+        "MRU (movimento retilíneo uniforme): velocidade constante e aceleração nula. s = s0 + v·t. O gráfico da posição pelo tempo é uma reta inclinada; o da velocidade é uma reta horizontal.",
+        "MRUV (uniformemente variado): aceleração constante. v = v0 + a·t; s = s0 + v0·t + a·t²/2; Torricelli (sem o tempo): v² = v0² + 2·a·Δs. No gráfico da velocidade pelo tempo, a ÁREA sob a curva é o deslocamento e a inclinação é a aceleração.",
+        "Frenagem (Torricelli com v = 0): d = v0²/(2a). A 20 m/s (72 km/h), freando a 5 m/s²: d = 400/10 = 40 m. A distância de frenagem cresce com o QUADRADO da velocidade: dobrar a velocidade quadruplica a distância.",
+        "Queda livre (sem resistência do ar): a = g ≈ 10 m/s², para baixo, igual para qualquer massa. h = g·t²/2 e v = g·t. Em 2 s: cai 20 m e chega a 20 m/s.",
+        "Grandezas vetoriais (deslocamento, velocidade, aceleração, força) têm módulo, direção e sentido. Lançamento oblíquo = MRU na horizontal + MRUV na vertical. A aceleração é a da gravidade o tempo todo, constante (item 40 da PRF 2021, Certo).",
+        "No ponto mais alto do lançamento oblíquo, só a componente VERTICAL da velocidade é zero; a horizontal continua. Logo a velocidade não é nula (item 42 da PRF 2021, Errado) e a aceleração continua sendo g. O alcance é máximo para lançamento a 45°."
+      ],
+      "pegadinhas": [
+        "No ponto mais alto, velocidade vertical zero NÃO significa velocidade zero nem aceleração zero.",
+        "Dobrar a velocidade quadruplica a distância de frenagem (não dobra).",
+        "Esquecer de converter km/h para m/s antes de usar as fórmulas."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Um veículo a 72 km/h que freia com desaceleração constante de 5 m/s² percorre 40 m até parar.", "r": "C", "j": "Cálculo: Torricelli: 0 = 20² − 2 × 5 × d → d = 40 m."},
+        {"t": "Se a velocidade de um veículo dobra, a distância de frenagem, com a mesma desaceleração, também dobra.", "r": "E", "j": "Fórmula: d = v²/(2a): a distância quadruplica."},
+        {"t": "No ponto mais alto da trajetória de um lançamento oblíquo, a velocidade do projétil é nula.", "r": "E", "j": "Conceito: só a componente vertical se anula; a horizontal permanece."},
+        {"t": "Desprezada a resistência do ar, um corpo em queda livre a partir do repouso percorre 20 m nos primeiros 2 s (g = 10 m/s²).", "r": "C", "j": "Cálculo: h = 10 × 2²/2 = 20 m."},
+        {"t": "No gráfico da velocidade em função do tempo, a área sob a curva representa o deslocamento.", "r": "C", "j": "Conceito de cinemática."},
+        {"t": "Uma velocidade de 90 km/h equivale a 25 m/s.", "r": "C", "j": "Cálculo: 90 ÷ 3,6 = 25."},
+        {"t": "No movimento retilíneo uniforme, a aceleração do móvel é constante e diferente de zero.", "r": "E", "j": "Definição: no MRU a velocidade é constante e a aceleração é nula."}
+      ],
+      "questoes": ["prf-2021-p1|item 40", "prf-2021-p1|item 42"]
+    },
+    {
+      "id": "movimento-circular",
+      "bloco": "Movimento",
+      "titulo": "Movimento circular",
+      "edital": "2 Movimento circular",
+      "peso": 1,
+      "artigos": [],
+      "palavras": ["movimento circular", "aceleracao centripeta", "forca centripeta", "velocidade angular", "periodo e frequencia", "mcu", "velocidade na curva", "derrapar na curva"],
+      "pontos": [
+        "Movimento circular uniforme (MCU): o módulo da velocidade é constante, mas a DIREÇÃO muda o tempo todo — por isso existe aceleração (centrípeta), que aponta para o centro.",
+        "Período (T) é o tempo de uma volta; frequência (f) é o número de voltas por unidade de tempo: f = 1/T (em hertz = voltas por segundo). 120 rpm = 2 Hz → T = 0,5 s.",
+        "Velocidade angular: ω = 2π/T = 2π·f (rad/s). Velocidade linear: v = ω·R = 2π·R/T. Pontos de uma mesma roda têm a mesma velocidade angular; quanto mais longe do centro, maior a velocidade linear.",
+        "Aceleração centrípeta: ac = v²/R = ω²·R. Resultante centrípeta: Fc = m·v²/R. Ex.: carro de 1.000 kg a 20 m/s numa curva de raio 100 m: ac = 4 m/s² e Fc = 4.000 N.",
+        "Na curva plana, quem faz o papel de força centrípeta é o ATRITO entre pneus e pista. Velocidade máxima sem derrapar: v = √(μ·g·R). Com μ = 0,5 e R = 80 m: v = √400 = 20 m/s = 72 km/h. Pista molhada (μ menor) ou curva fechada (R menor) reduzem a velocidade segura.",
+        "A velocidade máxima na curva NÃO depende da massa do veículo (a massa se cancela). 'Força centrífuga' é a sensação de quem está dentro do carro; para quem observa do solo, só existe a resultante centrípeta.",
+        "Transmissão: duas polias ligadas por correia têm a mesma velocidade LINEAR na borda; polias presas ao mesmo eixo têm a mesma velocidade ANGULAR."
+      ],
+      "pegadinhas": [
+        "No MCU a velocidade tem módulo constante, mas existe aceleração (centrípeta) — a banca diz que a aceleração é nula.",
+        "A força centrípeta não é uma força 'a mais': é a resultante (atrito, tração, normal, peso) apontando para o centro.",
+        "A velocidade máxima na curva não depende da massa do veículo."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "No movimento circular uniforme, a aceleração do móvel é nula, pois o módulo da velocidade é constante.", "r": "E", "j": "Conceito: existe aceleração centrípeta, porque a direção da velocidade varia."},
+        {"t": "Um carro de 1.000 kg que percorre uma curva de raio 100 m a 20 m/s está sujeito a uma força resultante centrípeta de 4.000 N.", "r": "C", "j": "Cálculo: Fc = 1.000 × 20²/100 = 4.000 N."},
+        {"t": "Em uma curva plana horizontal, a força de atrito entre os pneus e a pista atua como resultante centrípeta.", "r": "C", "j": "Conceito de dinâmica do movimento circular."},
+        {"t": "A velocidade máxima com que um veículo faz uma curva plana sem derrapar é tanto maior quanto maior for a massa do veículo.", "r": "E", "j": "Fórmula: v = √(μ·g·R) não depende da massa."},
+        {"t": "Uma roda que gira a 120 rpm tem frequência de 2 Hz e período de 0,5 s.", "r": "C", "j": "Cálculo: 120 ÷ 60 = 2 Hz; T = 1/f = 0,5 s."},
+        {"t": "Em uma roda que gira, um ponto da borda tem velocidade linear maior que a de um ponto próximo ao centro.", "r": "C", "j": "Fórmula: v = ω·R, com a mesma velocidade angular."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "newton",
+      "bloco": "Forças",
+      "titulo": "Leis de Newton e aplicações (atrito, plano inclinado)",
+      "edital": "3 Leis de Newton e suas aplicações",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["leis de newton", "lei da inercia", "inercia", "segunda lei de newton", "acao e reacao", "forca de atrito", "atrito", "plano inclinado", "forca peso", "forca normal", "forca resultante"],
+      "pontos": [
+        "1ª lei (inércia): se a força resultante é nula, o corpo permanece em repouso ou em movimento retilíneo uniforme. Em freada brusca, os ocupantes tendem a continuar em movimento — é a razão de ser do cinto de segurança.",
+        "2ª lei: força resultante = massa × aceleração (FR = m·a), em newtons (N). A aceleração tem a direção e o sentido da resultante. Ex.: FR = 3.000 N em carro de 1.000 kg → a = 3 m/s².",
+        "3ª lei (ação e reação): as forças vêm em pares de mesma intensidade, mesma direção e sentidos opostos, aplicadas em CORPOS DIFERENTES — por isso não se anulam. Na colisão entre caminhão e carro, as forças trocadas têm o mesmo módulo; o carro sofre mais porque tem menos massa (maior aceleração).",
+        "Peso: P = m·g, força da gravidade (para baixo); a massa não muda, o peso depende de g. Normal (N): força de contato perpendicular à superfície; em piso horizontal, sem outras forças verticais, N = P.",
+        "No voo de um projétil, sem resistência do ar, a única força é o peso: a resultante NÃO é nula em nenhum ponto, nem na altura máxima (item 41 da PRF 2021, Errado).",
+        "Atrito: o estático (sem deslizar) vai de zero até o máximo μe·N; o cinético (deslizando) vale μc·N, com μc < μe. Por isso frear sem travar as rodas (ABS) para em distância menor. Em pista plana, a desaceleração máxima na frenagem é a = μ·g.",
+        "Plano inclinado (ângulo θ): o peso se decompõe em P·sen θ (paralelo à rampa, faz descer) e P·cos θ (perpendicular, igual à normal). Sem atrito, a = g·sen θ."
+      ],
+      "pegadinhas": [
+        "Ação e reação não se cancelam: atuam em corpos diferentes.",
+        "Força resultante nula não significa corpo parado: pode estar em MRU.",
+        "O atrito estático não vale sempre μ·N: esse é o valor MÁXIMO."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Se a resultante das forças que atuam sobre um corpo é nula, ele está necessariamente em repouso.", "r": "E", "j": "Lei da inércia: pode estar em movimento retilíneo uniforme."},
+        {"t": "Na colisão entre um caminhão e um automóvel, a força que o caminhão exerce no automóvel tem a mesma intensidade da força que o automóvel exerce no caminhão.", "r": "C", "j": "Lei da ação e reação."},
+        {"t": "Uma força resultante de 3.000 N aplicada a um veículo de 1.000 kg produz aceleração de 3 m/s².", "r": "C", "j": "Cálculo: a = F/m = 3.000 ÷ 1.000."},
+        {"t": "As forças de ação e reação se anulam, pois têm mesma intensidade e sentidos opostos.", "r": "E", "j": "Conceito: atuam em corpos diferentes e, por isso, não se anulam."},
+        {"t": "Em um plano inclinado sem atrito, a aceleração de um bloco que desliza é g·sen θ.", "r": "C", "j": "Fórmula do plano inclinado."},
+        {"t": "Em geral, o coeficiente de atrito cinético é menor que o coeficiente de atrito estático.", "r": "C", "j": "Conceito de atrito."},
+        {"t": "Durante o voo de um projétil lançado obliquamente, desprezada a resistência do ar, a força resultante sobre ele é o próprio peso.", "r": "C", "j": "Conceito: a única força que atua é a gravitacional."}
+      ],
+      "questoes": ["prf-2021-p1|item 41"]
+    },
+    {
+      "id": "trabalho-energia",
+      "bloco": "Energia",
+      "titulo": "Trabalho, potência e energia",
+      "edital": "4 a 7 Trabalho; potência; energia cinética, energia potencial, atrito; conservação de energia e suas transformações",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["trabalho de uma forca", "trabalho e energia", "energia cinetica", "energia potencial", "energia mecanica", "conservacao de energia", "potencia mecanica", "energia potencial elastica", "teorema da energia cinetica", "joule", "watt"],
+      "pontos": [
+        "Trabalho de uma força constante: τ = F·d·cos θ (em joules, J). Força a favor do movimento: trabalho positivo (motor); contra: negativo (resistente, como o do atrito); perpendicular ao deslocamento (normal, centrípeta): trabalho ZERO.",
+        "Potência = trabalho ÷ tempo (P = τ/Δt), em watts (W = J/s); também P = F·v. 1 cv ≈ 735 W. O quilowatt-hora (1 kWh = 3,6 × 10⁶ J) é unidade de ENERGIA, não de potência.",
+        "Energia cinética: Ec = m·v²/2. Carro de 1.000 kg a 20 m/s: Ec = 200.000 J. Como depende de v², dobrar a velocidade QUADRUPLICA a energia a dissipar na frenagem ou na colisão.",
+        "Teorema da energia cinética: o trabalho da força resultante é igual à variação da energia cinética (τ = ΔEc). Na frenagem: Fat·d = m·v²/2 → d = v²/(2·μ·g).",
+        "Energia potencial gravitacional: Epg = m·g·h. Energia potencial elástica (mola): Epe = k·x²/2, em que k é a constante da mola e x a deformação.",
+        "Conservação da energia mecânica: se só atuam forças conservativas (peso, força elástica), Ec + Ep é constante. Ex.: corpo solto de 5 m chega ao solo com v = √(2·g·h) = 10 m/s.",
+        "Com atrito ou em colisões inelásticas, a energia mecânica NÃO se conserva: parte vira calor, som e deformação (a energia total, essa sim, sempre se conserva)."
+      ],
+      "pegadinhas": [
+        "kWh é unidade de energia; kW é unidade de potência.",
+        "Força perpendicular ao deslocamento não realiza trabalho (a normal e a centrípeta, por exemplo).",
+        "Dobrar a velocidade quadruplica a energia cinética."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A energia cinética de um veículo de 1.000 kg a 20 m/s é de 200.000 J.", "r": "C", "j": "Cálculo: 1.000 × 20²/2 = 200.000 J."},
+        {"t": "Se a velocidade de um veículo dobra, sua energia cinética também dobra.", "r": "E", "j": "Fórmula: Ec = m·v²/2: a energia quadruplica."},
+        {"t": "A força centrípeta não realiza trabalho sobre um corpo em movimento circular uniforme.", "r": "C", "j": "Conceito: é perpendicular ao deslocamento."},
+        {"t": "O quilowatt-hora (kWh) é unidade de potência.", "r": "E", "j": "Definição: é unidade de energia (potência × tempo)."},
+        {"t": "Desprezada a resistência do ar, um corpo abandonado de uma altura de 5 m atinge o solo com velocidade de 10 m/s (g = 10 m/s²).", "r": "C", "j": "Cálculo: v = √(2 × 10 × 5) = 10 m/s."},
+        {"t": "Na presença de atrito, a energia mecânica de um sistema se conserva.", "r": "E", "j": "Conceito: parte é dissipada em calor; conserva-se a energia total, não a mecânica."},
+        {"t": "O trabalho realizado pela força resultante sobre um corpo é igual à variação de sua energia cinética.", "r": "C", "j": "Conceito: teorema da energia cinética."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "impulso",
+      "bloco": "Colisões",
+      "titulo": "Impulso, quantidade de movimento e colisões",
+      "edital": "8 e 9 Quantidade de movimento e conservação da quantidade de movimento, impulso; colisões",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["impulso", "quantidade de movimento", "momento linear", "conservacao da quantidade de movimento", "colisao elastica", "colisao inelastica", "coeficiente de restituicao", "teorema do impulso"],
+      "pontos": [
+        "Quantidade de movimento (momento linear): Q = m·v, grandeza VETORIAL (kg·m/s), com a direção e o sentido da velocidade.",
+        "Impulso: I = F·Δt (N·s). Teorema do impulso: o impulso da resultante é igual à variação da quantidade de movimento (I = ΔQ). Para a mesma variação, aumentar o TEMPO de parada reduz a FORÇA — é o princípio do airbag, do cinto e da zona de deformação dos carros.",
+        "Conservação: em sistema isolado (sem força externa resultante), a quantidade de movimento total se conserva. Vale em TODA colisão, elástica ou não, porque as forças internas se cancelam aos pares (ação e reação).",
+        "Colisão perfeitamente ELÁSTICA: conserva a quantidade de movimento E a energia cinética. Parcialmente elástica: conserva só a quantidade de movimento. Perfeitamente INELÁSTICA: os corpos seguem juntos, e a perda de energia cinética é a maior possível.",
+        "Exemplo (inelástica): carro de 1.000 kg a 20 m/s bate em outro de 1.000 kg, parado, e os dois seguem juntos: 1.000 × 20 = 2.000 × v → v = 10 m/s. Energia cinética antes: 200.000 J; depois: 100.000 J — metade virou deformação, calor e som.",
+        "Itens 43 e 44 da PRF 2021 (projétil que se aloja em bloco preso a uma mola): na colisão conserva-se a quantidade de movimento, NÃO a energia cinética (item 44, Errado). Depois, a energia cinética do conjunto vira energia elástica da mola, que por isso é MENOR que a energia cinética inicial do projétil (item 43, Certo).",
+        "Coeficiente de restituição: e = velocidade relativa de afastamento ÷ velocidade relativa de aproximação. e = 1 (elástica), 0 < e < 1 (parcialmente elástica), e = 0 (perfeitamente inelástica). Na perícia de acidentes, a conservação da quantidade de movimento permite estimar as velocidades antes da batida."
+      ],
+      "pegadinhas": [
+        "Ausência de atrito NÃO garante conservação da energia cinética na colisão: só a colisão elástica a conserva.",
+        "Quantidade de movimento é vetor: em colisão frontal, sentidos opostos têm sinais opostos.",
+        "Na colisão inelástica a energia mecânica diminui, mas a quantidade de movimento do sistema se mantém."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Em uma colisão perfeitamente inelástica entre dois veículos, a quantidade de movimento do sistema se conserva, mas a energia cinética não.", "r": "C", "j": "Conceito de colisão inelástica."},
+        {"t": "Se um veículo de 1.000 kg a 20 m/s colide com outro de mesma massa, parado, e ambos seguem juntos, a velocidade do conjunto logo após a colisão é de 10 m/s.", "r": "C", "j": "Cálculo: 1.000 × 20 = 2.000 × v → v = 10 m/s."},
+        {"t": "Quando um veículo de 1.000 kg a 20 m/s colide com outro igual, parado, e os dois seguem juntos, a energia cinética do sistema após a colisão é igual à de antes.", "r": "E", "j": "Cálculo: antes, 200.000 J; depois, 2.000 × 10²/2 = 100.000 J."},
+        {"t": "O airbag reduz a força sobre o ocupante porque aumenta o tempo de desaceleração.", "r": "C", "j": "Conceito: teorema do impulso (F = ΔQ/Δt)."},
+        {"t": "A quantidade de movimento é uma grandeza escalar, medida em joules.", "r": "E", "j": "Definição: é vetorial e medida em kg·m/s."},
+        {"t": "Em uma colisão perfeitamente elástica, conservam-se a quantidade de movimento e a energia cinética do sistema.", "r": "C", "j": "Conceito de colisão elástica."}
+      ],
+      "questoes": ["prf-2021-p1|item 43", "prf-2021-p1|item 44"]
+    }
+  ]
+}

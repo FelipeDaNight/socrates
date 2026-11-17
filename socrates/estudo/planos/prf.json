@@ -140,6 +140,7 @@
         {"id": "contagem", "titulo": "Análise combinatória", "edital": "Princípios de contagem", "peso": 2, "pesquisa": "princípio fundamental da contagem permutação arranjo combinação"},
         {"id": "probabilidade", "titulo": "Probabilidade", "edital": "Noções de probabilidade", "peso": 2, "pesquisa": "probabilidade condicional eventos independentes concurso"},
         {"id": "estatistica", "titulo": "Estatística descritiva", "edital": "Noções de estatística", "peso": 1, "pesquisa": "média moda mediana desvio padrão variância concurso"},
+        {"id": "geometria", "titulo": "Geometria: escalas, áreas e volumes", "edital": "9 e 10 Figuras planas, mapas e escalas; áreas e volumes", "peso": 1, "pesquisa": "escala de mapa área de figuras planas volume de sólidos teorema de Pitágoras concurso"},
         {"id": "logica", "titulo": "Lógica proposicional", "edital": "Proposições, conectivos, equivalências e negações", "peso": 2, "pesquisa": "lógica proposicional tabela verdade equivalências negação Cebraspe"}
       ]
     },
@@ -273,7 +274,8 @@
       "peso": 1,
       "apelidos": ["ingles", "lingua inglesa"],
       "topicos": [
-        {"id": "ingles-texto", "titulo": "Inglês: compreensão de textos", "edital": "Língua estrangeira", "peso": 1, "pesquisa": "inglês instrumental interpretação de texto cognatos falsos cognatos concurso"}
+        {"id": "ingles-texto", "titulo": "Inglês: compreensão de textos", "edital": "Língua estrangeira", "peso": 1, "pesquisa": "inglês instrumental interpretação de texto cognatos falsos cognatos concurso"},
+        {"id": "ingles-gramatica", "titulo": "Inglês: gramática para entender o texto", "edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos", "peso": 1, "pesquisa": "inglês instrumental verbos modais conectores voz passiva tempos verbais concurso"}
       ]
     }
   ]

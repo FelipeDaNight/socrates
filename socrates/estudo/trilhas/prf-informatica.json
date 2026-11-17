@@ -1,0 +1,213 @@
+{
+  "id": "prf-informatica",
+  "materia": "Informática",
+  "concurso": "PRF",
+  "banca": "Cebraspe",
+  "fonte": "Conceitos de informática do edital PRF 2021 (Cebraspe): internet e intranet, Windows, transformação digital, segurança e computação em nuvem. São definições usuais da área (as mesmas da Cartilha de Segurança para Internet, do CERT.br, e do modelo de nuvem do NIST), escritas em 16/11/2026; questões da PRF 2021, itens 33 a 38, com o gabarito oficial.",
+  "atualizado": "2026-11-16",
+  "apelidos": ["informatica", "nocoes de informatica"],
+  "nao_confundir": [],
+  "plano": "prf",
+  "topicos": [
+    {
+      "id": "internet-intranet",
+      "bloco": "Internet",
+      "titulo": "Internet, intranet e navegadores",
+      "edital": "1 e 2 Conceito de internet e intranet; navegadores, correio eletrônico, busca, redes sociais; acesso a distância e transferência de arquivos",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["internet e intranet", "intranet", "extranet", "navegador", "navegadores", "google chrome", "firefox", "correio eletronico", "email", "protocolos de internet", "http e https", "https", "busca do google", "operadores de busca", "url", "dns", "cookies", "navegacao anonima", "acesso remoto"],
+      "pontos": [
+        "Internet é a rede mundial pública de computadores; intranet é uma rede PRIVADA de uma organização que usa as mesmas tecnologias e protocolos da internet (TCP/IP, HTTP, navegador); extranet é a parte da intranet aberta a parceiros externos, com acesso controlado.",
+        "Protocolos: HTTP (páginas, porta 80) e HTTPS (HTTP com criptografia TLS, porta 443); DNS traduz o nome (gov.br) em endereço IP; FTP transfere arquivos; SMTP ENVIA e-mail; POP3 e IMAP RECEBEM (o IMAP mantém as mensagens sincronizadas no servidor).",
+        "Navegadores (Chrome, Edge, Firefox): guardam histórico, cache e cookies (pequenos arquivos que os sites gravam para lembrar o usuário); permitem salvar e sincronizar favoritos e SENHAS pela conta do usuário, em qualquer sítio — não só em intranet ou com HTTPS (item 33 da PRF 2021, Errado).",
+        "Navegação anônima (privativa) não guarda histórico, cookies nem dados de formulários no computador, mas NÃO esconde o acesso do provedor, do administrador da rede ou dos sítios visitados.",
+        "Busca no Google: aspas buscam a expressão exata; o sinal de menos exclui um termo (jaguar -carro); site: restringe a um sítio (site:gov.br prf); filetype: restringe o tipo de arquivo (filetype:pdf); @ busca em rede social (campanha PRF @twitter — item 35 da PRF 2021, Certo).",
+        "E-mail: endereço no formato usuario@dominio; campos Para, Cc (com cópia, visível a todos) e Cco (cópia oculta: os demais não veem o endereço). Webmail é o acesso pelo navegador; cliente de e-mail é o programa instalado (Outlook, Thunderbird).",
+        "Acesso a distância e transferência: VPN cria um túnel criptografado para acessar a rede interna pela internet; a Área de Trabalho Remota controla outro computador; download traz arquivos e upload envia; streaming reproduz áudio e vídeo sem baixar o arquivo inteiro."
+      ],
+      "pegadinhas": [
+        "Intranet não é uma rede 'fora da internet' nem de outra tecnologia: é rede privada que usa os protocolos da internet.",
+        "HTTPS garante criptografia e identidade do servidor, não que o sítio seja honesto: páginas de golpe também exibem o cadeado.",
+        "SMTP envia; POP3 e IMAP recebem — a banca troca."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A intranet utiliza os mesmos protocolos da Internet, mas seu acesso é restrito aos usuários autorizados de uma organização.", "r": "C", "j": "Conceito de intranet."},
+        {"t": "O protocolo SMTP é utilizado para o recebimento de mensagens de correio eletrônico pelo usuário.", "r": "E", "j": "Conceito: SMTP envia; POP3 e IMAP recebem."},
+        {"t": "Na pesquisa do Google, o uso de aspas faz que sejam buscadas páginas com a expressão exata digitada.", "r": "C", "j": "Regra dos operadores de busca."},
+        {"t": "A navegação anônima impede que o provedor de Internet e o administrador da rede saibam quais sítios foram acessados.", "r": "E", "j": "Conceito: ela apenas deixa de gravar histórico e cookies no próprio computador."},
+        {"t": "O campo Cco de uma mensagem de correio eletrônico permite enviar cópia a um destinatário sem que os demais vejam o endereço dele.", "r": "C", "j": "Conceito: cópia oculta."},
+        {"t": "O cadeado exibido pelo navegador em páginas HTTPS garante que o conteúdo do sítio é verdadeiro e livre de golpes.", "r": "E", "j": "Conceito: garante criptografia e identidade do servidor, não a honestidade do conteúdo."}
+      ],
+      "questoes": ["prf-2021-p1|item 33", "prf-2021-p1|item 35"]
+    },
+    {
+      "id": "windows",
+      "bloco": "Sistema operacional",
+      "titulo": "Windows 10: arquivos, pastas e programas",
+      "edital": "2.2 Noções de sistema operacional (ambiente Windows)",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["windows", "windows 10", "windows 11", "explorador de arquivos", "atalhos de teclado", "lixeira", "area de transferencia", "ctrl c", "pastas e arquivos", "extensao de arquivo", "gerenciador de tarefas", "sistema operacional"],
+      "pontos": [
+        "Sistema operacional é o programa que gerencia o hardware e os demais programas (processador, memória, arquivos e dispositivos). No Windows, cada usuário tem a sua conta, protegida por senha, PIN ou biometria (Windows Hello).",
+        "Explorador de Arquivos (Win + E): organiza unidades, pastas e arquivos. Nomes de arquivo não podem conter os caracteres \\ / : * ? \" < > |. A extensão indica o tipo do arquivo (.docx, .xlsx, .pdf, .jpg, .exe, .zip).",
+        "Arrastar com o mouse: na MESMA unidade, move; entre unidades DIFERENTES, copia. Com Ctrl pressionado, sempre copia; com Shift, sempre move.",
+        "Lixeira: guarda arquivos excluídos do disco local para possível restauração. Shift + Delete exclui direto, sem passar pela Lixeira; arquivos apagados de pen drive ou de pasta de rede também não vão para a Lixeira.",
+        "Atalhos essenciais: Ctrl+C copia, Ctrl+X recorta, Ctrl+V cola, Ctrl+Z desfaz, Ctrl+A seleciona tudo, Alt+Tab alterna janelas, Alt+F4 fecha a janela, Win+D mostra a área de trabalho, Win+L bloqueia o computador, Ctrl+Shift+Esc abre o Gerenciador de Tarefas, Win+V abre o histórico da área de transferência, Win+Shift+S captura a tela.",
+        "Conta Microsoft: sincroniza entre os computadores do usuário configurações como tema, idioma e preferências e também SENHAS (o item 34 da PRF 2021 é Errado justamente por negar a sincronização de senhas).",
+        "Segurança nativa: Windows Update (atualizações), Microsoft Defender (antivírus), Firewall do Windows e BitLocker (criptografia de disco)."
+      ],
+      "pegadinhas": [
+        "Arrastar entre unidades diferentes COPIA; na mesma unidade, MOVE.",
+        "Shift + Delete e arquivos de pen drive não passam pela Lixeira.",
+        "A banca troca atalhos: Ctrl+X é recortar; Alt+F4 fecha a janela; Win+L bloqueia."
+      ],
+      "novidades": [
+        "O suporte da Microsoft ao Windows 10 terminou em 14/10/2025; a versão atual do sistema é o Windows 11 (o edital fala apenas em 'ambiente Windows')."
+      ],
+      "itens": [
+        {"t": "No Explorador de Arquivos do Windows, arrastar um arquivo de uma pasta do disco C: para um pen drive cria uma cópia do arquivo no pen drive.", "r": "C", "j": "Windows: entre unidades diferentes, arrastar copia."},
+        {"t": "Arquivos excluídos com as teclas Shift + Delete são enviados para a Lixeira.", "r": "E", "j": "Windows: são excluídos diretamente, sem passar pela Lixeira."},
+        {"t": "O atalho Win + L bloqueia o computador.", "r": "C", "j": "Windows: atalho de bloqueio."},
+        {"t": "No Windows, o nome de um arquivo pode conter o caractere de interrogação (?).", "r": "E", "j": "Windows: os caracteres \\ / : * ? \" < > | são proibidos em nomes de arquivo."},
+        {"t": "O atalho Ctrl + Shift + Esc abre diretamente o Gerenciador de Tarefas.", "r": "C", "j": "Windows: atalho do Gerenciador de Tarefas."},
+        {"t": "Ao utilizar a mesma conta Microsoft em vários computadores, o usuário pode sincronizar configurações e senhas entre eles.", "r": "C", "j": "Windows: sincronização de configurações pela conta Microsoft."}
+      ],
+      "questoes": ["prf-2021-p1|item 34"]
+    },
+    {
+      "id": "transformacao-digital",
+      "bloco": "Transformação digital",
+      "titulo": "Transformação digital: IoT, big data e IA",
+      "edital": "3 Transformação digital: internet das coisas (IoT), big data e inteligência artificial",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["transformacao digital", "internet das coisas", "iot", "big data", "inteligencia artificial", "aprendizado de maquina", "machine learning", "cinco vs", "ia generativa", "dados estruturados"],
+      "pontos": [
+        "Transformação digital é o uso de tecnologias digitais para mudar processos, serviços e a forma de trabalhar das organizações (serviços do gov.br, CNH digital, auto de infração eletrônico) — não é só 'digitalizar papel'.",
+        "Internet das Coisas (IoT): objetos físicos com sensores e conexão à rede que coletam e trocam dados (câmeras, radares, rastreadores, relógios, sensores de veículos). Aumenta a quantidade e a complexidade dos dados e alimenta o big data (item 36 da PRF 2021, Certo).",
+        "Big data: conjuntos de dados grandes e complexos demais para as ferramentas tradicionais. Os 3 Vs clássicos: Volume (quantidade), Velocidade (geração e processamento rápidos) e Variedade (formatos diferentes). Costumam-se acrescentar Veracidade (confiabilidade) e Valor (utilidade).",
+        "Dados estruturados têm formato fixo (tabelas, bancos de dados); não estruturados não têm (vídeos, áudios, textos livres, postagens); semiestruturados ficam no meio (JSON, XML).",
+        "Inteligência artificial (IA): sistemas que executam tarefas que exigiriam inteligência humana (reconhecer imagens, entender linguagem, decidir). Aprendizado de máquina (machine learning) é a parte da IA em que o sistema APRENDE com dados, sem ser programado regra por regra; deep learning usa redes neurais de muitas camadas.",
+        "Tipos de aprendizado: supervisionado (dados com rótulo, isto é, com a resposta: classificar e-mail como spam), não supervisionado (sem rótulo: agrupar perfis parecidos) e por reforço (tentativa e erro com recompensa). A IA generativa cria textos, imagens e áudio novos a partir de modelos treinados.",
+        "Aplicações em segurança pública e trânsito: leitura automática de placas, análise de grandes bases de dados para direcionar a fiscalização e reconhecimento de padrões em rotas e ocorrências."
+      ],
+      "pegadinhas": [
+        "IoT não é sinônimo de internet rápida: é a conexão de OBJETOS à rede.",
+        "Big data não é só volume: velocidade e variedade também o caracterizam.",
+        "Aprendizado de máquina é subárea da IA, e não o contrário."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "A Internet das Coisas refere-se à conexão de objetos físicos dotados de sensores à rede, o que permite a coleta e a troca de dados.", "r": "C", "j": "Conceito de IoT."},
+        {"t": "Volume, velocidade e variedade são características associadas ao big data.", "r": "C", "j": "Conceito: os 3 Vs do big data."},
+        {"t": "Em big data, o termo variedade refere-se exclusivamente a dados estruturados, armazenados em tabelas.", "r": "E", "j": "Conceito: abrange dados estruturados, semiestruturados e não estruturados."},
+        {"t": "O aprendizado de máquina é um ramo da inteligência artificial em que o sistema aprende a partir de dados.", "r": "C", "j": "Conceito de aprendizado de máquina."},
+        {"t": "No aprendizado supervisionado, o algoritmo é treinado com dados que não possuem rótulos.", "r": "E", "j": "Conceito: dados sem rótulo caracterizam o aprendizado não supervisionado."},
+        {"t": "A inteligência artificial é uma subárea do aprendizado de máquina.", "r": "E", "j": "Conceito: é o contrário: o aprendizado de máquina é subárea da IA."}
+      ],
+      "questoes": ["prf-2021-p1|item 36"]
+    },
+    {
+      "id": "malwares",
+      "bloco": "Segurança",
+      "titulo": "Segurança: vírus, worms e pragas virtuais",
+      "edital": "4.1 Noções de vírus, worms, phishing e pragas virtuais",
+      "peso": 3,
+      "artigos": [],
+      "palavras": ["malware", "malwares", "virus de computador", "worm", "cavalo de troia", "trojan", "ransomware", "spyware", "keylogger", "phishing", "botnet", "rootkit", "backdoor", "pragas virtuais", "engenharia social"],
+      "pontos": [
+        "Malware é qualquer programa malicioso. VÍRUS: precisa de um arquivo hospedeiro e de EXECUÇÃO pelo usuário; propaga-se inserindo cópias de si mesmo em outros arquivos e programas.",
+        "WORM (verme): NÃO precisa de hospedeiro nem de ação do usuário; propaga-se sozinho pelas redes, explorando vulnerabilidades, e consome banda e recursos.",
+        "CAVALO DE TROIA (trojan): parece um programa útil, mas executa funções maliciosas escondidas; não se replica. BACKDOOR abre uma 'porta dos fundos' para o invasor voltar; ROOTKIT esconde a presença do invasor e de outros malwares.",
+        "RANSOMWARE: sequestra os dados — criptografa os arquivos (ou bloqueia o equipamento) e exige resgate, geralmente em criptomoeda. Não se define por inserir cópias de si em arquivos (isso é vírus: item 37 da PRF 2021, Errado). A melhor defesa é o backup atualizado e desconectado.",
+        "SPYWARE espiona o usuário: KEYLOGGER grava as teclas digitadas; SCREENLOGGER grava a tela e os cliques; ADWARE exibe propagandas. BOT é o computador 'zumbi' controlado a distância; BOTNET é a rede de bots (usada em ataques e envio de spam).",
+        "PHISHING não é malware: é golpe de engenharia social — mensagem ou página falsa que imita instituição confiável para 'pescar' senhas e dados. PHARMING redireciona o usuário para sítio falso, alterando o DNS. Engenharia social é enganar a pessoa, não a máquina.",
+        "DoS e DDoS: ataques que sobrecarregam um serviço para tirá-lo do ar (o DDoS parte de muitas máquinas ao mesmo tempo, em geral de uma botnet)."
+      ],
+      "pegadinhas": [
+        "Vírus precisa de hospedeiro e de execução; worm se propaga sozinho pela rede — é a troca preferida da banca.",
+        "Ransomware criptografa e pede resgate; não é 'vírus que se copia em arquivos'.",
+        "Phishing é fraude (engenharia social), não um programa que se instala e se replica."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "Worm é um programa capaz de se propagar automaticamente pelas redes, sem necessidade de ser executado pelo usuário nem de se anexar a outro arquivo.", "r": "C", "j": "Conceito de worm."},
+        {"t": "O vírus de computador dispensa arquivo hospedeiro e se propaga exclusivamente pela rede, sem ação do usuário.", "r": "E", "j": "Conceito: essa é a descrição do worm; o vírus precisa de hospedeiro e de execução."},
+        {"t": "Ransomware é um código malicioso que torna inacessíveis os dados do equipamento, geralmente por criptografia, e exige pagamento de resgate para restabelecer o acesso.", "r": "C", "j": "Conceito de ransomware."},
+        {"t": "Keylogger é um tipo de spyware capaz de capturar as teclas digitadas pelo usuário.", "r": "C", "j": "Conceito de keylogger."},
+        {"t": "Phishing é um malware que se instala automaticamente no computador e se replica pela rede.", "r": "E", "j": "Conceito: é golpe de engenharia social por mensagens e páginas falsas."},
+        {"t": "O cavalo de troia caracteriza-se por se replicar automaticamente, infectando outros arquivos do computador.", "r": "E", "j": "Conceito: o trojan não se replica; disfarça-se de programa legítimo."}
+      ],
+      "questoes": ["prf-2021-p1|item 37"]
+    },
+    {
+      "id": "ferramentas-seguranca",
+      "bloco": "Segurança",
+      "titulo": "Antivírus, firewall e boas práticas",
+      "edital": "4.2 Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN etc.)",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["antivirus", "firewall", "anti spyware", "vpn", "autenticacao em dois fatores", "dois fatores", "criptografia", "assinatura digital", "certificado digital", "senha forte", "seguranca da informacao", "confidencialidade integridade disponibilidade"],
+      "pontos": [
+        "Princípios da segurança da informação: Confidencialidade (só quem pode acessa), Integridade (a informação não foi alterada), Disponibilidade (está acessível quando necessária) e Autenticidade (a origem é quem diz ser). O não repúdio impede o autor de negar o que fez.",
+        "ANTIVÍRUS (antimalware): detecta e remove códigos maliciosos por assinaturas (lista de malwares conhecidos) e por heurística ou comportamento (suspeitos ainda desconhecidos). Precisa estar sempre atualizado.",
+        "FIREWALL: filtra o tráfego de rede que entra e sai, conforme regras (portas, endereços, protocolos). Pode ser software ou hardware. NÃO é antivírus: não remove malware de arquivos já gravados nem impede o usuário de executar um programa malicioso. O firewall de próxima geração (NGFW) acrescenta inspeção de aplicações e prevenção de intrusão.",
+        "IDS detecta intrusões e alerta; IPS detecta e BLOQUEIA. ANTISPYWARE combate programas espiões. PROXY intermedeia o acesso à internet (filtra e registra).",
+        "VPN (rede privada virtual): cria um túnel CRIPTOGRAFADO sobre uma rede pública para acessar com segurança a rede interna da organização.",
+        "Criptografia simétrica usa UMA chave (a mesma cifra e decifra); a assimétrica usa um PAR (a chave pública cifra, a privada decifra). Assinatura digital: o autor assina com a sua chave PRIVADA e qualquer pessoa confere com a pública — garante autenticidade, integridade e não repúdio (não o sigilo). O certificado digital, emitido por autoridade certificadora (ICP-Brasil), liga a chave pública ao seu dono.",
+        "Boas práticas: senhas longas e diferentes para cada serviço, autenticação em dois fatores (algo que você sabe + algo que você tem ou é), sistema atualizado, desconfiança de links e anexos e backup."
+      ],
+      "pegadinhas": [
+        "Firewall não substitui antivírus (e vice-versa): um filtra tráfego de rede; o outro procura código malicioso.",
+        "Assinatura digital não cifra o conteúdo: garante autoria e integridade, não confidencialidade.",
+        "Na criptografia assimétrica, quem assina usa a chave PRIVADA; quem confere usa a pública."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O firewall é capaz de filtrar o tráfego de rede com base em regras, bloqueando conexões não autorizadas.", "r": "C", "j": "Conceito de firewall."},
+        {"t": "Um firewall dispensa o uso de antivírus, pois elimina os arquivos infectados já armazenados no computador.", "r": "E", "j": "Conceito: o firewall filtra tráfego; não remove malware de arquivos."},
+        {"t": "A assinatura digital garante a autenticidade e a integridade de um documento eletrônico.", "r": "C", "j": "Conceito de assinatura digital."},
+        {"t": "Na criptografia assimétrica, a mesma chave é usada para cifrar e decifrar a mensagem.", "r": "E", "j": "Conceito: essa é a simétrica; a assimétrica usa um par de chaves, pública e privada."},
+        {"t": "A autenticação em dois fatores combina, por exemplo, uma senha com um código enviado ao celular do usuário.", "r": "C", "j": "Conceito: dois fatores distintos de autenticação."},
+        {"t": "A disponibilidade, princípio da segurança da informação, garante que a informação só seja acessada por pessoas autorizadas.", "r": "E", "j": "Conceito: isso é confidencialidade; disponibilidade é estar acessível quando necessário."}
+      ],
+      "questoes": []
+    },
+    {
+      "id": "backup-nuvem",
+      "bloco": "Nuvem",
+      "titulo": "Backup e computação em nuvem",
+      "edital": "5 Computação na nuvem (cloud computing)",
+      "peso": 2,
+      "artigos": [],
+      "palavras": ["backup", "copia de seguranca", "backup incremental", "backup diferencial", "computacao em nuvem", "cloud computing", "nuvem", "iaas", "paas", "saas", "nuvem publica", "nuvem privada", "nuvem hibrida", "armazenamento em nuvem"],
+      "pontos": [
+        "Computação em nuvem: uso de recursos de computação (servidores, armazenamento, programas) pela internet, sob demanda, pagando pelo que se usa, sem manter infraestrutura própria. Características: autosserviço sob demanda, amplo acesso pela rede, elasticidade rápida, recursos compartilhados e serviço medido.",
+        "Modelos de serviço: IaaS (Infraestrutura como Serviço) — aluga-se máquina virtual, rede e armazenamento, e o cliente instala e gerencia o resto; PaaS (Plataforma como Serviço) — ambiente pronto para DESENVOLVER e publicar aplicativos; SaaS (Software como Serviço) — o programa pronto, usado pelo navegador (webmail, editores on-line).",
+        "Item 38 da PRF 2021 (Errado): 'ambiente em nuvem no qual os usuários podem construir e disponibilizar aplicativos' é PaaS, não SaaS.",
+        "Modelos de implantação: nuvem pública (o provedor atende a vários clientes pela internet), privada (exclusiva de uma organização), híbrida (combina as duas) e comunitária (compartilhada por organizações com interesses comuns).",
+        "Armazenamento em nuvem (Google Drive, OneDrive, iCloud): arquivos acessíveis de qualquer dispositivo, com sincronização. Depende de conexão e da segurança da conta.",
+        "Backup é a cópia de segurança para recuperar dados. Completo: copia tudo. Incremental: copia o que mudou desde o ÚLTIMO backup de qualquer tipo (rápido de fazer; para restaurar, precisa do completo e de todos os incrementais). Diferencial: copia o que mudou desde o último backup COMPLETO (restaura com o completo e o último diferencial).",
+        "Boas práticas: guardar cópia em local diferente do original (regra 3-2-1: três cópias, em dois tipos de mídia, uma fora do local), testar a restauração e manter uma cópia desconectada (protege contra ransomware)."
+      ],
+      "pegadinhas": [
+        "SaaS = usar o programa pronto; PaaS = construir o programa; IaaS = alugar a infraestrutura. A banca troca as definições.",
+        "Incremental compara com o último backup de qualquer tipo; diferencial compara com o último completo.",
+        "Sincronização em nuvem não é backup: apagar o arquivo em um dispositivo apaga em todos."
+      ],
+      "novidades": [],
+      "itens": [
+        {"t": "O uso de um editor de textos pelo navegador, sem instalação no computador, é exemplo de Software como Serviço (SaaS).", "r": "C", "j": "Conceito de SaaS."},
+        {"t": "No modelo PaaS, o provedor oferece um ambiente no qual o cliente pode desenvolver e disponibilizar seus aplicativos.", "r": "C", "j": "Conceito de PaaS."},
+        {"t": "O backup incremental copia todos os arquivos alterados desde o último backup completo, independentemente de backups intermediários.", "r": "E", "j": "Conceito: essa é a definição do diferencial; o incremental copia o que mudou desde o último backup de qualquer tipo."},
+        {"t": "A nuvem híbrida combina recursos de nuvem pública e de nuvem privada.", "r": "C", "j": "Conceito de nuvem híbrida."},
+        {"t": "No modelo IaaS, o cliente utiliza apenas o software pronto, sem gerenciar sistemas operacionais ou aplicações.", "r": "E", "j": "Conceito: isso é SaaS; no IaaS o cliente gerencia o sistema operacional e as aplicações."},
+        {"t": "Manter uma cópia de segurança desconectada da rede ajuda a recuperar os dados após um ataque de ransomware.", "r": "C", "j": "Conceito: boa prática de backup."}
+      ],
+      "questoes": ["prf-2021-p1|item 38"]
+    }
+  ]
+}

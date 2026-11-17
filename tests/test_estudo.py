@@ -118,7 +118,7 @@ def test_lacuna_aceita_jeitos_de_dizer():
     ("simulado de 20 questões do CBMGO", "simulado"), ("lacunas do CTB", "lacunas"),
     ("revisa meus erros", "revisao"), ("lê o artigo 165 do CTB", "artigo"),
     ("como estou indo?", "desempenho"), ("o que eu estudo hoje?", "plano"),
-    ("me testa em probabilidade", None), ("o que cai na PRF?", None), ("o que é probabilidade?", None),
+    ("me testa em fotossíntese", None), ("o que cai na PRF?", None), ("o que é fotossíntese?", None),
 ])
 def test_entende_pedidos_de_estudo(tutor, fala, tipo):
     p = tutor.entender(fala)
@@ -241,7 +241,7 @@ def test_le_o_artigo_com_ficha(tutor):
 def test_trechos_da_lei_para_o_cerebro(tutor):
     t = tutor.contexto_da_lei("quantos pontos tem dirigir sem cinto?")
     assert "Art. 167" in t and "Trechos OFICIAIS" in t
-    assert tutor.contexto_da_lei("o que é probabilidade?") == ""
+    assert tutor.contexto_da_lei("o que é fotossíntese?") == ""
 
 
 # ---------- desempenho, plano e pomodoro ----------
