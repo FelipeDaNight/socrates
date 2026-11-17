@@ -35,7 +35,7 @@ def tutor(tmp_path):
 
 @pytest.mark.parametrize("trilha", [PP, LE])
 def test_trilhas_bem_formadas(trilha):
-    assert trilha.atualizado == "2026-11-13" and trilha.apelidos
+    assert trilha.atualizado == "2026-11-17" and trilha.apelidos
     for t in trilha.topicos:
         assert len(t.pontos) >= 5 and len(t.itens) >= 3 and t.palavras, t.id
         assert t.faixas(), t.id
@@ -121,3 +121,12 @@ def test_o_que_aprendi_em_varias_materias(tutor):
     s = tutor.atender("o que eu já aprendi?")
     assert "Legislação Especial" in s.fala and "Direito Processual Penal" in s.fala
     assert "domina 0 tópicos" not in s.fala
+
+
+def test_leis_de_2026_conferidas():
+    """Lei 15.410/2026 (tortura reiterada contra a mulher) e Lei 15.438/2026 (decadência de 12 meses
+    na violência doméstica), conferidas em 17/11/2026."""
+    tort = " ".join(LE.topico("tortura").pontos)
+    assert "art. 1º, III" in tort and "Lei 15.410/2026" in tort and "REITERADAMENTE" in tort
+    ap = " ".join(PP.topico("acao-penal").pontos)
+    assert "12 MESES" in ap and "Lei 15.438/2026" in ap

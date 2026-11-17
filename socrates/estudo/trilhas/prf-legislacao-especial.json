@@ -3,8 +3,8 @@
   "materia": "Legislação Especial",
   "concurso": "PRF",
   "banca": "Cebraspe",
-  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe). Leis conferidas nas fontes oficiais (Câmara, Senado, STF) até 13/11/2026: Leis 15.245/2025, 15.358/2026, 15.384/2026, 15.474/2026 e 15.487/2026; PEC 18/2025 aprovada pelo Senado em 3/11/2026.",
-  "atualizado": "2026-11-13",
+  "fonte": "Conteúdo do edital PRF 2021 (Cebraspe). Leis conferidas nas fontes oficiais (Câmara, Senado, STF) até 13/11/2026: Leis 15.245/2025, 15.358/2026, 15.384/2026, 15.474/2026 e 15.487/2026; PEC 18/2025 aprovada pelo Senado em 3/11/2026. Lei de Tortura atualizada com a Lei 15.410/2026 (conferida em 17/11/2026 na Câmara dos Deputados).",
+  "atualizado": "2026-11-17",
   "apelidos": ["legislacao especial", "legislacao penal especial", "leis especiais", "leis penais especiais", "leis extravagantes"],
   "nao_confundir": [],
   "plano": "prf",
@@ -186,6 +186,7 @@
       "pontos": [
         "Tortura-prova, tortura-crime e tortura-discriminação (art. 1º, I): constranger alguém com violência ou grave ameaça, causando sofrimento físico ou mental, a) para obter informação, declaração ou confissão; b) para provocar ação ou omissão de natureza criminosa; c) em razão de discriminação racial ou religiosa. Reclusão de 2 a 8 anos.",
         "Tortura-castigo (art. 1º, II): submeter alguém sob sua guarda, poder ou autoridade, com violência ou grave ameaça, a INTENSO sofrimento físico ou mental, como castigo pessoal ou medida de caráter preventivo. Reclusão de 2 a 8 anos.",
+        "Tortura contra a mulher (art. 1º, III, incluído pela Lei 15.410/2026): submeter mulher, REITERADAMENTE, a intenso sofrimento físico ou mental, no contexto de violência doméstica e familiar, sem prejuízo da pena de outras infrações. Reclusão de 2 a 8 anos.",
         "Na mesma pena incorre quem submete pessoa presa ou sujeita a medida de segurança a sofrimento físico ou mental, por ato não previsto em lei ou não resultante de medida legal (§ 1º).",
         "Tortura por omissão (§ 2º): quem se omite diante dessas condutas, quando tinha o dever de evitá-las ou apurá-las, responde com detenção de 1 a 4 anos.",
         "Resultado: lesão grave ou gravíssima, reclusão de 4 a 10 anos; morte, reclusão de 8 a 16 anos (§ 3º). Aumento de 1/6 a 1/3 se o crime é cometido por agente público; contra criança, gestante, pessoa com deficiência, adolescente ou maior de 60 anos; ou mediante sequestro (§ 4º).",
@@ -195,15 +196,20 @@
       "pegadinhas": [
         "Na tortura-castigo (inciso II), o sofrimento tem de ser INTENSO; não é 'qualquer sofrimento, independentemente da intensidade' (PRF 2021, item 115).",
         "A omissão (§ 2º) tem pena menor e é de DETENÇÃO (1 a 4 anos); não tem a mesma pena da tortura.",
-        "A tortura do inciso I pode ser praticada por qualquer pessoa (crime comum); a perda do cargo é efeito automático da condenação."
+        "A tortura do inciso I pode ser praticada por qualquer pessoa (crime comum); a perda do cargo é efeito automático da condenação.",
+        "O inciso III (Lei 15.410/2026) exige violência REITERADA contra MULHER no contexto doméstico e familiar; um episódio isolado não basta para esse tipo."
       ],
-      "novidades": [],
+      "novidades": [
+        "Lei 15.410/2026 (Lei Barbara Penna, DOU de 21/5/2026, em vigor na publicação): incluiu o inciso III no art. 1º (tortura reiterada contra a mulher no contexto de violência doméstica e familiar) e mudou a Lei de Execução Penal (proibição de aproximação da vítima, RDD e transferência do preso que ameaça a vítima)."
+      ],
       "itens": [
         {"t": "Praticam o crime de tortura policiais rodoviários federais que, dentro de um posto policial, submetem o autor de crime a sofrimento físico, independentemente de sua intensidade.", "r": "E", "j": "Art. 1º, II, exige INTENSO sofrimento físico ou mental. Item 115 da PRF 2021."},
         {"t": "Aquele que se omite em face das condutas de tortura, quando tinha o dever de evitá-las ou apurá-las, incorre na pena de detenção de um a quatro anos.", "r": "C", "j": "Art. 1º, § 2º, da Lei 9.455/1997."},
         {"t": "A condenação por crime de tortura acarreta a perda do cargo público e a interdição para o seu exercício pelo dobro do prazo da pena aplicada.", "r": "C", "j": "Art. 1º, § 5º."},
         {"t": "O crime de tortura é afiançável, mas insuscetível de graça ou anistia.", "r": "E", "j": "Art. 1º, § 6º: é inafiançável e insuscetível de graça ou anistia."},
-        {"t": "Constranger alguém, com emprego de grave ameaça, causando-lhe sofrimento mental, em razão de discriminação religiosa, configura tortura.", "r": "C", "j": "Art. 1º, I, c."}
+        {"t": "Constranger alguém, com emprego de grave ameaça, causando-lhe sofrimento mental, em razão de discriminação religiosa, configura tortura.", "r": "C", "j": "Art. 1º, I, c."},
+        {"t": "Submeter mulher, reiteradamente, a intenso sofrimento físico ou mental, no contexto de violência doméstica e familiar, passou a configurar crime de tortura.", "r": "C", "j": "Lei 9.455/1997, art. 1º, III, incluído pela Lei 15.410/2026."},
+        {"t": "Para configurar a tortura contra a mulher no contexto de violência doméstica e familiar, basta um único episódio de sofrimento físico leve.", "r": "E", "j": "Lei 9.455/1997, art. 1º, III (Lei 15.410/2026): exige sofrimento intenso imposto reiteradamente."}
       ],
       "questoes": ["prf-2021-p1|item 115"]
     },
