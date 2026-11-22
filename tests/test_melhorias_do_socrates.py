@@ -323,3 +323,52 @@ async def test_no_treino_por_no_quadro_e_do_tutor_nao_do_agente(tmp_path):
     o = s.ouvido
     await _rodar(conversa, [o.fala("Sócrates, coloque a questão no quadro, por favor.")])
     assert roteiro.mensagens is None and s.voz.faladas[0] == "Está no quadro."
+
+
+# ---------------------------------------------------------------- lição errada não trava o que ele faz
+
+class CerebroQueRecusa(CerebroRoteiro):
+    """22/11 16:49: com a lição errada no prompt, "Abra o Spotify" virou "não consigo"."""
+
+    def __init__(self):
+        super().__init__([])
+        self.vezes = 0
+
+    async def com_ferramentas(self, mensagens, esquemas, executar, max_rodadas=4, parar=None):
+        self.vezes += 1
+        self.mensagens = mensagens
+        if self.vezes == 1:
+            return "Desculpe, não consigo abrir ou controlar aplicativos como o Spotify."
+        await executar("abrir_programa", {"nome": "spotify"})
+        return "Pronto, abri o Spotify."
+
+
+@pytest.mark.asyncio
+async def test_recusa_a_toa_e_corrigida(agente):
+    c = CerebroQueRecusa()
+    r = await agente(c).atender("Abra o Spotify.")
+    assert r.texto == "Pronto, abri o Spotify." and r.ferramentas == ["abrir_programa"]
+    assert "você TEM a ferramenta" in c.mensagens[-1]["content"]
+
+
+@pytest.mark.asyncio
+async def test_nao_aceita_licao_que_nega_o_que_ele_faz(agente):
+    from socrates.core.memoria import nega_capacidade
+    ag = agente(CerebroRoteiro([]))
+    errada = "Ao receber pedidos de abrir o Spotify, informe a limitação em vez de fingir"
+    assert nega_capacidade(errada)
+    assert "recusada" in ag.anotar_licao(errada) and ag.memorias.licoes.textos() == []
+    assert ag.anotar_licao("Não pergunte de novo quando ele pedir a próxima") == "Lição registrada."
+    assert "ela está errada: use a ferramenta" in ag.sistema()
+
+
+@pytest.mark.asyncio
+async def test_reflexao_tira_sozinha_licao_que_nega_capacidade(tmp_path):
+    log = tmp_path / "socrates.log"
+    log.write_text(LOG, encoding="utf-8")
+    m = Memorias(tmp_path / "S")
+    m.licoes.adicionar("Ao receber pedidos de controle de aplicativos (ex.: abrir Spotify), informe "
+                       "a limitação em vez de fingir que a ação foi executada")
+    c = CerebroJSON({"licoes": ["Diga que não consegue abrir programas"], "melhorias": []})
+    await Reflexao(c, m, log, hoje=lambda: date(2026, 11, 23)).refletir()
+    assert m.licoes.textos() == []

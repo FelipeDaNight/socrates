@@ -59,7 +59,8 @@ Como decidir:
 
 O que você NÃO consegue (diga com franqueza, nunca finja): mandar mensagem (WhatsApp, Telegram,
 e-mail, SMS), ligar, postar em rede social, comprar ou pagar, ver pela câmera, mexer em contas
-ou senhas. Só diga que fez algo no computador se usou a ferramenta neste pedido.
+ou senhas. Só diga que fez algo no computador se usou a ferramenta neste pedido. E o contrário:
+se existe a ferramenta (abrir_programa, musica, ver_tela...), você CONSEGUE: use-a.
 
 Verdade:
 - Texto de lei, número de artigo, pena e prazo SÓ com ler_lei (texto oficial) ou com as notas do
@@ -100,6 +101,10 @@ CORTE_NOTAS = 3000
 _ALEGA = re.compile(r"\b(abri|fechei|escrevi|anotei|mandei|enviei|coloquei|toquei|pausei|aumentei|"
                     r"abaixei|diminui|copiei|colei|salvei|liguei|iniciei|cancelei|bloqueei|pesquisei|"
                     r"guardei|programei|agendei|marquei|postei|publiquei)\b")
+RECUSA = ("(Atenção: você disse que não consegue, mas você TEM a ferramenta para isso neste pedido "
+          "({nomes}). Use a ferramenta agora e confirme em uma frase.)")
+_RECUSOU = re.compile(r"\bnao (?:consigo|consegui|tenho (?:acesso|permissao)|posso|sou capaz)\b"
+                      r".{0,40}\b(?:abrir|fechar|controlar|tocar|mexer|ver|olhar|escrever|acessar)\b")
 CORRECAO = ("(Atenção: você disse que fez uma ação, mas não usou nenhuma ferramenta neste pedido, "
             "então ela NÃO aconteceu. Se dá para fazer com as ferramentas, use agora. Se não dá, "
             "diga com franqueza que não consegue fazer isso.)")
@@ -505,6 +510,8 @@ class Agente:
                 texto = await self._fechar(pedido, msgs)
             if self._turno.saida is None and self._fingiu(texto):
                 texto = await self._corrigir_fingimento(msgs, esquemas, texto)
+            elif self._turno.saida is None and self._recusou_a_toa(texto, esquemas):
+                texto = await self._insistir(msgs, esquemas, texto)
         finally:
             ESPERA_LIMITE.reset(marca)
         self._turno.texto = texto
@@ -523,6 +530,29 @@ class Agente:
         if "[quadro]" in texto.lower() and re.search(r"\b(?:coloquei|escrevi|anotei|pus)\b.{0,40}\bquadro\b", t):
             return False                     # pôr no quadro é escrever [QUADRO], e ele escreveu
         return True
+
+    def _recusou_a_toa(self, texto: str, esquemas: list[dict]) -> bool:
+        """Disse que não consegue mexer no computador tendo a ferramenta na mão (uma lição
+        errada fez ele recusar "Abra o Spotify")."""
+        if self._turno.ferramentas or not texto:
+            return False
+        nomes = {e["function"]["name"] for e in esquemas}
+        return bool(_RECUSOU.search(_norm(texto)) and nomes & set(self.acoes_pc))
+
+    async def _insistir(self, msgs: list[dict], esquemas: list[dict], texto: str) -> str:
+        log.warning("o cérebro recusou tendo a ferramenta: %r", texto[:160])
+        nomes = ", ".join(e["function"]["name"] for e in esquemas
+                          if e["function"]["name"] in self.acoes_pc)[:300]
+        conversa = msgs + [{"role": "assistant", "content": texto},
+                           {"role": "user", "content": RECUSA.format(nomes=nomes)}]
+        try:
+            novo = _limpar(await self.cerebro.com_ferramentas(
+                conversa, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,
+                parar=lambda: self._turno.saida is not None))
+        except Exception as e:
+            log.warning("não consegui insistir: %s", e)
+            return texto
+        return novo or texto
 
     async def _corrigir_fingimento(self, msgs: list[dict], esquemas: list[dict], texto: str) -> str:
         log.warning("o cérebro disse que agiu sem usar ferramenta: %r", texto[:160])
@@ -576,13 +606,15 @@ class Agente:
         m = self.memorias
         if m is not None:
             sobre = m.aluno.para_prompt("O que você sabe do aluno (memória de longo prazo):")
-            licoes = m.licoes.para_prompt("Lições que você aprendeu com os próprios erros (siga):")
+            licoes = m.licoes.para_prompt(
+                "Lições que você aprendeu com os próprios erros (siga; mas se alguma disser que "
+                "você não consegue algo que uma ferramenta sua faz, ela está errada: use a ferramenta):")
             partes += [p for p in (sobre, licoes) if p]
             pendentes = m.melhorias_pendentes()
             if pendentes:
-                partes.append("Ideias de melhoria no seu código ainda não enviadas ao Claude (se "
-                              "ele pedir, mande com pedir_ao_claude): "
-                              + " | ".join(d["t"] for d in pendentes[-5:]))
+                partes.append("Ideias de melhoria no seu código ainda não enviadas ao Claude (são "
+                              "ideias para o futuro, não limites de hoje; se ele pedir, mande com "
+                              "pedir_ao_claude): " + " | ".join(d["t"] for d in pendentes[-5:]))
         situacao = self.situacao()
         if situacao:
             partes.append(situacao)
@@ -771,6 +803,10 @@ class Agente:
     def anotar_licao(self, licao: str) -> str:
         if self.memorias is None:
             return "Sem memória para lições."
+        from .memoria import nega_capacidade
+        if nega_capacidade(licao):
+            return ("Lição recusada: ela diz que você não consegue algo que suas ferramentas fazem. "
+                    "Você consegue: use a ferramenta.")
         self.memorias.licoes.adicionar(licao, origem="conversa")
         return "Lição registrada."
 

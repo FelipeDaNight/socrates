@@ -197,8 +197,14 @@ class Reflexao:
         for t in erradas:                 # ele também corrige as próprias lições
             self.memorias.licoes.remover(t)
             log.info("reflexão: tirei a lição errada: %s", t)
-        licoes = [l for l in _frases(dados.get("licoes"), MAX_LICOES)
-                  if self.memorias.licoes.adicionar(l, origem="reflexao")]
+        from .memoria import nega_capacidade
+        for t in ja:                      # e as que negam o que as ferramentas fazem
+            if t not in erradas and nega_capacidade(t):
+                self.memorias.licoes.remover(t)
+                log.info("reflexão: tirei a lição que negava uma capacidade: %s", t)
+        novas = _frases(dados.get("licoes"), MAX_LICOES)
+        licoes = [l for l in novas if not nega_capacidade(l)
+                  and self.memorias.licoes.adicionar(l, origem="reflexao")]
         melhorias = [m for m in _frases(dados.get("melhorias"), MAX_MELHORIAS)
                      if self.memorias.melhorias.adicionar(m, status="nova", origem="reflexao")]
         self._gravar_estado({"data": self.hoje().isoformat(), "ate": ultimo,

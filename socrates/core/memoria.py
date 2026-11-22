@@ -42,6 +42,22 @@ def parecido(a: str, b: str) -> bool:
     return comum / len(pa | pb) >= 0.6 or comum / min(len(pa), len(pb)) >= 0.85
 
 
+# Lição que diz que ele "não consegue" algo que as ferramentas dele fazem é lição ERRADA (em
+# 14/11 a reflexão concluiu que ele fingia abrir o Spotify; com a lição, ele passou a se
+# recusar a abrir o Spotify de verdade).
+_NEGA = re.compile(r"\b(nao (?:consig\w*|consegue|pode|posso|tenho (?:acesso|permissao))|limitac\w*|"
+                   r"impossib\w*|em vez de fingir|fing\w*)\b")
+_CAPACIDADE = re.compile(r"\b(abri\w*|fech\w*|aplicativ\w*|programa\w*|spotify|youtube|music\w*|"
+                         r"bloco de notas|tela|janela\w*|volume|timer|pomodoro|navegador|site\w*|"
+                         r"claude|controle de aplicativos|controlar)\b")
+
+
+def nega_capacidade(texto: str) -> bool:
+    """A frase diz que ele não consegue mexer no computador (o que ele consegue)."""
+    t = _norm(texto)
+    return bool(_NEGA.search(t) and _CAPACIDADE.search(t))
+
+
 class Lista:
     """Frases guardadas em disco, sem repetidas, com limite (as mais antigas saem)."""
 

@@ -119,7 +119,9 @@ falhas de voz... próxima/siga... integridade dos [QUADRO]... apelidos". O que e
 - **"Cicco" e "Filipe" não eram apelidos:** era o microfone ouvindo "Explique, por favor". Agora
   valem como "explica", e fala curta e incerta ("Mie.", "Hum...") é descartada como ruído.
 - **A reflexão ficou mais esperta:** vê no registro as ferramentas usadas (prova de que a ação
-  aconteceu), sabe o que ele consegue fazer e tira as lições erradas que já tinha.
+  aconteceu), sabe o que ele consegue fazer e tira as lições erradas que já tinha. Lição que
+  diz "não consigo abrir o Spotify" (ele consegue) é recusada, e se ele mesmo assim disser
+  "não consigo" tendo a ferramenta, é corrigido na hora e usa a ferramenta.
 
 ### Estudar com questões reais e lei seca
 
@@ -582,7 +584,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     771 testes, rodam sem microfone nem internet
+tests/                     774 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
