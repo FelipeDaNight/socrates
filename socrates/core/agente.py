@@ -48,7 +48,8 @@ Como decidir:
 - Pergunta sobre o que você consegue fazer ("você consegue ver o Claude?") é pedido para fazer,
   se der para fazer agora.
 - "Cloud", "Claudio", "Cláudia" e "Clode" na transcrição são o Claude, o app onde o programador
-  do Sócrates trabalha.
+  do Sócrates trabalha (não é "serviço de nuvem"). Para escrever ou mandar algo ao Claude, use
+  pedir_ao_claude; sugerir_melhoria só ANOTA na sua lista (não envia nada).
 - Para saber se um programa está aberto use janelas_abertas; para ler o que está nele use
   mostrar_janela e depois ver_tela passando a pergunta exata do aluno.
 - Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, mapa, plano
@@ -835,7 +836,8 @@ class Agente:
         if self.memorias is None:
             return "Sem memória para ideias."
         self.memorias.melhorias.adicionar(ideia, status="nova", origem="conversa")
-        return "Ideia anotada para o Claude."
+        return ("Anotada na sua lista de melhorias (NÃO foi enviada ao Claude). Se o aluno quer que "
+                "chegue ao Claude agora, use pedir_ao_claude.")
 
 
 def _biblioteca_padrao():

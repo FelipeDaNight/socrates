@@ -76,3 +76,17 @@ def chamou(texto: str) -> tuple[bool, str]:
             return True, antes
 
     return False, texto.strip()
+
+
+# O Whisper escreve "Claude" (o app onde o programador do Sócrates trabalha) como "Cloud",
+# "Clout", "Claudio"... e o cérebro entendia "integrar o serviço Cloud para sincronizar".
+_CLAUDE = re.compile(r"\b(?:cloud|clout|claud|clode|cloude|claudio|cláudio)\b", re.I)
+_NUVEM = re.compile(r"\b(?:computa\w* em nuvem|nuvem|cloud computing|armazenamento|saas|iaas|paas|"
+                    r"icloud|google cloud|onedrive|backup)\b", re.I)
+
+
+def nome_do_claude(texto: str) -> str:
+    """ "manda pro Cloud" -> "manda pro Claude" (mas "computação em nuvem/cloud" fica)."""
+    if not texto or _NUVEM.search(texto):
+        return texto
+    return _CLAUDE.sub("Claude", texto)

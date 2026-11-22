@@ -14,10 +14,20 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from . import TAXA_MIC, ErroAudio, importar_sounddevice
+from . import TAXA_MIC, TRAVA_SOM, ErroAudio, importar_sounddevice
 from .microfone import BLOCO_MS, AjustesMic, Segmentador, rms
 
 log = logging.getLogger("socrates.escuta")
+
+
+@dataclass
+class EventoMicrofone:
+    """O microfone caiu (fone desconectado, driver sumiu) ou voltou."""
+    texto: str
+    voltou: bool
+
+
+ESPERAS_RECONEXAO = (1, 2, 3, 5, 5, 10)   # segundos entre as tentativas (depois fica em 10)
 
 
 @dataclass
@@ -114,18 +124,47 @@ class Escuta:
             self._loop.call_soon_threadsafe(self.fila.put_nowait, item)
 
     def _rodar(self) -> None:
+        """Ouve para sempre. Se o microfone cair (em 22/11 o driver sumiu: "There is no
+        driver installed", MME error 6, e ele ficou surdo até reiniciar), avisa e tenta
+        reconectar sozinho, pegando o microfone padrão do Windows de novo."""
         sd = importar_sounddevice()
         tamanho = int(TAXA_MIC * BLOCO_MS / 1000)
+        falhas = 0
+        while not self._parar.is_set():
+            try:
+                with sd.InputStream(samplerate=TAXA_MIC, channels=1, dtype="int16",
+                                    blocksize=tamanho, device=self.dispositivo) as fluxo:
+                    if falhas:
+                        log.info("microfone voltou (depois de %d tentativa(s))", falhas)
+                        self._entregar(EventoMicrofone("Voltei a te ouvir.", voltou=True))
+                        falhas = 0
+                        self.seg.reiniciar()
+                    while not self._parar.is_set():
+                        bloco, _ = fluxo.read(tamanho)
+                        fala = self.processar(bloco)
+                        if fala is not None:
+                            duracao = len(fala) / TAXA_MIC
+                            log.debug("fala de %.1f s", duracao)
+                            self._entregar(Fala(fala, time.monotonic() - duracao))
+                return
+            except Exception as e:   # microfone desconectado, driver sumiu, permissão negada...
+                falhas += 1
+                if falhas == 1:
+                    log.exception("escuta caiu; tentando reconectar o microfone")
+                    self._entregar(EventoMicrofone(
+                        f"O microfone desconectou ({e}). Estou tentando reconectar.", voltou=False))
+                else:
+                    log.info("microfone ainda fora (tentativa %d): %s", falhas, e)
+                espera = ESPERAS_RECONEXAO[min(falhas - 1, len(ESPERAS_RECONEXAO) - 1)]
+                if self._parar.wait(espera):
+                    return
+                self._reiniciar_portaudio(sd)
+
+    def _reiniciar_portaudio(self, sd) -> None:
+        """O PortAudio só enxerga microfone novo (fone que conectou) depois de reiniciar."""
         try:
-            with sd.InputStream(samplerate=TAXA_MIC, channels=1, dtype="int16",
-                                blocksize=tamanho, device=self.dispositivo) as fluxo:
-                while not self._parar.is_set():
-                    bloco, _ = fluxo.read(tamanho)
-                    fala = self.processar(bloco)
-                    if fala is not None:
-                        duracao = len(fala) / TAXA_MIC
-                        log.debug("fala de %.1f s", duracao)
-                        self._entregar(Fala(fala, time.monotonic() - duracao))
-        except Exception as e:   # microfone desconectado, permissão negada...
-            log.exception("escuta caiu")
-            self._entregar(ErroAudio(f"O microfone parou: {e}"))
+            with TRAVA_SOM:
+                sd._terminate()
+                sd._initialize()
+        except Exception as e:
+            log.info("não consegui reiniciar o som: %s", e)

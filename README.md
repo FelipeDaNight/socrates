@@ -131,6 +131,14 @@ canto do visor e, na 2ª seguida, ele avisa em voz. O nome mal ouvido ("Socates"
 quando alguém falou perto do limiar sem ser ouvido, e o autoestudo espera você parar de
 falar antes de pedir ao cérebro (o limite grátis é o mesmo).
 
+**Microfone que volta sozinho (22/11).** Às 17:35 o driver do microfone sumiu ("There is no
+driver installed", MME error 6) e ele ficou surdo até reiniciar. Agora ele avisa ("O microfone
+desconectou, estou tentando reconectar"), tenta de novo sozinho (pega o microfone padrão do
+Windows outra vez) e diz "Voltei a te ouvir". Também: "Cloud"/"Clout"/"Claudio" na transcrição
+viram "Claude" (ele entendia "serviço de nuvem"), frase inventada pelo Whisper em MAIÚSCULAS
+("A CIDADE NO BRASIL") é descartada, e o Claude pode deixar um recado em
+`recado_do_claude.txt`, que ele lê na saudação.
+
 ### Estudar com questões reais e lei seca
 
 O Sócrates usa o mesmo material do app [estudo-prf](https://github.com/FelipeDaNight/estudo-prf):
@@ -592,7 +600,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     793 testes, rodam sem microfone nem internet
+tests/                     803 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

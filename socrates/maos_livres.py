@@ -26,12 +26,12 @@ import numpy as np
 
 from . import ferramentas
 from .audio import ErroAudio
-from .audio.escuta import Fala
+from .audio.escuta import EventoMicrofone, Fala
 from .ferramentas import claude
 from .audio.microfone import para_wav
 from .config import Config
 from .core.comandos import Comando, interpretar
-from .core.despertar import chamou
+from .core.despertar import chamou, nome_do_claude
 from .core.narrador import ecoar, narrar
 from .core.orquestrador import Orquestrador
 from .llm import ErroCerebro
@@ -446,6 +446,7 @@ class Conversa:
         texto = await self._transcrever(audio, em_janela)
         if not texto:
             return None
+        texto = nome_do_claude(texto)
         foi_chamado, pedido = chamou(texto)
         if foi_chamado:
             self.dizer_tela(f"\nVocê: {pedido or '(chamou)'}")
@@ -456,8 +457,26 @@ class Conversa:
         log.info("ignorado (sem o nome): %r", texto)
         return None
 
+    def _recado_do_claude(self) -> str:
+        """O Claude (que programa o Sócrates) pode deixar um recado na pasta dele: o que
+        melhorou. Ele lê na saudação uma vez e guarda como lido."""
+        from .core.memoria import PASTA
+        arq = PASTA / "recado_do_claude.txt"
+        try:
+            texto = re.sub(r"\s+", " ", arq.read_text(encoding="utf-8")).strip()
+        except OSError:
+            return ""
+        try:
+            arq.replace(arq.with_name("recado_do_claude.lido.txt"))
+        except OSError:
+            pass
+        return texto[:500]
+
     def _saudacao(self, palavra: bool) -> str:
         """Com o cérebro que decide, ele já chega com iniciativa: o plano do dia."""
+        recado = self._recado_do_claude()
+        if recado:
+            recado = f"Recado do Claude: {recado} "
         fim = "É só me chamar pelo nome." if palavra else "Pode falar."
         if (self.agente is not None and self.tutor is not None
                 and getattr(self.cfg, "agente", None) is not None
@@ -470,10 +489,13 @@ class Conversa:
             if plano is not None and plano.fala:
                 if plano.quadro:
                     self._ao_quadro(plano.quadro)
-                fala = f"Olá! {plano.fala}"
+                fala = f"Olá! {recado}{plano.fala}"
                 self.soc.registrar(None, fala)
                 return fala
-        return f"Olá! Eu sou o {self.cfg.nome}. {fim}"
+        fala = f"Olá! {recado}Eu sou o {self.cfg.nome}. {fim}"
+        if recado:
+            self.soc.registrar(None, fala)
+        return fala
 
     # ---------- laço principal ----------
     async def rodar(self, fila: asyncio.Queue) -> None:
@@ -495,6 +517,11 @@ class Conversa:
                 break
             if isinstance(item, ErroAudio):
                 self.dizer_tela(f"[microfone] {item} Você ainda pode digitar.")
+                continue
+            if isinstance(item, EventoMicrofone):     # caiu (e ele tenta reconectar) ou voltou
+                self.dizer_tela(f"[microfone] {item.texto}")
+                self.painel.aprendendo = "" if item.voltou else "◆ microfone desconectado: reconectando..."
+                await self.falar(item.texto, False)
                 continue
             if isinstance(item, Aviso):
                 self.dizer_tela(f"\n{self.cfg.nome}: {item.texto}")

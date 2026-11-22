@@ -153,6 +153,17 @@ def _campo(trecho, nome: str, padrao=None):
     return getattr(trecho, nome, padrao)
 
 
+def parece_legenda(texto: str, logprob: float | None) -> bool:
+    """Com ruído, o Whisper inventa frases em MAIÚSCULAS ("A CIDADE NO BRASIL", "CELSO
+    SÓRICA"), e com a janela aberta o Sócrates respondia a elas. Se chamou pelo nome, vale."""
+    if logprob is None or logprob >= -0.6:
+        return False
+    letras = [c for c in texto if c.isalpha()]
+    if len(letras) < 6 or sum(c.isupper() for c in letras) / len(letras) < 0.8:
+        return False
+    return "socrat" not in _normalizar(texto)
+
+
 def curta_duvidosa(texto: str, logprob: float | None) -> bool:
     """1 ou 2 palavras, certeza baixa e não é uma resposta/comando conhecido: ruído."""
     if logprob is None or logprob >= LOGPROB_CURTA:
@@ -238,6 +249,10 @@ class OuvidoWhisper(Ouvido):
             if limpo != texto:
                 log.info("repetição removida: %r -> %r", texto, limpo)
             texto = limpo
+        if texto and parece_legenda(texto, self.ultima_medida.logprob):
+            log.info("descartado (frase em maiúsculas e incerta, parece invenção do Whisper): %r (%s)",
+                     texto, self.ultima_medida)
+            return ""
         if texto and curta_duvidosa(texto, self.ultima_medida.logprob):
             log.info("descartado (curto e incerto, parece ruído): %r (%s)", texto, self.ultima_medida)
             return ""

@@ -1,11 +1,18 @@
 """Entrada e saída de som: microfone e alto-falante."""
 
+import threading
+
 TAXA_MIC = 16_000    # Whisper trabalha em 16 kHz
 TAXA_VOZ = 24_000    # edge-tts entrega áudio em 24 kHz
 
 
 class ErroAudio(Exception):
     """Microfone ou alto-falante indisponível."""
+
+
+# O microfone, ao reconectar, reinicia o PortAudio; isso não pode acontecer no meio de uma
+# fala tocando no alto-falante.
+TRAVA_SOM = threading.Lock()
 
 
 def importar_sounddevice():

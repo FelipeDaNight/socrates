@@ -6,7 +6,7 @@ import asyncio
 
 import numpy as np
 
-from . import TAXA_VOZ, ErroAudio, importar_sounddevice
+from . import TAXA_VOZ, ErroAudio, importar_sounddevice, TRAVA_SOM
 
 
 def decodificar_mp3(mp3: bytes, taxa: int = TAXA_VOZ) -> np.ndarray:
@@ -31,8 +31,9 @@ class AltoFalante:
             from ..visor.painel import envelope
             self.painel.iniciar_fala(envelope(amostras, taxa))
         try:
-            sd.play(amostras, taxa, device=self.dispositivo)
-            sd.wait()
+            with TRAVA_SOM:
+                sd.play(amostras, taxa, device=self.dispositivo)
+                sd.wait()
         except sd.PortAudioError as e:
             raise ErroAudio(f"Problema com o alto-falante: {e}") from e
         finally:

@@ -138,3 +138,116 @@ def test_chaves_extras_no_env_local(tmp_path, monkeypatch):
     finally:                                   # não deixa as chaves de teste para os outros testes
         os.environ.pop("GEMINI_API_KEY", None)
         os.environ.pop("GROQ_API_KEY", None)
+
+
+# ---------------------------------------------------------------- microfone que cai e volta
+
+class FluxoFalso:
+    """Lê 2 blocos e "perde o driver" (MME error 6), como em 22/11 às 17:35."""
+
+    def __init__(self, falhar):
+        self.falhar = falhar
+        self.lidos = 0
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+    def read(self, n):
+        self.lidos += 1
+        if self.falhar and self.lidos > 2:
+            raise RuntimeError("There is no driver installed on your system. [MME error 6]")
+        return np.zeros((n, 1), dtype=np.int16), False
+
+
+def test_microfone_cai_e_reconecta_sozinho(monkeypatch):
+    import socrates.audio.escuta as esc
+
+    abertos, reinicios = [], []
+
+    class SdFalso:
+        def InputStream(self, **k):
+            f = FluxoFalso(falhar=len(abertos) == 0)       # o 1º cai; o 2º funciona
+            abertos.append(f)
+            return f
+
+        def _terminate(self):
+            reinicios.append("t")
+
+        def _initialize(self):
+            reinicios.append("i")
+
+    entregues = []
+    e = esc.Escuta()
+    monkeypatch.setattr(esc, "importar_sounddevice", lambda: SdFalso())
+    monkeypatch.setattr(esc, "ESPERAS_RECONEXAO", (0.01,))
+
+    def entregar(item):
+        entregues.append(item)
+        if isinstance(item, esc.EventoMicrofone) and item.voltou:
+            e.parar()
+
+    e._entregar = entregar
+    e._rodar()
+    eventos = [i for i in entregues if isinstance(i, esc.EventoMicrofone)]
+    assert [ev.voltou for ev in eventos] == [False, True]
+    assert "desconectou" in eventos[0].texto and reinicios == ["t", "i"] and len(abertos) == 2
+
+
+@pytest.mark.asyncio
+async def test_conversa_avisa_que_o_microfone_caiu_e_voltou():
+    from socrates.audio.escuta import EventoMicrofone
+    conversa, s, *_ = _montar()
+    await _rodar(conversa, [EventoMicrofone("O microfone desconectou (x). Estou tentando reconectar.",
+                                            False),
+                            EventoMicrofone("Voltei a te ouvir.", True)])
+    assert s.voz.faladas[:2] == ["O microfone desconectou (x). Estou tentando reconectar.",
+                                 "Voltei a te ouvir."]
+
+
+# ---------------------------------------------------------------- "Cloud" é o Claude
+
+@pytest.mark.parametrize("fala,certo", [
+    ("Você pode digitar no Cloud o que deve melhorar?", "Você pode digitar no Claude o que deve melhorar?"),
+    ("Manda suas ideias para o Clout.", "Manda suas ideias para o Claude."),
+    ("Não foi enviado ao Claudio", "Não foi enviado ao Claude"),
+    ("o que é computação em nuvem, cloud computing?", "o que é computação em nuvem, cloud computing?"),
+])
+def test_cloud_e_o_claude(fala, certo):
+    from socrates.core.despertar import nome_do_claude
+    assert nome_do_claude(fala) == certo
+
+
+def test_frase_inventada_em_maiusculas_e_descartada():
+    from socrates.stt.groq_whisper import parece_legenda
+    assert parece_legenda("A CIDADE NO BRASIL", -0.95) and parece_legenda("CELSO SÓRICA", -0.84)
+    assert not parece_legenda("SÓCRATES", -0.75) and not parece_legenda("A CIDADE NO BRASIL", -0.3)
+
+
+def test_anotar_melhoria_deixa_claro_que_nao_enviou(tmp_path):
+    from socrates.core.agente import Agente
+    from socrates.core.memoria import Memorias
+
+    class C:
+        async def com_ferramentas(self, *a, **k):
+            return ""
+
+    ag = Agente(C(), memorias=Memorias(tmp_path / "S"))
+    r = ag.sugerir_melhoria("Sincronizar algo")
+    assert "NÃO foi enviada" in r and "pedir_ao_claude" in r
+
+
+@pytest.mark.asyncio
+async def test_saudacao_le_o_recado_do_claude_uma_vez(tmp_path, monkeypatch):
+    import socrates.core.memoria as mem
+    monkeypatch.setattr(mem, "PASTA", tmp_path)
+    (tmp_path / "recado_do_claude.txt").write_text("Agora eu reconecto o microfone sozinho.",
+                                                   encoding="utf-8")
+    conversa, s, *_ = _montar()
+    conversa.cfg.voz.saudacao = True
+    await _rodar(conversa, [])
+    assert "Recado do Claude: Agora eu reconecto o microfone sozinho." in s.voz.faladas[0]
+    assert not (tmp_path / "recado_do_claude.txt").exists()
+    assert (tmp_path / "recado_do_claude.lido.txt").exists()
