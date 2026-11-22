@@ -118,3 +118,23 @@ async def test_autoestudo_espera_a_conversa():
     inicio = asyncio.get_running_loop().time()
     await asyncio.gather(a._esperar_conversa(maximo=5), soltar())
     assert 1.0 <= asyncio.get_running_loop().time() - inicio < 4
+
+
+def test_chaves_extras_no_env_local(tmp_path, monkeypatch):
+    """A chave do Gemini foi gravada em .env.local (sem abrir o .env, que guarda a do Groq)."""
+    from socrates import config
+    (tmp_path / "config.yaml").write_text((config.RAIZ / "config.yaml").read_text(encoding="utf-8"),
+                                          encoding="utf-8")
+    (tmp_path / ".env").write_text("GROQ_API_KEY=do-env\n", encoding="utf-8")
+    (tmp_path / ".env.local").write_text("GEMINI_API_KEY=do-local\nGROQ_API_KEY=nao-vale\n",
+                                         encoding="utf-8")
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.setattr(config, "RAIZ", tmp_path)
+    import os
+    try:
+        config.carregar(tmp_path / "config.yaml")
+        assert os.environ["GEMINI_API_KEY"] == "do-local" and os.environ["GROQ_API_KEY"] == "do-env"
+    finally:                                   # não deixa as chaves de teste para os outros testes
+        os.environ.pop("GEMINI_API_KEY", None)
+        os.environ.pop("GROQ_API_KEY", None)

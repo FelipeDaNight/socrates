@@ -190,6 +190,7 @@ def _visoes(dados: dict, provedores: dict) -> list[dict]:
 
 def carregar(caminho: Path | str | None = None) -> Config:
     load_dotenv(RAIZ / ".env")
+    load_dotenv(RAIZ / ".env.local")   # chaves extras, gravadas sem mexer no .env (o .env vale mais)
     caminho = Path(caminho) if caminho else RAIZ / "config.yaml"
     if not caminho.exists():
         raise ErroConfig(f"Não achei o arquivo de configuração: {caminho}")
