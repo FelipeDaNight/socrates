@@ -182,8 +182,16 @@ def _altura(item: Item, largura: int, esc: float) -> float:
         return 270 * esc
     if item.tipo == "espaco":
         return 10 * esc
-    max_chars = int((largura - 2 * MARGEM - 24) / (corpo * LETRA_PX_POR_PT))
-    return len(_quebrar(item.conteudo, max_chars)) * corpo * 1.55 + 6 * esc
+    return len(_quebrar(item.conteudo, _max_chars(item, largura, esc))) * corpo * 1.55 + 6 * esc
+
+
+def _max_chars(item: Item, largura: int, esc: float) -> int:
+    """Letras por linha. A altura e o desenho usam a MESMA conta (com o recuo do item);
+    antes a altura esquecia o recuo, o item quebrava numa linha a mais e a última
+    linha ficava por cima do item seguinte."""
+    corpo = 19 * esc
+    recuo = 24 if item.tipo == "item" else 0
+    return max(8, int((largura - 2 * MARGEM - 24 - recuo) / (corpo * LETRA_PX_POR_PT)))
 
 
 def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
@@ -232,8 +240,7 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
             elif it.tipo in ("texto", "item"):
                 corpo = 19 * esc
                 recuo = 24 if it.tipo == "item" else 0
-                max_chars = int((largura - 2 * MARGEM - 24 - recuo) / (corpo * LETRA_PX_POR_PT))
-                linhas = _quebrar(it.conteudo, max_chars)
+                linhas = _quebrar(it.conteudo, _max_chars(it, largura, esc))
                 for k, linha in enumerate(linhas):
                     yy = y - k * corpo * 1.55
                     if it.tipo == "item" and k == 0:

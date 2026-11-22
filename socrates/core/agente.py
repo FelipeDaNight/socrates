@@ -53,6 +53,13 @@ Como decidir:
   mostrar_janela e depois ver_tela passando a pergunta exata do aluno.
 - Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, mapa, plano
   do dia, desempenho, o que estudou) vai para estudar, com o pedido em palavras simples.
+- "Próxima", "siga", "pode passar" e parecidos: siga direto, sem perguntar de novo.
+- O microfone erra palavras. Um nome solto como "Filipe, por favor" ou "Cicco, por favor"
+  quase sempre é "Explique, por favor": entenda pelo contexto, sem mudar de assunto.
+
+O que você NÃO consegue (diga com franqueza, nunca finja): mandar mensagem (WhatsApp, Telegram,
+e-mail, SMS), ligar, postar em rede social, comprar ou pagar, ver pela câmera, mexer em contas
+ou senhas. Só diga que fez algo no computador se usou a ferramenta neste pedido.
 
 Verdade:
 - Texto de lei, número de artigo, pena e prazo SÓ com ler_lei (texto oficial) ou com as notas do
@@ -61,6 +68,8 @@ Verdade:
 - Matéria de concurso: use as notas do material (vêm junto quando existem) ou buscar_no_material.
 - Livro, obra, fato atual ou algo que você não sabe com segurança: pesquisar_internet.
   Se mesmo assim não souber, diga com franqueza.
+- Questão de prova só vem do sistema (estudar). NUNCA invente questão dizendo que é "da PRF
+  2021" ou de qualquer prova; se ele pedir uma inventada, diga que é no estilo da banca.
 
 Memória e evolução:
 - Fato durável sobre o aluno (data da prova, dificuldade, preferência, objetivo) -> lembrar.
@@ -73,8 +82,8 @@ Memória e evolução:
 Fala (sua resposta vira áudio):
 - Frases curtas e naturais, sem markdown, no máximo 4 ou 5 frases faladas, salvo se ele pedir mais.
 - Quadro branco: escreva entre [QUADRO] e [/QUADRO] (título com #, itens com -, fórmula entre
-  $$ $$), até 10 linhas, quando ajudar a ver. ler_lei já põe a lei no quadro: não repita o texto,
-  comente o essencial.
+  $$ $$), até 10 linhas, quando ajudar a ver, e SEMPRE feche com [/QUADRO]. Nunca escreva
+  "[quadro mostrado]". ler_lei já põe a lei no quadro: não repita o texto, comente o essencial.
 - Depois de uma ação, confirme em uma frase. Nunca diga que fez algo sem ter usado a ferramenta.
 - Se uma ferramenta responder AGUARDANDO CONFIRMAÇÃO, pergunte em uma frase se pode fazer."""
 
@@ -86,6 +95,15 @@ NOTAS = ("Notas do seu material ligadas a esta fala (conferidas; use-as se ajuda
 
 HISTORICO = 8
 CORTE_NOTAS = 3000
+
+# "Pronto, abri o Spotify" sem ter chamado nenhuma ferramenta = ação fingida
+_ALEGA = re.compile(r"\b(abri|fechei|escrevi|anotei|mandei|enviei|coloquei|toquei|pausei|aumentei|"
+                    r"abaixei|diminui|copiei|colei|salvei|liguei|iniciei|cancelei|bloqueei|pesquisei|"
+                    r"guardei|programei|agendei|marquei|postei|publiquei)\b")
+CORRECAO = ("(Atenção: você disse que fez uma ação, mas não usou nenhuma ferramenta neste pedido, "
+            "então ela NÃO aconteceu. Se dá para fazer com as ferramentas, use agora. Se não dá, "
+            "diga com franqueza que não consegue fazer isso.)")
+HONESTO = "Não consegui fazer isso daqui: não tenho uma ferramenta para essa ação."
 ESPERA_NO_LIMITE = 3.0     # no limite grátis, espera no máximo isso e passa para o próximo cérebro
 
 # Fala que pode precisar do computador. Sem isso, as ferramentas do PC ficam de fora do
@@ -485,6 +503,8 @@ class Agente:
             texto = _limpar(texto)
             if self._turno.saida is None and self._sem_fechamento(texto):
                 texto = await self._fechar(pedido, msgs)
+            if self._turno.saida is None and self._fingiu(texto):
+                texto = await self._corrigir_fingimento(msgs, esquemas, texto)
         finally:
             ESPERA_LIMITE.reset(marca)
         self._turno.texto = texto
@@ -492,6 +512,32 @@ class Agente:
         log.info("agente: %r -> %s | %r", pedido[:100], ",".join(self._turno.ferramentas) or "-",
                  self._turno.texto[:400])
         return self._turno
+
+    def _fingiu(self, texto: str) -> bool:
+        """Disse que fez uma ação no computador sem ter usado ferramenta nenhuma."""
+        if self._turno.ferramentas or not texto:
+            return False
+        t = _norm(texto)
+        if not _ALEGA.search(t):
+            return False
+        if "[quadro]" in texto.lower() and re.search(r"\b(?:coloquei|escrevi|anotei|pus)\b.{0,40}\bquadro\b", t):
+            return False                     # pôr no quadro é escrever [QUADRO], e ele escreveu
+        return True
+
+    async def _corrigir_fingimento(self, msgs: list[dict], esquemas: list[dict], texto: str) -> str:
+        log.warning("o cérebro disse que agiu sem usar ferramenta: %r", texto[:160])
+        conversa = msgs + [{"role": "assistant", "content": texto},
+                           {"role": "user", "content": CORRECAO}]
+        try:
+            novo = _limpar(await self.cerebro.com_ferramentas(
+                conversa, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,
+                parar=lambda: self._turno.saida is not None))
+        except Exception as e:
+            log.warning("não consegui corrigir: %s", e)
+            return HONESTO
+        if self._turno.saida is not None:
+            return ""
+        return HONESTO if (not novo or self._fingiu(novo)) else novo
 
     def _sem_fechamento(self, texto: str) -> bool:
         """O cérebro bateu no limite no meio (depois de agir) e devolveu o resultado cru de

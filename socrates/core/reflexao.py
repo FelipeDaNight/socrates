@@ -22,6 +22,10 @@ from pathlib import Path
 log = logging.getLogger("socrates.reflexao")
 
 MIN_EVENTOS = 4          # menos que isso não vale a pena refletir
+CAPACIDADES = ("abrir e fechar programas (Spotify, Bloco de Notas...), escrever no Bloco de Notas, "
+               "ver a tela, listar janelas, copiar texto, tocar no YouTube e no Spotify, volume, "
+               "timer e pomodoro, anotar, mandar pedidos ao Claude, ler a lei oficial, dar aula, "
+               "puxar questões reais, pesquisar na internet, lembrar fatos do aluno")
 CORTE_REGISTRO = 9000    # caracteres do registro que vão para o cérebro
 MAX_LICOES = 5
 MAX_MELHORIAS = 3
@@ -34,13 +38,21 @@ _CONVERSA = re.compile(r"socrates\.orquestrador: aluno: " + _STR.format(n=1, nom
 _AGENTE = re.compile(r"socrates\.agente: agente: " + _STR.format(n=1, nome="aluno")
                      + r" -> (?P<ferr>\S+) \| " + _STR.format(n=2, nome="resp") + r"$")
 _TUTOR = re.compile(r"socrates\.tutor: pedido de estudo: Pedido\(tipo='(?P<tipo>\w+)'")
+_FERRAMENTA = re.compile(r"socrates\.(?:ferramentas|agente): ferramenta (?P<nome>\w+)\(")
 _IGNORADO = re.compile(r"socrates\.conversa: ignorado \(sem o nome\): (?P<t>.*)$")
 _FALHA = re.compile(r"\b(WARNING|ERROR)\s+socrates\.(?P<onde>[\w.]+): (?P<msg>.*)$")
 _RUIDO = ("descansa", "limite do", "usando o modelo reserva", "autoestudo", "não conferi",
           "busca falhou")
 
 PEDIDO = """Você é o {nome}, um assistente de estudo por voz, revisando o registro das suas
-últimas conversas com o aluno para melhorar sozinho. Procure no registro:
+últimas conversas com o aluno para melhorar sozinho.
+
+O que você CONSEGUE fazer de verdade (não tire lição dizendo que não consegue isso): {capacidades}.
+"[usou a ferramenta X]" no registro prova que a ação aconteceu. O microfone erra palavras: um
+nome solto ("Filipe, por favor", "Cicco, por favor") é erro de transcrição (ex.: "Explique, por
+favor"), não um apelido.
+
+Procure no registro:
 - onde você entendeu errado ou fez outra coisa (o aluno corrigiu, repetiu ou reclamou);
 - onde você inventou ou errou conteúdo (lei, artigo, número);
 - onde perguntou demais em vez de agir;
@@ -49,7 +61,8 @@ PEDIDO = """Você é o {nome}, um assistente de estudo por voz, revisando o regi
 
 Responda SOMENTE com um JSON assim:
 {{"licoes": ["regra curta, no imperativo, para você seguir daqui em diante"],
-  "melhorias": ["mudança concreta no seu código, para o programador (Claude) fazer"]}}
+  "melhorias": ["mudança concreta no seu código, para o programador (Claude) fazer"],
+  "remover": [números das lições que você já tem e estão ERRADAS ou contradizem o que você consegue]}}
 No máximo {max_l} lições e {max_m} melhorias, só o que o registro MOSTRA (nada genérico).
 Se não houver nada, devolva listas vazias.
 {ja}
@@ -84,6 +97,10 @@ def eventos_do_log(linhas: list[str], depois_de: str = "") -> tuple[list[str], s
         t = _TUTOR.search(linha)
         if t:
             eventos.append(f"{hora} [tutor: {t.group('tipo')}]")
+            continue
+        u = _FERRAMENTA.search(linha)
+        if u:                     # prova de que a ação aconteceu de verdade
+            eventos.append(f"{hora} [usou a ferramenta {u.group('nome')}]")
             continue
         i = _IGNORADO.search(linha)
         if i:
@@ -122,7 +139,7 @@ def _frases(lista, maximo: int) -> list[str]:
 
 class Reflexao:
     def __init__(self, cerebro, memorias, arquivo_log: Path, arquivo_estado: Path | None = None,
-                 nome: str = "Sócrates", hoje=date.today):
+                 nome: str = "Sócrates", hoje=date.today, capacidades: str = ""):
         self.cerebro = cerebro                  # precisa de responder() (o rodízio)
         self.memorias = memorias
         self.arquivo_log = Path(arquivo_log)
@@ -130,6 +147,7 @@ class Reflexao:
             memorias.licoes.arquivo.with_name("reflexao.json")
         self.nome = nome
         self.hoje = hoje
+        self.capacidades = capacidades or CAPACIDADES
 
     def _estado(self) -> dict:
         try:
@@ -165,13 +183,20 @@ class Reflexao:
         if len(registro) > CORTE_REGISTRO:
             registro = registro[-CORTE_REGISTRO:].split("\n", 1)[-1]
         ja = self.memorias.licoes.textos()
+        numeradas = "\n".join(f"{i + 1}. {t}" for i, t in enumerate(ja))
         pedido = PEDIDO.format(nome=self.nome, max_l=MAX_LICOES, max_m=MAX_MELHORIAS,
-                               ja=("Lições que você já tem (não repita): " + " | ".join(ja[-15:]))
-                               if ja else "", registro=registro)
+                               capacidades=self.capacidades,
+                               ja=("Lições que você já tem (não repita; diga em \"remover\" as "
+                                   "erradas):\n" + numeradas) if ja else "", registro=registro)
         texto = "".join([p async for p in self.cerebro.responder(
             [{"role": "system", "content": "Responda só com JSON válido."},
              {"role": "user", "content": pedido}])])
         dados = _json(texto)
+        erradas = [ja[n - 1] for n in dados.get("remover") or []
+                   if isinstance(n, int) and 1 <= n <= len(ja)]
+        for t in erradas:                 # ele também corrige as próprias lições
+            self.memorias.licoes.remover(t)
+            log.info("reflexão: tirei a lição errada: %s", t)
         licoes = [l for l in _frases(dados.get("licoes"), MAX_LICOES)
                   if self.memorias.licoes.adicionar(l, origem="reflexao")]
         melhorias = [m for m in _frases(dados.get("melhorias"), MAX_MELHORIAS)

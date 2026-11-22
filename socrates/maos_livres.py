@@ -102,6 +102,14 @@ _PEDE_QUADRO = re.compile(
     r"|calcul\w*|resolv\w*|passo a passo|demonstr\w*|teorema|funcao|derivada|integral)\b")
 
 
+_DO_TREINO = re.compile(r"\b(quadro|questao|questoes|item|itens|afirmacao|alternativa|gabarito|"
+                        r"anterior|proxima|proximo|explica\w*|dica|repete|repita)\b")
+
+
+def _sem_acento(texto: str) -> str:
+    return unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode().lower()
+
+
 def pede_quadro(pedido: str) -> bool:
     """O aluno pediu algo visual? (aí o quadro tem que aparecer)"""
     t = unicodedata.normalize("NFKD", pedido).encode("ascii", "ignore").decode().lower()
@@ -152,6 +160,23 @@ class Conversa:
             await self.s.voz.tocar(await self._sintetizar(texto, guardar))
         except (ErroVoz, ErroAudio) as e:
             self.dizer_tela(f"[voz] {e}")
+            if isinstance(e, ErroVoz) and len(texto) > 12:
+                self._avisar_sem_voz(texto)
+
+    def _avisar_sem_voz(self, texto: str) -> None:
+        """A voz falhou (o Edge e a reserva): o que ele ia falar aparece escrito no quadro e
+        no canto do visor, para você não ficar sem resposta sem saber por quê."""
+        texto = re.sub(r"\s+", " ", texto or "").strip()
+        if not texto:
+            return
+        from .estudo.treino import _quadro_seguro
+
+        log.warning("sem voz: mostrei escrito: %r", texto[:120])
+        if not self._quadros_nesta:
+            self._ao_quadro(_quadro_seguro(f"# Sem voz agora (leia aqui)\n{texto[:900]}"))
+            self.painel.aprendendo = "◆ sem voz agora: a resposta está escrita no quadro"
+        else:
+            self.painel.aprendendo = "◆ sem voz agora: a resposta está escrita no terminal"
 
     async def _com_microfone_pausado(self, tarefa) -> None:
         self.s.escuta.pausar()
@@ -216,10 +241,13 @@ class Conversa:
         pedacos = ecoar(fala, self.escrever)
 
         async def tarefa():
+            mudas: list[str] = []
             try:
                 await narrar(pedacos, self.s.voz,
-                             ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"))
+                             ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"),
+                             sem_voz=mudas.append)
                 self.dizer_tela()
+                self._avisar_sem_voz(" ".join(mudas))
                 if not self._quadros_nesta and pede_quadro(texto):
                     await self._quadro_extra()
             except ErroCerebro as e:
@@ -245,10 +273,13 @@ class Conversa:
         pedacos = ecoar(separar_quadro(fonte(), self._ao_quadro), self.escrever)
 
         async def tarefa():
+            mudas: list[str] = []
             try:
                 await narrar(pedacos, self.s.voz,
-                             ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"))
+                             ao_falhar=lambda e: self.escrever(f"\n[voz] {e} Seguindo em texto.\n"),
+                             sem_voz=mudas.append)
                 self.dizer_tela()
+                self._avisar_sem_voz(" ".join(mudas))
             except ErroAudio as e:
                 self.dizer_tela(f"\n[som] {e}")
             finally:
@@ -476,8 +507,10 @@ class Conversa:
                 self.abrir_janela()
                 continue
 
-            no_pc = (self.agente is not None and pede_acao(pedido)
-                     and len(pedido.split()) >= 2)    # "abre o bloco de notas" no meio do treino
+            no_pc = (self.agente is not None and pede_acao(pedido) and len(pedido.split()) >= 2
+                     and not _DO_TREINO.search(_sem_acento(pedido)))
+            # "abre o bloco de notas" no meio do treino vai ao agente; "coloca a questão no
+            # quadro" é do treino (antes o agente inventava a questão)
             if (self.tutor is not None and self.tutor.em_treino and not _comando_geral(pedido)
                     and not no_pc):
                 saida = self.tutor.atender(pedido)

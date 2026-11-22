@@ -22,6 +22,7 @@ NOME_LEI = {"CP": "Código Penal", "L14133": "Lei 14.133/2021", "CPP": "Código 
             "CTB": "CTB"}
 LIMITE_FALA = 450        # enunciado maior que isso não é lido em voz alta: fica no quadro
 LIMITE_QUADRO = 520
+_ORIENTACAO_ERRO = "Diga explica para entender, ou próxima para seguir."
 
 
 def _quadro_seguro(texto: str) -> str:
@@ -108,6 +109,8 @@ class Item:
         else:
             linhas.append("O aluno AINDA NÃO respondeu. Dê uma dica curta sobre a regra ou o "
                           "conceito, sem dizer a resposta e sem eliminar alternativas.")
+        linhas.append("NUNCA invente outra questão, 'próxima afirmação' ou 'questão anterior': as "
+                      "questões vêm do sistema. Se ele pedir a próxima, diga só: Vamos para a próxima.")
         return "\n".join(linhas)
 
 
@@ -257,16 +260,31 @@ class Sessao:
     # ---------- cada fala do aluno ----------
     def atender(self, texto: str) -> Saida:
         a = self.atual
-        cmd = respostas.comando(texto)
+        lacuna = a is not None and a.tipo == "lacuna" and self.estado == "perguntando"
+        cmd = respostas.comando(texto, solto=not lacuna)
         # uma resposta clara vale mais que uma palavra de comando no meio ("errado, explica")
+        dada_junto = None
         if a is not None and self.estado == "perguntando" and cmd not in ("parar",):
             dada = self._entender(a, texto)
-            if dada is not None and cmd not in ("pular", "repetir", "texto"):
+            if dada is not None and cmd not in ("pular", "repetir", "texto", "anterior", "quadro"):
                 return self._corrigir(a, dada)
+            if dada is not None and cmd == "pular" and a.tipo in ("ce", "mc"):
+                dada_junto = dada
         if cmd == "parar":
             return self.encerrar()
         if a is None:
             return self.encerrar()
+        if (cmd == "pular" and self.estado == "perguntando" and dada_junto is not None):
+            # "Certo, passo para a próxima": é a resposta E o pedido de seguir
+            saida = self._corrigir(a, dada_junto)
+            if self.estado == "corrigida":
+                self.pos += 1
+                return self._apresentar(saida.fala.replace(_ORIENTACAO_ERRO, "").rstrip() + " ")
+            return saida
+        if cmd == "anterior":
+            return self._anterior(a)
+        if cmd == "quadro":
+            return Saida(fala="Está no quadro.", quadro=a.quadro)
         if cmd == "placar":
             return Saida(fala=self._placar() + " Vamos continuar. " + a.fala, quadro=a.quadro)
         if cmd == "repetir":
@@ -293,6 +311,8 @@ class Sessao:
             self.pos += 1
             return self._apresentar()
         # não entendeu a resposta
+        if a.tipo == "ce" and respostas.ambiguo(texto):
+            return Saida(fala="Você disse certo e errado. Qual vale? Diga só certo, ou só errado.")
         if len(respostas.norm(texto).split()) >= 5 and self.modo != "simulado":
             return Saida(contexto=a.contexto(revelar=False))   # era uma dúvida
         pedir = {"ce": "Diga certo ou errado.", "mc": "Diga a letra, por exemplo: letra B."}
@@ -303,7 +323,7 @@ class Sessao:
             return respostas.certo_ou_errado(texto)
         if a.tipo == "mc":
             return respostas.alternativa(texto, a.letras)
-        if respostas.comando(texto):
+        if respostas.comando(texto, solto=False):
             return None
         t = respostas.norm(texto)
         if not t or t in ("nao sei", "sei la", "nao lembro"):
@@ -331,7 +351,7 @@ class Sessao:
         self.estado = "corrigida"
         fala = (f"Não. O gabarito é {a.gabarito_falado()}. "
                 + (_cortar(comentario, 300) + " " if comentario else "")
-                + "Diga explica para entender, ou próxima para seguir.")
+                + _ORIENTACAO_ERRO)
         return Saida(fala=fala)
 
     def _anotar(self, a: Item, dada: str | None, ok: bool) -> None:
@@ -351,7 +371,21 @@ class Sessao:
         if r and r.dada:
             dada = {"C": "Certo", "E": "Errado"}.get(r.dada, r.dada) if a.tipo == "ce" else r.dada
         return a.contexto(revelar=True, resposta_aluno=dada) + \
-            "\nDepois de explicar, pergunte se ele quer seguir para a próxima."
+            ("\nDepois de explicar, termine dizendo que, quando ele quiser, é só dizer próxima "
+             "(não faça pergunta).")
+
+    def _anterior(self, a: Item) -> Saida:
+        """ "Me mostra a questão anterior": a de verdade, com o gabarito e o que ele disse
+        (antes o cérebro inventava uma)."""
+        if not self.registros:
+            return Saida(fala="Essa é a primeira questão. " + a.fala, quadro=a.quadro)
+        r = self.registros[-1]
+        disse = ("Você deixou em branco." if r.dada is None else
+                 f"Você respondeu {r.item._falado(r.dada)}, e {'acertou' if r.ok else 'errou'}.")
+        fala = (f"A anterior era esta. O gabarito é {r.item.gabarito_falado()}. {disse} "
+                "Quando quiser, diga: repete, para voltar à atual.")
+        quadro = r.item.quadro.replace("Certo ou errado?", f"Gabarito: {r.item.gabarito_falado()}")
+        return Saida(fala=fala, quadro=quadro)
 
     # ---------- placar e fim ----------
     def contagem(self) -> tuple[int, int, int]:

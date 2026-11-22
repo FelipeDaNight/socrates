@@ -26,6 +26,9 @@ FIXACAO = 4          # itens de fixação no fim da aula
 _SEGUIR = re.compile(r"^(?:socrates )?(?:proximo|proxima|continua|continue|continuar|segue|seguir|"
                      r"pode seguir|pode continuar|pode passar|avanca|avancar|entendi|ja entendi|"
                      r"entendido|vamos para o proximo|passa|pula|proximo ponto|outro ponto)\b")
+# "Entendi, pode seguir para o próximo", "Sim, pode passar": em qualquer lugar de uma fala curta
+_SEGUIR_SOLTO = re.compile(r"\b(?:pode|vamos|bora|podemos|quero|vai)\s+(?:seguir|passar|continuar|"
+                           r"avancar)\b|\b(?:para|pro|pra) (?:o )?proximo\b|\bproximo ponto\b")
 # Só é "pode seguir" quando o Sócrates acabou de perguntar se pode seguir
 _CONCORDA = re.compile(r"^(?:socrates )?(?:sim|pode|ok|okay|beleza|claro|isso|bora|vamos|manda|"
                        r"certo|tranquilo|show|perfeito|vai|uhum|aham|com certeza)\b")
@@ -47,6 +50,7 @@ class Aula:
         self.retomada = not registro.get("concluida") and 0 < parou <= len(topico.pontos)
         self.k = parou - 1 if self.retomada else 0
         self.aguardando_seguir = False
+        self.direto = False      # ele pediu para seguir sem responder: sem pergunta no fim
         self.interrompida = False              # o aluno saiu para consultar algo
         self.sessao: Sessao | None = None
         self.inicio = time.monotonic()
@@ -82,8 +86,10 @@ class Aula:
                   "NÃO use o quadro nesta resposta (o ponto já está lá).",
                   "Não invente artigo, pena, súmula ou lei que não esteja aqui. Se o ponto for "
                   "diferente do que você lembra, o ponto está certo: a lei mudou.",
-                  "Termine com UMA pergunta curta e aberta para checar se ele entendeu "
-                  "(não faça pergunta de certo ou errado)."]
+                  ("Termine SEM pergunta: ele pediu ritmo direto e diz 'próximo' quando quiser "
+                   "seguir." if self.direto else
+                   "Termine com UMA pergunta curta e aberta para checar se ele entendeu "
+                   "(não faça pergunta de certo ou errado).")]
         if primeira and self.retomada:
             regras.insert(1, f"Comece dizendo que vão continuar a aula de {self.topico.titulo} "
                              f"do ponto {self.k + 1}.")
@@ -102,7 +108,9 @@ class Aula:
                 "Se ele respondeu, diga se está certo com base no ponto; se estiver errado ou "
                 "incompleto, corrija com gentileza e explique de novo, curto. Se for dúvida, "
                 "responda com base no ponto e nos artigos, sem inventar. Use o quadro só se "
-                "precisar de um esquema. Termine perguntando se pode seguir para o próximo ponto.")
+                "precisar de um esquema. " +
+                ("Termine dizendo que é só dizer próximo para seguir (sem pergunta)."
+                 if self.direto else "Termine perguntando se pode seguir para o próximo ponto."))
 
     # ---------- passos ----------
     def abrir(self) -> Saida:
@@ -115,7 +123,7 @@ class Aula:
         if reg.get("concluida") and self.k + 1 < self.n:
             reg["vistos"] = self.k + 1      # refazendo a aula: conta de novo
         self._salvar()
-        self.aguardando_seguir = False
+        self.aguardando_seguir = self.direto
         quadro = _quadro_seguro(f"# {self.topico.titulo} · {self.k + 1}/{self.n}\n"
                                 f"{self.topico.pontos[self.k]}")
         return Saida(quadro=quadro, contexto=self._ctx_explicar(primeira, de_novo))
@@ -145,7 +153,10 @@ class Aula:
             return self.pausar()
         if cmd == "repetir":
             return self._ponto(de_novo=True)
-        if _SEGUIR.match(t) or (self.aguardando_seguir and _CONCORDA.match(t)):
+        solto = len(t.split()) <= 9 and _SEGUIR_SOLTO.search(t) and not t.startswith("nao")
+        if _SEGUIR.match(t) or solto or (self.aguardando_seguir and _CONCORDA.match(t)):
+            if not self.aguardando_seguir:
+                self.direto = True        # pulou a pergunta de checagem: quer ritmo direto
             return self._avancar()
         self.aguardando_seguir = True
         return Saida(contexto=self._ctx_responder())

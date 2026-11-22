@@ -18,8 +18,11 @@ CORTE_ANTIGAS = 600
 
 
 def _resumo_quadro(m: re.Match) -> str:
-    titulo = next((l.lstrip("# ").strip() for l in m.group(1).splitlines() if l.strip()), "")
-    return f"[quadro mostrado: {titulo}]"
+    """O quadro antigo fica curto, mas no formato de verdade. (Antes virava "[quadro
+    mostrado: título]", e o modelo passou a imitar isso em vez de desenhar o quadro.)"""
+    linhas = [l.strip() for l in m.group(1).splitlines() if l.strip()]
+    resumo = "\n".join(linhas[:2])[:160]
+    return f"[QUADRO]\n{resumo}\n(...)\n[/QUADRO]" if resumo else ""
 
 
 def compactar(historico: list[Mensagem]) -> list[Mensagem]:

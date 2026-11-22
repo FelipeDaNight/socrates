@@ -114,5 +114,5 @@ def test_historico_antigo_fica_curto():
             {"role": "user", "content": "e o delta?"},
             {"role": "assistant", "content": "O delta é b² - 4ac."}]
     c = compactar(hist)
-    assert c[1]["content"] == "Veja. [quadro mostrado: Bhaskara] Entendeu?"
+    assert c[1]["content"] == "Veja. [QUADRO]\n# Bhaskara\n$$ x = 1 $$\n(...)\n[/QUADRO] Entendeu?"
     assert c[3] == hist[3] and hist[1]["content"] == quadro   # não altera o original

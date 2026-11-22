@@ -98,6 +98,29 @@ com uma caixa de ferramentas e **ele decide** o que fazer, combinando várias se
   sozinho ao jeito antigo.
 - Para desligar: `agente: ativo: false` no `config.local.yaml`.
 
+**O que ele mesmo pediu ao Claude (22/11)** — a primeira volta completa do ciclo: ele releu
+o registro, anotou as ideias e mandou "Implementar checagem de capacidades... tratamento de
+falhas de voz... próxima/siga... integridade dos [QUADRO]... apelidos". O que entrou:
+
+- **Não finge ação.** Se disser "abri", "mandei", "escrevi" sem ter usado ferramenta, ele é
+  corrigido na hora e admite que não consegue. O prompt diz o que ele NÃO faz (WhatsApp,
+  e-mail, ligações, compras).
+- **Voz que falha vira texto.** O que não saiu em áudio aparece escrito no quadro, com aviso
+  no canto do visor.
+- **"Próxima", "siga", "pode passar" em qualquer lugar da frase** seguem para a questão de
+  verdade (antes, "Pode seguir para a próxima" ia ao cérebro, que chegou a inventar questões
+  "da PRF 2021"). "Certo, passo para a próxima" é resposta E seguir. Na aula, quem pula a
+  pergunta de checagem passa a ter ritmo direto, sem "posso seguir?".
+- **Treino mais esperto:** "me mostra a questão anterior" mostra a de verdade com o gabarito;
+  "coloca a questão no quadro" fica no treino; "Errado, certo." pergunta qual vale.
+- **Quadro íntegro:** marcas tortas ("[quadro]", "**[QUADRO]**", "[quadro mostrado]") viram
+  quadro de verdade, quadro sem fechar fecha sozinho e a pergunta do fim volta para a fala; o
+  histórico não ensina mais a marca falsa; item longo não passa por cima do seguinte.
+- **"Cicco" e "Filipe" não eram apelidos:** era o microfone ouvindo "Explique, por favor". Agora
+  valem como "explica", e fala curta e incerta ("Mie.", "Hum...") é descartada como ruído.
+- **A reflexão ficou mais esperta:** vê no registro as ferramentas usadas (prova de que a ação
+  aconteceu), sabe o que ele consegue fazer e tira as lições erradas que já tinha.
+
 ### Estudar com questões reais e lei seca
 
 O Sócrates usa o mesmo material do app [estudo-prf](https://github.com/FelipeDaNight/estudo-prf):
@@ -559,7 +582,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     734 testes, rodam sem microfone nem internet
+tests/                     771 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -582,7 +605,9 @@ tests/                     734 testes, rodam sem microfone nem internet
 - [x] **Fase 10** — o cérebro que decide: entende o pedido e escolhe as ferramentas (lei oficial,
   aula, questões, PC, internet, memória); lições tiradas dos próprios erros; ideias de melhoria
   para o Claude; voz que não cala (tenta de novo e usa a voz do Windows)
-- [ ] **Próximo** — Português, RLM, Informática, Física e Geopolítica; depois CBMGO
+- [x] **Fase 11** — as melhorias que o próprio Sócrates pediu: não fingir ação, voz que falha vira
+  texto, "próxima/siga" sem confirmação, quadro íntegro, erros do microfone, reflexão que se corrige
+- [ ] **Próximo** — CBMGO
 
 ## Testes
 

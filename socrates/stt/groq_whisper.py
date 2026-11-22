@@ -60,6 +60,14 @@ SEM_FALA_MAX = 0.6        # acima disso o Whisper acha que não havia fala...
 LOGPROB_COM_SEM_FALA = -0.6   # ...e, se além disso a certeza for baixa, é ruído
 LOGPROB_MIN = -1.2        # certeza tão baixa que o texto é chute
 COMPRESSAO_MAX = 2.6      # texto repetitivo demais
+# Fala de 1 ou 2 palavras com certeza baixa quase sempre é ruído ("Mie.", "Hum...", "Bom.")
+# e o cérebro tentava achar sentido nela (chegou a mandar de novo um pedido ao Claude).
+LOGPROB_CURTA = -0.9
+CURTAS_VALIDAS = {"sim", "nao", "certo", "certa", "errado", "errada", "proxima", "proximo", "pula",
+                  "pular", "passa", "repete", "explica", "explique", "dica", "para", "parar", "chega",
+                  "ok", "tchau", "obrigado", "obrigada", "valeu", "socrates", "pode", "vai", "bora",
+                  "segue", "siga", "continua", "isso", "claro", "beleza", "letra", "a", "b", "c", "d",
+                  "e", "oi", "ola", "manda", "pronto", "verdadeiro", "falso", "cancela", "sair"}
 
 
 def _normalizar(texto: str) -> str:
@@ -144,6 +152,14 @@ def _campo(trecho, nome: str, padrao=None):
     return getattr(trecho, nome, padrao)
 
 
+def curta_duvidosa(texto: str, logprob: float | None) -> bool:
+    """1 ou 2 palavras, certeza baixa e não é uma resposta/comando conhecido: ruído."""
+    if logprob is None or logprob >= LOGPROB_CURTA:
+        return False
+    palavras = _normalizar(texto).split()
+    return 0 < len(palavras) <= 2 and not all(p in CURTAS_VALIDAS for p in palavras)
+
+
 def trecho_confiavel(logprob: float | None, sem_fala: float | None,
                      compressao: float | None) -> bool:
     if compressao is not None and compressao > COMPRESSAO_MAX:
@@ -216,5 +232,8 @@ class OuvidoWhisper(Ouvido):
             if limpo != texto:
                 log.info("repetição removida: %r -> %r", texto, limpo)
             texto = limpo
+        if texto and curta_duvidosa(texto, self.ultima_medida.logprob):
+            log.info("descartado (curto e incerto, parece ruído): %r (%s)", texto, self.ultima_medida)
+            return ""
         log.info("transcrito: %r (%s)", texto, self.ultima_medida)
         return texto

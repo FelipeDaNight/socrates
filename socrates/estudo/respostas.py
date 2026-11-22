@@ -40,19 +40,43 @@ COMANDOS = [   # (comando, frases); a primeira que bater vale
     ("texto", r"\b(?:mostra|mostre|abre|abra|le|leia)\b.*\btexto\b|\btexto (?:completo|inteiro|de apoio)\b"),
     ("dica", r"\b(?:dica|pista|me ajuda)\b"),
     ("explicar", r"\b(?:explica|explique|explicar|por que|porque|pq|nao entendi|como assim|"
-                 r"justifica|fundamento|qual (?:e )?a regra)\b"),
+                 r"justifica|fundamento|qual (?:e )?a regra)\b"
+                 # o microfone ouve "Explique, por favor" como "Filipe, por favor" (e parecidos)
+                 r"|^(?:filipe|felipe|felippe|cicco|cico|chico|esplica|explico)(?: por favor)?$"),
+    ("anterior", r"\b(?:questao|pergunta|item|afirmacao) anterior\b|\banterior a essa\b"
+                 r"|^(?:volta|voltar|volte)(?: (?:uma|a|na|para a))?(?: questao| anterior)?$"),
+    ("quadro", r"\b(?:mostra|mostre|coloca|coloque|poe|ponha|bota|bote|escreve|escreva|joga|"
+               r"deixa)\b.*\bquadro\b|^(?:no )?quadro(?: por favor)?$"),
     ("placar", r"\b(?:placar|quantas (?:eu )?(?:acertei|errei|faltam)|como (?:eu )?(?:estou|to) indo)\b"),
 ]
 _COMANDOS = [(nome, re.compile(rx)) for nome, rx in COMANDOS]
 
 
-def comando(texto: str) -> str | None:
+# "Pode seguir para a próxima", "Entendi, pode passar", "Sim, pode passar": seguir em
+# qualquer lugar de uma fala curta (antes só valia no começo, e o resto ia para o cérebro,
+# que chegou a inventar "a próxima questão").
+_SEGUIR = re.compile(r"\b(?:proxima|proximo|seguinte|seguir|segue|siga|sigo|passar|passa|passo|"
+                     r"pula|pular|pule|avanca|avancar|avance|continua|continuar|continue)\b")
+_NAO_SEGUIR = re.compile(r"\bnao\b.{0,25}\b(?:passa|passar|segue|seguir|pula|pular|avanca|"
+                         r"continua|proxima)\b|\b(?:explica|explique|por que|porque|nao entendi|"
+                         r"como assim|anterior|ainda nao)\b")
+
+
+def comando(texto: str, solto: bool = True) -> str | None:
+    """`solto=False`: só os comandos claros (a resposta de uma lacuna pode ter "seguinte")."""
     t = norm(texto)
     t = re.sub(r"^(?:socrates|ei|ok|ta|entao|bom)\s+", "", t)
     for nome, rx in _COMANDOS:
         if rx.search(t):
             return nome
+    if solto and len(t.split()) <= 8 and _SEGUIR.search(t) and not _NAO_SEGUIR.search(t):
+        return "pular"
     return None
+
+
+def quer_seguir(texto: str) -> bool:
+    """A fala pede para seguir/avançar (em qualquer lugar de uma frase curta)?"""
+    return comando(texto) == "pular"
 
 
 # ---------- certo / errado ----------
@@ -62,7 +86,8 @@ _ERRADO = re.compile(r"\b(errado|errada|incorreto|incorreta|falso|falsa|mentira)
 
 
 def certo_ou_errado(texto: str) -> str | None:
-    """'C', 'E' ou None. Se aparecerem os dois, vale o último dito."""
+    """'C', 'E' ou None. Se aparecerem os dois numa frase, vale o último dito ("acho que
+    certo... não, errado"); numa fala curta ("Errado, certo?") é ambíguo: None."""
     t = norm(texto)
     if t in ("c", "letra c"):
         return "C"
@@ -72,7 +97,20 @@ def certo_ou_errado(texto: str) -> str | None:
              [(m.start(), "E") for m in _ERRADO.finditer(t)]
     if not marcas:
         return None
+    if ambiguo(texto):
+        return None
     return max(marcas)[1]
+
+
+_CORRIGIU = re.compile(r"\b(?:nao|quer dizer|digo|ops|opa|melhor)\b")
+
+
+def ambiguo(texto: str) -> bool:
+    """Disse certo E errado numa fala curta, sem se corrigir ("Errado, certo." pode ser
+    "errado, né?"): melhor perguntar do que chutar. "Errado, não, certo!" vale certo."""
+    t = norm(texto)
+    return bool(_CERTO.search(t) and _ERRADO.search(t) and len(t.split()) <= 3
+                and not _CORRIGIU.search(t))
 
 
 # ---------- alternativas A a E ----------
