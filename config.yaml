@@ -30,9 +30,6 @@ agente:                       # o "cérebro que decide": entende a fala e escolh
   reflexao: true              # todo dia relê o próprio registro e escreve lições para si
   saudacao_com_plano: true    # ao ligar, já sugere o que estudar hoje
 
-claude:                       # "Sócrates, pede pro Claude..." digita no app do Claude
-  enviar_com_enter: true      # false = só cola a mensagem, você confere e aperta Enter
-
 visao:                        # ver a tela (só quando você pede); tenta na ordem
   modelo: qwen/qwen3.8-27b      # no Groq
   reservas:                     # provedor: modelo (pulado se não tiver chave)

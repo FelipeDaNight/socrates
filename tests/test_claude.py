@@ -1,4 +1,4 @@
-"""Confirmação por voz, pedir ao Claude, se atualizar e config.local.yaml."""
+"""Confirmação por voz, a caixa do Claude, se atualizar e config.local.yaml."""
 
 import asyncio
 import subprocess
@@ -25,42 +25,43 @@ JANELAS = [{"processo": "notepad", "titulo": "Sem título - Bloco de notas", "id
            {"processo": "claude", "titulo": "Claude", "id": 77}]
 
 
+@pytest.fixture
+def atualizar_falso(monkeypatch):
+    """A ação que ainda pede confirmação (se atualizar), sem rodar o git de verdade."""
+    feitos = []
+    monkeypatch.setitem(ferramentas.REGISTRO["atualizar_socrates"].__dict__, "funcao",
+                        lambda: feitos.append("atualizou") or "Atualizei (x). Vou reiniciar agora.")
+    return feitos
+
+
 # ---------- confirmação ----------
 
-def test_acao_sensivel_espera_o_sim(monkeypatch):
-    chamadas = []
-    monkeypatch.setattr(claude, "WINDOWS", True)
-    monkeypatch.setattr(claude, "listar_janelas", lambda: JANELAS)
-    monkeypatch.setattr(claude, "_powershell", lambda s, timeout=15: chamadas.append(s) or "OK")
+def test_acao_sensivel_espera_o_sim(atualizar_falso):
+    r = ferramentas.executar("atualizar_socrates", {})
+    assert "AGUARDANDO CONFIRMAÇÃO" in r and "baixar a versão nova e reiniciar" in r
+    assert atualizar_falso == []                            # nada foi feito ainda
 
-    r = ferramentas.executar("pedir_ao_claude", {"pedido": "Deixe a voz mais grave."})
-    assert "AGUARDANDO CONFIRMAÇÃO" in r and 'Claude: "Deixe a voz mais grave."' in r
-    assert chamadas == []                                   # nada foi digitado ainda
-
-    r = ferramentas.resolver_confirmacao("Sim, pode mandar!")
-    assert "Mandei para o Claude" in r
-    script = chamadas[0]
-    assert "AppActivate(77)" in script and "^v" in script and "{ENTER}" in script
-    assert "[Pedido do Sócrates, por voz] Deixe a voz mais grave." in script
+    r = ferramentas.resolver_confirmacao("Sim, pode atualizar!")
+    assert "Atualizei" in r and atualizar_falso == ["atualizou"]
     assert ferramentas.PENDENTE is None
 
 
-def test_nao_cancela(monkeypatch):
-    monkeypatch.setattr(claude, "_powershell", lambda *a, **k: pytest.fail("não podia digitar"))
-    ferramentas.executar("pedir_ao_claude", {"pedido": "x"})
+def test_nao_cancela(atualizar_falso):
+    ferramentas.executar("atualizar_socrates", {})
     assert ferramentas.resolver_confirmacao("Não, cancela.") == "Tudo bem, cancelei."
+    assert atualizar_falso == []
 
 
-def test_mudar_de_assunto_descarta(monkeypatch):
-    monkeypatch.setattr(claude, "_powershell", lambda *a, **k: pytest.fail("não podia digitar"))
-    ferramentas.executar("pedir_ao_claude", {"pedido": "x"})
+def test_mudar_de_assunto_descarta(atualizar_falso):
+    ferramentas.executar("atualizar_socrates", {})
     assert ferramentas.resolver_confirmacao("O que é crase?") is None
     assert ferramentas.PENDENTE is None
     assert ferramentas.resolver_confirmacao("sim") is None   # o "sim" atrasado não vale mais
+    assert atualizar_falso == []
 
 
-def test_confirmacao_expira(monkeypatch):
-    ferramentas.executar("pedir_ao_claude", {"pedido": "x"})
+def test_confirmacao_expira(atualizar_falso):
+    ferramentas.executar("atualizar_socrates", {})
     ferramentas.PENDENTE.criado -= ferramentas.VALIDADE_SEG + 1
     assert ferramentas.resolver_confirmacao("sim") is None
 
@@ -74,44 +75,40 @@ def test_entende_sim_e_nao(fala, esperado):
     assert ferramentas._concorda(ferramentas._norm(fala)) is esperado
 
 
-# ---------- digitar no Claude ----------
+# ---------- a caixa do Claude (22/11: digitar no app dele falhava) ----------
 
-def test_acha_o_app_do_claude():
-    assert claude.janela_do_claude(JANELAS)["id"] == 77
-    web = [{"processo": "chrome", "titulo": "Sócrates - Claude - Google Chrome", "id": 9}]
-    assert claude.janela_do_claude(web)["id"] == 9
-    assert claude.janela_do_claude(JANELAS[:1]) is None
-
-
-def test_texto_do_pedido_nunca_vira_comando():
-    script = claude.script_colar(77, "'; Remove-Item C:\\ -Recurse; '", True)
-    linha = next(l for l in script.splitlines() if l.startswith("Set-Clipboard -Value '"))
-    miolo = linha.removeprefix("Set-Clipboard -Value ")[1:-1]
-    assert miolo.replace("''", "").count("'") == 0
+@pytest.fixture
+def caixa(tmp_path, monkeypatch):
+    import socrates.core.memoria as mem
+    monkeypatch.setattr(mem, "PASTA", tmp_path)
+    return mem.Memorias(tmp_path)
 
 
-def test_sem_enter_so_cola():
-    assert "{ENTER}" not in claude.script_colar(77, "oi", False)
+def test_pedido_vai_para_a_caixa_sem_digitar_nem_confirmar(caixa, monkeypatch):
+    import socrates.ferramentas.janelas as jan
+    monkeypatch.setattr(jan, "_powershell", lambda *a, **k: pytest.fail("não podia mexer no PC"))
+    r = ferramentas.executar("pedir_ao_claude", {"pedido": "Deixe a voz mais grave."})
+    assert "AGUARDANDO" not in r and "caixa do Claude" in r and "toda noite" in r
+    assert ferramentas.PENDENTE is None
+    [item] = caixa.melhorias.itens()
+    assert item["t"] == "Deixe a voz mais grave." and item["status"] == "nova"
+    assert item["origem"] == "aluno"
 
 
-def test_devolve_o_que_estava_copiado():
-    script = claude.script_colar(77, "oi", True)
-    assert script.index("$antes = Get-Clipboard") < script.index("Set-Clipboard -Value 'oi'")
-    assert "Set-Clipboard -Value $antes" in script
+def test_pedido_repetido_nao_duplica(caixa):
+    claude.pedir_ao_claude("Deixe a voz mais grave")
+    r = claude.pedir_ao_claude("deixe a voz mais grave.")
+    assert "já está na caixa" in r and len(caixa.melhorias.itens()) == 1
 
 
-def test_sem_claude_aberto_explica(monkeypatch):
-    monkeypatch.setattr(claude, "WINDOWS", True)
-    monkeypatch.setattr(claude, "listar_janelas", lambda: JANELAS[:1])
-    assert "Não encontrei o app do Claude" in ferramentas.executar(
-        "pedir_ao_claude", {"pedido": "x"}, confirmado=True)
-
-
-def test_janela_sem_foco_explica(monkeypatch):
-    monkeypatch.setattr(claude, "WINDOWS", True)
-    monkeypatch.setattr(claude, "listar_janelas", lambda: JANELAS)
-    monkeypatch.setattr(claude, "_powershell", lambda s, timeout=15: "SEM_FOCO")
-    assert "Clique uma vez" in claude.pedir_ao_claude("x")
+def test_aluno_pede_de_novo_o_que_o_claude_ja_fez_reabre(caixa):
+    caixa.melhorias.adicionar("Deixe a voz mais grave", status="feita", origem="aluno",
+                              resposta="Tom -8Hz no config.yaml")
+    r = claude.pedir_ao_claude("Deixe a voz mais grave")
+    assert "deixei de novo na caixa" in r
+    [item] = caixa.melhorias.itens()
+    assert item["status"] == "nova" and item["antes"] == "feita" and item["de_novo"] is True
+    assert caixa.melhorias_pendentes() == [item]
 
 
 def test_claude_nunca_e_fechado():
@@ -175,18 +172,15 @@ def test_frases_do_claude_sao_acao(frase):
 # ---------- conversa: "sim" resolve antes do cérebro ----------
 
 @pytest.mark.asyncio
-async def test_conversa_resolve_o_sim_sem_chamar_o_cerebro(monkeypatch):
+async def test_conversa_resolve_o_sim_sem_chamar_o_cerebro(atualizar_falso):
     from test_maos_livres import _montar, _rodar
     conversa, s, painel, cerebro, tela = _montar()
-    feitos = []
-    monkeypatch.setitem(ferramentas.REGISTRO["pedir_ao_claude"].__dict__, "funcao",
-                        lambda pedido: feitos.append(pedido) or "Mandei para o Claude.")
-    ferramentas.executar("pedir_ao_claude", {"pedido": "Quadro maior"})
+    ferramentas.executar("atualizar_socrates", {})
     painel.abrir_janela(30)
-    await _rodar(conversa, [s.ouvido.fala("Sim, pode mandar.")], espera_entre=0.5)
-    assert feitos == ["Quadro maior"]
+    await _rodar(conversa, [s.ouvido.fala("Sim, pode atualizar.")], espera_entre=0.5)
+    assert atualizar_falso == ["atualizou"]
     assert cerebro.recebido == []
-    assert "Mandei para o Claude." in s.voz.faladas
+    assert "Atualizei (x). Vou reiniciar agora." in s.voz.faladas
 
 
 @pytest.mark.asyncio

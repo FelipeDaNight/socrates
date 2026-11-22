@@ -226,7 +226,9 @@ def test_frase_inventada_em_maiusculas_e_descartada():
     assert not parece_legenda("SÓCRATES", -0.75) and not parece_legenda("A CIDADE NO BRASIL", -0.3)
 
 
-def test_anotar_melhoria_deixa_claro_que_nao_enviou(tmp_path):
+def test_anotar_melhoria_diz_que_vai_para_a_caixa(tmp_path):
+    """Ele dizia "enviei ao Claude" quando só anotava. Agora tudo vai para a caixa do Claude,
+    que uma tarefa agendada lê toda noite, e a resposta diz isso."""
     from socrates.core.agente import Agente
     from socrates.core.memoria import Memorias
 
@@ -236,7 +238,7 @@ def test_anotar_melhoria_deixa_claro_que_nao_enviou(tmp_path):
 
     ag = Agente(C(), memorias=Memorias(tmp_path / "S"))
     r = ag.sugerir_melhoria("Sincronizar algo")
-    assert "NÃO foi enviada" in r and "pedir_ao_claude" in r
+    assert "caixa do Claude" in r and "hoje à noite" in r
 
 
 @pytest.mark.asyncio

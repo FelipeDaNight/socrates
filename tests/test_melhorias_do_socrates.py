@@ -405,5 +405,5 @@ def test_minhas_melhorias_responde_em_vez_de_anotar(agente):
     ag.memorias.melhorias.adicionar("Ler a lei mais devagar", status="feita")
     ag.memorias.melhorias.adicionar("Avisar quando o microfone falhar", status="nova")
     texto = ag.minhas_melhorias()
-    assert "já feita pelo Claude" in texto and "pendente" in texto
+    assert "o Claude já fez" in texto and "na caixa, o Claude lê hoje à noite" in texto
     assert "minhas_melhorias" in ag._ferramentas["sugerir_melhoria"].descricao

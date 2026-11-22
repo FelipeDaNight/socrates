@@ -1,11 +1,14 @@
 """Falar com o Claude e se atualizar: o Sócrates pede mudanças no próprio código.
 
   "Sócrates, pede pro Claude deixar a voz mais grave"
-     -> confirma por voz -> traz o app do Claude para a frente -> cola -> Enter
+     -> vai para a CAIXA DO CLAUDE (melhorias.json, na pasta do Sócrates)
+     -> toda noite uma tarefa agendada do Claude lê a caixa, faz o que tiver sentido,
+        sobe para o GitHub e deixa um recado, que o Sócrates lê na saudação
   "Sócrates, se atualiza"
      -> confirma por voz -> git pull -> instala o que mudou -> reinicia
 
-As duas ações só rodam depois de você dizer "sim".
+Antes ele digitava o pedido no app do Claude. Não dava certo sempre: o app tinha de estar
+aberto, na conversa certa, e o texto caía no meio do que o Claude estava fazendo.
 """
 
 from __future__ import annotations
@@ -16,66 +19,30 @@ import sys
 import threading
 
 from ..config import RAIZ
+from ..core import memoria
 from . import ferramenta
-from .janelas import WINDOWS, _literal, _powershell, listar_janelas
 
 log = logging.getLogger("socrates.claude")
 
-PREFIXO = "[Pedido do Sócrates, por voz] "
-ENVIAR_COM_ENTER = True     # main.py ajusta a partir do config.yaml
 REINICIAR = threading.Event()   # a conversa vê isso e reinicia o Sócrates
 
 
-def janela_do_claude(janelas: list[dict]) -> dict | None:
-    """O app do Claude para desktop: processo 'claude' com janela de título."""
-    candidatas = [j for j in janelas if j.get("processo", "").lower() == "claude"]
-    candidatas += [j for j in janelas if j not in candidatas
-                   and "claude" in j.get("titulo", "").lower()
-                   and j.get("processo", "").lower() in {"chrome", "msedge", "firefox", "brave"}]
-    return candidatas[0] if candidatas else None
-
-
-def script_colar(pid: int, texto: str, enter: bool) -> str:
-    """Põe o texto na área de transferência, ativa a janela, cola e (opcional) envia.
-    Depois devolve o que o aluno tinha copiado antes."""
-    return "\n".join([
-        "$antes = Get-Clipboard -Raw -ErrorAction SilentlyContinue",
-        f"Set-Clipboard -Value {_literal(texto)}",
-        "$ws = New-Object -ComObject WScript.Shell",
-        f"if (-not $ws.AppActivate({int(pid)})) {{ Write-Output 'SEM_FOCO'; exit }}",
-        "Start-Sleep -Milliseconds 800",
-        "$ws.SendKeys('^v')",
-        "Start-Sleep -Milliseconds 500",
-        "$ws.SendKeys('{ENTER}')" if enter else "",
-        "Start-Sleep -Milliseconds 400",
-        "if ($antes) { Set-Clipboard -Value $antes }",
-        "Write-Output 'OK'",
-    ])
-
-
-def _resumo_pedido(args: dict) -> str:
-    return f'mandar para o Claude: "{args.get("pedido", "")}"'
-
-
-@ferramenta("Manda ao Claude (quem programa o Sócrates) um pedido de mudança no "
-            "Sócrates, digitando no app do Claude.",
-            params={"pedido": "O pedido, claro e completo"},
-            confirmar=True, resumo=_resumo_pedido)
+@ferramenta("Manda ao Claude (quem programa o Sócrates) um pedido de mudança no Sócrates: o "
+            "pedido vai para a caixa do Claude, que ele lê toda noite. Ele faz o que tiver "
+            "sentido e deixa um recado, que você lê na saudação. É o único jeito de falar com ele.",
+            params={"pedido": "O pedido, claro e completo, com o que o aluno quer"})
 def pedir_ao_claude(pedido: str) -> str:
-    if not WINDOWS:
-        return "Mandar mensagem para o Claude só funciona no Windows."
-    janela = janela_do_claude(listar_janelas())
-    if janela is None:
-        return ("Não encontrei o app do Claude aberto. Abra o Claude na conversa do "
-                "Sócrates e peça de novo.")
-    resultado = _powershell(script_colar(janela["id"], PREFIXO + pedido.strip(), ENVIAR_COM_ENTER),
-                            timeout=20)
-    if "SEM_FOCO" in resultado:
-        return ("O Windows não deixou eu trazer o Claude para a frente. Clique uma vez na "
-                "janela do Claude e peça de novo.")
-    if ENVIAR_COM_ENTER:
-        return "Mandei para o Claude. Quando ele terminar, é só dizer: Sócrates, se atualiza."
-    return "Colei a mensagem no Claude. Confira e aperte Enter para enviar."
+    como, item = memoria.Memorias().para_o_claude(pedido, origem="aluno")
+    if como == "vazia":
+        return "Qual é o pedido para o Claude?"
+    if como == "ja_estava":
+        return "Esse pedido já está na caixa do Claude. Ele lê hoje à noite e me deixa um recado."
+    if como == "reaberta":
+        antes = "tinha feito" if item.get("antes") == "feita" else "tinha analisado"
+        return (f"O Claude já {antes} esse pedido; deixei de novo na caixa dele, avisando que "
+                "ainda não está bom. Ele vê hoje à noite.")
+    return ("Deixei na caixa do Claude. Ele lê toda noite, faz o que tiver sentido e me deixa "
+            "um recado; eu te conto quando você me abrir de novo.")
 
 
 # ---------------- atualizar ----------------

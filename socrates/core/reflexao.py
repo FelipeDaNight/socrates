@@ -5,8 +5,8 @@ inventou (lei, artigo), onde perguntou demais, onde a voz ou uma ferramenta falh
 que pediram que ele não sabia fazer. Disso saem:
 
   LIÇÕES    regras curtas que entram no prompt dele dali em diante (licoes.json)
-  MELHORIAS ideias de mudança no código, que ele manda ao Claude quando o aluno deixar
-            (melhorias.json)
+  MELHORIAS ideias de mudança no código, que vão para a caixa do Claude (melhorias.json);
+            uma tarefa agendada do Claude lê a caixa toda noite
 
 Roda uma vez por dia, em segundo plano, quando há conversa nova no registro.
 """
@@ -24,7 +24,8 @@ log = logging.getLogger("socrates.reflexao")
 MIN_EVENTOS = 4          # menos que isso não vale a pena refletir
 CAPACIDADES = ("abrir e fechar programas (Spotify, Bloco de Notas...), escrever no Bloco de Notas, "
                "ver a tela, listar janelas, copiar texto, tocar no YouTube e no Spotify, volume, "
-               "timer e pomodoro, anotar, mandar pedidos ao Claude, ler a lei oficial, dar aula, "
+               "timer e pomodoro, anotar, deixar pedidos na caixa do Claude (ele lê toda noite), "
+               "ler a lei oficial, dar aula, "
                "puxar questões reais, pesquisar na internet, lembrar fatos do aluno")
 CORTE_REGISTRO = 9000    # caracteres do registro que vão para o cérebro
 MAX_LICOES = 5
@@ -225,6 +226,7 @@ def aviso_da_reflexao(licoes: list[str], melhorias: list[str]) -> str:
                       f"como: {licoes[0].rstrip('.')}")
     fala = " ".join(partes) + "."
     if melhorias:
-        fala += (f" Também tenho {len(melhorias)} ideia{'s' if len(melhorias) > 1 else ''} para "
-                 "melhorar meu código. Se quiser, diga: manda suas ideias para o Claude.")
+        n = len(melhorias)
+        fala += (f" Também deixei {n} ideia{'s' if n > 1 else ''} para o meu código na caixa do "
+                 "Claude; ele olha hoje à noite.")
     return fala

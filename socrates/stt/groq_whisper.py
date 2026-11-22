@@ -36,6 +36,15 @@ ALUCINACOES = {
     "inscrevase no canal",
     "e ai",
     "tchau tchau",
+    # vistas no registro de 22/11 (com a janela aberta, ele respondeu "Aplausos" com
+    # palmas e pesquisou "Sous-titrage Société Radio-Canada" na internet)
+    "aplausos",
+    "amem",
+    "musica",
+    "risos",
+    "soustitrage societe radiocanada",
+    "thank you for watching",
+    "thanks for watching",
     "",
 }
 
@@ -83,7 +92,9 @@ def _palavras(texto: str) -> list[str]:
 
 # Créditos de legenda que o Whisper "ouve" no silêncio ("Legenda por Sônia Ruberti")
 _PREFIXOS_ALUCINADOS = ("legenda por", "legendas por", "legendado por", "legendas pela",
-                        "transcricao e legendas", "traducao e legendas", "subtitles by")
+                        "transcricao e legendas", "traducao e legendas", "subtitles by",
+                        "legenda adriana zanotto", "legendas adriana zanotto",   # 9 vezes em 22/11
+                        "soustitrage", "soustitres", "subtitulos realizados")
 
 
 def filtrar_alucinacao(texto: str) -> str:
@@ -241,6 +252,9 @@ class OuvidoWhisper(Ouvido):
             raise ErroOuvido(f"O Groq recusou o áudio ({e.status_code}).") from e
         bruto, self.ultima_medida = avaliar(r)
         texto = filtrar_alucinacao(bruto)
+        if bruto.strip() and not texto:
+            log.info("descartado (frase que o Whisper inventa no silêncio): %r", bruto)
+            return ""
         if texto and e_eco(texto, dica):
             log.info("descartado (eco da dica): %r", texto)
             texto = ""

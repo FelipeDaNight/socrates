@@ -2,9 +2,15 @@
 
   memoria.json    fatos do aluno ("a prova é em março", "erra muito crase")
   licoes.json     lições que ele tirou dos próprios erros ("artigo de lei: sempre ler_lei")
-  melhorias.json  ideias de mudança no código dele, para mandar ao Claude
+  melhorias.json  a CAIXA DO CLAUDE: pedidos do aluno e ideias do Sócrates para o código dele
 
 Fica tudo em Documentos\\Socrates, em JSON simples: dá para abrir e corrigir à mão.
+
+A caixa do Claude: o Sócrates não digita mais no app do Claude (dependia do app aberto, na
+conversa certa, e atrapalhava quando o Claude estava trabalhando). Ele só anota aqui; uma
+tarefa agendada do Claude lê a caixa toda noite, faz o que tiver sentido (com testes), marca
+cada item como "feita" ou "descartada" (com a resposta) e deixa recado_do_claude.txt, que o
+Sócrates lê na saudação.
 """
 
 from __future__ import annotations
@@ -139,9 +145,42 @@ class Memorias:
     def melhorias_pendentes(self) -> list[dict]:
         return [d for d in self.melhorias.recentes(21) if d.get("status", "nova") == "nova"]
 
-    def marcar_enviadas(self) -> None:
-        itens = self.melhorias.itens()
-        for d in itens:
-            d["status"] = "enviada"
-        if itens:
-            self.melhorias._gravar(itens)
+    def para_o_claude(self, texto: str, origem: str = "aluno") -> tuple[str, dict | None]:
+        """Põe um pedido na caixa do Claude. Devolve (como ficou, o item):
+          "nova"       entrou na caixa
+          "ja_estava"  já estava esperando o Claude ler
+          "reaberta"   o Claude já tinha feito/descartado e o ALUNO pediu de novo (ainda falha)
+          "ja_feita" / "ja_descartada"   ideia do Sócrates que o Claude já resolveu"""
+        lista = self.melhorias
+        texto = re.sub(r"\s+", " ", (texto or "")).strip().rstrip(".") + "."
+        if len(texto) < 4:
+            return "vazia", None
+        hoje = lista.hoje().isoformat()
+        with lista._trava:
+            itens = lista.itens()
+            for d in itens:
+                if not parecido(d["t"], texto):
+                    continue
+                status = d.get("status", "nova")
+                if status in ("nova", "enviada"):
+                    d["d"] = hoje
+                    lista._gravar(itens)
+                    return "ja_estava", d
+                if origem != "aluno":
+                    return ("ja_feita" if status == "feita" else "ja_descartada"), d
+                d.update(status="nova", d=hoje, origem="aluno", de_novo=True, antes=status)
+                lista._gravar(itens)
+                log.info("reabri na caixa do Claude (%s antes): %s", status, d["t"])
+                return "reaberta", d
+            novo = {"t": texto, "d": hoje, "status": "nova", "origem": origem}
+            itens.append(novo)
+            lista._gravar(itens[-lista.limite:])
+        log.info("caixa do Claude (%s): %s", origem, texto)
+        return "nova", novo
+
+
+# Como cada item da caixa aparece para o Sócrates (e para o aluno)
+ROTULO_STATUS = {"nova": "na caixa, o Claude lê hoje à noite",
+                 "enviada": "enviada ao Claude",
+                 "feita": "o Claude já fez",
+                 "descartada": "o Claude analisou e não fez"}

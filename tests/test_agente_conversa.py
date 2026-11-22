@@ -221,7 +221,7 @@ async def test_reflexao_grava_licoes_uma_vez_por_dia(tmp_path):
     assert len(memorias.licoes.textos()) == 2 and memorias.melhorias_pendentes()
     assert await r.refletir() is None                       # já refletiu hoje
     fala = aviso_da_reflexao(licoes, melhorias)
-    assert "2 lições" in fala and "manda suas ideias para o Claude" in fala
+    assert "2 lições" in fala and "caixa do Claude" in fala
 
 
 @pytest.mark.asyncio

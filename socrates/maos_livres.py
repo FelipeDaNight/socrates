@@ -536,13 +536,9 @@ class Conversa:
             self.painel.legenda = pedido
 
             if ferramentas.pendente_valido():   # "Posso mandar?" -> "sim"
-                qual = ferramentas.PENDENTE.nome if ferramentas.PENDENTE else ""
                 resposta = await asyncio.to_thread(ferramentas.resolver_confirmacao, pedido)
                 if resposta is not None:
                     self.soc.registrar(pedido, resposta)
-                    if (qual == "pedir_ao_claude" and resposta.startswith(("Mandei", "Colei"))
-                            and getattr(self.agente, "memorias", None) is not None):
-                        self.agente.memorias.marcar_enviadas()   # as ideias de melhoria foram
                     self.dizer_tela(f"{self.cfg.nome}: {resposta}")
                     await self.falar(resposta, False)
                     if claude.REINICIAR.is_set():

@@ -340,16 +340,21 @@ acoes:
 
 ### O Sócrates pede mudanças ao Claude e se atualiza
 
-1. **"Sócrates, pede pro Claude deixar a voz mais grave."**
-2. Ele confirma: *"Vou mandar para o Claude: ... Posso mandar?"*. Responda **"sim"**.
-3. Ele traz o app do Claude para a frente, cola o pedido na conversa aberta e aperta Enter
-   (depois devolve o que você tinha copiado). O Claude muda o código e manda para o GitHub.
-4. Quando o Claude terminar: **"Sócrates, se atualiza"** → **"sim"**. Ele baixa a versão
-   nova, instala o que mudou e **reinicia sozinho**.
+1. **"Sócrates, pede pro Claude deixar a voz mais grave."** Ele põe o pedido na **caixa do
+   Claude** (`melhorias.json`, na pasta do Sócrates), junto com as ideias que ele mesmo tira
+   dos próprios erros.
+2. **Toda noite** uma tarefa agendada do Claude lê a caixa e as últimas 24 h do
+   `socrates.log`, descarta o que não faz sentido (ex.: "Cloud" que era o microfone errando
+   "Claude"), faz o resto com testes e sobe para o GitHub. Cada item fica `feita` ou
+   `descartada`, com a resposta do Claude.
+3. O Claude deixa um `recado_do_claude.txt`; o Sócrates lê na próxima saudação.
+4. Para instalar: **"Sócrates, se atualiza"** → **"sim"**. Ele baixa a versão nova, instala o
+   que mudou e **reinicia sozinho**.
 
-Deixe aberta no app do Claude a conversa onde o Sócrates é desenvolvido. Para só colar,
-sem enviar, use `enviar_com_enter: false`. Ações assim (mandar ao Claude, se atualizar)
-**sempre pedem confirmação**; qualquer outra resposta que não seja "sim" cancela.
+A tarefa só roda com o PC ligado e o app do Claude aberto; se não estiver, fica para a noite
+seguinte. Ele não digita mais no app do Claude (dependia do app na conversa certa e
+atrapalhava o Claude no meio de um trabalho). Se atualizar **sempre pede confirmação**;
+qualquer outra resposta que não seja "sim" cancela.
 
 ### Suas preferências: `config.local.yaml`
 
@@ -600,7 +605,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     803 testes, rodam sem microfone nem internet
+tests/                     819 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

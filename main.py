@@ -57,7 +57,6 @@ def criar_socrates_local(cfg: config.Config) -> Orquestrador:
         return await asyncio.to_thread(ferramentas.executar, nome, args)
 
     computador.adicionar_programas(cfg.programas)
-    claude.ENVIAR_COM_ENTER = cfg.claude_enter
     cerebro = CerebroLocal(cfg.local_cfg.modelo, ClienteOllama(cfg.local_cfg.url), esquemas,
                            executar, cfg.local_cfg.contexto, cfg.llm.temperatura)
     tela.VISAO["local"] = cerebro
@@ -84,8 +83,6 @@ def criar_socrates(cfg: config.Config) -> Orquestrador:
         tela.VISAO.update(base_url=cfg.ouvido.base_url, chave=cfg.ouvido.chave,
                           modelo=cfg.visao_modelo)
         tela.VISOES[:] = cfg.visoes
-        from socrates.ferramentas import claude
-        claude.ENVIAR_COM_ENTER = cfg.claude_enter
     cerebro = criar_cerebro(cfg.llm, pesquisa=pesquisa, acoes=cfg.acoes,
                             rodizio=cfg.rodizio, rodizio_acoes=cfg.rodizio_acoes)
     usados = " > ".join(f"{c.provedor}" for c in cfg.rodizio) or cfg.llm.provedor

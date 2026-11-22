@@ -47,9 +47,9 @@ Como decidir:
   acabou de fazer ou de oferecer na conversa.
 - Pergunta sobre o que você consegue fazer ("você consegue ver o Claude?") é pedido para fazer,
   se der para fazer agora.
-- "Cloud", "Claudio", "Cláudia" e "Clode" na transcrição são o Claude, o app onde o programador
-  do Sócrates trabalha (não é "serviço de nuvem"). Para escrever ou mandar algo ao Claude, use
-  pedir_ao_claude; sugerir_melhoria só ANOTA na sua lista (não envia nada).
+- "Cloud", "Claudio", "Cláudia" e "Clode" na transcrição são o Claude, o programador do
+  Sócrates (não é "serviço de nuvem"). Para mandar algo a ele use pedir_ao_claude: vai para a
+  caixa do Claude, que ele lê toda noite. Você não digita no app dele; não diga que digitou.
 - Para saber se um programa está aberto use janelas_abertas; para ler o que está nele use
   mostrar_janela e depois ver_tela passando a pergunta exata do aluno.
 - Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, mapa, plano
@@ -79,7 +79,9 @@ Memória e evolução:
   com anotar_licao, para não repetir o erro.
 - Assunto que você não tem no material: responda o que der e chame aprender_assunto para
   estudá-lo a fundo sozinho.
-- Se faltar uma capacidade sua, registre com sugerir_melhoria (vai para o Claude depois).
+- Se faltar uma capacidade sua ou algo seu falhar de verdade, registre com sugerir_melhoria
+  (vai para a caixa do Claude). A ideia tem de nascer de uma falha real; nunca invente recurso
+  novo (nuvem, sincronizar, integração) só porque perguntaram o que melhorar.
 
 Fala (sua resposta vira áudio):
 - Frases curtas e naturais, sem markdown, no máximo 4 ou 5 frases faladas, salvo se ele pedir mais.
@@ -469,13 +471,14 @@ class Agente:
             "(ex.: 'Quando ele pedir artigos, ler o texto oficial com ler_lei'). Vale para sempre.",
             {"licao": "A regra, curta, no imperativo"})
         reg(self.sugerir_melhoria,
-            "Anota uma ideia de mudança no SEU código, para o Claude (seu programador) fazer depois. "
-            "Use quando faltar uma capacidade ou algo seu falhar. Se o aluno PERGUNTAR que melhorias "
-            "você sugere, não use esta ferramenta: use minhas_melhorias e responda.",
-            {"ideia": "A mudança, concreta"})
+            "Põe na caixa do Claude (seu programador, que lê toda noite) uma ideia de mudança no "
+            "SEU código. Use quando faltar uma capacidade ou algo seu falhar de verdade. Se o aluno "
+            "PERGUNTAR que melhorias você sugere, não use esta ferramenta: use minhas_melhorias.",
+            {"ideia": "A mudança, concreta, e o que falhou"})
         reg(self.minhas_melhorias,
-            "Lista as ideias de melhoria no seu código (pendentes, enviadas e feitas pelo Claude) e "
-            "as lições que você tem. Use quando o aluno perguntar o que você melhoraria em você.")
+            "Lista a caixa do Claude (o que espera ele ler, o que ele já fez e o que ele não fez, "
+            "com o motivo) e as lições que você tem. Use quando o aluno perguntar o que você "
+            "melhoraria em você ou o que o Claude fez.")
         return f
 
     def esquemas(self, com_pc: bool = True) -> list[dict]:
@@ -621,9 +624,9 @@ class Agente:
             partes += [p for p in (sobre, licoes) if p]
             pendentes = m.melhorias_pendentes()
             if pendentes:
-                partes.append("Ideias de melhoria no seu código ainda não enviadas ao Claude (são "
-                              "ideias para o futuro, não limites de hoje; se ele pedir, mande com "
-                              "pedir_ao_claude): " + " | ".join(d["t"] for d in pendentes[-5:]))
+                partes.append("Na caixa do Claude, esperando ele ler hoje à noite (ideias para o "
+                              "futuro, não limites de hoje; já estão com ele, não precisa mandar de "
+                              "novo): " + " | ".join(d["t"] for d in pendentes[-5:]))
         situacao = self.situacao()
         if situacao:
             partes.append(situacao)
@@ -822,22 +825,35 @@ class Agente:
     def minhas_melhorias(self) -> str:
         if self.memorias is None:
             return "Sem memória de melhorias."
+        from .memoria import ROTULO_STATUS
         itens = self.memorias.melhorias.itens()[-10:]
-        rotulo = {"nova": "pendente", "enviada": "enviada ao Claude", "feita": "já feita pelo Claude"}
-        linhas = [f"- {d['t']} ({rotulo.get(d.get('status', 'nova'), d.get('status'))})" for d in itens]
+        linhas = []
+        for d in itens:
+            status = d.get("status", "nova")
+            linha = f"- {d['t']} ({ROTULO_STATUS.get(status, status)}"
+            if d.get("resposta"):
+                linha += f"; resposta do Claude: {d['resposta']}"
+            linhas.append(linha + ")")
         licoes = self.memorias.licoes.textos()[-8:]
-        return (("Ideias de melhoria:\n" + "\n".join(linhas)) if linhas else
-                "Nenhuma ideia anotada ainda.") + \
+        return (("Caixa do Claude:\n" + "\n".join(linhas)) if linhas else
+                "A caixa do Claude está vazia.") + \
             (("\nLições atuais:\n" + "\n".join(f"- {l}" for l in licoes)) if licoes else "") + \
-            ("\nResponda ao aluno com as pendentes e, se fizer sentido, sugira 1 ou 2 novas "
-             "tiradas das lições (sem registrar nada).")
+            ("\nResponda ao aluno em poucas frases. Se fizer sentido, sugira 1 ou 2 ideias novas "
+             "tiradas do que falhou de verdade (sem registrar nada).")
 
     def sugerir_melhoria(self, ideia: str) -> str:
         if self.memorias is None:
             return "Sem memória para ideias."
-        self.memorias.melhorias.adicionar(ideia, status="nova", origem="conversa")
-        return ("Anotada na sua lista de melhorias (NÃO foi enviada ao Claude). Se o aluno quer que "
-                "chegue ao Claude agora, use pedir_ao_claude.")
+        como, item = self.memorias.para_o_claude(ideia, origem="conversa")
+        if como == "ja_feita":
+            return ("O Claude já fez isso" + (f" ({item['resposta']})" if item.get("resposta") else "")
+                    + ". Se ainda falha, conte ao aluno; se ele quiser, use pedir_ao_claude.")
+        if como == "ja_descartada":
+            return ("O Claude já analisou essa ideia e não fez"
+                    + (f": {item['resposta']}" if item.get("resposta") else "") + ".")
+        if como == "ja_estava":
+            return "Essa ideia já está na caixa do Claude; ele lê hoje à noite."
+        return "Ideia posta na caixa do Claude; ele lê hoje à noite e decide."
 
 
 def _biblioteca_padrao():

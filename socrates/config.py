@@ -118,7 +118,6 @@ class Config:
     visoes: list = field(default_factory=list)   # [{nome, base_url, chave, modelo}] em ordem
     cerebro: str = "nuvem"                       # nuvem (Groq/Mistral/Gemini) | local (Ollama)
     local_cfg: ConfigLocal = field(default_factory=ConfigLocal)
-    claude_enter: bool = True
     agente: ConfigAgente = field(default_factory=ConfigAgente)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
@@ -274,7 +273,6 @@ def carregar(caminho: Path | str | None = None) -> Config:
         acoes=bool((dados.get("acoes") or {}).get("ativas", True)),
         programas=(dados.get("acoes") or {}).get("programas") or {},
         visao_modelo=(dados.get("visao") or {}).get("modelo", "qwen/qwen3.8-27b"),
-        claude_enter=bool((dados.get("claude") or {}).get("enviar_com_enter", True)),
         visoes=_visoes(dados, provedores),
         cerebro=modo_cerebro,
         local_cfg=_preencher(ConfigLocal, dados.get("local") if isinstance(dados.get("local"), dict)
