@@ -469,8 +469,12 @@ class Agente:
             {"licao": "A regra, curta, no imperativo"})
         reg(self.sugerir_melhoria,
             "Anota uma ideia de mudança no SEU código, para o Claude (seu programador) fazer depois. "
-            "Use quando faltar uma capacidade ou algo seu falhar.",
+            "Use quando faltar uma capacidade ou algo seu falhar. Se o aluno PERGUNTAR que melhorias "
+            "você sugere, não use esta ferramenta: use minhas_melhorias e responda.",
             {"ideia": "A mudança, concreta"})
+        reg(self.minhas_melhorias,
+            "Lista as ideias de melhoria no seu código (pendentes, enviadas e feitas pelo Claude) e "
+            "as lições que você tem. Use quando o aluno perguntar o que você melhoraria em você.")
         return f
 
     def esquemas(self, com_pc: bool = True) -> list[dict]:
@@ -514,6 +518,10 @@ class Agente:
                 texto = await self._insistir(msgs, esquemas, texto)
         finally:
             ESPERA_LIMITE.reset(marca)
+        if self._turno.quadro and "[QUADRO]" in texto.upper():
+            # a lei oficial já está no quadro: o resumo do modelo (com "**Caput**") não a troca
+            texto = re.sub(r"\[QUADRO\].*?(?:\[/QUADRO\]|$)", " ", texto, flags=re.S | re.I).strip()
+            texto = texto or "Está no quadro."
         self._turno.texto = texto
         self._anotar_duvida(pedido)
         log.info("agente: %r -> %s | %r", pedido[:100], ",".join(self._turno.ferramentas) or "-",
@@ -809,6 +817,19 @@ class Agente:
                     "Você consegue: use a ferramenta.")
         self.memorias.licoes.adicionar(licao, origem="conversa")
         return "Lição registrada."
+
+    def minhas_melhorias(self) -> str:
+        if self.memorias is None:
+            return "Sem memória de melhorias."
+        itens = self.memorias.melhorias.itens()[-10:]
+        rotulo = {"nova": "pendente", "enviada": "enviada ao Claude", "feita": "já feita pelo Claude"}
+        linhas = [f"- {d['t']} ({rotulo.get(d.get('status', 'nova'), d.get('status'))})" for d in itens]
+        licoes = self.memorias.licoes.textos()[-8:]
+        return (("Ideias de melhoria:\n" + "\n".join(linhas)) if linhas else
+                "Nenhuma ideia anotada ainda.") + \
+            (("\nLições atuais:\n" + "\n".join(f"- {l}" for l in licoes)) if licoes else "") + \
+            ("\nResponda ao aluno com as pendentes e, se fizer sentido, sugira 1 ou 2 novas "
+             "tiradas das lições (sem registrar nada).")
 
     def sugerir_melhoria(self, ideia: str) -> str:
         if self.memorias is None:

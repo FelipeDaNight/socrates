@@ -63,6 +63,7 @@ COMPRESSAO_MAX = 2.6      # texto repetitivo demais
 # Fala de 1 ou 2 palavras com certeza baixa quase sempre é ruído ("Mie.", "Hum...", "Bom.")
 # e o cérebro tentava achar sentido nela (chegou a mandar de novo um pedido ao Claude).
 LOGPROB_CURTA = -0.9
+TEMPO_MAXIMO = 20.0          # segundos para o Groq devolver a transcrição
 CURTAS_VALIDAS = {"sim", "nao", "certo", "certa", "errado", "errada", "proxima", "proximo", "pula",
                   "pular", "passa", "repete", "explica", "explique", "dica", "para", "parar", "chega",
                   "ok", "tchau", "obrigado", "obrigada", "valeu", "socrates", "pode", "vai", "bora",
@@ -201,7 +202,10 @@ class OuvidoWhisper(Ouvido):
         self.modelo = modelo
         self.idioma = idioma
         self.ultima_medida = Medida()
-        self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client)
+        # Sem limite, uma transcrição presa (internet ruim) travava a conversa por até 10
+        # minutos, calada: "ele não me entende quando chamo". 20 s e uma nova tentativa.
+        self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client,
+                                    timeout=TEMPO_MAXIMO, max_retries=1)
 
     async def transcrever(self, audio_wav: bytes, dica: str | None = None) -> str:
         dica = dica or DICA
@@ -218,6 +222,8 @@ class OuvidoWhisper(Ouvido):
             raise ErroOuvido("Limite grátis de transcrição atingido. Espere um minuto.") from e
         except openai.AuthenticationError as e:
             raise ErroOuvido("Chave do Groq inválida. Confira o arquivo .env.") from e
+        except openai.APITimeoutError as e:
+            raise ErroOuvido("A internet está lenta: a transcrição demorou demais.") from e
         except openai.APIConnectionError as e:
             raise ErroOuvido("Sem conexão para transcrever. Verifique a internet.") from e
         except openai.APIStatusError as e:

@@ -40,6 +40,7 @@ class Escuta:
         self._thread: threading.Thread | None = None
         self._loop: asyncio.AbstractEventLoop | None = None
         self.fila: asyncio.Queue | None = None
+        self._pico, self._pico_desde = 0.0, time.monotonic()
 
     # ---------- controle (chamado pelo asyncio) ----------
     def iniciar(self, fila: asyncio.Queue) -> None:
@@ -77,14 +78,36 @@ class Escuta:
             if self.painel:
                 self.painel.mic(0)
             return None
+        nivel = rms(bloco)
         if self.painel:
-            self.painel.mic(rms(bloco))
+            self.painel.mic(nivel)
         fala = self.seg.alimentar(bloco)
+        self._diagnosticar(nivel, fala)
         if self.painel:
             self.painel.ouvindo = self.seg.falando
             if self.seg.falando:
                 self.painel.segurar_janela()   # não "dorme" no meio da sua frase
         return fala
+
+    DIAGNOSTICO_SEG = 60.0
+
+    def _diagnosticar(self, nivel: float, fala, agora: float | None = None) -> None:
+        """Som perto do limiar que nunca virou fala (alguém chamou baixo?): vai para o
+        registro, no máximo uma vez por minuto, com os números para ajustar o microfone."""
+        limiar = self.seg.limiar
+        if limiar is None:
+            return
+        agora = time.monotonic() if agora is None else agora
+        if fala is not None or self.seg.falando:
+            self._pico, self._pico_desde = 0.0, agora
+            return
+        self._pico = max(self._pico, nivel)
+        if agora - self._pico_desde >= self.DIAGNOSTICO_SEG:
+            if self._pico >= 0.5 * limiar:
+                log.info("microfone: som perto do limiar sem virar fala (pico %.0f, limiar %.0f, "
+                         "ruído %.0f). Se ele não te ouve, diminua microfone.sensibilidade.",
+                         self._pico, limiar, self.seg.piso or 0)
+            self._pico, self._pico_desde = 0.0, agora
 
     def _entregar(self, item) -> None:
         if self._loop and self.fila is not None:

@@ -203,7 +203,9 @@ def test_item_longo_nao_passa_por_cima_do_seguinte():
 
 @pytest.fixture
 def agente(tmp_path):
+    from socrates import ferramentas
     from socrates.core.agente import Agente
+    ferramentas.nomes_das_acoes()                 # registra as ações do PC (abrir_programa...)
 
     def novo(cerebro):
         return Agente(cerebro, memorias=Memorias(tmp_path / "S"), biblioteca=BibliotecaFalsa(),
@@ -372,3 +374,36 @@ async def test_reflexao_tira_sozinha_licao_que_nega_capacidade(tmp_path):
     c = CerebroJSON({"licoes": ["Diga que não consegue abrir programas"], "melhorias": []})
     await Reflexao(c, m, log, hoje=lambda: date(2026, 11, 23)).refletir()
     assert m.licoes.textos() == []
+
+
+@pytest.mark.asyncio
+async def test_lei_oficial_fica_no_quadro_e_o_resumo_do_modelo_sai(tmp_path):
+    """22/11 17:20: depois de ler o art. 5 da CF, o modelo trocou o quadro oficial por um resumo
+    com "**Caput**" (e ele reclamou da formatação)."""
+    from test_agente import _agente, tutor as _t   # noqa: F401
+    import random, shutil
+    from pathlib import Path
+    from socrates.estudo import Caderno, Tutor
+    from socrates.estudo import material as mat
+    pasta = tmp_path / "material"
+    (pasta / "bancos").mkdir(parents=True)
+    shutil.copy(Path(__file__).parent / "dados/leiseca-agente.json", pasta / "bancos/leiseca.json")
+    (pasta / "bancos/lei-index.json").write_text(json.dumps(["bancos/leiseca.json"]))
+    (pasta / "bancos/index.json").write_text("[]")
+    tutor = Tutor(mat.carregar(pasta, tmp_path / "p", baixar_se_faltar=False),
+                  Caderno(tmp_path / "c.json"), sortear=random.Random(0))
+    c = CerebroRoteiro([("ler_lei", {"lei": "CTB", "artigos": "7"})],
+                       "[QUADRO]\n# Art. 7º\n- **Caput**: órgãos do SNT\n[/QUADRO]\nEstá no quadro.")
+    ag, _ = _agente(c, tutor, Memorias(tmp_path / "S"))
+    r = await ag.atender("lê o artigo 7 do CTB")
+    assert r.quadro and "Compõem o Sistema Nacional" in r.quadro
+    assert "[QUADRO]" not in r.texto and r.texto == "Está no quadro."
+
+
+def test_minhas_melhorias_responde_em_vez_de_anotar(agente):
+    ag = agente(CerebroRoteiro([]))
+    ag.memorias.melhorias.adicionar("Ler a lei mais devagar", status="feita")
+    ag.memorias.melhorias.adicionar("Avisar quando o microfone falhar", status="nova")
+    texto = ag.minhas_melhorias()
+    assert "já feita pelo Claude" in texto and "pendente" in texto
+    assert "minhas_melhorias" in ag._ferramentas["sugerir_melhoria"].descricao

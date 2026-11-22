@@ -16,6 +16,7 @@ import asyncio
 import logging
 import re
 import threading
+import time
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
@@ -110,6 +111,9 @@ def _sem_acento(texto: str) -> str:
     return unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode().lower()
 
 
+AVISO_OUVIDO_SEG = 300   # avisa em voz que não está ouvindo no máximo a cada 5 minutos
+
+
 def pede_quadro(pedido: str) -> bool:
     """O aluno pediu algo visual? (aí o quadro tem que aparecer)"""
     t = unicodedata.normalize("NFKD", pedido).encode("ascii", "ignore").decode().lower()
@@ -122,6 +126,8 @@ class Conversa:
         self.cfg = cfg
         self.tutor = tutor
         self.agente = agente          # o cérebro que decide (core/agente.py); None = só as regras
+        self._falhas_ouvido = 0       # transcrições que falharam seguidas
+        self._avisou_ouvido = -1e9
         self.soc = soc
         self.s = sentidos
         self.painel = painel
@@ -405,14 +411,29 @@ class Conversa:
         try:
             dica = self.dica_do_ouvido()
             if dica:
-                return await self.s.ouvido.transcrever(para_wav(fala), dica)
-            return await self.s.ouvido.transcrever(para_wav(fala))
+                texto = await self.s.ouvido.transcrever(para_wav(fala), dica)
+            else:
+                texto = await self.s.ouvido.transcrever(para_wav(fala))
+            self._falhas_ouvido = 0
+            return texto
         except ErroOuvido as e:
-            if em_janela:
-                self.dizer_tela(f"[ouvido] {e}")
+            await self._ouvido_falhou(e)
             return ""
         finally:
             self.painel.estado = "ocioso"
+
+    async def _ouvido_falhou(self, e: ErroOuvido) -> None:
+        """Antes, fora da janela, a falha da transcrição era engolida calada: você chamava
+        "Sócrates" e nada acontecia. Agora fica no registro, no terminal e no canto do
+        visor, e na 2ª falha seguida ele avisa em voz (no máximo a cada 5 minutos)."""
+        log.warning("não consegui transcrever: %s", e)
+        self.dizer_tela(f"[ouvido] {e}")
+        self.painel.aprendendo = f"◆ não consegui ouvir: {e}"
+        self._falhas_ouvido += 1
+        agora = time.monotonic()
+        if self._falhas_ouvido >= 2 and agora - self._avisou_ouvido >= AVISO_OUVIDO_SEG:
+            self._avisou_ouvido = agora
+            await self.falar(f"Não estou conseguindo te ouvir. {e}", False)
 
     async def _pedido(self, item) -> str | None:
         """Transforma o que chegou da fila num pedido. None = não era para ele."""

@@ -123,6 +123,14 @@ falhas de voz... próxima/siga... integridade dos [QUADRO]... apelidos". O que e
   diz "não consigo abrir o Spotify" (ele consegue) é recusada, e se ele mesmo assim disser
   "não consigo" tendo a ferramenta, é corrigido na hora e usa a ferramenta.
 
+**"Ele não entende quando chamo" (22/11).** Fora da janela de conversa, a falha da
+transcrição era engolida calada (e a transcrição podia ficar presa até 10 minutos com a
+internet lenta). Agora ele espera no máximo 20 s, a falha vai para o registro, aparece no
+canto do visor e, na 2ª seguida, ele avisa em voz. O nome mal ouvido ("Socates", "Sucrates",
+"Sokrates") também chama, "Sócrates, Sócrates" não sobra no pedido, o microfone registra
+quando alguém falou perto do limiar sem ser ouvido, e o autoestudo espera você parar de
+falar antes de pedir ao cérebro (o limite grátis é o mesmo).
+
 ### Estudar com questões reais e lei seca
 
 O Sócrates usa o mesmo material do app [estudo-prf](https://github.com/FelipeDaNight/estudo-prf):
@@ -584,7 +592,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     774 testes, rodam sem microfone nem internet
+tests/                     793 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

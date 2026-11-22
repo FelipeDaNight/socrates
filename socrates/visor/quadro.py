@@ -46,10 +46,24 @@ class Item:
 _GRAFICO = re.compile(r"^(gr[aá]fico|plot|curva)\s*:\s*(.+)$", re.IGNORECASE)
 
 
+_NEGRITO = re.compile(r"\*\*(.+?)\*\*|__(.+?)__")
+_NUMERADO = re.compile(r"^(\d{1,2})[.)]\s+")
+
+
+def _sem_markdown(s: str) -> str:
+    """O modelo escreve markdown no quadro ("**Caput**:"); o quadro não tem negrito, e os
+    asteriscos apareciam no meio das letras."""
+    partes = re.split(r"(\$[^$]+\$)", s)              # fórmula ($...$) fica como está
+    for i in range(0, len(partes), 2):
+        p = _NEGRITO.sub(lambda m: m.group(1) or m.group(2), partes[i])
+        partes[i] = p.replace("**", "").replace("`", "")
+    return "".join(partes)
+
+
 def interpretar(texto: str) -> list[Item]:
     itens: list[Item] = []
     for linha in texto.strip().splitlines():
-        s = linha.strip()
+        s = _sem_markdown(linha.strip())
         if not s:
             if itens and itens[-1].tipo != "espaco":
                 itens.append(Item("espaco"))
@@ -61,8 +75,10 @@ def interpretar(texto: str) -> list[Item]:
             itens.append(Item("formula", s[2:-2].strip()))
         elif m := _GRAFICO.match(s):
             itens.append(Item("grafico", m.group(2)))
-        elif s[:2] in ("- ", "* ", "• "):
+        elif s[:2] in ("- ", "* ", "• ", "– "):
             itens.append(Item("item", s[2:].strip()))
+        elif _NUMERADO.match(s) and len(s) > 4:
+            itens.append(Item("item", s))
         else:
             itens.append(Item("texto", s))
     while itens and itens[-1].tipo == "espaco":

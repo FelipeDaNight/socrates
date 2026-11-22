@@ -598,9 +598,24 @@ class Autoestudo:
         return saida
 
     # ---------- escrever e conferir ----------
+    async def _esperar_conversa(self, maximo: float = 180.0) -> None:
+        """No meio de um assunto, se você começou a conversar, ele espera antes de pedir ao
+        cérebro: o limite grátis (tokens por minuto) é o mesmo da conversa, e cada pedido
+        dele no meio da sua fala deixava a resposta lenta ou batia no limite."""
+        if self.ocupado is None:
+            return
+        fim = time.monotonic() + maximo
+        avisou = False
+        while self.ocupado() and time.monotonic() < fim and not self._parar.is_set():
+            if not avisou:
+                log.info("autoestudo: esperando a conversa terminar")
+                avisou = True
+            await asyncio.sleep(1.0)
+
     async def _pedir_json(self, cerebro, sistema: str, pedido: str) -> tuple[dict, str]:
         msgs = [{"role": "system", "content": sistema}, {"role": "user", "content": pedido}]
         for _ in range(2):
+            await self._esperar_conversa()
             texto = ""
             async for pedaco in cerebro.responder(msgs):
                 texto += pedaco
