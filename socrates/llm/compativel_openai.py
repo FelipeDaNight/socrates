@@ -176,7 +176,7 @@ class CerebroCompativelOpenAI(Cerebro):
                 r = await self._pedir_pesquisa(mensagens, "required")
             except openai.BadRequestError as e:
                 # O modelo respondeu sem usar a busca: tenta mais uma vez, deixando livre
-                if "tool_use_failed" not in str(e):
+                if not _modelo_nao_usou_ferramenta(e):
                     raise
                 log.warning("modelo não usou a busca; tentando de novo")
                 r = await self._pedir_pesquisa(mensagens, "auto")
@@ -208,3 +208,16 @@ class CerebroCompativelOpenAI(Cerebro):
     async def listar_modelos(self) -> list[str]:
         modelos = await self._cliente.models.list()
         return sorted(m.id for m in modelos.data)
+
+
+def _modelo_nao_usou_ferramenta(e: Exception) -> bool:
+    """O Groq recusou porque o modelo respondeu sem chamar a ferramenta exigida?
+
+    O código "tool_use_failed" vem no corpo do erro; dependendo da versão da
+    biblioteca openai, ele não aparece no texto da exceção, então olha os dois.
+    """
+    codigo = getattr(e, "code", None)
+    corpo = getattr(e, "body", None)
+    if isinstance(corpo, dict):
+        codigo = codigo or corpo.get("code") or (corpo.get("error") or {}).get("code")
+    return codigo == "tool_use_failed" or "tool_use_failed" in str(e)

@@ -123,19 +123,30 @@ def e_eco(texto: str, dica: str) -> bool:
 
 def sem_repeticoes(texto: str) -> str:
     """Tira "cosseno, cosseno, cosseno, cosseno" (4 ou mais iguais em seguida).
+
+    Vale também para grupos de 2 ou 3 palavras repetidos 4 vezes ou mais
+    ("E aí E aí E aí E aí E aí", inventado no silêncio em 22/11).
     Se não sobrar quase nada, a fala inteira era alucinação."""
     pedacos = re.findall(r"\S+", texto)
     chaves = ["".join(_palavras(p)) for p in pedacos]
     saida, cortou, i = [], False, 0
     while i < len(pedacos):
-        j = i
-        while j + 1 < len(pedacos) and chaves[j + 1] == chaves[i] and chaves[i]:
-            j += 1
-        if j - i + 1 >= 4:
+        maior = 0                  # quantos pedaços a repetição a partir de i cobre
+        for n in (1, 2, 3):
+            grupo = chaves[i:i + n]
+            if len(grupo) < n or not all(grupo):
+                continue
+            k = 1
+            while chaves[i + k * n:i + (k + 1) * n] == grupo:
+                k += 1
+            if k >= 4:
+                maior = max(maior, k * n)
+        if maior:
             cortou = True          # a sequência repetida some inteira
+            i += maior
         else:
-            saida.extend(pedacos[i:j + 1])
-        i = j + 1
+            saida.append(pedacos[i])
+            i += 1
     if not cortou:
         return texto.strip()
     resto = " ".join(saida).strip()

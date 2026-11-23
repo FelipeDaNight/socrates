@@ -60,8 +60,27 @@ def normalizar(texto: str) -> str:
     return re.sub(r"^(ei |oi |ok )?socrates ", "", t)   # "Sócrates, modo prova"
 
 
+# "vou ver o jogo, pode fechar": sem dizer O QUE fechar, é para encerrar a conversa.
+# Em 22/11 isso ia para o agente, que respondia "Fechando tudo" sem fechar nada.
+_FIM_DE_CONVERSA = re.compile(r"\bpode (fechar|desligar)( ai| tudo| entao| por hoje| por agora)?$")
+_COISA_PARA_FECHAR = re.compile(
+    r"\b(programa|programas|aplicativo|app|aba|abas|janela|janelas|navegador|chrome|edge|"
+    r"firefox|spotify|youtube|bloco|notas|word|excel|code|timer|cronometro|musica|video|"
+    r"pasta|arquivo|quadro|explorador|calculadora|discord|whatsapp|computador|pc)\b")
+
+
+def encerra_conversa(texto: str) -> bool:
+    """A frase termina em "pode fechar/desligar" sem nomear um programa?"""
+    t = normalizar(texto)
+    return (bool(_FIM_DE_CONVERSA.search(t)) and not _COISA_PARA_FECHAR.search(t)
+            and len(t.split()) <= 12)
+
+
 def interpretar(texto: str) -> Comando | None:
     bruto = texto.strip().lower()
     if bruto in _DIGITADOS:
         return _DIGITADOS[bruto]
-    return _FALADOS_INV.get(normalizar(texto))
+    comando = _FALADOS_INV.get(normalizar(texto))
+    if comando is None and encerra_conversa(texto):
+        return Comando.DORMIR
+    return comando

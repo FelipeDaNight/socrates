@@ -46,6 +46,19 @@ def test_repeticao_alucinada_some():
     assert sem_repeticoes("Não, não, não.") == "Não, não, não."   # 3 é normal
 
 
+def test_grupo_de_palavras_repetido_some():
+    # 22/11: o Whisper inventou isto no silêncio e o Sócrates respondeu "Oi!"
+    assert sem_repeticoes("E aí E aí E aí E aí E aí E aí") == ""
+    assert sem_repeticoes("muito bem, muito bem, muito bem, muito bem") == ""
+    assert sem_repeticoes("vai lá vai, vai lá vai, vai lá vai, vai lá vai") == ""
+    # fala de verdade com pouca repetição continua
+    assert (sem_repeticoes("Ninguém, ninguém, não tem ninguém, não tem ninguém.")
+            == "Ninguém, ninguém, não tem ninguém, não tem ninguém.")
+    assert sem_repeticoes("E aí, Sócrates, me explica crase") == "E aí, Sócrates, me explica crase"
+    assert (sem_repeticoes("Sócrates, E aí E aí E aí E aí, me explica crase")
+            == "Sócrates, me explica crase")
+
+
 def test_trecho_com_cara_de_ruido_e_descartado():
     resposta = {"text": "x", "segments": [
         {"text": "Sócrates, abre o Spotify.", "avg_logprob": -0.2, "no_speech_prob": 0.05,
@@ -193,3 +206,38 @@ def test_visao_tira_blocos_repetidos():
     from socrates.ferramentas.tela import sem_repeticao
     bloco = "O resultado do df -h mostra que o disco está cheio para uma pasta."
     assert sem_repeticao(f"{bloco}\nA) apt clean\n{bloco}\nB) du -sh").count("df -h") == 1
+
+
+# ---------- "pode fechar" sem dizer o quê (22/11) ----------
+
+@pytest.mark.parametrize("fala", [
+    "Tá, perfeito, pode fechar.",
+    "Nada, eu vou ver o jogo, pode fechar.",
+    "Pode desligar.",
+    "Beleza, pode fechar aí.",
+])
+def test_pode_fechar_sem_programa_encerra_a_conversa(fala):
+    from socrates.core.comandos import Comando, interpretar
+    assert interpretar(fala) is Comando.DORMIR
+
+
+@pytest.mark.parametrize("fala", [
+    "Pode fechar o Spotify.",
+    "O Chrome tá aberto, pode fechar.",
+    "Abre o bloco de notas e depois pode fechar.",
+    "Fecha tudo.",
+])
+def test_pode_fechar_com_programa_vai_para_o_agente(fala):
+    from socrates.core.comandos import interpretar
+    assert interpretar(fala) is None
+
+
+@pytest.mark.asyncio
+async def test_pode_fechar_volta_a_esperar_o_nome():
+    conversa, s, painel, cerebro, _ = _montar()
+    o = s.ouvido
+    await _rodar(conversa, [o.fala("Sócrates, o que é crase?"), o.fala("Tá, perfeito, pode fechar."),
+                            o.fala("Agora vou ver o jogo.")])
+    assert len(cerebro.recebido) == 1
+    assert not any("Fechando" in f for f in s.voz.faladas)
+    assert not painel.em_janela()
