@@ -53,6 +53,7 @@ class CerebroCompativelOpenAI(Cerebro):
                  temperatura: float = 0.6, nome: str = "openai-compat",
                  tentativas: int = 3, http_client=None, modelo_reserva: str | None = None):
         self.nome = nome
+        self.base_url = base_url
         self.modelo = modelo
         self.modelo_reserva = modelo_reserva if modelo_reserva != modelo else None
         self.temperatura = temperatura
@@ -72,8 +73,17 @@ class CerebroCompativelOpenAI(Cerebro):
             return self.modelo_reserva
         return self.modelo
 
-    def _extras(self, modelo: str) -> dict:
-        return {"reasoning_effort": "low"} if "gpt-oss" in modelo else {}
+    def _extras(self, modelo: str, ferramentas: bool = True) -> dict:
+        """Parâmetros de raciocínio por modelo (só no Groq, que é onde foram conferidos).
+        O Qwen do Groq "pensa" por padrão: o pensamento gasta o limite grátis e, na fala,
+        podia sair o texto entre <think> e </think>. "none" = responde direto."""
+        if "groq.com" not in (self.base_url or ""):
+            return {}
+        if "qwen" in modelo:
+            return {"reasoning_effort": "none"}
+        if "gpt-oss" in modelo and ferramentas:
+            return {"reasoning_effort": "low"}
+        return {}
 
     async def _criar(self, **pedido):
         """chat.completions.create com tratamento do limite grátis."""
@@ -134,7 +144,8 @@ class CerebroCompativelOpenAI(Cerebro):
             msg = r.choices[0].message
             chamadas = msg.tool_calls or []
             if not chamadas:
-                return msg.content or ""
+                from .ollama import _PENSAMENTO
+                return _PENSAMENTO.sub("", msg.content or "").strip()
             msgs.append({
                 "role": "assistant", "content": msg.content or "",
                 "tool_calls": [{"id": c.id, "type": "function",
@@ -193,14 +204,21 @@ class CerebroCompativelOpenAI(Cerebro):
     async def responder(self, mensagens: list[Mensagem]) -> AsyncIterator[str]:
         try:
             fluxo = await self._criar(messages=mensagens, temperature=self.temperatura,
-                                      stream=True)
+                                      stream=True, **self._extras(self.modelo_da_vez(), False))
         except openai.APIStatusError as e:
             log.warning("pedido recusado no %s (%s): %s", self.nome, e.status_code, e.message)
             raise ErroCerebro(f"O {self.nome} recusou o pedido ({e.status_code}).") from e
+        from .ollama import FiltroPensamento
+        filtro = FiltroPensamento()           # rede de segurança: <think> nunca vai para a voz
         try:
             async for pedaco in fluxo:
                 if pedaco.choices and pedaco.choices[0].delta.content:
-                    yield pedaco.choices[0].delta.content
+                    texto = filtro.alimentar(pedaco.choices[0].delta.content)
+                    if texto:
+                        yield texto
+            resto = filtro.fim()
+            if resto:
+                yield resto
         except openai.APIError as e:
             log.warning("resposta interrompida: %s", e)
             raise ErroCerebro("A resposta foi interrompida no meio. Tente de novo.") from e

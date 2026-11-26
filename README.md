@@ -474,6 +474,7 @@ limite grátis, a frase sai na voz do Antonio, sem o Sócrates ficar mudo.
 
 ```
 microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
+  → detector de voz (Silero VAD, no PC): sem voz humana? descarta sem gastar o Whisper
   → Whisper no Groq → disse "Sócrates"? ou está na janela de conversa?
       não → ignora
       sim → pausa o microfone → cérebro (streaming) → frases → voz Antonio
@@ -482,6 +483,7 @@ microfone sempre aberto → segmentador (separa cada fala pelo silêncio)
 
 | Peça         | Tecnologia                                   | Custo                 |
 |--------------|----------------------------------------------|-----------------------|
+| Filtro de voz| Silero VAD (MIT) no onnxruntime, 2 MB        | local                 |
 | Ouvido       | Whisper large-v3-turbo no Groq               | grátis (com limites)  |
 | Cérebro      | gpt-oss-120b no Groq (troca no config)       | grátis (com limites)  |
 | Pesquisa     | browser_search do Groq (só com gpt-oss)      | depende da sua conta  |
@@ -517,38 +519,50 @@ sempre igual, então o Ollama não o relê a cada pergunta, e a data vai no fim.
 Cada serviço grátis tem um limite. O Sócrates usa vários em fila: se um bate no limite
 (ou cai), o pedido vai para o próximo sozinho, e quem estourou "descansa" até liberar.
 
+Cada **modelo** tem o seu limite, então a mesma chave vale por vários:
+
 | Ordem | Serviço | Limite grátis | Chave no `.env` |
 |-------|---------|---------------|-----------------|
 | 1 | Groq `gpt-oss-120b` | ~8 mil tokens/min, 200 mil/dia | `GROQ_API_KEY` (obrigatória) |
-| 2 | **Mistral** `mistral-medium` | **~1 bilhão de tokens/mês**, 1 pedido/s | `MISTRAL_API_KEY` |
-| 3 | Gemini Flash | ~15 pedidos/min | `GEMINI_API_KEY` |
+| 2 | Gemini Flash | varia (o Google não publica mais a tabela) | `GEMINI_API_KEY` |
+| 3 | Groq `qwen3.8-27b` (sem "pensar alto") | outros 8 mil/min | (a mesma do Groq) |
 | 4 | Groq `gpt-oss-20b` | outros 8 mil/min e 200 mil/dia | (a mesma do Groq) |
+| 5 | Gemini Flash-Lite | outro limite do Google | (a mesma do Gemini) |
+| 6 | Mistral `mistral-medium` | se a sua conta tiver o plano grátis | `MISTRAL_API_KEY` |
+| 7 | OpenRouter `gpt-oss-120b:free` | 50 pedidos/dia, sem cartão | `OPENROUTER_API_KEY` |
 
-As ações no PC usam outra fila (`gpt-oss-20b` → `mistral-small` → Gemini → `gpt-oss-120b`),
-para não disputar o limite da conversa. A pesquisa na internet usa os dois modelos do Groq;
+As ações no PC usam outra fila (`gpt-oss-20b` → `qwen3.8-27b` → `mistral-small` → Gemini →
+`gpt-oss-120b` → Flash-Lite), para não disputar o limite da conversa. O pedido leva só as
+ferramentas do PC do assunto ("toca lo-fi" leva música e volume, não as 23), e o autoestudo
+só estuda com 5 minutos de silêncio, começando pelo Qwen, para não gastar o limite no meio
+da aula. A pesquisa na internet usa os dois modelos do Groq;
 a visão da tela tenta Groq → Mistral → Gemini. Serviço sem chave é simplesmente pulado.
 
-**Com o Mistral no rodízio, o limite deixa de ser problema.** Para criar as chaves (grátis,
-sem cartão), grave cada uma sem ela aparecer na tela:
+Para criar as chaves (grátis, sem cartão), grave cada uma sem ela aparecer na tela:
 
-1. **Mistral:** entre em <https://console.mistral.ai>, escolha o plano **Experiment** (grátis;
-   ele confirma pelo celular), vá em **API Keys** → **Create new key**. Em *Settings → Privacy*,
-   desligue o uso dos seus dados para treino, se preferir.
-2. **Gemini:** <https://aistudio.google.com/apikey> → **Create API key**.
+1. **Gemini:** <https://aistudio.google.com/apikey> → **Create API key**.
+2. **OpenRouter** (opcional, 50 pedidos/dia): <https://openrouter.ai> → entre com a conta
+   Google → **Keys** → **Create Key**.
+3. **Mistral:** em nov/2026 o plano grátis não dava chave de API (só os pagos). Se o plano
+   **Experiment** voltar em <https://console.mistral.ai>, crie a chave em **API Keys**.
 
 ```powershell
-$k = Read-Host "Cole a chave do Mistral"
-Add-Content .env "MISTRAL_API_KEY=$k"
 $k = Read-Host "Cole a chave do Gemini"
-Add-Content .env "GEMINI_API_KEY=$k"
+Add-Content .env "`nGEMINI_API_KEY=$k"
+$k = Read-Host "Cole a chave do OpenRouter"
+Add-Content .env "`nOPENROUTER_API_KEY=$k"
 cls
 .venv\Scripts\python main.py --provedores
 ```
 
 O `--provedores` testa cada serviço e mostra quem está OK e qual chave falta.
 
-Cada fala que o microfone separa vai para o Whisper, mesmo sem o nome. Num lugar
-com muita conversa ou TV ligada, isso gasta o limite grátis do Groq mais rápido.
+Antes do Whisper, o **detector de voz** (Silero VAD) confere se o trecho tem voz humana:
+sopro, clique, chiado e silêncio são descartados ali mesmo (eram eles que viravam "Legenda
+Adriana Zanotto" e "FFFF!"). Fora da janela de conversa ele exige mais voz (o nome tem mais
+de meio segundo); na janela, um "Sim." curto passa. Se um dia ele parar de ouvir respostas
+curtas, ponha `escuta: {filtro_de_voz: false}` no `config.local.yaml`. TV e conversa de
+outras pessoas têm voz de verdade e ainda vão para o Whisper.
 
 ## Arquitetura
 
@@ -563,7 +577,8 @@ socrates/
   core/contexto.py         data, hora e cidade em cada pergunta
   llm/pesquisa.py          decide quando pesquisar e limpa a resposta para a voz
   llm/acoes.py             decide quando é ação e faz o vaivém com as ferramentas
-  llm/rodizio.py           rodízio de cérebros grátis (Groq, Mistral, Gemini)
+  llm/rodizio.py           rodízio de cérebros grátis (3 do Groq, 2 do Gemini, Mistral, OpenRouter)
+  audio/vad.py             detector de voz (Silero VAD, onnxruntime) antes do Whisper
   llm/ollama.py            cérebro local (Ollama): streaming, ferramentas e visão no seu PC
   ferramentas/busca.py     pesquisa no DuckDuckGo, sem chave (modo local)
   instalar_local.py        main.py --local: escolhe, baixa e testa o modelo local
@@ -605,7 +620,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     865 testes, rodam sem microfone nem internet
+tests/                     877 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

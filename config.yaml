@@ -44,8 +44,9 @@ llm:
   temperatura: 0.6
   # Rodízio de cérebros GRÁTIS: tenta na ordem; se um bater no limite, vai para o próximo.
   # Provedor sem chave no .env é pulado (dá para criar as contas aos poucos).
-  rodizio: [groq, mistral, gemini, groq_leve]
-  rodizio_acoes: [groq_leve, mistral_leve, gemini, groq]   # quem mexe no PC
+  # Cada MODELO tem o seu limite grátis: três do Groq e dois do Gemini com as mesmas chaves.
+  rodizio: [groq, gemini, groq_qwen, groq_leve, gemini_leve, mistral, openrouter]
+  rodizio_acoes: [groq_leve, groq_qwen, mistral_leve, gemini, groq, gemini_leve]   # quem mexe no PC
 
 provedores:
   groq:                         # rápido; tem pesquisa na internet e visão
@@ -68,6 +69,18 @@ provedores:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
     chave_env: GEMINI_API_KEY
     modelo: gemini-flash-latest
+  gemini_leve:                  # Flash-Lite: outro limite grátis do Google (a mesma chave)
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+    chave_env: GEMINI_API_KEY
+    modelo: gemini-flash-lite-latest
+  groq_qwen:                    # mais um modelo do Groq = mais 8 mil tokens/min grátis
+    base_url: https://api.groq.com/openai/v1
+    chave_env: GROQ_API_KEY
+    modelo: qwen/qwen3.8-27b
+  openrouter:                   # opcional: 50 pedidos/dia grátis, sem cartão (openrouter.ai/keys)
+    base_url: https://openrouter.ai/api/v1
+    chave_env: OPENROUTER_API_KEY
+    modelo: openai/gpt-oss-120b:free
   ollama:                       # roda no seu PC, sem internet; lento sem placa de vídeo
     base_url: http://localhost:11434/v1
     chave_env: null
@@ -88,6 +101,8 @@ escuta:                       # mãos livres: ele fica ouvindo o tempo todo
                               # false = responde a tudo que ouvir (estudando sozinho no quarto)
   janela_seg: 15              # depois da resposta, quanto tempo você pode falar sem dizer o nome
   janela_prova_seg: 45        # no modo prova é maior: tempo para pensar na resposta
+  filtro_de_voz: true         # descarta sopro, clique, TV e jogo antes da transcrição
+                              # (false se um dia ele parar de ouvir respostas curtas)
 
 visor:
   ativo: true                 # janela laranja estilo Jarvis
@@ -101,8 +116,9 @@ autoestudo:                   # o Sócrates estuda SOZINHO o edital enquanto est
   planos: [prf, cbmgo]        # editais que ele completa; o primeiro tem prioridade
   por_dia: 40                 # máximo de assuntos por dia (poupa o limite grátis)
   pausa_seg: 90               # descanso entre um assunto e outro
-  ocioso_seg: 30              # só estuda se você está quieto há esse tempo (a conversa vem antes)
-  cerebros: [mistral, gemini, groq_leve, groq]       # quem escreve o material (sem chave = pulado)
+  ocioso_seg: 300             # só estuda se você está quieto há 5 min: durante a aula ele não
+                              # gasta o limite grátis da conversa (em 25/11 isso deu espera de 90 s)
+  cerebros: [groq_qwen, mistral, gemini, groq_leve, groq]   # quem escreve (sem chave = pulado)
   conferentes: [gemini, mistral_leve, groq, mistral] # quem confere (sempre outro modelo)
 
 planilha:                     # a mesma planilha do app estudo-prf (opcional)

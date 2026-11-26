@@ -269,7 +269,12 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     ler_teclado(loop, fila)
     sentidos.escuta.iniciar(fila)
     try:
-        await Conversa(cfg, soc, sentidos, painel, tutor=tutor, agente=agente).rodar(fila)
+        vad = None
+        if cfg.escuta.filtro_de_voz:
+            from socrates.audio.vad import carregar as carregar_vad
+            vad = carregar_vad()
+        await Conversa(cfg, soc, sentidos, painel, tutor=tutor, agente=agente,
+                       vad=vad).rodar(fila)
     finally:
         reflexao.cancel()
         if motor is not None:

@@ -121,6 +121,50 @@ ESPERA_NO_LIMITE = 3.0     # no limite grátis, espera no máximo isso e passa p
 
 # Fala que pode precisar do computador. Sem isso, as ferramentas do PC ficam de fora do
 # pedido (o plano grátis do Groq conta cada token: são ~2 mil a menos por pergunta).
+# Ferramentas do PC por assunto. Mandar as 23 em todo pedido custava ~1,7 mil tokens (o limite
+# grátis do Groq é 8 mil por minuto); com o assunto certo vão só as 2 a 6 que importam.
+_FAMILIAS_PC = [
+    (re.compile(r"\b(music\w*|spotify|youtube|toc\w*|toque|som|volume|faixa|pausa\w*|pause|"
+                r"playlist|lo ?fi|abaix\w*|aument\w*|mut\w*|silenci\w*)\b"),
+     {"musica", "volume", "abrir_site"}),
+    (re.compile(r"\b(timer|cronometr\w*|pomodoro|alarme|avis\w*|lembr\w*|minutos?|tempo|"
+                r"falta)\b"),
+     {"iniciar_timer", "consultar_timer", "cancelar_timer", "iniciar_pomodoro"}),
+    (re.compile(r"\b(abr\w*|fech\w*|programa\w*|aplicativo\w*|app|janela\w*|minimiz\w*|"
+                r"calculadora|word|excel|explorador|discord|whatsapp|obsidian|anki)\b"),
+     {"abrir_programa", "fechar_programa", "mostrar_janela", "janelas_abertas", "abrir_pasta"}),
+    (re.compile(r"\b(site\w*|navegador|chrome|edge|firefox|google|link|aba)\b"),
+     {"abrir_site", "buscar_no_navegador"}),
+    (re.compile(r"\b(anot\w*|caderno|bloco de notas|notepad|escrev\w*|digit\w*)\b"),
+     {"anotar", "abrir_anotacoes", "escrever_no_bloco_de_notas"}),
+    (re.compile(r"\b(tela|vendo|olh\w*|print|imagem|aberto)\b"),
+     {"ver_tela", "janelas_abertas"}),
+    (re.compile(r"\b(copi\w*|col\w*|area de transferencia)\b"),
+     {"copiar_texto", "ler_area_de_transferencia"}),
+    (re.compile(r"\b(bloque\w*|pasta\w*|visor|cor)\b"),
+     {"bloquear_tela", "abrir_pasta", "mudar_cor_do_visor"}),
+    (re.compile(r"\b(claude|cloud|claudio|claudia|clode|atualiz\w*|melhori\w*)\b"),
+     {"pedir_ao_claude", "atualizar_socrates"}),
+]
+
+
+def familias_do_pc(pedido: str, historico: list | None = None) -> set[str]:
+    """As ferramentas do PC que o assunto da fala pede ("toca lo-fi" -> música e volume).
+    Fala curta ("e agora fecha") olha também a fala anterior. Vazio = assunto não achado
+    (aí vão todas)."""
+    from ..llm.acoes import _norm as norm_acao
+    textos = [norm_acao(pedido)]
+    ultimo = next((m.get("content", "") for m in reversed(historico or [])
+                   if m.get("role") == "user"), "")
+    if ultimo and len(pedido.split()) <= 6:
+        textos.append(norm_acao(ultimo))
+    nomes: set[str] = set()
+    for rx, familia in _FAMILIAS_PC:
+        if any(rx.search(t) for t in textos):
+            nomes |= familia
+    return nomes
+
+
 _PC = re.compile(
     r"\b(abr\w*|fech\w*|bloco de notas|notepad|word|excel|calculadora|tela|janela\w*|programa\w*"
     r"|aplicativo\w*|app|site\w*|navegador|chrome|edge|youtube|spotify|music\w*|som|volume"
@@ -487,12 +531,17 @@ class Agente:
             "melhoraria em você ou o que o Claude fez.")
         return f
 
-    def esquemas(self, com_pc: bool = True) -> list[dict]:
+    def esquemas(self, com_pc: bool = True, pedido: str = "",
+                 historico: list | None = None) -> list[dict]:
         meus = [f.esquema() for f in self._ferramentas.values()]
         if not com_pc:
             return meus
-        pc = [ferramentas.REGISTRO[n].esquema() for n in self.acoes_pc if n in ferramentas.REGISTRO]
-        return meus + pc
+        nomes = [n for n in self.acoes_pc if n in ferramentas.REGISTRO]
+        if pedido:
+            escolhidas = familias_do_pc(pedido, historico)
+            if escolhidas:                # só as ferramentas do assunto; sem assunto, todas
+                nomes = [n for n in nomes if n in escolhidas]
+        return meus + [ferramentas.REGISTRO[n].esquema() for n in nomes]
 
     def quer_pc(self, pedido: str, historico: list) -> bool:
         """A fala (ou a conversa logo antes) pode precisar de mexer no computador?"""
@@ -517,7 +566,8 @@ class Agente:
         self._turno = Resultado()
         self._feitas: dict[tuple[str, str], str] = {}
         msgs = self.mensagens(pedido, historico or [], modo)
-        esquemas = self.esquemas(com_pc=self.quer_pc(pedido, historico or []))
+        esquemas = self.esquemas(com_pc=self.quer_pc(pedido, historico or []), pedido=pedido,
+                                 historico=historico or [])
         marca = ESPERA_LIMITE.set(ESPERA_NO_LIMITE)
         try:
             texto = await self.cerebro.com_ferramentas(
@@ -567,6 +617,7 @@ class Agente:
                           if e["function"]["name"] in self.acoes_pc)[:300]
         conversa = msgs + [{"role": "assistant", "content": texto},
                            {"role": "user", "content": RECUSA.format(nomes=nomes)}]
+        esquemas = self.esquemas(com_pc=True)      # talvez a ferramenta certa não estivesse na lista
         try:
             novo = _limpar(await self.cerebro.com_ferramentas(
                 conversa, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,

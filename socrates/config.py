@@ -70,6 +70,7 @@ class ConfigEscuta:
     palavra_ativacao: bool = True
     janela_seg: float = 15.0
     janela_prova_seg: float = 45.0
+    filtro_de_voz: bool = True      # Silero VAD: só manda ao Whisper o que tem voz humana
 
 
 @dataclass

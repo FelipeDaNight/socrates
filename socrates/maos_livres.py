@@ -25,7 +25,7 @@ from typing import Callable
 import numpy as np
 
 from . import ferramentas
-from .audio import ErroAudio
+from .audio import TAXA_MIC, ErroAudio
 from .audio.escuta import EventoMicrofone, Fala
 from .ferramentas import claude
 from .audio.microfone import para_wav
@@ -112,6 +112,8 @@ def _sem_acento(texto: str) -> str:
 
 
 AVISO_OUVIDO_SEG = 300   # avisa em voz que não está ouvindo no máximo a cada 5 minutos
+VOZ_MIN_JANELA = 0.1     # segundos de voz (detector) para valer como fala, na janela
+VOZ_MIN_FORA = 0.2       # fora da janela só vale o nome ("Sócrates" tem mais de meio segundo)
 
 
 def pede_quadro(pedido: str) -> bool:
@@ -122,8 +124,10 @@ def pede_quadro(pedido: str) -> bool:
 
 class Conversa:
     def __init__(self, cfg: Config, soc: Orquestrador, sentidos, painel: Painel,
-                 escrever: Callable[[str], None] | None = None, tutor=None, agente=None):
+                 escrever: Callable[[str], None] | None = None, tutor=None, agente=None,
+                 vad=None):
         self.cfg = cfg
+        self.vad = vad                # detector de voz (audio/vad.py); None = tudo vai ao Whisper
         self.tutor = tutor
         self.agente = agente          # o cérebro que decide (core/agente.py); None = só as regras
         self._falhas_ouvido = 0       # transcrições que falharam seguidas
@@ -405,7 +409,28 @@ class Conversa:
             self.dizer_tela(f"{self.cfg.nome}: {saida.fala}")
             await self._interrompivel(self._falar(saida.fala, False))
 
+    async def _sem_voz(self, fala: np.ndarray, em_janela: bool) -> bool:
+        """O trecho não tem voz humana (sopro, clique, TV, chiado)? Na janela de conversa a
+        exigência é menor: "Sim." tem uns 0,13 s de voz; fora dela, só vale o nome, que é
+        mais comprido."""
+        if self.vad is None:
+            return False
+        try:
+            voz = await asyncio.to_thread(self.vad.segundos_de_voz, fala)
+        except Exception as e:
+            log.warning("detector de voz falhou (%s); desligado nesta sessão", e)
+            self.vad = None
+            return False
+        minimo = VOZ_MIN_JANELA if em_janela else VOZ_MIN_FORA
+        if voz < minimo:
+            log.info("descartado sem gastar o Whisper: %.2f s de voz em %.1f s de som",
+                     voz, len(fala) / TAXA_MIC)
+            return True
+        return False
+
     async def _transcrever(self, fala: np.ndarray, em_janela: bool) -> str:
+        if await self._sem_voz(fala, em_janela):
+            return ""
         if em_janela:
             self.painel.estado = "pensando"
         try:
