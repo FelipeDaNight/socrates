@@ -226,3 +226,25 @@ async def test_se_recusar_a_segunda_tentativa_tem_todas_as_ferramentas(tmp_path)
     assert c.vistas[0] & set(ag.acoes_pc) == {"musica", "volume", "abrir_site"}
     assert set(ag.acoes_pc) <= c.vistas[1]                   # na insistência, todas as do PC
     assert r.texto == "Pronto, abri."
+
+
+# ---------------------------------------------------------------- cache de prompt do Groq
+
+def test_comeco_do_pedido_fica_igual_e_o_que_muda_vai_no_fim(tmp_path):
+    """O Groq guarda o começo do pedido (persona, ferramentas) e o que vem do cache não conta
+    no limite por minuto. A hora mudava a cada minuto logo depois da persona e estragava isso."""
+    from socrates.core.agente import Agente
+    from socrates.core.memoria import Memorias
+
+    class C:
+        async def com_ferramentas(self, *a, **k):
+            return ""
+
+    hora = {"agora": "Agora é quarta, 25/11/2026, 23:31."}
+    ag = Agente(C(), memorias=Memorias(tmp_path / "S"), contexto=lambda: hora["agora"])
+    antes = ag.mensagens("explica de novo", [])
+    hora["agora"] = "Agora é quarta, 25/11/2026, 23:32."
+    depois = ag.mensagens("explica de novo", [])
+    assert antes[0] == depois[0]                                  # o começo é o mesmo
+    assert "23:32" in depois[-2]["content"] and depois[-1]["role"] == "user"
+    assert "23:3" not in depois[0]["content"]

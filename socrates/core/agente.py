@@ -668,14 +668,13 @@ class Agente:
         return "Pronto." if self._turno.ferramentas else ""
 
     def sistema(self, modo: str = "explicar") -> str:
+        """O começo do pedido, que quase não muda: persona, memória, lições, caixa do Claude.
+        Fica igual de um pedido para o outro de propósito: o Groq guarda esse começo (cache
+        de prompt), e o que vem do cache não conta no limite grátis por minuto. O que muda
+        a cada pedido (hora, aula em andamento, tela) vai em momento(), no fim."""
         partes = [INSTRUCAO.format(nome=self.nome)]
         if modo == "testar":
             partes.append(MODO_PROVA)
-        if self.contexto is not None:
-            try:
-                partes.append(self.contexto())
-            except Exception:
-                log.exception("contexto")
         m = self.memorias
         if m is not None:
             sobre = m.aluno.para_prompt("O que você sabe do aluno (memória de longo prazo):")
@@ -688,13 +687,23 @@ class Agente:
                 partes.append("Na caixa do Claude, esperando ele ler hoje à noite (ideias para o "
                               "futuro, não limites de hoje; já estão com ele, não precisa mandar de "
                               "novo): " + " | ".join(d["t"] for d in pendentes[-5:]))
+        return "\n\n".join(partes)
+
+    def momento(self) -> str:
+        """O que muda a cada pedido: hora e lugar, aula ou treino em andamento, tela vista."""
+        partes = []
+        if self.contexto is not None:
+            try:
+                partes.append(self.contexto())
+            except Exception:
+                log.exception("contexto")
         situacao = self.situacao()
         if situacao:
             partes.append(situacao)
         visto = ferramentas.texto_da_lembranca()
         if visto:
             partes.append(visto)
-        return "\n\n".join(partes)
+        return "\n\n".join(p for p in partes if p)
 
     def situacao(self) -> str:
         """O que está acontecendo no estudo agora (aula ou treino no meio)."""
@@ -725,6 +734,9 @@ class Agente:
         notas = self._notas(pedido)
         if notas:
             msgs.append({"role": "system", "content": NOTAS + notas[:CORTE_NOTAS]})
+        agora = self.momento()
+        if agora:                 # no fim: o começo do pedido fica igual e vem do cache
+            msgs.append({"role": "system", "content": agora})
         msgs.append({"role": "user", "content": pedido})
         return msgs
 

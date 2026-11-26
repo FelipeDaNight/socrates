@@ -535,7 +535,9 @@ As ações no PC usam outra fila (`gpt-oss-20b` → `qwen3.8-27b` → `mistral-s
 `gpt-oss-120b` → Flash-Lite), para não disputar o limite da conversa. O pedido leva só as
 ferramentas do PC do assunto ("toca lo-fi" leva música e volume, não as 23), e o autoestudo
 só estuda com 5 minutos de silêncio, começando pelo Qwen, para não gastar o limite no meio
-da aula. A pesquisa na internet usa os dois modelos do Groq;
+da aula. O começo de cada pedido (persona, memória, lições, ferramentas) fica
+sempre igual e a hora vai no fim: o Groq guarda esse começo em cache, e token em cache não
+conta no limite por minuto dos modelos gpt-oss. A pesquisa na internet usa os dois modelos do Groq;
 a visão da tela tenta Groq → Mistral → Gemini. Serviço sem chave é simplesmente pulado.
 
 Para criar as chaves (grátis, sem cartão), grave cada uma sem ela aparecer na tela:
@@ -620,7 +622,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     877 testes, rodam sem microfone nem internet
+tests/                     878 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

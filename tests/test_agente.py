@@ -336,7 +336,10 @@ async def test_historico_com_avisos_seguidos_vira_uma_mensagem(tutor, memorias):
 async def test_situacao_do_treino_vai_no_prompt(tutor, memorias):
     tutor.atender("lacunas do CTB")
     ag, _ = _agente(CerebroRoteiro([]), tutor, memorias)
-    assert "Treino em andamento" in ag.sistema()
+    assert "Treino em andamento" in ag.momento()
+    msgs = ag.mensagens("qual a resposta?", [])
+    assert "Treino em andamento" in msgs[-2]["content"] and msgs[-2]["role"] == "system"
+    assert "Treino em andamento" not in ag.sistema()       # o começo fica igual (cache)
 
 
 # ---------------------------------------------------------------- memória
