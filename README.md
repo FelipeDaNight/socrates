@@ -415,6 +415,16 @@ estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
 .venv\Scripts\python main.py --pesquisa
 ```
 
+### Notícias do concurso (de graça)
+
+Com o Sócrates aberto, a cada 6 horas ele procura notícias de edital da PRF e do CBMGO na busca
+de notícias do DuckDuckGo (sem chave e **sem gastar o cérebro**). Só entram as que falam do
+concurso e de edital, banca, inscrição, vagas ou prova; cada novidade ele fala uma vez, quando
+você não está no meio de uma conversa, e as últimas ficam no visor novo. Na primeira vez ele
+avisa só a mais recente de cada concurso. Também dá para perguntar: "Sócrates, saiu o edital da
+PRF?". Para desligar ou mudar o intervalo: `noticias:` no `config.yaml`. Fica guardado em
+`Documentos\Socrates\noticias.json`.
+
 ### O visor
 
 O visor novo abre numa janela própria do Edge (sem barra de endereço), em tela de estudo
@@ -623,6 +633,7 @@ socrates/
   core/quadro_fluxo.py     separa o quadro branco da fala
   visor/quadro.py          desenha o quadro (fórmulas, gráficos com avaliação segura)
   visor/diagrama.py        mapa mental, cenários e passo a passo no quadro
+  estudo/noticias.py       vigia de notícias do edital (PRF, CBMGO), sem gastar o cérebro
   tts/gemini.py            voz do Gemini; tts/reserva.py troca para o Edge se falhar
   core/narrador.py         fala frase a frase, sintetizando a próxima em paralelo
   core/comandos.py         comandos falados ou digitados
@@ -656,7 +667,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     949 testes, rodam sem microfone nem internet
+tests/                     969 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

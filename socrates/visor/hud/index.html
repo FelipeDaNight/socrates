@@ -178,7 +178,7 @@ body.espera #nucleo { display: none; }
 .linha span:last-child { color: #eafbff; text-align: right; }
 .grande { font-family: var(--f-titulo); font-weight: 600; font-size: 22px; color: #eafbff; letter-spacing: 0.06em;
   text-shadow: 0 0 12px rgba(92, 225, 255, 0.35); }
-#p-estudo, #p-sessao, #p-timer, #p-revisao, #p-auto { display: flex; flex-direction: column; gap: 9px; }
+#p-estudo, #p-sessao, #p-timer, #p-revisao, #p-auto, #p-noticias { display: flex; flex-direction: column; gap: 9px; }
 #estudo-titulo { font-size: 14px; line-height: 1.4; color: var(--texto); }
 #timer-barra { height: 6px; background: rgba(92, 225, 255, 0.15); }
 #timer-barra div { height: 6px; width: 0; background: var(--holo); box-shadow: 0 0 8px var(--holo); transition: width 0.5s; }
@@ -186,6 +186,13 @@ body.espera #nucleo { display: none; }
 #p-revisao .txt, #p-auto .txt { font-size: 13.5px; line-height: 1.45; color: #ffe9c7; }
 #p-auto .txt { color: var(--texto); }
 .diga { font-family: var(--f-mono); font-size: 11.5px; color: #a9e9ff; }
+#noticias-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+#noticias-lista li { display: flex; flex-direction: column; gap: 3px; }
+#noticias-lista .tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--laranja); }
+#noticias-lista a { color: var(--texto); text-decoration: none; font-size: 13.5px; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+#noticias-lista a:hover { color: var(--holo); }
+#noticias-lista .de { font-family: var(--f-mono); font-size: 10.5px; color: var(--fraco); }
 [hidden] { display: none !important; }
 
 /* ---------- rodapé ---------- */
@@ -284,6 +291,10 @@ body.encerrado #fim { display: flex; }
       <span id="estudo-titulo">Converse, peça uma aula ou questões.</span>
       <div class="linha" id="estudo-l-prog" hidden><span>PROGRESSO</span><span id="estudo-prog"></span></div>
       <div class="linha" id="estudo-l-acertos" hidden><span>ACERTOS</span><span id="estudo-acertos"></span></div>
+    </section>
+    <section class="painel" id="p-noticias" hidden>
+      <div class="rotulo"><span>// NOTÍCIAS DO CONCURSO</span></div>
+      <ul id="noticias-lista"></ul>
     </section>
     <section class="painel" id="p-sessao">
       <div class="rotulo"><span>// SESSÃO</span></div>
@@ -504,10 +515,31 @@ function aplicar(e) {
     $("#timer-motivo").textContent = (tm.motivo || "").toUpperCase();
     $("#timer-barra div").style.width = tm.total ? (100 * tm.resta / tm.total).toFixed(1) + "%" : "0";
   }
+  mostrarNoticias(e.noticias || []);
   const auto = (e.aprendendo || "").replace(/^◆\s*/, "");
   $("#p-auto").hidden = !auto;
   $("#auto-txt").textContent = textoCurto(auto, 160);
   if (e.quadro !== versaoQuadro) carregarQuadro(e.quadro);
+}
+
+let noticiasVistas = "";
+function mostrarNoticias(lista) {
+  const chave = JSON.stringify(lista);
+  if (chave === noticiasVistas) return;
+  noticiasVistas = chave;
+  $("#p-noticias").hidden = !lista.length;
+  const ul = $("#noticias-lista");
+  ul.textContent = "";
+  for (const n of lista.slice(0, 3)) {
+    const li = document.createElement("li");
+    const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = (n.concurso || "").toUpperCase();
+    const a = document.createElement("a"); a.textContent = n.titulo || "";
+    if (/^https?:\/\//.test(n.url || "")) { a.href = n.url; a.target = "_blank"; a.rel = "noopener"; }
+    const de = document.createElement("span"); de.className = "de";
+    de.textContent = [n.fonte, n.data].filter(Boolean).join(" · ");
+    li.append(tag, a, de);
+    ul.appendChild(li);
+  }
 }
 
 // ---------------------------------------------------------------- quadro

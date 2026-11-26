@@ -63,6 +63,7 @@ class Painel:
         self.qual_cerebro = None                  # () -> "GROQ · GPT-OSS-120B"
         self.info_estudo = None                   # () -> aula/treino em andamento, revisões
         self.info_timer = None                    # () -> {"resta", "total", "motivo"} ou None
+        self.noticias: list[dict] = []            # notícias do concurso (estudo/noticias.py)
 
     def mostrar_quadro(self, png: bytes) -> None:
         self.quadro_png = png

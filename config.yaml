@@ -115,6 +115,11 @@ visor:
   cor: laranja                # laranja, azul, ciano, verde, roxo, rosa, vermelho, branco
                               # (ou diga "Sócrates, muda a cor do visor para azul")
 
+noticias:                     # vigia notícias de edital da PRF e do CBMGO (grátis: sem cérebro)
+  ativo: true                 # false = não procura
+  concursos: [prf, cbmgo]
+  intervalo_horas: 6          # com o Sócrates aberto, procura de novo a cada tantas horas
+
 autoestudo:                   # o Sócrates estuda SOZINHO o edital enquanto está aberto
   ativo: true                 # false = desligado (ou diga "Sócrates, pausa o aprendizado")
   planos: [prf, cbmgo]        # editais que ele completa; o primeiro tem prioridade

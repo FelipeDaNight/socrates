@@ -100,6 +100,13 @@ class ConfigAgente:
 
 
 @dataclass
+class ConfigNoticias:
+    ativo: bool = True              # vigia notícias de edital (busca de notícias grátis, sem cérebro)
+    concursos: list = field(default_factory=lambda: ["prf", "cbmgo"])
+    intervalo_horas: float = 6
+
+
+@dataclass
 class Config:
     nome: str
     modo_inicial: str
@@ -123,6 +130,7 @@ class Config:
     cerebro: str = "nuvem"                       # nuvem (Groq/Mistral/Gemini) | local (Ollama)
     local_cfg: ConfigLocal = field(default_factory=ConfigLocal)
     agente: ConfigAgente = field(default_factory=ConfigAgente)
+    noticias: ConfigNoticias = field(default_factory=ConfigNoticias)
     log_nivel: str = "INFO"
     log_arquivo: str | None = None
     bruto: dict = field(default_factory=dict, repr=False)
@@ -282,6 +290,7 @@ def carregar(caminho: Path | str | None = None) -> Config:
         local_cfg=_preencher(ConfigLocal, dados.get("local") if isinstance(dados.get("local"), dict)
                              else None),
         agente=_preencher(ConfigAgente, dados.get("agente")),
+        noticias=_preencher(ConfigNoticias, dados.get("noticias")),
         log_nivel=log.get("nivel", "INFO"),
         log_arquivo=log.get("arquivo"),
         bruto=dados,

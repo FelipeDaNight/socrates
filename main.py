@@ -137,6 +137,39 @@ async def refletir_em_segundo_plano(cfg: config.Config, agente, avisar, espera: 
             avisar(texto)
 
 
+def criar_vigia(cfg: config.Config):
+    """Vigia de notícias do edital (estudo/noticias.py). None = desligado."""
+    if not cfg.noticias.ativo:
+        return None
+    from socrates.estudo.noticias import Vigia
+    from socrates.ferramentas.computador import PASTA_SOCRATES
+    return Vigia(PASTA_SOCRATES / "noticias.json", cfg.noticias.concursos)
+
+
+async def vigiar_noticias(cfg: config.Config, vigia, painel, avisar, ocupado,
+                          espera: float = 60, passo: float = 60) -> None:
+    """De graça: a busca de notícias do DuckDuckGo, sem gastar o cérebro. Procura a cada
+    `intervalo_horas` e só fala a novidade quando você não está no meio de uma conversa."""
+    if vigia is None:
+        return
+    from socrates.estudo.noticias import aviso, para_o_visor
+
+    painel.noticias = para_o_visor(vigia.recentes(4))
+    await asyncio.sleep(espera)             # deixa a saudação e o começo do estudo em paz
+    pendentes: list = []
+    while True:
+        try:
+            if vigia.precisa_buscar(cfg.noticias.intervalo_horas):
+                pendentes += await asyncio.to_thread(vigia.verificar)
+                painel.noticias = para_o_visor(vigia.recentes(4))
+            if pendentes and not ocupado():
+                avisar(aviso(pendentes))
+                pendentes = []
+        except Exception as e:              # notícia é extra: nunca derruba a conversa
+            logging.getLogger("socrates").warning("vigia de notícias: %s", e)
+        await asyncio.sleep(passo)
+
+
 def criar_tutor(cfg: config.Config):
     """Questões, lei seca, revisão e pomodoro. Sem material, o resto funciona igual."""
     import os
@@ -256,11 +289,12 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     painel.ao_fechar = lambda: loop.call_soon_threadsafe(fila.put_nowait, None)
     computador.avisar = lambda texto: loop.call_soon_threadsafe(fila.put_nowait, Aviso(texto))
 
+    def ocupado() -> bool:
+        return (painel.estado != "ocioso" or painel.falando() or painel.em_janela()
+                or painel.ouvindo)
+
     motor = None
     if tutor is not None:
-        def ocupado() -> bool:
-            return (painel.estado != "ocioso" or painel.falando() or painel.em_janela()
-                    or painel.ouvindo)
         motor = criar_autoestudo(
             cfg, tutor, ocupado=ocupado,
             avisar=lambda texto: loop.call_soon_threadsafe(fila.put_nowait, Aviso(texto)),
@@ -271,6 +305,11 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     agente = criar_agente(cfg, soc, tutor)
     reflexao = asyncio.create_task(refletir_em_segundo_plano(
         cfg, agente, lambda texto: fila.put_nowait(Aviso(texto))))
+    vigia = criar_vigia(cfg)
+    if agente is not None and vigia is not None:
+        agente.vigia = vigia                 # "saiu o edital?" usa a mesma lista
+    noticias = asyncio.create_task(vigiar_noticias(
+        cfg, vigia, painel, lambda texto: fila.put_nowait(Aviso(texto)), ocupado))
     ler_teclado(loop, fila)
     sentidos.escuta.iniciar(fila)
     try:
@@ -282,6 +321,7 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
                        vad=vad).rodar(fila)
     finally:
         reflexao.cancel()
+        noticias.cancel()
         if motor is not None:
             motor.parar()
         sentidos.escuta.parar()

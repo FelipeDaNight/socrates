@@ -518,6 +518,10 @@ class Agente:
             "Pesquisa na internet: livros e obras, fatos atuais, notícias, editais, datas. "
             "Depois responda citando a fonte pelo nome.",
             {"pergunta": "O que pesquisar"})
+        reg(self.noticias_do_concurso,
+            "Notícias recentes do concurso da PRF e do CBMGO (edital, banca, inscrição, prova). Use "
+            "quando ele perguntar se saiu edital ou se há novidade do concurso.",
+            {}, {"concurso": ["prf", "cbmgo", "todos"]})
         reg(self.lembrar,
             "Guarda para sempre um fato durável sobre o aluno (data da prova, dificuldades, "
             "preferências, objetivos, rotina).",
@@ -902,6 +906,20 @@ class Agente:
                 log.warning("pesquisa embutida falhou: %s", e)
         from ..ferramentas.busca import pesquisar_na_internet
         return await asyncio.to_thread(pesquisar_na_internet, pergunta)
+
+    async def noticias_do_concurso(self, concurso: str = "todos") -> str:
+        from ..estudo.noticias import Vigia, resumo_para_o_cerebro
+        vigia = getattr(self, "vigia", None)
+        if vigia is None:
+            from ..ferramentas.computador import PASTA_SOCRATES
+            vigia = self.vigia = Vigia(PASTA_SOCRATES / "noticias.json")
+        novas = await asyncio.to_thread(vigia.verificar)
+        recentes = vigia.recentes(6)
+        qual = (concurso or "").strip().lower()
+        if qual in ("prf", "cbmgo"):
+            novas = [n for n in novas if n.concurso == qual]
+            recentes = [n for n in recentes if n.concurso == qual]
+        return resumo_para_o_cerebro(novas, recentes)
 
     def lembrar(self, fato: str) -> str:
         if self.memorias is None:

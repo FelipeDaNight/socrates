@@ -78,6 +78,7 @@ def estado(painel: Painel) -> dict:
         "falas": painel.falas,
         "estudo": _chamar(painel.info_estudo, None),
         "timer": _chamar(painel.info_timer, None),
+        "noticias": list(painel.noticias or []),
         "encerrado": painel.encerrado,
     }
 
