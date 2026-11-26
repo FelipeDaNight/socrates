@@ -76,8 +76,11 @@ class ConfigEscuta:
 @dataclass
 class ConfigVisor:
     ativo: bool = True
-    sempre_no_topo: bool = False
-    escala: float = 1.25
+    estilo: str = "hud"            # hud = visor novo (Edge); classico = a janela antiga (Tkinter)
+    largura: int = 1280            # tamanho da janela do visor novo
+    altura: int = 760
+    sempre_no_topo: bool = False   # só no clássico
+    escala: float = 1.25           # só no clássico
     cor: str = "laranja"
 
 

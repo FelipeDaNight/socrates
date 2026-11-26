@@ -243,6 +243,7 @@ class _Timer:
         (o pomodoro usa isso para registrar os minutos estudados)."""
         self.cancelar()
         self.fim = time.monotonic() + minutos * 60
+        self.total = minutos * 60
         self.motivo = motivo
         self.ao_terminar = ao_terminar
         self.timer = threading.Timer(minutos * 60, self._tocar)

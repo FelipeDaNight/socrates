@@ -6,7 +6,9 @@ Funciona sem o visor também: aí ninguém lê, e tudo segue igual.
 
 from __future__ import annotations
 
+import re
 import time
+from collections import deque
 
 import numpy as np
 
@@ -49,14 +51,45 @@ class Painel:
         self.quadro_tamanho = (760, 640)          # o visor informa o tamanho real
         self.quadro_png: bytes | None = None
         self.quadro_versao = 0
+        # visor novo (visor/hud.py): ele desenha o quadro a partir do texto
+        self.quadro_fonte: str | None = None
+        self.quadro_por_fonte = False
+        self.registro: deque = deque(maxlen=14)   # log de voz: (hora, "voce"|"socrates", texto)
+        self.registro_versao = 0
+        self.falas = 0                            # quantas vezes você falou com ele nesta sessão
+        self.inicio = time.time()
+        self.resposta_seg: float | None = None    # da sua fala até a voz dele começar
+        self._pedido_em: float | None = None
+        self.qual_cerebro = None                  # () -> "GROQ · GPT-OSS-120B"
+        self.info_estudo = None                   # () -> aula/treino em andamento, revisões
+        self.info_timer = None                    # () -> {"resta", "total", "motivo"} ou None
 
     def mostrar_quadro(self, png: bytes) -> None:
         self.quadro_png = png
+        self.quadro_fonte = None
+        self.quadro_versao += 1
+
+    def mostrar_fonte(self, fonte: str) -> None:
+        """O visor novo desenha o quadro sozinho, a partir do texto."""
+        self.quadro_fonte = fonte
+        self.quadro_png = None
         self.quadro_versao += 1
 
     def limpar_quadro(self) -> None:
         self.quadro_png = None
+        self.quadro_fonte = None
         self.quadro_versao += 1
+
+    def registrar(self, quem: str, texto: str) -> None:
+        """Uma linha do log de voz (o que você disse, o que ele respondeu)."""
+        texto = re.sub(r"\s+", " ", texto or "").strip()
+        if not texto:
+            return
+        self.registro.append((time.strftime("%H:%M:%S"), quem, texto[:500]))
+        self.registro_versao += 1
+        if quem == "voce":
+            self.falas += 1
+            self._pedido_em = time.monotonic()
 
     # ---------- escrito pelo Sócrates ----------
     def mic(self, rms: float) -> None:
@@ -65,6 +98,9 @@ class Painel:
     def iniciar_fala(self, env: np.ndarray) -> None:
         self._env = env
         self._env_inicio = time.monotonic()
+        if self._pedido_em is not None:          # a 1ª frase depois do seu pedido
+            self.resposta_seg = round(self._env_inicio - self._pedido_em, 1)
+            self._pedido_em = None
 
     def fim_fala(self) -> None:
         self._env = None

@@ -29,12 +29,9 @@ import re
 import unicodedata
 from dataclasses import dataclass, field
 
-from .quadro import MARGEM, PAPEL, PX_POR_PT, TINTA, TITULO, _altura_titulo, _titulo, _trava
+from .quadro import CLARO, MARGEM, PX_POR_PT, Tema, _altura_titulo, _titulo, _trava
 
-CORES = ("#c2410c", "#1d4ed8", "#15803d", "#7e22ce", "#0f766e", "#be123c")
-COR_FLUXO = "#1d4ed8"
-BRANCO = "#ffffff"
-COR_NOTA = "#475569"
+CORES = CLARO.ramos
 MAXIMO = {"mapa": 6, "cenarios": 5, "fluxo": 7}     # ramos que cabem num quadro
 DETALHES = 4                                          # detalhes por ramo
 TAMANHOS = (15, 14, 13, 12, 11, 10, 9)                # letra (pt) das caixas, da maior à menor
@@ -234,7 +231,7 @@ class Caixa:
     corpo: list[list[str]]
     pt: float
     cor: str
-    fundo: str = BRANCO
+    fundo: str = "#ffffff"
     cor_cabeca: str = ""
     numero: str = ""
     raiz: bool = False
@@ -246,8 +243,8 @@ class Caixa:
         return self.y + self.h / 2
 
 
-def _caixa(texto: str, detalhes: list[str], largura: float, pt: float, w, cor: str = TINTA,
-           numero: str = "", raiz: bool = False, fundo: str = BRANCO, cor_cabeca: str = "") -> Caixa:
+def _caixa(texto: str, detalhes: list[str], largura: float, pt: float, w, cor: str = "#1e2533",
+           numero: str = "", raiz: bool = False, fundo: str = "#ffffff", cor_cabeca: str = "") -> Caixa:
     px = pt * PX_POR_PT
     folga_x, folga_y, lh = 0.75 * px, 0.6 * px, 1.3 * px
     bola = 1.35 * px + 6 if numero else 0
@@ -260,15 +257,21 @@ def _caixa(texto: str, detalhes: list[str], largura: float, pt: float, w, cor: s
         h += (0.35 * lh if cabeca else 0) + sum(len(c) for c in corpo) * lh + 0.2 * lh * (len(corpo) - 1)
     if numero:
         h = max(h, 2 * folga_y + 1.35 * px)
-    return Caixa(largura, h, cabeca, corpo, pt, cor, fundo,
-                 cor_cabeca or (BRANCO if raiz else cor), numero, raiz)
+    return Caixa(largura, h, cabeca, corpo, pt, cor, fundo, cor_cabeca or cor, numero, raiz)
 
 
-def _tom(cor: str, quanto: float = 0.13) -> str:
-    """A cor bem clarinha (fundo das condições nos cenários)."""
+def _tom(cor: str, base: str = "#ffffff", quanto: float = 0.13) -> str:
+    """A cor bem fraquinha sobre a base (fundo das condições nos cenários)."""
     from matplotlib.colors import to_hex, to_rgb
+    c, b = to_rgb(cor), to_rgb(base)
+    return to_hex(tuple(y + quanto * (x - y) for x, y in zip(c, b)))
+
+
+def _texto_sobre(cor: str) -> str:
+    """Branco sobre cor escura, quase preto sobre cor clara (o número na bolinha)."""
+    from matplotlib.colors import to_rgb
     r, g, b = to_rgb(cor)
-    return to_hex((1 - quanto + quanto * r, 1 - quanto + quanto * g, 1 - quanto + quanto * b))
+    return "#03121c" if 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.45 else "#ffffff"
 
 
 # ---------------------------------------------------------------- montagem
@@ -296,12 +299,13 @@ def _espalhar(alturas: list[float], espaco: float, minimo: float) -> float:
     return max(minimo, min(livre / (len(alturas) + 1), 3 * minimo))
 
 
-def _mapa(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
+def _mapa(d: Diagrama, ramos, x0, x1, y0, y1, pt, w, tema: Tema) -> Montagem:
     A = x1 - x0
     R = _largura_raiz(d.centro, min(max(0.2 * A, 120.0), 180.0), 0.3 * A, pt, w)
     G = max(34.0, 0.07 * A)
     C = (A - R - 2 * G) / 2
-    raiz = _caixa(d.centro, [], R, pt, w, cor=TITULO, raiz=True, fundo=TINTA)
+    raiz = _caixa(d.centro, [], R, pt, w, cor=tema.raiz_borda, raiz=True, fundo=tema.raiz_fundo,
+                  cor_cabeca=tema.raiz_texto)
     k = (len(ramos) + 1) // 2 if len(ramos) > 1 else 0      # à esquerda; o resto à direita
     lados = [(ramos[:k], -1, 0), (ramos[k:], 1, k)]
     minimo = 0.9 * pt * PX_POR_PT
@@ -309,12 +313,13 @@ def _mapa(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
     for grupo, lado, ini in lados:
         caixas = []
         for i, (t, dets) in enumerate(grupo):
-            cor, numero = CORES[(ini + i) % len(CORES)], str(ini + i + 1)
-            c = _caixa(t, dets, C, pt, w, cor=cor, numero=numero)
+            cor, numero = tema.ramos[(ini + i) % len(tema.ramos)], str(ini + i + 1)
+            c = _caixa(t, dets, C, pt, w, cor=cor, numero=numero, fundo=tema.caixa)
             if not dets and len(c.cabeca) == 1:     # só o nome: a caixa abraça o texto
                 px = pt * PX_POR_PT
                 justa = w(c.cabeca[0], pt + 0.5, True) + 1.5 * px + 1.35 * px + 6 + 8
-                c = _caixa(t, dets, min(C, max(justa, 0.45 * C)), pt, w, cor=cor, numero=numero)
+                c = _caixa(t, dets, min(C, max(justa, 0.45 * C)), pt, w, cor=cor, numero=numero,
+                           fundo=tema.caixa)
             caixas.append(c)
         colunas.append((caixas, lado))
     espaco = y1 - y0
@@ -340,23 +345,25 @@ def _mapa(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
     return m
 
 
-def _cenarios(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
+def _cenarios(d: Diagrama, ramos, x0, x1, y0, y1, pt, w, tema: Tema) -> Montagem:
     A = x1 - x0
     R = _largura_raiz(d.centro, min(max(0.19 * A, 110.0), 170.0), 0.28 * A, pt, w)
     G1, G2 = max(30.0, 0.055 * A), max(30.0, 0.05 * A)
     resto = A - R - G1 - G2
     C1 = 0.42 * resto
     C2 = resto - C1
-    raiz = _caixa(d.centro, [], R, pt, w, cor=TITULO, raiz=True, fundo=TINTA)
+    raiz = _caixa(d.centro, [], R, pt, w, cor=tema.raiz_borda, raiz=True, fundo=tema.raiz_fundo,
+                  cor_cabeca=tema.raiz_texto)
     linhas = []
     for i, (t, dets) in enumerate(ramos):
-        cor = CORES[i % len(CORES)]
+        cor = tema.ramos[i % len(tema.ramos)]
+        tom = _tom(cor, tema.base_tom, 0.13 if tema.papel != "none" else 0.2)
         if dets:
-            cond = _caixa(t, [], C1, pt, w, cor=cor, numero=str(i + 1), fundo=_tom(cor), cor_cabeca=TINTA)
-            cons = _caixa("", dets, C2, pt, w, cor=cor)
+            cond = _caixa(t, [], C1, pt, w, cor=cor, numero=str(i + 1), fundo=tom, cor_cabeca=tema.tinta)
+            cons = _caixa("", dets, C2, pt, w, cor=cor, fundo=tema.caixa)
         else:
-            cond = _caixa(t, [], C1 + G2 + C2, pt, w, cor=cor, numero=str(i + 1), fundo=_tom(cor),
-                          cor_cabeca=TINTA)
+            cond = _caixa(t, [], C1 + G2 + C2, pt, w, cor=cor, numero=str(i + 1), fundo=tom,
+                          cor_cabeca=tema.tinta)
             cons = None
         linhas.append((cond, cons))
     minimo = 0.8 * pt * PX_POR_PT
@@ -382,16 +389,17 @@ def _cenarios(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
     return m
 
 
-def _fluxo(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
+def _fluxo(d: Diagrama, ramos, x0, x1, y0, y1, pt, w, tema: Tema) -> Montagem:
     A = x1 - x0
     L = min(A, 640.0)
     xs = x0 + (A - L) / 2
     caixas = []
     if d.centro and _sem_acento(d.centro) not in _sem_acento(d.titulo or ""):
-        caixas.append(_caixa(d.centro, [], min(L, 380.0), pt, w, cor=TITULO, raiz=True, fundo=TINTA))
+        caixas.append(_caixa(d.centro, [], min(L, 380.0), pt, w, cor=tema.raiz_borda, raiz=True,
+                             fundo=tema.raiz_fundo, cor_cabeca=tema.raiz_texto))
     for i, (t, dets) in enumerate(ramos):
-        cor = TITULO if i == len(ramos) - 1 and len(ramos) > 2 else COR_FLUXO
-        caixas.append(_caixa(t, dets, L, pt, w, cor=cor, numero=str(i + 1)))
+        cor = tema.raiz_borda if i == len(ramos) - 1 and len(ramos) > 2 else tema.fluxo
+        caixas.append(_caixa(t, dets, L, pt, w, cor=cor, numero=str(i + 1), fundo=tema.caixa))
     seta = 0.9 * pt * PX_POR_PT + 10
     precisa = sum(c.h for c in caixas) + seta * (len(caixas) - 1)
     m = Montagem(precisa <= y1 - y0)
@@ -401,7 +409,7 @@ def _fluxo(d: Diagrama, ramos, x0, x1, y0, y1, pt, w) -> Montagem:
         c.x, c.y = xs + (L - c.w) / 2, topo - c.h
         if anterior is not None:
             meio_x = xs + L / 2
-            m.setas.append((meio_x, anterior.y - 2, meio_x, topo + 2, COR_FLUXO))
+            m.setas.append((meio_x, anterior.y - 2, meio_x, topo + 2, tema.fluxo))
         m.caixas.append(c)
         anterior = c
         topo -= c.h + seta
@@ -428,7 +436,8 @@ def _podar(ramos: list[tuple[str, list[str]]]) -> bool:
     return False
 
 
-def montar(d: Diagrama, largura: int, altura: int, w) -> tuple[tuple | None, list[str], Montagem]:
+def montar(d: Diagrama, largura: int, altura: int, w,
+           tema: Tema = CLARO) -> tuple[tuple | None, list[str], Montagem]:
     """(título, linhas da nota, montagem) — tudo posicionado em pixels."""
     x0, x1, y0, y1 = MARGEM, largura - MARGEM, MARGEM, altura - MARGEM
     titulo = None
@@ -442,9 +451,11 @@ def montar(d: Diagrama, largura: int, altura: int, w) -> tuple[tuple | None, lis
     ramos = [(r.texto, _detalhes(r)) for r in d.ramos]
     fazer = _MONTAR[d.tipo]
     melhor = None
-    for pt in TAMANHOS:                 # a maior letra que cabe sem cortar palavra com hífen
+    fator = max(1.0, min(1.6, largura / 760, altura / 610))   # quadro grande (tela cheia): letra maior
+    tamanhos = sorted({round(t * fator, 1) for t in TAMANHOS} | set(TAMANHOS), reverse=True)
+    for pt in tamanhos:                 # a maior letra que cabe sem cortar palavra com hífen
         w.hifens = 0
-        m = fazer(d, ramos, x0, x1, y0, y1, pt, w)
+        m = fazer(d, ramos, x0, x1, y0, y1, pt, w, tema)
         if m.cabe and not w.hifens:
             melhor = m
             break
@@ -452,7 +463,7 @@ def montar(d: Diagrama, largura: int, altura: int, w) -> tuple[tuple | None, lis
             melhor = m
     m = melhor or m
     while not m.cabe and _podar(ramos):
-        m = fazer(d, ramos, x0, x1, y0, y1, TAMANHOS[-1], w)
+        m = fazer(d, ramos, x0, x1, y0, y1, TAMANHOS[-1], w, tema)
     return titulo, nota, m
 
 
@@ -462,7 +473,7 @@ def _tinta(s: str) -> str:
     return s.replace("$", r"\$")        # "R$ 5" não pode virar fórmula
 
 
-def _pintar(ax, c: Caixa, w) -> None:
+def _pintar(ax, c: Caixa, w, tema: Tema = CLARO) -> None:
     from matplotlib.patches import Circle, FancyBboxPatch
 
     px = c.pt * PX_POR_PT
@@ -476,7 +487,8 @@ def _pintar(ax, c: Caixa, w) -> None:
     if c.numero:
         d = 1.35 * px
         ax.add_patch(Circle((x_texto + d / 2, topo - d / 2), d / 2, fc=c.cor, ec="none", zorder=4))
-        ax.text(x_texto + d / 2, topo - d / 2, c.numero, ha="center", va="center", color=BRANCO,
+        ax.text(x_texto + d / 2, topo - d / 2, c.numero, ha="center", va="center",
+                color=_texto_sobre(c.cor),
                 fontproperties=w.fonte(c.pt - 1.5, True), zorder=5)
         x_texto += d + 6
     passo_cabeca = lh * (pt_cabeca / c.pt)
@@ -493,11 +505,12 @@ def _pintar(ax, c: Caixa, w) -> None:
                     fontproperties=w.fonte(c.pt, True), zorder=5)
         for k, linha in enumerate(linhas):
             ax.text(c.x + folga_x + (0.95 * px if marcar else 0), y - k * lh, _tinta(linha),
-                    va="top", color=TINTA, fontproperties=w.fonte(c.pt), zorder=5)
+                    va="top", color=tema.tinta, fontproperties=w.fonte(c.pt), zorder=5)
         y -= len(linhas) * lh + 0.2 * lh
 
 
-def desenhar(d: Diagrama, largura: int = 760, altura: int = 640) -> bytes:
+def desenhar(d: Diagrama, largura: int = 760, altura: int = 640, tema: Tema = CLARO,
+             escala: float = 1.0) -> bytes:
     """Imagem PNG do desenho, do tamanho do quadro."""
     import matplotlib
     from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -506,23 +519,23 @@ def desenhar(d: Diagrama, largura: int = 760, altura: int = 640) -> bytes:
     from matplotlib.path import Path
 
     with _trava, matplotlib.rc_context({"font.family": "DejaVu Sans"}):
-        fig = Figure(figsize=(largura / 100, altura / 100), dpi=100, facecolor=PAPEL)
+        fig = Figure(figsize=(largura / 100, altura / 100), dpi=100, facecolor=tema.papel)
         renderer = FigureCanvasAgg(fig).get_renderer()
         w = _medidor(renderer)
         ax = fig.add_axes((0, 0, 1, 1))
         ax.set_xlim(0, largura)
         ax.set_ylim(0, altura)
         ax.axis("off")
-        titulo, nota, m = montar(d, largura, altura, w)
+        titulo, nota, m = montar(d, largura, altura, w, tema)
 
         if titulo:
             fs, linhas = titulo
             passo = fs * PX_POR_PT * 1.2
             for k, linha in enumerate(linhas):
-                ax.text(MARGEM, altura - MARGEM - k * passo, _tinta(linha), va="top", color=TITULO,
+                ax.text(MARGEM, altura - MARGEM - k * passo, _tinta(linha), va="top", color=tema.titulo,
                         fontproperties=w.fonte(fs, True))
             yl = altura - MARGEM - (len(linhas) - 1) * passo - fs * PX_POR_PT * 1.04
-            ax.plot([MARGEM, largura - MARGEM], [yl, yl], color=TITULO, alpha=0.35, linewidth=1.2)
+            ax.plot([MARGEM, largura - MARGEM], [yl, yl], color=tema.titulo, alpha=0.35, linewidth=1.2)
 
         for x0, y0, x1, y1, cor in m.curvas:
             dx = (x1 - x0) * 0.55
@@ -534,12 +547,13 @@ def desenhar(d: Diagrama, largura: int = 760, altura: int = 640) -> bytes:
             ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle="-|>", mutation_scale=16,
                                          color=cor, lw=2.2, shrinkA=0, shrinkB=0, zorder=2))
         for c in m.caixas:
-            _pintar(ax, c, w)
+            _pintar(ax, c, w, tema)
 
         for k, linha in enumerate(nota):
             ax.text(MARGEM, MARGEM + (len(nota) - 1 - k) * NOTA_PT * PX_POR_PT * 1.3, _tinta(linha),
-                    va="bottom", color=COR_NOTA, fontproperties=w.fonte(NOTA_PT))
+                    va="bottom", color=tema.nota, fontproperties=w.fonte(NOTA_PT))
 
         buf = io.BytesIO()
-        fig.savefig(buf, format="png", facecolor=PAPEL)
+        fig.savefig(buf, format="png", facecolor=tema.papel, dpi=100 * escala,
+                    transparent=tema.papel == "none")
     return buf.getvalue()

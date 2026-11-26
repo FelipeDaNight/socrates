@@ -246,6 +246,11 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
 
     soc = criar_socrates(cfg)
     tutor = criar_tutor(cfg)
+    from socrates.visor import hud
+    rodizio = getattr(soc.cerebro, "base_rodizio", None) or soc.cerebro
+    painel.qual_cerebro = lambda: hud.rotulo_cerebro(getattr(rodizio, "ultimo_usado", None))
+    painel.info_estudo = (lambda: hud.info_estudo(tutor)) if tutor is not None else None
+    painel.info_timer = hud.info_timer
     fila: asyncio.Queue = asyncio.Queue()
     loop = asyncio.get_running_loop()
     painel.ao_fechar = lambda: loop.call_soon_threadsafe(fila.put_nowait, None)
@@ -286,6 +291,21 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
 def rodar_maos_livres(cfg: config.Config, com_visor: bool) -> None:
     painel = Painel()
     painel.cor = cfg.visor.cor
+    if com_visor and cfg.visor.estilo != "classico":
+        # Visor novo (estilo HUD): uma página no Edge. Se não abrir, segue no clássico.
+        from socrates.visor import hud
+        print("[visor] abrindo o visor novo...")
+        janela = hud.abrir(painel, cfg.visor.largura, cfg.visor.altura)
+        if janela is not None:
+            try:
+                asyncio.run(maos_livres(cfg, painel))
+            except KeyboardInterrupt:
+                pass
+            finally:
+                painel.encerrado = True
+                janela.parar()
+            return
+        print("[visor] não consegui abrir o visor novo no Edge; usando o visor clássico.")
     tem_tk = importlib.util.find_spec("tkinter") is not None
     if com_visor and not tem_tk:
         print("[visor] Tkinter não encontrado; seguindo sem a janela.")

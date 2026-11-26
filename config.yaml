@@ -105,9 +105,13 @@ escuta:                       # mãos livres: ele fica ouvindo o tempo todo
                               # (false se um dia ele parar de ouvir respostas curtas)
 
 visor:
-  ativo: true                 # janela laranja estilo Jarvis
-  sempre_no_topo: false       # true = fica por cima das outras janelas
-  escala: 1.25                # tamanho do visor: 1.0 pequeno, 1.25 médio, 1.5 grande
+  ativo: true                 # janela estilo Jarvis
+  estilo: hud                 # hud = visor novo (abre no Edge, tela inteira de estudo)
+                              # classico = a janela laranja antiga
+  largura: 1280               # tamanho da janela do visor novo (dá para maximizar)
+  altura: 760
+  sempre_no_topo: false       # só no clássico: true = fica por cima das outras janelas
+  escala: 1.25                # só no clássico: 1.0 pequeno, 1.25 médio, 1.5 grande
   cor: laranja                # laranja, azul, ciano, verde, roxo, rosa, vermelho, branco
                               # (ou diga "Sócrates, muda a cor do visor para azul")
 

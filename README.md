@@ -417,6 +417,20 @@ estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
 
 ### O visor
 
+O visor novo abre numa janela própria do Edge (sem barra de endereço), em tela de estudo
+estilo Jarvis: o núcleo animado à esquerda, o quadro holográfico no meio e, à direita, a aula
+ou o treino em andamento, o tempo de sessão, o pomodoro e as revisões que vencem hoje. Em
+cima, o cérebro que respondeu e quanto ele demorou; embaixo do núcleo, o log de voz (o que
+você disse e o que ele respondeu). Sem quadro, o núcleo grande ocupa o meio da tela.
+
+<p align="center"><img src="docs/visor-hud.png" width="760" alt="Visor novo do Sócrates"></p>
+
+- Nada a instalar: é o Edge que já vem no Windows, falando com um servidorzinho local do
+  Sócrates (`visor/hud.py`). Dá para maximizar a janela; o quadro se ajusta.
+- Fechar a janela encerra o Sócrates, como antes. Espaço (ou clique no núcleo) cala a voz.
+- Se o Edge não abrir, ele volta sozinho para o visor clássico. Para usar sempre o clássico:
+  `estilo: classico` no `config.yaml` (ou no `config.local.yaml`).
+
 | Estado     | Como fica                                         |
 |------------|---------------------------------------------------|
 | Dormindo   | Apagado, girando devagar: diga "Sócrates"         |
@@ -430,7 +444,8 @@ estudo ("o que é crase?") e de data e hora não gastam pesquisa. A busca é a
 Cor: diga "Sócrates, muda a cor do visor para azul" (laranja, azul, ciano, verde, roxo, rosa,
 vermelho ou branco). A escolha fica guardada.
 
-Tamanho: `escala:` no `config.yaml` (1.0 pequeno, 1.25 médio, 1.5 grande).
+Tamanho: `largura:` e `altura:` no `config.yaml` (visor novo) ou `escala:` (clássico: 1.0
+pequeno, 1.25 médio, 1.5 grande).
 Sem a janela: `main.py --sem-visor` (o quadro aparece como texto no terminal). Por cima das outras janelas:
 `sempre_no_topo: true` no `config.yaml`. Estudando sozinho e não quer dizer o nome
 toda vez: `palavra_ativacao: false`.
@@ -614,7 +629,8 @@ socrates/
   audio/escuta.py          microfone sempre ligado, numa thread, com pausa
   audio/microfone.py       segmentador: separa as falas e reaprende o ruído da sala
   audio/alto_falante.py    toca a voz e avisa o visor do volume
-  visor/janela.py          a janela laranja (Tkinter)
+  visor/hud.py             o visor novo: servidor local + página no Edge (visor/hud/index.html)
+  visor/janela.py          o visor clássico, a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   estudo/tutor.py          entende "questões da PRF", "lacunas do CTB", "como estou indo?"
   estudo/treino.py         a sessão de treino: pergunta, corrige pelo gabarito, placar
@@ -640,7 +656,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     927 testes, rodam sem microfone nem internet
+tests/                     949 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
@@ -665,7 +681,9 @@ tests/                     927 testes, rodam sem microfone nem internet
   para o Claude; voz que não cala (tenta de novo e usa a voz do Windows)
 - [x] **Fase 11** — as melhorias que o próprio Sócrates pediu: não fingir ação, voz que falha vira
   texto, "próxima/siga" sem confirmação, quadro íntegro, erros do microfone, reflexão que se corrige
-- [ ] **Próximo** — CBMGO
+- [x] **Fase 12** — visor novo estilo Jarvis (página no Edge) e desenhos no quadro: mapa mental,
+  cenários e passo a passo
+- [ ] **Próximo** — Claude Haiku como cérebro principal (os grátis ficam de reserva); CBMGO
 
 ## Testes
 

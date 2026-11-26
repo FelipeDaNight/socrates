@@ -119,6 +119,13 @@ VOZ_MIN_JANELA = 0.1     # segundos de voz (detector) para valer como fala, na j
 VOZ_MIN_FORA = 0.2       # fora da janela só vale o nome ("Sócrates" tem mais de meio segundo)
 
 
+async def _guardando(pedacos, falado: list[str]):
+    """Repassa a fala e guarda o texto (vai para o log de voz do visor)."""
+    async for p in pedacos:
+        falado.append(p)
+        yield p
+
+
 def pede_quadro(pedido: str) -> bool:
     """O aluno pediu algo visual? (aí o quadro tem que aparecer)"""
     t = unicodedata.normalize("NFKD", pedido).encode("ascii", "ignore").decode().lower()
@@ -212,6 +219,9 @@ class Conversa:
         tarefa.add_done_callback(self._desenhos.discard)
 
     async def _desenhar(self, conteudo: str) -> None:
+        if self.painel.quadro_por_fonte:      # o visor novo desenha sozinho, no tamanho dele
+            self.painel.mostrar_fonte(conteudo)
+            return
         from .visor.quadro import renderizar
         try:
             png = await asyncio.to_thread(renderizar, conteudo, *self.painel.quadro_tamanho)
@@ -251,7 +261,8 @@ class Conversa:
         self._quadros_nesta = 0
         self.escrever(f"{self.cfg.nome}: ")
         fala = separar_quadro(self.soc.conversar(texto, extra), self._ao_quadro)
-        pedacos = ecoar(fala, self.escrever)
+        falado: list[str] = []
+        pedacos = ecoar(_guardando(fala, falado), self.escrever)
 
         async def tarefa():
             mudas: list[str] = []
@@ -271,6 +282,7 @@ class Conversa:
                 self.dizer_tela(f"\n[som] {e}")
             finally:
                 self.painel.estado = "ocioso"
+                self.painel.registrar("socrates", "".join(falado))
 
         await self._interrompivel(tarefa())
 
@@ -283,7 +295,8 @@ class Conversa:
         async def fonte():
             yield texto
 
-        pedacos = ecoar(separar_quadro(fonte(), self._ao_quadro), self.escrever)
+        falado: list[str] = []
+        pedacos = ecoar(_guardando(separar_quadro(fonte(), self._ao_quadro), falado), self.escrever)
 
         async def tarefa():
             mudas: list[str] = []
@@ -297,6 +310,7 @@ class Conversa:
                 self.dizer_tela(f"\n[som] {e}")
             finally:
                 self.painel.estado = "ocioso"
+                self.painel.registrar("socrates", "".join(falado))
 
         await self._interrompivel(tarefa())
 
@@ -409,6 +423,7 @@ class Conversa:
             return
         if saida.fala:
             self.soc.registrar(pedido, saida.fala)   # o "sim"/"vai" seguinte sabe do que se trata
+            self.painel.registrar("socrates", saida.fala)
             self.dizer_tela(f"{self.cfg.nome}: {saida.fala}")
             await self._interrompivel(self._falar(saida.fala, False))
 
@@ -554,6 +569,7 @@ class Conversa:
             if isinstance(item, Aviso):
                 self.dizer_tela(f"\n{self.cfg.nome}: {item.texto}")
                 self.soc.registrar(None, item.texto)
+                self.painel.registrar("socrates", item.texto)
                 await self.falar(item.texto, False)
                 self.abrir_janela()
                 continue
@@ -562,11 +578,13 @@ class Conversa:
             if pedido is None:
                 continue
             self.painel.legenda = pedido
+            self.painel.registrar("voce", pedido)
 
             if ferramentas.pendente_valido():   # "Posso mandar?" -> "sim"
                 resposta = await asyncio.to_thread(ferramentas.resolver_confirmacao, pedido)
                 if resposta is not None:
                     self.soc.registrar(pedido, resposta)
+                    self.painel.registrar("socrates", resposta)
                     self.dizer_tela(f"{self.cfg.nome}: {resposta}")
                     await self.falar(resposta, False)
                     if claude.REINICIAR.is_set():

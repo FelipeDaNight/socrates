@@ -42,6 +42,34 @@ TITULO_ENTRELINHA = 1.2
 _trava = threading.Lock()   # o matplotlib tem configurações globais
 
 
+@dataclass(frozen=True)
+class Tema:
+    """Cores do quadro. CLARO é o papel creme do visor antigo; HUD é o visor novo (fundo
+    transparente: a página põe o painel escuro atrás)."""
+    papel: str                  # "none" = transparente
+    tinta: str
+    titulo: str
+    curvas: tuple[str, ...]
+    fundo_grafico: str
+    grade: str
+    ramos: tuple[str, ...]      # desenhos (diagrama.py): uma cor por ramo
+    caixa: str                  # fundo dos cartões
+    raiz_fundo: str
+    raiz_borda: str
+    raiz_texto: str
+    nota: str
+    fluxo: str
+    base_tom: str               # com o que a cor do ramo se mistura no fundo das condições
+
+
+CLARO = Tema(PAPEL, TINTA, TITULO, tuple(CURVA), "#ffffff", "#e5e1d6",
+             ("#c2410c", "#1d4ed8", "#15803d", "#7e22ce", "#0f766e", "#be123c"),
+             "#ffffff", TINTA, TITULO, "#ffffff", "#475569", "#1d4ed8", "#ffffff")
+HUD = Tema("none", "#dcebf5", "#5ce1ff", ("#5ce1ff", "#ffb347", "#7cf0c5"), "none", "#163447",
+           ("#5ce1ff", "#ffb347", "#7cf0c5", "#c4a7ff", "#ff8fb1", "#7ab8ff"),
+           "#07151f", "#0b2230", "#ffb347", "#f2fbff", "#9fb6c6", "#5ce1ff", "#04101a")
+
+
 @dataclass
 class Item:
     tipo: str          # titulo | texto | formula | item | grafico | espaco
@@ -260,8 +288,9 @@ def _max_chars(item: Item, largura: int, esc: float) -> int:
     return max(8, int((largura - 2 * MARGEM - 24 - recuo) / (corpo * LETRA_PX_POR_PT)))
 
 
-def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
-    """Devolve a imagem PNG do quadro."""
+def renderizar(texto: str, largura: int = 760, altura: int = 640, tema: Tema = CLARO,
+               escala: float = 1.0) -> bytes:
+    """Devolve a imagem PNG do quadro (escala 2 = o dobro de pixels, para telas nítidas)."""
     import matplotlib
     from matplotlib.backends.backend_agg import FigureCanvasAgg
     from matplotlib.figure import Figure
@@ -269,7 +298,7 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
     from .diagrama import desenhar, ler
     desenho = ler(texto)            # "mapa:", "cenarios:" ou "fluxo:" -> desenho explicativo
     if desenho is not None:
-        return desenhar(desenho, largura, altura)
+        return desenhar(desenho, largura, altura, tema, escala)
 
     itens = interpretar(texto)
     with _trava, matplotlib.rc_context({"mathtext.fontset": "cm", "font.family": "DejaVu Sans"}):
@@ -277,7 +306,7 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
             if it.tipo in ("titulo", "texto", "item"):
                 it.conteudo = _seguro(it.conteudo)
         dpi = 100
-        fig = Figure(figsize=(largura / dpi, altura / dpi), dpi=dpi, facecolor=PAPEL)
+        fig = Figure(figsize=(largura / dpi, altura / dpi), dpi=dpi, facecolor=tema.papel)
         tela = FigureCanvasAgg(fig)
         renderer = tela.get_renderer()
 
@@ -293,7 +322,10 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
 
         util = altura - 2 * MARGEM
         total = sum(_altura(i, largura, 1.0, medir) for i in itens) or 1
-        esc = max(0.55, min(1.0, util / total))
+        fator = max(1.0, min(1.6, largura / 760, altura / 610))   # quadro grande: letra maior
+        esc = max(0.55, min(fator, util / total))
+        while esc > 0.55 and sum(_altura(i, largura, esc, medir) for i in itens) > util:
+            esc = max(0.55, esc - 0.05)
         y = altura - MARGEM
         n_grafico = 0
 
@@ -303,24 +335,24 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
         for it in itens:
             h = _altura(it, largura, esc, medir)
             if y - h < MARGEM * 0.5 and it.tipo != "espaco":
-                fig.text(px(MARGEM, "x"), px(y, "y"), "...", color=TINTA, va="top",
+                fig.text(px(MARGEM, "x"), px(y, "y"), "...", color=tema.tinta, va="top",
                          fontsize=18 * esc)
                 break
             if it.tipo == "titulo":
                 fs, linhas = _titulo(it.conteudo, largura, esc, medir)
                 passo = fs * PX_POR_PT * TITULO_ENTRELINHA
                 for k, linha in enumerate(linhas):
-                    fig.text(px(MARGEM, "x"), px(y - k * passo, "y"), linha, color=TITULO,
+                    fig.text(px(MARGEM, "x"), px(y - k * passo, "y"), linha, color=tema.titulo,
                              va="top", fontsize=fs, fontweight="bold")
                 yl = y - (len(linhas) - 1) * passo - fs * PX_POR_PT * 1.04
                 fig.add_artist(matplotlib.lines.Line2D(
                     [px(MARGEM, "x"), px(largura - MARGEM, "x")], [px(yl, "y")] * 2,
-                    color=TITULO, alpha=0.35, linewidth=1.2))
+                    color=tema.titulo, alpha=0.35, linewidth=1.2))
             elif it.tipo == "formula":
                 conteudo = f"${it.conteudo}$"
                 if not _math_ok(conteudo):
                     conteudo = it.conteudo.replace("\\", "")
-                fig.text(0.5, px(y - h / 2, "y"), conteudo, color=TINTA, ha="center",
+                fig.text(0.5, px(y - h / 2, "y"), conteudo, color=tema.tinta, ha="center",
                          va="center", fontsize=30 * esc)
             elif it.tipo in ("texto", "item"):
                 corpo = 19 * esc
@@ -329,34 +361,38 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
                 for k, linha in enumerate(linhas):
                     yy = y - k * corpo * 1.55
                     if it.tipo == "item" and k == 0:
-                        fig.text(px(MARGEM + 4, "x"), px(yy, "y"), "•", color=TITULO,
+                        fig.text(px(MARGEM + 4, "x"), px(yy, "y"), "•", color=tema.titulo,
                                  va="top", fontsize=corpo)
-                    fig.text(px(MARGEM + recuo, "x"), px(yy, "y"), linha, color=TINTA,
+                    fig.text(px(MARGEM + recuo, "x"), px(yy, "y"), linha, color=tema.tinta,
                              va="top", fontsize=corpo)
             elif it.tipo == "grafico" and n_grafico == 0:
                 n_grafico += 1
                 _desenhar_grafico(fig, it.conteudo, px(MARGEM + 40, "x"),
                                   px(y - h + 8 * esc, "y"),
-                                  px(largura - 2 * MARGEM - 50, "x"), px(h - 20 * esc, "y"), esc)
+                                  px(largura - 2 * MARGEM - 50, "x"), px(h - 20 * esc, "y"), esc,
+                                  tema)
             y -= h
 
         buf = io.BytesIO()
-        fig.savefig(buf, format="png", facecolor=PAPEL)
+        fig.savefig(buf, format="png", facecolor=tema.papel, dpi=100 * escala,
+                    transparent=tema.papel == "none")
     return buf.getvalue()
 
 
-def _desenhar_grafico(fig, spec: str, x, y, w, h, esc: float) -> None:
+def _desenhar_grafico(fig, spec: str, x, y, w, h, esc: float, tema: Tema = CLARO) -> None:
     import numpy as np
 
-    ax = fig.add_axes([x, y, w, h], facecolor="#ffffff")
+    ax = fig.add_axes([x, y, w, h], facecolor=tema.fundo_grafico)
     for lado in ("top", "right"):
         ax.spines[lado].set_visible(False)
-    ax.tick_params(colors=TINTA, labelsize=11 * esc)
-    ax.grid(True, color="#e5e1d6", linewidth=0.8)
+    for lado in ("bottom", "left"):
+        ax.spines[lado].set_color(tema.tinta)
+    ax.tick_params(colors=tema.tinta, labelsize=11 * esc)
+    ax.grid(True, color=tema.grade, linewidth=0.8)
     exprs, xmin, xmax = ler_grafico(spec)
     xs = np.linspace(xmin, xmax, 600)
     desenhou = False
-    for cor, expr in zip(CURVA, exprs):
+    for cor, expr in zip(tema.curvas, exprs):
         try:
             ys = compilar_funcao(expr)(xs)
         except ErroGrafico as e:
@@ -365,10 +401,10 @@ def _desenhar_grafico(fig, spec: str, x, y, w, h, esc: float) -> None:
         ys[~np.isfinite(ys)] = np.nan
         ax.plot(xs, ys, color=cor, linewidth=2.6, label=f"y = {expr.replace('**', '^')}")
         desenhou = True
-    ax.axhline(0, color=TINTA, linewidth=0.9)
-    ax.axvline(0, color=TINTA, linewidth=0.9) if xmin < 0 < xmax else None
+    ax.axhline(0, color=tema.tinta, linewidth=0.9)
+    ax.axvline(0, color=tema.tinta, linewidth=0.9) if xmin < 0 < xmax else None
     if desenhou:
-        ax.legend(loc="best", fontsize=12 * esc, frameon=False)
+        ax.legend(loc="best", fontsize=12 * esc, frameon=False, labelcolor=tema.tinta)
     else:
         ax.text(0.5, 0.5, "não consegui desenhar esse gráfico", ha="center",
-                transform=ax.transAxes, color=TITULO)
+                transform=ax.transAxes, color=tema.titulo)
