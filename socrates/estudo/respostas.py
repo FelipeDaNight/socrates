@@ -21,6 +21,8 @@ PALAVRAS_VAZIAS = {"a", "o", "as", "os", "e", "de", "da", "do", "das", "dos", "e
 
 
 def norm(texto: str) -> str:
+    # "artigo 5º" -> "artigo 5": sem isso o "º" virava "o" ("5o") e "artigo 5" não batia
+    texto = re.sub(r"(\d)\s*[ºª°]", r"\1", texto)
     t = unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode().lower()
     t = re.sub(r"[^a-z0-9 ]", " ", t)
     return re.sub(r"\s+", " ", t).strip()

@@ -64,6 +64,20 @@ def nega_capacidade(texto: str) -> bool:
     return bool(_NEGA.search(t) and _CAPACIDADE.search(t))
 
 
+# Lições que a reflexão tirou do PRÓPRIO registro, e não do aluno (25/11): "registre o uso de
+# ferramentas com [usou a ferramenta X]" (a marca é do registro e foi parar na voz) e "ao não
+# reconhecer o nome, peça clarificação" (fala sem o nome é ignorada de propósito: TV, jogo,
+# outras pessoas; o agente nem chega a ver essas falas).
+_DO_REGISTRO = re.compile(r"\busou a ferramenta\b|\bregistr\w* (?:sempre )?(?:o )?uso (?:de|das) ferramenta"
+                          r"|\b(?:nao|sem) (?:reconhec\w*|ouvir|dizer|falar) (?:o )?(?:seu |meu )?nome"
+                          r"|\bausencia (?:do|de) nome\b|\bconfirma\w* (?:do |de )?nome\b")
+
+
+def licao_ruim(texto: str) -> bool:
+    """A frase fala das anotações do registro ou do nome de chamada, não de como responder."""
+    return bool(_DO_REGISTRO.search(_norm(texto)))
+
+
 class Lista:
     """Frases guardadas em disco, sem repetidas, com limite (as mais antigas saem)."""
 

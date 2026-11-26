@@ -31,6 +31,10 @@ MARGEM = 34
 # Largura média de uma letra da DejaVu Sans em pixels, por ponto de fonte: o tamanho
 # da fonte é em pontos (1/72 pol.) e a figura tem 100 pixels por polegada.
 LETRA_PX_POR_PT = 0.58 * 100 / 72
+PX_POR_PT = 100 / 72
+# Título: tenta estes tamanhos (pt) até caber numa linha; se nem no menor couber, quebra.
+TITULO_PT = (25, 23, 21, 19)
+TITULO_ENTRELINHA = 1.2
 
 _trava = threading.Lock()   # o matplotlib tem configurações globais
 
@@ -187,10 +191,53 @@ def _quebrar(texto: str, max_chars: int) -> list[str]:
     return linhas or [""]
 
 
-def _altura(item: Item, largura: int, esc: float) -> float:
+def _medir_negrito(texto: str, pt: float) -> float:
+    """Largura aproximada (px) de um texto em negrito, sem desenhar. Medido no matplotlib
+    (DejaVu Sans Bold): uns 0,80 px por ponto por letra em minúsculas e 0,95 em
+    MAIÚSCULAS; aqui com folga, para o título nunca passar da borda."""
+    if not texto:
+        return 0.0
+    maiusculas = sum(c.isupper() for c in texto) / len(texto)
+    return len(texto) * pt * (0.86 + 0.14 * maiusculas)
+
+
+def _titulo(texto: str, largura: int, esc: float, medir=None) -> tuple[float, list[str]]:
+    """(tamanho da letra, linhas) do título. Diminui a letra até caber numa linha; se nem
+    assim couber, quebra em mais linhas. Antes o título era uma linha só, do tamanho que
+    viesse, e saía cortado na borda ("Poder constituinte e emendas à Cons", 25/11)."""
+    medir = medir or _medir_negrito
+    util = largura - 2 * MARGEM
+    for pt in TITULO_PT:
+        if medir(texto, pt * esc) <= util:
+            return pt * esc, [texto]
+    fs = TITULO_PT[-1] * esc
+    palavras = texto.split()
+    if m := re.match(r"^(.*\S)\s+(·\s+.{1,14})$", texto):     # "· 1/7" não fica sozinho
+        palavras = m.group(1).split()
+        palavras[-1] = f"{palavras[-1]} {m.group(2)}"
+    linhas, atual = [], ""
+    for palavra in palavras:
+        tentativa = f"{atual} {palavra}" if atual else palavra
+        if atual and medir(tentativa, fs) > util:
+            linhas.append(atual)
+            atual = palavra
+        else:
+            atual = tentativa
+    if atual:
+        linhas.append(atual)
+    return fs, linhas or [""]
+
+
+def _altura_titulo(fs: float, n_linhas: int) -> float:
+    px_letra = fs * PX_POR_PT
+    return (n_linhas - 1) * px_letra * TITULO_ENTRELINHA + px_letra * 1.27
+
+
+def _altura(item: Item, largura: int, esc: float, medir=None) -> float:
     corpo = 19 * esc
     if item.tipo == "titulo":
-        return 44 * esc
+        fs, linhas = _titulo(item.conteudo, largura, esc, medir)
+        return _altura_titulo(fs, len(linhas))
     if item.tipo == "formula":
         alta = any(k in item.conteudo for k in ("\\frac", "\\sum", "\\int", "\\sqrt"))
         return (88 if alta else 62) * esc
@@ -223,10 +270,21 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
                 it.conteudo = _seguro(it.conteudo)
         dpi = 100
         fig = Figure(figsize=(largura / dpi, altura / dpi), dpi=dpi, facecolor=PAPEL)
-        FigureCanvasAgg(fig)
+        tela = FigureCanvasAgg(fig)
+        renderer = tela.get_renderer()
+
+        def medir(texto: str, pt: float) -> float:
+            """Largura de verdade do título, medida pelo matplotlib."""
+            t = fig.text(0, 0, texto, fontsize=pt, fontweight="bold")
+            try:
+                return t.get_window_extent(renderer).width
+            except Exception:
+                return _medir_negrito(texto, pt)
+            finally:
+                t.remove()
 
         util = altura - 2 * MARGEM
-        total = sum(_altura(i, largura, 1.0) for i in itens) or 1
+        total = sum(_altura(i, largura, 1.0, medir) for i in itens) or 1
         esc = max(0.55, min(1.0, util / total))
         y = altura - MARGEM
         n_grafico = 0
@@ -235,15 +293,18 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
             return v / (largura if eixo == "x" else altura)
 
         for it in itens:
-            h = _altura(it, largura, esc)
+            h = _altura(it, largura, esc, medir)
             if y - h < MARGEM * 0.5 and it.tipo != "espaco":
                 fig.text(px(MARGEM, "x"), px(y, "y"), "...", color=TINTA, va="top",
                          fontsize=18 * esc)
                 break
             if it.tipo == "titulo":
-                fig.text(px(MARGEM, "x"), px(y, "y"), it.conteudo, color=TITULO, va="top",
-                         fontsize=25 * esc, fontweight="bold")
-                yl = y - 36 * esc
+                fs, linhas = _titulo(it.conteudo, largura, esc, medir)
+                passo = fs * PX_POR_PT * TITULO_ENTRELINHA
+                for k, linha in enumerate(linhas):
+                    fig.text(px(MARGEM, "x"), px(y - k * passo, "y"), linha, color=TITULO,
+                             va="top", fontsize=fs, fontweight="bold")
+                yl = y - (len(linhas) - 1) * passo - fs * PX_POR_PT * 1.04
                 fig.add_artist(matplotlib.lines.Line2D(
                     [px(MARGEM, "x"), px(largura - MARGEM, "x")], [px(yl, "y")] * 2,
                     color=TITULO, alpha=0.35, linewidth=1.2))

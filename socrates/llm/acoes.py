@@ -78,8 +78,17 @@ def _norm(texto: str) -> str:
     return re.sub(r"^(por favor|pfv|pf) ", "", t)
 
 
+# "Coloca um cenário no quadro": o quadro é o do Sócrates (explicação), não o Bloco de Notas.
+# Em 25/11 isso abria o Bloco de Notas com "[QUADRO]..." escrito dentro.
+_NO_QUADRO = re.compile(r"\b(?:no|ao|pro|pelo|nesse|neste|num|para o|pra o) quadro\b|\bquadro branco\b")
+_DESTINO_PC = re.compile(r"\b(?:bloco de notas|notepad|word|youtube|spotify|navegador|chrome|pasta"
+                         r"|arquivo|area de transferencia)\b")
+
+
 def pede_acao(pergunta: str) -> bool:
     t = _norm(pergunta)
+    if _NO_QUADRO.search(t) and not _DESTINO_PC.search(t):
+        return False
     return bool(_VERBO.search(t) or _ASSUNTO.search(t) or _VERBO_SOLTO.search(t)
                 or _ESCREVER.search(t))
 

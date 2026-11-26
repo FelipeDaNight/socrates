@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import asyncio
 import inspect
+import json
 import logging
 import re
 import unicodedata
@@ -47,6 +48,10 @@ Como decidir:
   acabou de fazer ou de oferecer na conversa.
 - Pergunta sobre o que você consegue fazer ("você consegue ver o Claude?") é pedido para fazer,
   se der para fazer agora.
+- "No quadro" é o SEU quadro branco: escreva [QUADRO]...[/QUADRO] na resposta. O Bloco de
+  Notas só quando o aluno disser "Bloco de Notas".
+- "Na próxima", "amanhã a gente continua" e "da próxima vez" são plano para depois: guarde com
+  lembrar e não comece o estudo agora.
 - "Cloud", "Claudio", "Cláudia" e "Clode" na transcrição são o Claude, o programador do
   Sócrates (não é "serviço de nuvem"). Para mandar algo a ele use pedir_ao_claude: vai para a
   caixa do Claude, que ele lê toda noite. Você não digita no app dele; não diga que digitou.
@@ -422,6 +427,7 @@ class Agente:
         self.acoes_pc = list(acoes_pc or [])
         self.executar_pc = executar_pc or ferramentas.executar
         self._turno = Resultado()
+        self._feitas: dict[tuple[str, str], str] = {}
         self._ferramentas = self._montar()
 
     # ---------- caixa de ferramentas ----------
@@ -490,10 +496,13 @@ class Agente:
 
     def quer_pc(self, pedido: str, historico: list) -> bool:
         """A fala (ou a conversa logo antes) pode precisar de mexer no computador?"""
-        from ..llm.acoes import _norm as norm_acao, pede_acao
+        from ..llm.acoes import _DESTINO_PC, _NO_QUADRO, _norm as norm_acao, pede_acao
         if not self.acoes_pc:
             return False
-        if pede_acao(pedido) or _PC.search(norm_acao(pedido)):
+        t = norm_acao(pedido)
+        if _NO_QUADRO.search(t) and not _DESTINO_PC.search(t):
+            return False            # "coloca no quadro" é o quadro dele, não o Bloco de Notas
+        if pede_acao(pedido) or _PC.search(t):
             return True
         ultimo = next((m.get("content", "") for m in reversed(historico or [])
                        if m.get("role") == "user"), "")
@@ -506,6 +515,7 @@ class Agente:
         from ..llm.compativel_openai import ESPERA_LIMITE
 
         self._turno = Resultado()
+        self._feitas: dict[tuple[str, str], str] = {}
         msgs = self.mensagens(pedido, historico or [], modo)
         esquemas = self.esquemas(com_pc=self.quer_pc(pedido, historico or []))
         marca = ESPERA_LIMITE.set(ESPERA_NO_LIMITE)
@@ -526,7 +536,7 @@ class Agente:
             # a lei oficial já está no quadro: o resumo do modelo (com "**Caput**") não a troca
             texto = re.sub(r"\[QUADRO\].*?(?:\[/QUADRO\]|$)", " ", texto, flags=re.S | re.I).strip()
             texto = texto or "Está no quadro."
-        self._turno.texto = texto
+        self._turno.texto = _MARCA_DO_REGISTRO.sub("", texto).strip()
         self._anotar_duvida(pedido)
         log.info("agente: %r -> %s | %r", pedido[:100], ",".join(self._turno.ferramentas) or "-",
                  self._turno.texto[:400])
@@ -690,9 +700,16 @@ class Agente:
             log.exception("diário")
 
     async def _executar(self, nome: str, args: dict) -> str:
+        chave = (nome, json.dumps(args or {}, sort_keys=True, ensure_ascii=False))
+        if chave in self._feitas:
+            # a MESMA ferramenta com os MESMOS argumentos de novo no mesmo turno (25/11: ler_lei
+            # do art. 5º duas vezes): não repete a ação nem gasta o limite grátis com o texto
+            log.info("ferramenta %s repetida no mesmo turno: não rodei de novo", nome)
+            return "Já feito nesta resposta: o resultado é o mesmo da chamada anterior (está acima)."
         self._turno.ferramentas.append(nome)
         r = await self._rodar(nome, args)
         self._turno.resultados.append(r)
+        self._feitas[chave] = r
         return r
 
     async def _rodar(self, nome: str, args: dict) -> str:
@@ -771,9 +788,14 @@ class Agente:
         if self.tutor is None:
             return "O estudo guiado não está carregado (falta o material)."
         saida = self.tutor.atender(pedido)
+        if saida is None and not re.match(r"\s*(?:me ensina|aula|questo|questõ|simulado)", pedido, re.I):
+            # "estudo do artigo 5º da CF, focar nos incisos..." (25/11): sem o verbo o tutor
+            # não entendia, e o modelo falava ao aluno o exemplo da mensagem de erro
+            saida = self.tutor.atender(f"me ensina {pedido}")
         if saida is None:
-            return ("O tutor não reconheceu esse pedido. Use um dos jeitos dos exemplos "
-                    "(ex.: 'me ensina <tópico>', 'questões de <assunto>') ou responda você mesmo.")
+            return ("O tutor não reconheceu esse pedido. NÃO repita esta mensagem ao aluno: "
+                    "chame estudar de novo com 'me ensina <tópico>' ou 'questões de <assunto>', "
+                    "ou responda você mesmo.")
         self._turno.saida = saida
         return "FEITO: o tutor assumiu e vai falar com o aluno."
 
@@ -815,10 +837,12 @@ class Agente:
     def anotar_licao(self, licao: str) -> str:
         if self.memorias is None:
             return "Sem memória para lições."
-        from .memoria import nega_capacidade
+        from .memoria import licao_ruim, nega_capacidade
         if nega_capacidade(licao):
             return ("Lição recusada: ela diz que você não consegue algo que suas ferramentas fazem. "
                     "Você consegue: use a ferramenta.")
+        if licao_ruim(licao):
+            return "Lição recusada: ela fala de coisas do registro, não de como responder ao aluno."
         self.memorias.licoes.adicionar(licao, origem="conversa")
         return "Lição registrada."
 
@@ -862,8 +886,14 @@ def _biblioteca_padrao():
     return Biblioteca(carregar_leis())
 
 
+# "[usou a ferramenta X]" é anotação do registro (para a reflexão). Em 25/11 uma lição errada
+# fez o modelo escrever isso na resposta, e a marca foi para a voz e para a tela.
+_MARCA_DO_REGISTRO = re.compile(r"\s*\[\s*usou a ferramenta[^\]]*\]", re.I)
+
+
 def _limpar(texto: str) -> str:
     texto = (texto or "").strip()
     if texto.upper().startswith("FEITO:"):
         return ""
+    texto = _MARCA_DO_REGISTRO.sub("", texto).strip()
     return texto.replace(" ", " ").replace(" ", " ")

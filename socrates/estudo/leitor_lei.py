@@ -27,6 +27,16 @@ log = logging.getLogger("socrates.lei")
 
 PASTA_CACHE = Path.home() / "Documents" / "Socrates" / "leis"
 VALIDADE_DIAS = 7                 # baixa de novo depois disso (a lei pode ter mudado)
+# Versão do jeito de separar os artigos. Cópia guardada com versão menor é baixada de novo.
+# 2 (25/11/2026): a CF para antes do ADCT. O ADCT repete os números 1 a 140 e, como vale o
+#    último artigo com o mesmo número, o "art. 5º da CF" saía do ADCT (eleições de 1988).
+VERSAO = 2
+_SO_COM_VERSAO_NOVA = {"CF"}      # a cópia antiga destas está errada: não vale nem sem internet
+
+
+def _copia_boa(guardado: dict, sigla: str) -> bool:
+    """A cópia guardada foi separada de um jeito que ainda vale para esta lei?"""
+    return guardado.get("v", 1) >= VERSAO or sigla not in _SO_COM_VERSAO_NOVA
 TEMPO_LIMITE = 40
 NAVEGADOR = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
              "Chrome/124.0 Safari/537.36")
@@ -117,10 +127,29 @@ def texto_em_vigor(pagina: str) -> str:
     return "\n".join(linhas)
 
 
+# O título que abre o ADCT na página da Constituição (sozinho na linha, em maiúsculas)
+_ADCT = re.compile(r"^\s*ATO DAS DISPOSI[ÇC][ÕO]ES CONSTITUCIONAIS TRANSIT[ÓO]RIAS\s*$", re.M)
+
+
 def separar_artigos(texto: str) -> dict[str, Artigo]:
     """{"155": Artigo, "121-A": Artigo}. Se o mesmo artigo aparece duas vezes (texto
-    antigo sem risco), vale o último, que é o mais novo."""
+    antigo sem risco), vale o último, que é o mais novo.
+
+    Na Constituição, tudo depois do título do ADCT fica de fora: o ADCT recomeça a
+    numeração no art. 1º e tomava o lugar dos artigos da CF."""
+    adct = _ADCT.search(texto)
+    if adct:
+        texto = texto[:adct.start()]
     marcas = list(_ARTIGO.finditer(texto))
+    maior = 0
+    for i, m in enumerate(marcas):
+        # sem o título (a página mudou?): a numeração que recomeça no art. 1º depois do 200 é
+        # outro documento colado no fim (o ADCT, na CF)
+        n = int(m.group(1).replace(".", ""))
+        if n == 1 and maior >= 200:
+            marcas, texto = marcas[:i], texto[:m.start()]
+            break
+        maior = max(maior, n)
     artigos: dict[str, Artigo] = {}
     for i, m in enumerate(marcas):
         fim = marcas[i + 1].start() if i + 1 < len(marcas) else len(texto)
@@ -250,6 +279,8 @@ class Biblioteca:
             return None
         if not guardado.get("artigos") or guardado.get("url") != self.url(sigla):
             return None
+        if not _copia_boa(guardado, sigla):
+            return None                 # separada do jeito antigo: lê de novo do Planalto
         return {k: Artigo(v["n"], v["s"], v["t"], [tuple(x) for x in v.get("m", [])])
                 for k, v in guardado["artigos"].items()}
 
@@ -265,14 +296,17 @@ class Biblioteca:
             guardado = json.loads(arq.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             pass
-        if guardado and guardado.get("url") == url and _dias(guardado.get("data"), self.hoje()) < VALIDADE_DIAS:
+        atual = bool(guardado) and _copia_boa(guardado, sigla)
+        if guardado and guardado.get("url") == url and atual \
+                and _dias(guardado.get("data"), self.hoje()) < VALIDADE_DIAS:
             arts = {k: Artigo(v["n"], v["s"], v["t"], [tuple(x) for x in v.get("m", [])])
                     for k, v in guardado["artigos"].items()}
         else:
             try:
                 arts = separar_artigos(texto_em_vigor(self.baixar_pagina(url)))
             except ErroLei:
-                if guardado:                    # sem internet: usa o que já tinha
+                if guardado and atual:
+                    # sem internet: usa o que já tinha
                     log.warning("usando a cópia guardada de %s", sigla)
                     arts = {k: Artigo(v["n"], v["s"], v["t"], [tuple(x) for x in v.get("m", [])])
                             for k, v in guardado["artigos"].items()}
@@ -284,7 +318,7 @@ class Biblioteca:
             try:
                 self.pasta.mkdir(parents=True, exist_ok=True)
                 arq.write_text(json.dumps({
-                    "url": url, "data": self.hoje().isoformat(),
+                    "url": url, "data": self.hoje().isoformat(), "v": VERSAO,
                     "artigos": {k: {"n": a.numero, "s": a.sufixo, "t": a.texto, "m": a.mudancas}
                                 for k, a in arts.items()}}, ensure_ascii=False), encoding="utf-8")
             except OSError as e:

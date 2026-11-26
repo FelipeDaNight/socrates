@@ -171,7 +171,7 @@
       "edital": "5.1 Emprego das classes de palavras",
       "peso": 1,
       "artigos": [],
-      "palavras": ["classes de palavras", "classe gramatical", "substantivo", "adjetivo", "adverbio", "pronome", "preposicao", "conjuncao", "artigo", "palavra que", "palavra se", "funcao do que", "funcao do se"],
+      "palavras": ["classes de palavras", "classe gramatical", "substantivo", "adjetivo", "adverbio", "pronome", "preposicao", "conjuncao", "artigo definido", "artigo indefinido", "palavra que", "palavra se", "funcao do que", "funcao do se"],
       "pontos": [
         "São 10 classes: substantivo, adjetivo, artigo, numeral, pronome, verbo (variáveis) e advérbio, preposição, conjunção, interjeição (invariáveis).",
         "A classe depende do uso: 'o jantar' (substantivo) × 'vou jantar' (verbo); 'fala alto' (advérbio) × 'homem alto' (adjetivo). Na prova, sempre analise a palavra DENTRO da frase.",

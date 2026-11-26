@@ -49,9 +49,11 @@ PEDIDO = """Você é o {nome}, um assistente de estudo por voz, revisando o regi
 últimas conversas com o aluno para melhorar sozinho.
 
 O que você CONSEGUE fazer de verdade (não tire lição dizendo que não consegue isso): {capacidades}.
-"[usou a ferramenta X]" no registro prova que a ação aconteceu. O microfone erra palavras: um
-nome solto ("Filipe, por favor", "Cicco, por favor") é erro de transcrição (ex.: "Explique, por
-favor"), não um apelido.
+"[usou a ferramenta X]" no registro prova que a ação aconteceu; é uma anotação automática do
+registro, nunca algo para você escrever nas respostas. Fala "ignorada por falta do nome" é de
+propósito (TV, jogo, outras pessoas), não é erro. Falha de modelo (503, limite) já troca sozinha
+de modelo: não vira lição. O microfone erra palavras: um nome solto ("Filipe, por favor",
+"Cicco, por favor") é erro de transcrição (ex.: "Explique, por favor"), não um apelido.
 
 Procure no registro:
 - onde você entendeu errado ou fez outra coisa (o aluno corrigiu, repetiu ou reclamou);
@@ -198,16 +200,17 @@ class Reflexao:
         for t in erradas:                 # ele também corrige as próprias lições
             self.memorias.licoes.remover(t)
             log.info("reflexão: tirei a lição errada: %s", t)
-        from .memoria import nega_capacidade
+        from .memoria import licao_ruim, nega_capacidade
         for t in ja:                      # e as que negam o que as ferramentas fazem
-            if t not in erradas and nega_capacidade(t):
+            if t not in erradas and (nega_capacidade(t) or licao_ruim(t)):
                 self.memorias.licoes.remover(t)
-                log.info("reflexão: tirei a lição que negava uma capacidade: %s", t)
+                log.info("reflexão: tirei a lição errada: %s", t)
         novas = _frases(dados.get("licoes"), MAX_LICOES)
-        licoes = [l for l in novas if not nega_capacidade(l)
+        licoes = [l for l in novas if not nega_capacidade(l) and not licao_ruim(l)
                   and self.memorias.licoes.adicionar(l, origem="reflexao")]
         melhorias = [m for m in _frases(dados.get("melhorias"), MAX_MELHORIAS)
-                     if self.memorias.melhorias.adicionar(m, status="nova", origem="reflexao")]
+                     if not licao_ruim(m)
+                     and self.memorias.melhorias.adicionar(m, status="nova", origem="reflexao")]
         self._gravar_estado({"data": self.hoje().isoformat(), "ate": ultimo,
                              "quando": datetime.now().isoformat(timespec="seconds"),
                              "licoes": len(licoes), "melhorias": len(melhorias)})

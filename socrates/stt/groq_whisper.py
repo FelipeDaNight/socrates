@@ -97,9 +97,15 @@ _PREFIXOS_ALUCINADOS = ("legenda por", "legendas por", "legendado por", "legenda
                         "soustitrage", "soustitres", "subtitulos realizados")
 
 
+# Uma letra só, repetida: "FFFF!" (25/11, sopro no microfone) virou pergunta do aluno
+_UMA_LETRA = re.compile(r"([a-z])\1{2,}")
+
+
 def filtrar_alucinacao(texto: str) -> str:
     n = _normalizar(texto)
     if n in ALUCINACOES or n.startswith(_PREFIXOS_ALUCINADOS):
+        return ""
+    if _UMA_LETRA.fullmatch(n.replace(" ", "")):
         return ""
     return texto.strip()
 

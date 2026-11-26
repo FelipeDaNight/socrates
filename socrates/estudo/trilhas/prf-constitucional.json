@@ -5,7 +5,7 @@
   "banca": "Cebraspe",
   "fonte": "Constituição Federal atualizada (texto da Câmara dos Deputados conferido em 13/11/2026), com as EC 111/2021, 114/2021, 115/2022 e 131/2023; teses do STF (Temas 280, 541, 647 e 855; ADPF 187); situação da PEC 18/2025 no Senado.",
   "atualizado": "2026-11-13",
-  "apelidos": ["direito constitucional", "constitucional", "constituicao federal"],
+  "apelidos": ["direito constitucional", "constitucional", "constituicao federal", "cf", "constituicao"],
   "nao_confundir": [],
   "plano": "prf",
   "topicos": [
@@ -49,7 +49,7 @@
       "edital": "2 Direitos e garantias fundamentais",
       "peso": 3,
       "artigos": ["CF 5", "CF 243"],
-      "palavras": ["direitos fundamentais", "direitos individuais", "direitos e garantias", "artigo 5", "art 5", "casa e asilo inviolavel", "entrar na casa sem mandado", "sigilo das comunicacoes", "sigilo telefonico", "liberdade de reuniao", "direito de reuniao", "manifestacao publica", "liberdade de expressao", "marcha da maconha", "liberdade de associacao", "escusa de consciencia", "tribunal do juri", "extradicao", "extraditado", "extraditar", "pena de morte", "prisao perpetua", "racismo inafiancavel", "confisco de bens do trafico", "expropriacao", "dados pessoais"],
+      "palavras": ["direitos fundamentais", "direitos individuais", "direitos e garantias", "artigo 5", "art 5", "casa e asilo inviolavel", "entrar na casa sem mandado", "sigilo das comunicacoes", "sigilo telefonico", "liberdade de reuniao", "direito de reuniao", "manifestacao publica", "liberdade de expressao", "marcha da maconha", "liberdade de associacao", "escusa de consciencia", "tribunal do juri", "extradicao", "extraditado", "extraditar", "pena de morte", "prisao perpetua", "racismo inafiancavel", "confisco de bens do trafico", "expropriacao", "dados pessoais", "direitos e deveres individuais", "deveres individuais", "direitos e deveres", "inviolabilidade de domicilio", "sigilo de dados"],
       "pontos": [
         "Titulares (art. 5º, caput): brasileiros e estrangeiros residentes no País — o STF estende os direitos fundamentais ao estrangeiro de passagem e, no que couber, às pessoas jurídicas. São invioláveis a vida, a liberdade, a igualdade, a segurança e a propriedade. As normas de direitos e garantias fundamentais têm aplicação imediata (§ 1º).",
         "Liberdades: manifestação do pensamento livre, vedado o anonimato (IV); direito de resposta proporcional ao agravo (V); liberdade de consciência e de crença (VI). Escusa de consciência (VIII): ninguém é privado de direitos por crença religiosa ou convicção filosófica ou política, salvo se as invocar para fugir de obrigação legal a todos imposta e se recusar a cumprir a prestação alternativa fixada em lei.",
