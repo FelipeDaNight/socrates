@@ -85,9 +85,30 @@ _DESTINO_PC = re.compile(r"\b(?:bloco de notas|notepad|word|youtube|spotify|nave
                          r"|arquivo|area de transferencia)\b")
 
 
+# "Faz um mapa mental de flagrante", "coloca os cenários": desenho no quadro dele (visor/
+# diagrama.py), não ação no PC. "Anota esse esquema" continua sendo ação (sem verbo de desenho).
+_COISA_DESENHADA = (r"(?:mapas? menta(?:l|is)|esquemas?|cenarios?|fluxogramas?|diagramas?"
+                    r"|organogramas?|passo a passo)")
+_DESENHO = re.compile(r"\b(?:faz|faca|fazer|desenha|desenhe|desenhar|monta|monte|montar|mostra|mostre"
+                      r"|mostrar|cria|crie|criar|coloca|coloque|colocar|bota|bote|poe|ponha|gera|gere"
+                      r"|me da|me de|quero|explica|explique)\b.*\b" + _COISA_DESENHADA + r"\b")
+_DESENHO_SOLTO = re.compile(r"\b" + _COISA_DESENHADA + r"\b")
+
+
+def pede_desenho(t: str) -> bool:
+    """Pedido de mapa mental, esquema, cenários ou passo a passo (texto já em _norm)."""
+    return bool((_NO_QUADRO.search(t) or _DESENHO.search(t)) and not _DESTINO_PC.search(t))
+
+
+def quer_desenho(pedido: str) -> bool:
+    """A fala fala de mapa mental, esquema, cenários ou passo a passo (sem ser no PC)?"""
+    t = _norm(pedido)
+    return bool(_DESENHO_SOLTO.search(t) and not _DESTINO_PC.search(t))
+
+
 def pede_acao(pergunta: str) -> bool:
     t = _norm(pergunta)
-    if _NO_QUADRO.search(t) and not _DESTINO_PC.search(t):
+    if pede_desenho(t):
         return False
     return bool(_VERBO.search(t) or _ASSUNTO.search(t) or _VERBO_SOLTO.search(t)
                 or _ESCREVER.search(t))

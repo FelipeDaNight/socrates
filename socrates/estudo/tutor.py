@@ -80,8 +80,9 @@ _ESTUDADO = re.compile(r"\b(o que (?:eu )?(?:ja )?estudei|o que (?:eu )?fiz (?:h
 _APRENDIDO = re.compile(r"\b(o que (?:eu )?(?:ja )?aprendi|o que (?:eu )?(?:ja )?sei|o que (?:eu )?"
                         r"(?:ja )?domino|o que (?:eu )?(?:ainda )?(?:erro|nao sei)|meus pontos fracos|"
                         r"onde (?:eu )?(?:mais )?erro|como (?:eu )?(?:estou|to|tou|vou) (?:em|no|na))\b")
-_MAPA = re.compile(r"\b(mapa|minha trilha|a trilha|meu progresso|progresso (?:de|em|no))\b")
-_MAPA_SOLTO = re.compile(r"\b(meu mapa|mapa (?:de|do|da) (?:estudo|estudos|trilha|edital)|minha trilha|"
+# "Mapa mental de flagrante" é desenho no quadro (visor/diagrama.py), não o mapa de estudo.
+_MAPA = re.compile(r"\b(mapa(?! menta)|minha trilha|a trilha|meu progresso|progresso (?:de|em|no))\b")
+_MAPA_SOLTO = re.compile(r"\b(meu mapa(?! menta)|mapa (?:de|do|da) (?:estudo|estudos|trilha|edital)|minha trilha|"
                          r"meu progresso)\b")
 _EXPLICITO = re.compile(r"^(?:socrates )?(?:quero|vamos|bora|faz|faca|me da|me de|manda|comeca|"
                         r"inicia|abre|mostra|le |leia|questoes|simulado|lacunas|revisa|me ensina|"

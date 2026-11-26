@@ -96,11 +96,14 @@ FALAS = {
 PEDIDO_QUADRO = (
     "Escreva AGORA somente o quadro branco do que você acabou de explicar, entre [QUADRO] e "
     "[/QUADRO], seguindo o formato do quadro (título com #, fórmulas em $$ ... $$, itens com -, "
-    "e 'grafico:' se couber um gráfico). Nada fora do quadro.")
+    "e 'grafico:' se couber um gráfico). Se ele pediu mapa mental, esquema, cenários ou passo a "
+    "passo, use a linha 'mapa:', 'cenarios:' ou 'fluxo:' e os ramos com - (detalhes recuados). "
+    "Nada fora do quadro.")
 
 _PEDE_QUADRO = re.compile(
     r"\b(quadro|formula|formulas|grafico|graficos|desenh\w*|mostr\w*|escrev\w*|equac\w*"
-    r"|calcul\w*|resolv\w*|passo a passo|demonstr\w*|teorema|funcao|derivada|integral)\b")
+    r"|calcul\w*|resolv\w*|passo a passo|demonstr\w*|teorema|funcao|derivada|integral"
+    r"|mapas? menta(?:l|is)|esquemas?|cenarios?|fluxogramas?|diagramas?|organogramas?)\b")
 
 
 _DO_TREINO = re.compile(r"\b(quadro|questao|questoes|item|itens|afirmacao|alternativa|gabarito|"

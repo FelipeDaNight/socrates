@@ -72,6 +72,7 @@ com uma caixa de ferramentas e **ele decide** o que fazer, combinando várias se
 |--------------------------------------------------------------|-------------------------------------------------|
 | "abre o bloco de notas e coloca o artigo 7 do CTB"           | lê o texto oficial e escreve no Bloco de Notas  |
 | "e os primeiros artigos do Código Penal?"                    | põe os arts. 1 a 5 no quadro (nunca de cabeça)  |
+| "faz um mapa mental de prisão em flagrante"                  | desenha o mapa no quadro e explica os ramos     |
 | "lê o artigo 144 da Constituição"                            | busca a lei no Planalto (guardada por 7 dias)   |
 | "resume o 1º capítulo de Vidas Secas; se não tiver, aprenda" | pesquisa na internet e põe o livro no autoestudo|
 | "minha prova é em março" / "esquece isso"                    | guarda (ou apaga) na memória de longo prazo     |
@@ -380,6 +381,22 @@ questão com as alternativas no modo prova), o quadro abre ao lado do visor. A f
 - "Sócrates, desenha o gráfico de seno de x"
 - "Sócrates, apaga o quadro"
 
+**Desenhos explicativos.** Peça um mapa mental, os cenários de uma situação ou um passo a
+passo, e o quadro vira um desenho com caixas ligadas e numeradas; ele explica falando, seguindo
+os números:
+
+- "Sócrates, faz um mapa mental de prisão em flagrante" — o tema no centro e os ramos dos dois lados
+- "Sócrates, mostra os cenários da inviolabilidade de domicílio" — cada condição leva, com uma
+  seta, ao que acontece nela
+- "Sócrates, desenha o passo a passo de uma emenda constitucional" — uma caixa por etapa
+
+<p align="center"><img src="docs/quadro-mapa.png" width="640" alt="Mapa mental no quadro do Sócrates"></p>
+
+Por dentro, o cérebro escreve no quadro `mapa: tema` (ou `cenarios:` ou `fluxo:`) e os ramos
+com `-`, com os detalhes recuados. Se o desenho pedir a letra da lei, ele lê o texto oficial
+antes e monta o mapa em cima dele. Se o texto não couber, a letra diminui e, no limite, os
+últimos detalhes viram "…".
+
 ### Perguntas do dia a dia
 
 O modelo foi treinado até 2024, mas o Sócrates sabe a **data, a hora e a sua cidade**
@@ -590,6 +607,7 @@ socrates/
   ferramentas/claude.py    pedir mudanças ao Claude e se atualizar (git pull + reinício)
   core/quadro_fluxo.py     separa o quadro branco da fala
   visor/quadro.py          desenha o quadro (fórmulas, gráficos com avaliação segura)
+  visor/diagrama.py        mapa mental, cenários e passo a passo no quadro
   tts/gemini.py            voz do Gemini; tts/reserva.py troca para o Edge se falhar
   core/narrador.py         fala frase a frase, sintetizando a próxima em paralelo
   core/comandos.py         comandos falados ou digitados
@@ -622,7 +640,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     878 testes, rodam sem microfone nem internet
+tests/                     927 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

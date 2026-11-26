@@ -9,6 +9,9 @@ O Sócrates escreve o quadro assim (entre [QUADRO] e [/QUADRO]):
     grafico: x**2 - 4 | -4 | 4
 
 Usa o "mathtext" do matplotlib: fórmulas bonitas sem precisar instalar LaTeX.
+
+Com uma linha "mapa:", "cenarios:" ou "fluxo:", o quadro vira um desenho explicativo
+(mapa mental, árvore de cenários ou passo a passo): veja visor/diagrama.py.
 """
 
 from __future__ import annotations
@@ -262,6 +265,11 @@ def renderizar(texto: str, largura: int = 760, altura: int = 640) -> bytes:
     import matplotlib
     from matplotlib.backends.backend_agg import FigureCanvasAgg
     from matplotlib.figure import Figure
+
+    from .diagrama import desenhar, ler
+    desenho = ler(texto)            # "mapa:", "cenarios:" ou "fluxo:" -> desenho explicativo
+    if desenho is not None:
+        return desenhar(desenho, largura, altura)
 
     itens = interpretar(texto)
     with _trava, matplotlib.rc_context({"mathtext.fontset": "cm", "font.family": "DejaVu Sans"}):

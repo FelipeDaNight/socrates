@@ -57,8 +57,9 @@ Como decidir:
   caixa do Claude, que ele lê toda noite. Você não digita no app dele; não diga que digitou.
 - Para saber se um programa está aberto use janelas_abertas; para ler o que está nele use
   mostrar_janela e depois ver_tela passando a pergunta exata do aluno.
-- Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, mapa, plano
-  do dia, desempenho, o que estudou) vai para estudar, com o pedido em palavras simples.
+- Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, "meu mapa",
+  plano do dia, desempenho, o que estudou) vai para estudar, com o pedido em palavras simples.
+  Mapa mental, esquema, cenários ou passo a passo de um assunto NÃO é estudar: é desenho no quadro.
 - "Próxima", "siga", "pode passar" e parecidos: siga direto, sem perguntar de novo.
 - O microfone erra palavras. Um nome solto como "Filipe, por favor" ou "Cicco, por favor"
   quase sempre é "Explique, por favor": entenda pelo contexto, sem mudar de assunto.
@@ -93,6 +94,12 @@ Fala (sua resposta vira áudio):
 - Quadro branco: escreva entre [QUADRO] e [/QUADRO] (título com #, itens com -, fórmula entre
   $$ $$), até 10 linhas, quando ajudar a ver, e SEMPRE feche com [/QUADRO]. Nunca escreva
   "[quadro mostrado]". ler_lei já põe a lei no quadro: não repita o texto, comente o essencial.
+- Desenho no quadro (mapa mental, esquema, cenários, passo a passo): depois do título, a linha
+  "mapa: tema" (ou "cenarios: situação", ou "fluxo: processo"); depois os ramos com "- " e os
+  detalhes de cada ramo recuados com "  - ". Até 6 ramos e 3 detalhes curtos por ramo (aqui o
+  limite de 10 linhas não vale). Em cenarios, cada ramo é uma condição ("Se ...") e o detalhe
+  é o que acontece; em fluxo, cada ramo é uma etapa, na ordem. Na fala, explique o desenho
+  seguindo os números dos ramos.
 - Depois de uma ação, confirme em uma frase. Nunca diga que fez algo sem ter usado a ferramenta.
 - Se uma ferramenta responder AGUARDANDO CONFIRMAÇÃO, pergunte em uma frase se pode fazer."""
 
@@ -499,7 +506,8 @@ class Agente:
             "autoestudo aprendeu. Ex.: 'me ensina prisão em flagrante', 'questões de crimes de "
             "trânsito', '10 questões da PRF', 'simulado da PRF', 'revisa meus erros', 'lacunas do "
             "CTB', 'meu mapa', 'o que eu estudo hoje', 'como estou indo', 'o que eu estudei hoje', "
-            "'o que você aprendeu hoje'.",
+            "'o que você aprendeu hoje'. Mapa mental ou esquema de um assunto não é aqui: desenhe "
+            "no quadro.",
             {"pedido": "O pedido em palavras simples, como nos exemplos"})
         reg(self.aprender_assunto,
             "Põe um assunto na frente da fila do seu autoestudo: você pesquisa na lei e na internet, "
@@ -545,12 +553,12 @@ class Agente:
 
     def quer_pc(self, pedido: str, historico: list) -> bool:
         """A fala (ou a conversa logo antes) pode precisar de mexer no computador?"""
-        from ..llm.acoes import _DESTINO_PC, _NO_QUADRO, _norm as norm_acao, pede_acao
+        from ..llm.acoes import _norm as norm_acao, pede_acao, pede_desenho
         if not self.acoes_pc:
             return False
         t = norm_acao(pedido)
-        if _NO_QUADRO.search(t) and not _DESTINO_PC.search(t):
-            return False            # "coloca no quadro" é o quadro dele, não o Bloco de Notas
+        if pede_desenho(t):
+            return False            # "coloca no quadro", "faz um mapa mental": é o quadro dele
         if pede_acao(pedido) or _PC.search(t):
             return True
         ultimo = next((m.get("content", "") for m in reversed(historico or [])
@@ -561,10 +569,12 @@ class Agente:
     # ---------- o turno ----------
     async def atender(self, pedido: str, historico: list | None = None,
                       modo: str = "explicar") -> Resultado:
+        from ..llm.acoes import quer_desenho
         from ..llm.compativel_openai import ESPERA_LIMITE
 
         self._turno = Resultado()
         self._feitas: dict[tuple[str, str], str] = {}
+        self._quer_desenho = quer_desenho(pedido)
         msgs = self.mensagens(pedido, historico or [], modo)
         esquemas = self.esquemas(com_pc=self.quer_pc(pedido, historico or []), pedido=pedido,
                                  historico=historico or [])
@@ -583,9 +593,14 @@ class Agente:
         finally:
             ESPERA_LIMITE.reset(marca)
         if self._turno.quadro and "[QUADRO]" in texto.upper():
-            # a lei oficial já está no quadro: o resumo do modelo (com "**Caput**") não a troca
-            texto = re.sub(r"\[QUADRO\].*?(?:\[/QUADRO\]|$)", " ", texto, flags=re.S | re.I).strip()
-            texto = texto or "Está no quadro."
+            from ..visor.diagrama import ler as ler_desenho
+            m = re.search(r"\[QUADRO\](.*?)(?:\[/QUADRO\]|$)", texto, flags=re.S | re.I)
+            if m and ler_desenho(m.group(1)) is not None:
+                self._turno.quadro = None    # ele pediu o desenho: o mapa vale mais que a lei crua
+            else:
+                # a lei oficial já está no quadro: o resumo do modelo (com "**Caput**") não a troca
+                texto = re.sub(r"\[QUADRO\].*?(?:\[/QUADRO\]|$)", " ", texto, flags=re.S | re.I).strip()
+                texto = texto or "Está no quadro."
         self._turno.texto = _MARCA_DO_REGISTRO.sub("", texto).strip()
         self._anotar_duvida(pedido)
         log.info("agente: %r -> %s | %r", pedido[:100], ",".join(self._turno.ferramentas) or "-",
@@ -816,6 +831,9 @@ class Agente:
             feito = await asyncio.to_thread(self.executar_pc, "escrever_no_bloco_de_notas",
                                             {"texto": f"{nome}\n\n{completo}", "titulo": titulo})
             onde = f"Resultado do Bloco de Notas: {feito}"
+        elif getattr(self, "_quer_desenho", False):
+            onde = ("O aluno pediu um DESENHO: monte no quadro o mapa, os cenários ou o fluxo com "
+                    "base neste texto (ramos curtos, sem copiar a lei inteira).")
         else:
             self._turno.quadro = quadro_de_trechos(nome, trechos, self.leitor.locais)
             onde = "Já está no quadro do aluno: não leia tudo, comente o essencial."
