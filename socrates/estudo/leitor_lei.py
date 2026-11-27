@@ -18,6 +18,7 @@ import logging
 import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
 from datetime import date
@@ -239,13 +240,32 @@ def mudancas_desde(artigos: dict[str, Artigo], ano: int, inicio=(0, ""), fim=(99
 
 # ---------- baixar (com cache) ----------
 
+def url_ascii(url: str) -> str:
+    """Endereço com acento (ex.: .../goiás-1-formação) vira %C3%A1...: o urllib só aceita
+    endereço em ASCII e dava "'ascii' codec can't encode character" (26/11, coggle.it)."""
+    if url.isascii():
+        return url
+    partes = urllib.parse.urlsplit(url)
+    host = partes.hostname or ""
+    try:
+        host = host.encode("idna").decode("ascii")
+    except UnicodeError:
+        host = urllib.parse.quote(host)
+    netloc = host + (f":{partes.port}" if partes.port else "")
+    seguro = "/%:@!$&'()*+,;=-._~"
+    return urllib.parse.urlunsplit((partes.scheme, netloc,
+                                    urllib.parse.quote(partes.path, safe=seguro),
+                                    urllib.parse.quote(partes.query, safe=seguro + "?"),
+                                    urllib.parse.quote(partes.fragment, safe=seguro + "?")))
+
+
 def baixar(url: str, tempo_limite: float = TEMPO_LIMITE) -> str:
-    pedido = urllib.request.Request(url, headers={"User-Agent": NAVEGADOR,
+    pedido = urllib.request.Request(url_ascii(url), headers={"User-Agent": NAVEGADOR,
                                                   "Accept-Language": "pt-BR,pt;q=0.9"})
     try:
         with urllib.request.urlopen(pedido, timeout=tempo_limite) as r:
             return decodificar(r.read(), r.headers.get("Content-Type", ""))
-    except (urllib.error.URLError, TimeoutError, OSError) as e:
+    except (urllib.error.URLError, TimeoutError, OSError, UnicodeError) as e:
         raise ErroLei(f"não consegui baixar {url}: {e}") from e
 
 

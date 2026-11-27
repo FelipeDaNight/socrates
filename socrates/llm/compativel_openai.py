@@ -39,13 +39,32 @@ def segundos_para_tentar(erro: openai.RateLimitError) -> float | None:
         return None
 
 
-def mensagem_de_limite(erro: openai.RateLimitError, espera: float | None) -> str:
-    texto = str(erro).lower()
+def nome_do_servico(base_url: str | None) -> str:
+    """Nome que o aluno conhece, pelo endereço (antes toda mensagem dizia "Groq",
+    até quando quem estourou o limite do dia era o Gemini)."""
+    url = (base_url or "").lower()
+    for pedaco, nome in (("groq.com", "Groq"), ("googleapis.com", "Gemini"),
+                         ("mistral.ai", "Mistral"), ("openrouter.ai", "OpenRouter")):
+        if pedaco in url:
+            return nome
+    return "serviço"
+
+
+def texto_do_erro(erro: Exception) -> str:
+    """Texto do erro + o corpo da resposta (dependendo da versão da biblioteca openai,
+    o corpo em lista, como o do Gemini, não aparece no str do erro)."""
+    corpo = getattr(erro, "body", None)
+    return (str(erro) + " " + (str(corpo) if corpo else "")).lower()
+
+
+def mensagem_de_limite(erro: openai.RateLimitError, espera: float | None,
+                       servico: str = "Groq") -> str:
+    texto = texto_do_erro(erro)
     if "per day" in texto or "tpd" in texto or "rpd" in texto:
-        return "Acabou o limite grátis de hoje do Groq. Amanhã ele renova."
+        return f"Acabou o limite grátis de hoje do {servico}. Amanhã ele renova."
     if espera and espera > 60:
-        return f"Bati no limite grátis do Groq. Tente de novo em {round(espera / 60)} minutos."
-    return "Bati no limite grátis do Groq por agora. Espere uns segundos e fale de novo."
+        return f"Bati no limite grátis do {servico}. Tente de novo em {round(espera / 60)} minutos."
+    return f"Bati no limite grátis do {servico} por agora. Espere uns segundos e fale de novo."
 
 
 class CerebroCompativelOpenAI(Cerebro):
@@ -106,9 +125,10 @@ class CerebroCompativelOpenAI(Cerebro):
                     modelo = self.modelo_reserva
                     log.warning("usando o modelo reserva %s", modelo)
                     continue
-                texto = str(e).lower()
+                texto = texto_do_erro(e)
                 do_dia = "per day" in texto or "tpd" in texto or "rpd" in texto
-                raise ErroLimite(mensagem_de_limite(e, espera), espera, do_dia) from e
+                raise ErroLimite(mensagem_de_limite(e, espera, nome_do_servico(self.base_url)),
+                                 espera, do_dia) from e
             except openai.AuthenticationError as e:
                 raise ErroCerebro(f"Chave do {self.nome} inválida. Confira o arquivo .env.") from e
             except openai.NotFoundError as e:
