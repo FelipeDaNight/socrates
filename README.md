@@ -238,7 +238,10 @@ Pública (aprovada no Senado em 3/11/2026) põe ferrovias e hidrovias federais c
 | "mostra meu mapa"                      | Abre no navegador o mapa de todas as matérias (também: `main.py --mapa`) |
 
 **Como é a aula:** cada ponto aparece no quadro (o texto conferido) e o Sócrates explica falando
-e termina com uma pergunta. Você responde ou tira a dúvida; ele corrige com base no ponto.
+e termina com uma pergunta. O exemplo que ele deu e a pergunta, com o enunciado inteiro, entram no
+quadro embaixo do ponto, para você ler enquanto ouve. Você responde ou tira a dúvida; ele corrige
+com base no ponto. No meio da aula, "anota ..." ou um pedido para o Claude vão para as
+ferramentas dele, não para a aula.
 "Próximo" passa adiante, "repete" explica de outro jeito, "parar" pausa (e "me ensina ..." de novo
 continua de onde parou). No fim, itens de fixação estilo Cebraspe, corrigidos pelo gabarito.
 
@@ -349,8 +352,9 @@ acoes:
    "Claude"), faz o resto com testes e sobe para o GitHub. Cada item fica `feita` ou
    `descartada`, com a resposta do Claude.
 3. O Claude deixa um `recado_do_claude.txt`; o Sócrates lê na próxima saudação.
-4. Para instalar: **"Sócrates, se atualiza"** → **"sim"**. Ele baixa a versão nova, instala o
-   que mudou e **reinicia sozinho**.
+4. Para instalar: **"Sócrates, se atualiza"** → **"sim"** (ou "por favor"). Ele baixa a versão
+   nova, instala o que mudou e **reinicia sozinho**. "Se atualiza" não passa pelo cérebro: é
+   sempre a mesma pergunta, mesmo no meio da aula.
 
 A tarefa só roda com o PC ligado e o app do Claude aberto; se não estiver, fica para a noite
 seguinte. Ele não digita mais no app do Claude (dependia do app na conversa certa e
@@ -671,7 +675,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     1024 testes, rodam sem microfone nem internet
+tests/                     1040 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

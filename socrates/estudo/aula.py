@@ -17,10 +17,59 @@ import time
 
 from . import respostas
 from .caderno import Caderno
-from .treino import Item, Saida, Sessao, _quadro_seguro, plural
+from .treino import Item, Saida, Sessao, _cortar, _quadro_seguro, plural
 from .trilha import Topico, Trilha
 
 FIXACAO = 4          # itens de fixação no fim da aula
+
+# 27/11, na aula de Penal: "se for fazer perguntas, coloca no quadro toda vez", "coloca o
+# enunciado inteiro", "foca em colocar no quadro o que está sendo falado, às vezes eu me perco".
+# O exemplo e a pergunta da explicação falada vão para o quadro, embaixo do ponto.
+TITULO_EXEMPLO, TITULO_PERGUNTA = "# Exemplo", "# Pergunta"
+_FRASE = re.compile(r"(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÀÇ\"“])")    # "art. 5º" não corta
+_SO_CHECAGEM = re.compile(r"^(?:e |entao )?(?:posso|podemos|vamos|quer|querem|gostaria|deseja|"
+                          r"ficou|entendeu|entendido|faz sentido|tudo bem|tudo certo|certo|ok|"
+                          r"alguma duvida|pode ser|seguimos|continuamos|bora|consegue acompanhar|"
+                          r"esta claro|deu para entender|beleza|pronto|preparado)\b")
+_EXEMPLO = re.compile(r"^(?:imagine|por exemplo|exemplo|pense|suponha|digamos|veja o caso|"
+                      r"num caso|em um caso|na pratica|na rotina)\b")
+
+
+def _frases(texto: str) -> list[str]:
+    return [f.strip() for f in _FRASE.split(re.sub(r"\s+", " ", texto or "").strip()) if f.strip()]
+
+
+def complemento_do_quadro(fala: str) -> str:
+    """O exemplo e a pergunta (com o enunciado inteiro) do que ele falou, para o quadro.
+    "" = nada a acrescentar (a pergunta era só "posso seguir?")."""
+    frases = _frases(fala)
+    exemplo = next((f for f in frases if _EXEMPLO.match(respostas.norm(f))), "")
+    indices = [i for i, f in enumerate(frases) if f.endswith("?") and len(f.split()) >= 5
+               and not _SO_CHECAGEM.match(respostas.norm(f))]
+    pergunta = ""
+    if indices:
+        i = indices[-1]
+        pergunta = frases[i]
+        antes = frases[i - 1] if i > 0 else ""
+        if len(pergunta.split()) < 10 and antes and antes != exemplo and not antes.endswith("?"):
+            pergunta = f"{antes} {pergunta}"          # "O que ele deve fazer?" precisa do caso
+    partes = []
+    if exemplo:
+        partes += [TITULO_EXEMPLO, _cortar(exemplo, 260)]
+    if pergunta:
+        partes += [TITULO_PERGUNTA, _cortar(pergunta, 320)]
+    return _quadro_seguro("\n".join(partes))
+
+
+def juntar_ao_quadro(base: str, extra: str) -> str:
+    """O complemento embaixo do ponto (o complemento da fala anterior sai)."""
+    linhas = []
+    for linha in (base or "").splitlines():
+        if linha.strip() in (TITULO_EXEMPLO, TITULO_PERGUNTA):
+            break
+        linhas.append(linha)
+    corpo = "\n".join(linhas).rstrip()
+    return f"{corpo}\n\n{extra}" if corpo else extra
 
 # Sempre é "pode seguir"
 _SEGUIR = re.compile(r"^(?:socrates )?(?:proximo|proxima|continua|continue|continuar|segue|seguir|"
@@ -81,15 +130,17 @@ class Aula:
     def _ctx_explicar(self, primeira: bool, de_novo: bool) -> str:
         ponto = self.topico.pontos[self.k]
         regras = [f"PONTO {self.k + 1} de {self.n} (já está no quadro do aluno): {ponto}",
-                  "Explique SÓ este ponto, falando, em no máximo 5 frases curtas, com um exemplo "
-                  "concreto (de preferência da rotina de um policial rodoviário).",
-                  "NÃO use o quadro nesta resposta (o ponto já está lá).",
+                  "Explique SÓ este ponto, falando, em no máximo 5 frases curtas, seguindo o texto "
+                  "do quadro (o aluno está lendo), com um exemplo concreto que comece com "
+                  "'Imagine' (de preferência da rotina de um policial rodoviário).",
+                  "NÃO escreva [QUADRO] nesta resposta: o exemplo e a pergunta que você falar "
+                  "entram sozinhos no quadro, embaixo do ponto.",
                   "Não invente artigo, pena, súmula ou lei que não esteja aqui. Se o ponto for "
                   "diferente do que você lembra, o ponto está certo: a lei mudou.",
                   ("Termine SEM pergunta: ele pediu ritmo direto e diz 'próximo' quando quiser "
                    "seguir." if self.direto else
-                   "Termine com UMA pergunta curta e aberta para checar se ele entendeu "
-                   "(não faça pergunta de certo ou errado).")]
+                   "Termine com UMA pergunta aberta e completa (com o caso inteiro, se for sobre um "
+                   "caso) para checar se ele entendeu (não faça pergunta de certo ou errado).")]
         if primeira and self.retomada:
             regras.insert(1, f"Comece dizendo que vão continuar a aula de {self.topico.titulo} "
                              f"do ponto {self.k + 1}.")

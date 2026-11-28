@@ -132,10 +132,12 @@ def sem_repeticoes(texto: str) -> str:
 
     Vale também para grupos de 2 ou 3 palavras repetidos 4 vezes ou mais
     ("E aí E aí E aí E aí E aí", inventado no silêncio em 22/11).
-    Se não sobrar quase nada, a fala inteira era alucinação."""
+    Se não sobrar quase nada, a fala inteira era alucinação. Repetição de 6 vezes ou mais
+    ninguém fala: é música ou invenção do Whisper, e a fala inteira sai (27/11, com o Spotify
+    tocando: "...é uma luta, uma luta, uma luta [9 vezes]..." e ele respondeu)."""
     pedacos = re.findall(r"\S+", texto)
     chaves = ["".join(_palavras(p)) for p in pedacos]
-    saida, cortou, i = [], False, 0
+    saida, cortou, i, mais_vezes = [], False, 0, 0
     while i < len(pedacos):
         maior = 0                  # quantos pedaços a repetição a partir de i cobre
         for n in (1, 2, 3):
@@ -147,6 +149,7 @@ def sem_repeticoes(texto: str) -> str:
                 k += 1
             if k >= 4:
                 maior = max(maior, k * n)
+                mais_vezes = max(mais_vezes, k)
         if maior:
             cortou = True          # a sequência repetida some inteira
             i += maior
@@ -155,8 +158,13 @@ def sem_repeticoes(texto: str) -> str:
             i += 1
     if not cortou:
         return texto.strip()
+    if mais_vezes >= REPETICAO_DE_MUSICA:
+        return ""
     resto = " ".join(saida).strip()
     return resto if len(_palavras(resto)) >= 3 else ""
+
+
+REPETICAO_DE_MUSICA = 6
 
 
 @dataclass

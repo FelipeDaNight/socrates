@@ -146,7 +146,8 @@ def test_aula_ponto_a_ponto_ate_a_fixacao(tutor):
     top = TRILHA.topico("ilicitude")
     assert s.quadro.startswith(f"# {top.titulo} · 1/{len(top.pontos)}")
     assert top.pontos[0][:40] in s.quadro
-    assert "PONTO 1 de" in s.contexto and "NÃO use o quadro" in s.contexto
+    # 27/11: o ponto fica no quadro e o exemplo e a pergunta entram embaixo dele, sozinhos
+    assert "PONTO 1 de" in s.contexto and "NÃO escreva [QUADRO]" in s.contexto
     assert "Pegadinhas que a banca usa" in s.contexto
     s = tutor.atender("acho que é quando a lei permite o fato")       # resposta à pergunta
     assert "acabou de responder" in s.contexto and s.quadro is None

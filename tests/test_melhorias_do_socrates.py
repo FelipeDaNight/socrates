@@ -91,7 +91,7 @@ def test_aula_segue_com_pode_seguir_e_para_de_perguntar():
     cad = Caderno(pathlib.Path(tempfile.mkdtemp()) / "c.json")
     aula = Aula(tr, top, cad, [])
     aula.abrir()
-    assert "UMA pergunta curta" in aula._ctx_explicar(False, False)
+    assert "UMA pergunta aberta e completa" in aula._ctx_explicar(False, False)
     saida = aula.atender("Entendi, pode seguir para o próximo.")       # pulou a pergunta
     assert aula.k == 1 and "Termine SEM pergunta" in saida.contexto
     saida = aula.atender("beleza")                                     # no ritmo direto, "beleza" segue

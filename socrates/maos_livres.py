@@ -108,6 +108,21 @@ _PEDE_QUADRO = re.compile(
 
 _DO_TREINO = re.compile(r"\b(quadro|questao|questoes|item|itens|afirmacao|alternativa|gabarito|"
                         r"anterior|proxima|proximo|explica\w*|dica|repete|repita)\b")
+# No meio da aula ou do treino, pedido para o Claude ou para anotar não é resposta da aula
+# (27/11: "anota melhorar a formatação do quadro nas próximas atualizações do Claude" foi para
+# a aula, que não tem ferramentas, e ele só prometeu).
+_PARA_O_AGENTE = re.compile(r"\b(?:claude|anota|anote)\b")
+# "Se atualiza" é sempre a mesma ação: não depende do cérebro escolher (27/11, 23h22: "Se
+# atualiza, por favor" e o cérebro anotou uma lição em vez de atualizar). Só vale como ordem:
+# "a tabela do CONTRAN se atualiza quando?" continua sendo pergunta.
+_SE_ATUALIZA = re.compile(r"^(?:(?:ta|entao|agora|ok|beleza|pode|vai|e) )*(?:se atualiz|atualize se\b|"
+                          r"atualiza ai\b)|\batualiz\w* (?:o )?socrates\b|"
+                          r"\bbaix\w* a (?:versao|atualizacao) nova\b")
+
+
+def pede_atualizacao(pedido: str) -> bool:
+    t = re.sub(r"\s+", " ", re.sub(r"[^a-z ]", " ", _sem_acento(pedido))).strip()
+    return bool(_SE_ATUALIZA.search(t))
 
 
 def _sem_acento(texto: str) -> str:
@@ -149,6 +164,7 @@ class Conversa:
         self._cache: dict[str, bytes] = {}
         self._desenhos: set[asyncio.Task] = set()
         self._quadros_nesta = 0
+        self._ultimo_quadro = ""      # o que está no quadro (o visor clássico só guarda a imagem)
         self._falando: asyncio.Task | None = None
         self.interrompido = False
         painel.interromper = self._pedir_interrupcao
@@ -209,6 +225,7 @@ class Conversa:
     # ---------- quadro branco ----------
     def _ao_quadro(self, conteudo: str) -> None:
         self._quadros_nesta += 1
+        self._ultimo_quadro = conteudo
         titulo = next((l.lstrip("# ").strip() for l in conteudo.splitlines() if l.strip()), "")
         if not self.painel.tem_visor:
             self.escrever(f"\n┌─ quadro ─────────\n{conteudo}\n└──────────────────\n")
@@ -274,6 +291,8 @@ class Conversa:
                 self._avisar_sem_voz(" ".join(mudas))
                 if not self._quadros_nesta and pede_quadro(texto):
                     await self._quadro_extra()
+                elif not self._quadros_nesta and self._em_aula():
+                    self._quadro_da_aula("".join(falado))
             except ErroCerebro as e:
                 log.warning("cérebro falhou: %s", e)
                 self.dizer_tela(f"\n[erro] {e}")
@@ -341,6 +360,31 @@ class Conversa:
         self.soc.registrar(pedido, texto)
         await self.falar_resposta(texto)
         return True
+
+    async def _pedir_atualizacao(self, pedido: str) -> None:
+        """ "Sócrates, se atualiza": pergunta se pode (o "sim" ou "por favor" seguinte faz)."""
+        resultado = await asyncio.to_thread(ferramentas.executar, "atualizar_socrates", {})
+        p = ferramentas.pendente_valido()
+        fala = f"Posso {p.resumo}?" if p is not None else resultado
+        self.soc.registrar(pedido, fala)
+        self.painel.registrar("socrates", fala)
+        self.dizer_tela(f"{self.cfg.nome}: {fala}")
+        await self._interrompivel(self._falar(fala, False))
+
+    def _em_aula(self) -> bool:
+        aula = getattr(self.tutor, "aula", None) if self.tutor is not None else None
+        return (aula is not None and getattr(aula, "sessao", None) is None
+                and not getattr(aula, "interrompida", False))
+
+    def _quadro_da_aula(self, fala: str) -> None:
+        """Na aula, o exemplo e a pergunta que ele falou entram no quadro, embaixo do ponto
+        (27/11: "se for fazer perguntas, coloca no quadro toda vez", "o enunciado inteiro")."""
+        from .estudo.aula import complemento_do_quadro, juntar_ao_quadro
+        extra = complemento_do_quadro(fala)
+        if not extra:
+            return
+        base = self.painel.quadro_fonte if self.painel.quadro_por_fonte else self._ultimo_quadro
+        self._ao_quadro(juntar_ao_quadro(base or "", extra))
 
     def _atalho_do_tutor(self, pedido: str) -> bool:
         """Pedido de estudo curto e claro ("questões da PRF", "me ensina furto", "meu
@@ -600,12 +644,18 @@ class Conversa:
                 self.abrir_janela()
                 continue
 
+            if pede_atualizacao(pedido) and "atualizar_socrates" in ferramentas.REGISTRO:
+                await self._pedir_atualizacao(pedido)
+                self.abrir_janela()
+                continue
+
             no_pc = (self.agente is not None and pede_acao(pedido) and len(pedido.split()) >= 2
                      and not _DO_TREINO.search(_sem_acento(pedido)))
+            para_o_agente = self.agente is not None and bool(_PARA_O_AGENTE.search(_sem_acento(pedido)))
             # "abre o bloco de notas" no meio do treino vai ao agente; "coloca a questão no
             # quadro" é do treino (antes o agente inventava a questão)
             if (self.tutor is not None and self.tutor.em_treino and not _comando_geral(pedido)
-                    and not no_pc):
+                    and not no_pc and not para_o_agente):
                 saida = self.tutor.atender(pedido)
                 if saida is not None:
                     await self.executar_saida(pedido, saida)
