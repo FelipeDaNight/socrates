@@ -422,8 +422,9 @@ de notícias do DuckDuckGo (sem chave e **sem gastar o cérebro**). Só entram a
 concurso e de edital, banca, inscrição, vagas ou prova; cada novidade ele fala uma vez, quando
 você não está no meio de uma conversa, e as últimas ficam no visor novo. Na primeira vez ele
 avisa só a mais recente de cada concurso. Também dá para perguntar: "Sócrates, saiu o edital da
-PRF?". Para desligar ou mudar o intervalo: `noticias:` no `config.yaml`. Fica guardado em
-`Documentos\Socrates\noticias.json`.
+PRF?" ou, depois do aviso, "me conta mais": ele guarda o trecho de cada notícia e conta o que
+está escrito, citando o site. Para desligar ou mudar o intervalo: `noticias:` no `config.yaml`.
+Fica guardado em `Documentos\Socrates\noticias.json`.
 
 ### O visor
 
@@ -454,8 +455,10 @@ você disse e o que ele respondeu). Sem quadro, o núcleo grande ocupa o meio da
 Cor: diga "Sócrates, muda a cor do visor para azul" (laranja, azul, ciano, verde, roxo, rosa,
 vermelho ou branco). A escolha fica guardada.
 
-Tamanho: `largura:` e `altura:` no `config.yaml` (visor novo) ou `escala:` (clássico: 1.0
-pequeno, 1.25 médio, 1.5 grande).
+Tamanho: diga "Sócrates, coloca o visor grande" (ocupa a tela), "visor normal" (o tamanho de
+sempre, no centro) ou "visor pequeno". Vale na hora e fica guardado: da próxima vez ele já abre
+assim. O tamanho normal é `largura:` e `altura:` no `config.yaml` (visor novo) ou `escala:`
+(clássico: 1.0 pequeno, 1.25 médio, 1.5 grande).
 Sem a janela: `main.py --sem-visor` (o quadro aparece como texto no terminal). Por cima das outras janelas:
 `sempre_no_topo: true` no `config.yaml`. Estudando sozinho e não quer dizer o nome
 toda vez: `palavra_ativacao: false`.
@@ -641,6 +644,7 @@ socrates/
   audio/microfone.py       segmentador: separa as falas e reaprende o ruído da sala
   audio/alto_falante.py    toca a voz e avisa o visor do volume
   visor/hud.py             o visor novo: servidor local + página no Edge (visor/hud/index.html)
+  visor/tamanho.py         tamanho da janela do visor por voz (grande, normal, pequeno)
   visor/janela.py          o visor clássico, a janela laranja (Tkinter)
   visor/painel.py          estado compartilhado entre o Sócrates e o visor
   estudo/tutor.py          entende "questões da PRF", "lacunas do CTB", "como estou indo?"
@@ -661,13 +665,13 @@ socrates/
   estudo/progresso.py      domínio por tópico, próximo passo, o que estudou e aprendeu
   estudo/mapa.py           o mapa de estudo em HTML (todas as matérias e o autoestudo)
   ferramentas/estudo.py    pomodoro que anota os minutos
-  ferramentas/aparencia.py cor do visor por voz
+  ferramentas/aparencia.py cor e tamanho do visor por voz
   llm/  stt/  tts/         cérebro, ouvido e voz intercambiáveis
   core/agente.py           o cérebro que decide: a fala vai ao modelo com as ferramentas de estudo e do PC
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     975 testes, rodam sem microfone nem internet
+tests/                     1023 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro

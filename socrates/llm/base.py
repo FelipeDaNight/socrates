@@ -31,6 +31,12 @@ class ErroPesquisa(Exception):
     """A pesquisa na internet falhou (o resto do Sócrates continua funcionando)."""
 
 
+class ErroQuerFerramenta(ErroCerebro):
+    """O modelo quis chamar uma ferramenta num pedido só de texto (o Groq recusa: "Tool choice
+    is none, but model called a tool"). Não é o serviço que caiu: é o pedido que ainda precisa
+    de uma ação. O rodízio não põe o modelo para descansar por isso."""
+
+
 class ErroLimite(ErroCerebro):
     """O provedor bateu no limite grátis (429). O rodízio passa para o próximo."""
 

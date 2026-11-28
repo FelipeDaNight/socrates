@@ -13,13 +13,14 @@ import asyncio
 import contextvars
 import json
 import logging
+import re
 import time
 from typing import AsyncIterator
 
 import openai
 from openai import AsyncOpenAI
 
-from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, Mensagem
+from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, ErroQuerFerramenta, Mensagem
 
 log = logging.getLogger("socrates.llm")
 
@@ -28,6 +29,14 @@ ESPERA_MAX_SEG = 12   # esperar mais que isso calado parece travado: melhor usar
 # para o próximo do rodízio: ESPERA_LIMITE.set(3) vale só para a tarefa atual.
 ESPERA_LIMITE: contextvars.ContextVar[float] = contextvars.ContextVar("espera_limite",
                                                                       default=ESPERA_MAX_SEG)
+# Resposta da conversa (fala curta + quadro): pode ir com teto de tokens de saída. O autoestudo
+# (aula inteira em JSON) não usa o teto: cortada, a aula viraria JSON quebrado.
+SAIDA_CURTA: contextvars.ContextVar[bool] = contextvars.ContextVar("saida_curta", default=False)
+# No Groq grátis o Qwen só gera ~1000 tokens por minuto (OTPM). Sem max_tokens, o Groq calcula
+# uma saída "esperada" maior e recusa na hora: "Request too large ... (OTPM): Limit 1000,
+# Requested 1107" (26/11: 7 vezes, e o pedido ia para o próximo do rodízio).
+_OTPM = re.compile(r"output tokens per minute \(otpm\): limit (\d+)")
+TETO_QWEN_GROQ = 800
 
 
 def segundos_para_tentar(erro: openai.RateLimitError) -> float | None:
@@ -81,6 +90,10 @@ class CerebroCompativelOpenAI(Cerebro):
         self.descansar_ate = 0.0      # usado pelo rodízio quando este cérebro estoura
         # a busca embutida (browser_search) só existe nos gpt-oss do Groq
         self.pesquisa_ok = "gpt-oss" in modelo and "groq.com" in base_url
+        # teto de tokens de saída por modelo (o Groq diz no erro; o do Qwen já se sabe)
+        self.teto_saida: dict[str, int] = {
+            m: TETO_QWEN_GROQ for m in (modelo, modelo_reserva)
+            if m and "qwen" in m and "groq.com" in (base_url or "")}
         # max_retries=0: quem decide esperar ou trocar de modelo é o _criar (a biblioteca
         # sozinha esperaria em silêncio o tempo todo do retry-after)
         self._cliente = AsyncOpenAI(base_url=base_url, api_key=chave, http_client=http_client,
@@ -110,9 +123,17 @@ class CerebroCompativelOpenAI(Cerebro):
         tentou_reserva = modelo == self.modelo_reserva
         esperou = False
         while True:
+            teto = self.teto_saida.get(modelo) if SAIDA_CURTA.get() else None
+            extra = {"max_tokens": teto} if teto and "max_tokens" not in pedido else {}
             try:
-                return await self._cliente.chat.completions.create(model=modelo, **pedido)
+                return await self._cliente.chat.completions.create(model=modelo, **pedido, **extra)
             except openai.RateLimitError as e:
+                otpm = _OTPM.search(texto_do_erro(e))
+                if otpm and "request too large" in texto_do_erro(e):
+                    self.teto_saida[modelo] = max(256, int(int(otpm.group(1)) * 0.8))
+                    log.info("teto de saída do %s: %d tokens", modelo, self.teto_saida[modelo])
+                    if SAIDA_CURTA.get() and not extra:
+                        continue                  # na conversa: tenta já, com o teto
                 espera = segundos_para_tentar(e)
                 log.warning("limite do %s (espera sugerida: %s s): %s", modelo, espera, e)
                 if not esperou and espera is not None and espera <= ESPERA_LIMITE.get():
@@ -226,6 +247,8 @@ class CerebroCompativelOpenAI(Cerebro):
             fluxo = await self._criar(messages=mensagens, temperature=self.temperatura,
                                       stream=True, **self._extras(self.modelo_da_vez(), False))
         except openai.APIStatusError as e:
+            if _quis_ferramenta(e):
+                raise ErroQuerFerramenta("O modelo quis usar uma ferramenta.") from e
             log.warning("pedido recusado no %s (%s): %s", self.nome, e.status_code, e.message)
             raise ErroCerebro(f"O {self.nome} recusou o pedido ({e.status_code}).") from e
         from .ollama import FiltroPensamento
@@ -240,12 +263,24 @@ class CerebroCompativelOpenAI(Cerebro):
             if resto:
                 yield resto
         except openai.APIError as e:
+            if _quis_ferramenta(e):
+                # 26/11: "pode buscar na internet, mas abre o Spotify" -> abriu, bateu no limite,
+                # e no fechamento (só texto) o modelo quis pesquisar. Antes isso punha o melhor
+                # modelo de castigo por 2 minutos e outro inventava que tinha pesquisado.
+                log.info("o modelo quis usar uma ferramenta numa resposta só de texto")
+                raise ErroQuerFerramenta("O modelo quis usar uma ferramenta.") from e
             log.warning("resposta interrompida: %s", e)
             raise ErroCerebro("A resposta foi interrompida no meio. Tente de novo.") from e
 
     async def listar_modelos(self) -> list[str]:
         modelos = await self._cliente.models.list()
         return sorted(m.id for m in modelos.data)
+
+
+def _quis_ferramenta(e: Exception) -> bool:
+    """Pedido sem ferramentas e o modelo chamou uma ("Tool choice is none, but model called a
+    tool", do Groq)."""
+    return "tool choice is none" in texto_do_erro(e)
 
 
 def _modelo_nao_usou_ferramenta(e: Exception) -> bool:

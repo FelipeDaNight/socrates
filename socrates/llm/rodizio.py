@@ -7,17 +7,23 @@ pedido vai para o próximo da lista, sem você perceber. Quem bateu no limite
 
 from __future__ import annotations
 
+import contextvars
 import logging
 import time
 from typing import AsyncIterator
 
-from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, Mensagem
+from .base import Cerebro, ErroCerebro, ErroLimite, ErroPesquisa, ErroQuerFerramenta, Mensagem
 
 log = logging.getLogger("socrates.rodizio")
 
 DESCANSO_PADRAO = 60          # limite por minuto sem tempo informado
 DESCANSO_DIA = 3 * 3600       # limite do dia: tenta de novo daqui a algumas horas
 DESCANSO_FALHA = 120          # caiu, chave errada, modelo sumiu...
+# Quem pede só o texto final de um pedido que já teve ações (o agente, ao fechar a resposta)
+# quer saber se o modelo ainda queria agir: outro modelo do rodízio só responderia em texto,
+# às vezes dizendo que fez o que não fez.
+PARAR_SE_QUISER_FERRAMENTA: contextvars.ContextVar[bool] = contextvars.ContextVar(
+    "parar_se_quiser_ferramenta", default=False)
 
 
 class CerebroRodizio(Cerebro):
@@ -61,6 +67,11 @@ class CerebroRodizio(Cerebro):
                 primeiro = await fluxo.__anext__()   # se for falhar, falha aqui, antes de falar
             except StopAsyncIteration:
                 return
+            except ErroQuerFerramenta as e:          # o pedido, não o serviço: sem descanso
+                if PARAR_SE_QUISER_FERRAMENTA.get():
+                    raise
+                ultimo = e
+                continue
             except ErroCerebro as e:
                 self._descansar(m, e)
                 ultimo = e

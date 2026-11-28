@@ -21,6 +21,13 @@ NOMES_PARTIDOS = {("so", "crates"), ("so", "cratis"), ("socra", "tes")}
 INTERJEICOES = {"ei", "oi", "ok", "o", "e", "ai", "fala", "hey", "alo", "opa", "bom", "dia",
                 "boa", "tarde", "noite", "ola", "salve", "psiu", "escuta", "cade", "ta", "tá"}
 MAX_INTERJEICOES = 2
+# Só chamando, sem pedido: "Sócrates, alô? Sócrates?", "tá aí, Sócrates?", "Sócrates, tá me
+# ouvindo?". Em 26/11 (21h24) "SÓCRATES, ALÔ? SÓCRATES? SÓCRATES." foi ao cérebro como pedido,
+# e ele abriu o Spotify e repetiu a pesquisa de duas horas antes. Saudação ("bom dia") fica de
+# fora: essa ele responde.
+SO_CHAMANDO = {"alo", "oi", "ei", "e", "o", "opa", "psiu", "hey", "ta", "ai", "voce", "esta",
+               "tu", "me", "ouve", "ouvindo", "escuta", "escutando", "acorda", "acordado", "cade",
+               "aqui", "ainda", "hein", "ne", "la"}
 
 _PALAVRA = re.compile(r"[^\W\d_]+", re.UNICODE)
 _BORDAS = " \t\n,.;:!-–—"
@@ -44,6 +51,13 @@ def _nome_em(tokens: list[tuple[str, int, int]], i: int) -> int:
     return 0
 
 
+def so_chamando(resto: str) -> bool:
+    """O que sobrou depois do nome é só "alô", "tá aí?", "me ouve?" ou o nome de novo."""
+    palavras = [_norm(m.group()) for m in _PALAVRA.finditer(resto)]
+    return bool(palavras) and len(palavras) <= 6 and all(
+        p in SO_CHAMANDO or e_o_nome(p) for p in palavras)
+
+
 def chamou(texto: str) -> tuple[bool, str]:
     """Devolve (foi chamado?, o pedido sem o nome)."""
     tokens = [(_norm(m.group()), m.start(), m.end()) for m in _PALAVRA.finditer(texto)]
@@ -63,7 +77,7 @@ def chamou(texto: str) -> tuple[bool, str]:
             j += _nome_em(tokens, j)
         fim = tokens[j - 1][2]
         resto = texto[fim:].lstrip(_BORDAS + "?").rstrip()
-        return True, resto if _PALAVRA.search(resto) else ""
+        return True, resto if _PALAVRA.search(resto) and not so_chamando(resto) else ""
 
     # No fim
     for tamanho in (1, 2):
@@ -73,7 +87,7 @@ def chamou(texto: str) -> tuple[bool, str]:
             final = texto.rstrip()[-1:]
             if antes and final in "?!" and not antes.endswith(final):
                 antes += final
-            return True, antes
+            return True, "" if so_chamando(antes) else antes
 
     return False, texto.strip()
 

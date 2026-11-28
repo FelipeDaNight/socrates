@@ -276,6 +276,7 @@ async def maos_livres(cfg: config.Config, painel: Painel) -> None:
     from socrates.maos_livres import Aviso
 
     aparencia.PAINEL = painel
+    aparencia.TAMANHO_NORMAL.update(largura=cfg.visor.largura, altura=cfg.visor.altura)
 
     soc = criar_socrates(cfg)
     tutor = criar_tutor(cfg)
@@ -335,7 +336,7 @@ def rodar_maos_livres(cfg: config.Config, com_visor: bool) -> None:
         # Visor novo (estilo HUD): uma página no Edge. Se não abrir, segue no clássico.
         from socrates.visor import hud
         print("[visor] abrindo o visor novo...")
-        janela = hud.abrir(painel, cfg.visor.largura, cfg.visor.altura)
+        janela = hud.abrir(painel, cfg.visor.largura, cfg.visor.altura, tamanho=cfg.visor.tamanho)
         if janela is not None:
             try:
                 asyncio.run(maos_livres(cfg, painel))

@@ -186,6 +186,21 @@ def _dominio(url: str) -> str:
     return urlparse(url).netloc.lower().removeprefix("www.")
 
 
+_SOBRA_NA_BUSCA = {"a", "o", "as", "os", "de", "da", "do", "das", "dos", "e", "em", "no", "na", "nos",
+                   "nas", "para", "com", "por", "um", "uma", "texto", "atualizado", "concurso"}
+
+
+def encurtar_busca(consulta: str, palavras: int = 4) -> str:
+    """Busca comprida volta sem nada ("No results found": 11 vezes em 26/11, como "história
+    política de Goiás coronelismo oligarquias Caiado Pedro Ludovico Revolução de 1930"). Tenta
+    de novo só com as primeiras palavras que importam. "" = não dá para encurtar."""
+    termos = [p for p in consulta.split()
+              if unicodedata.normalize("NFKD", p).encode("ascii", "ignore").decode().lower().strip(",.:;")
+              not in _SOBRA_NA_BUSCA]
+    curta = " ".join(termos[:palavras]).strip(" ,.:;")
+    return curta if curta and curta != consulta.strip() else ""
+
+
 def buscar_web(consulta: str, quantos: int = 6) -> list[dict]:
     from ddgs import DDGS
     return list(DDGS().text(consulta, region="br-pt", safesearch="moderate", max_results=quantos) or [])
@@ -574,12 +589,20 @@ class Autoestudo:
                         break
         return fontes
 
-    def _paginas(self, consulta: str, quantas: int) -> list[Fonte]:
+    def _resultados(self, consulta: str) -> list[dict]:
         try:
-            resultados = self.buscar(consulta) or []
+            return list(self.buscar(consulta) or [])
         except Exception as e:                   # a busca é um extra: segue sem ela
             log.info("busca falhou (%s): %s", consulta, e)
             return []
+
+    def _paginas(self, consulta: str, quantas: int) -> list[Fonte]:
+        resultados = self._resultados(consulta)
+        if not resultados:
+            curta = encurtar_busca(consulta)
+            if curta:
+                log.info("busca de novo, mais curta: %s", curta)
+                resultados = self._resultados(curta)
         resultados = [r for r in resultados if r.get("href", "").startswith("http")
                       and not any(s in _dominio(r["href"]) for s in _SITES_RUINS)
                       and not r["href"].lower().endswith(".pdf")]

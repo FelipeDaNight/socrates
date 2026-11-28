@@ -157,6 +157,10 @@ def _concorda(resposta: str) -> bool | None:
     if palavras[0] in _COMECO_SIM:
         return True
     enfeite = {"por", "favor", "socrates", "e", "com", "ai", "la", "que", "agora"}
+    # "Posso baixar a versão nova e reiniciar?" -> "Por favor." (26/11: era descartado e ele
+    # perguntava tudo de novo)
+    if {"por", "favor"} <= set(palavras) and set(palavras) <= enfeite:
+        return True
     if len(palavras) <= 8 and all(p in _PALAVRAS_SIM for p in palavras) and set(palavras) - enfeite:
         return True
     return None

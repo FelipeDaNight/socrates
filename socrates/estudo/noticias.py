@@ -43,6 +43,7 @@ ASSUNTO = re.compile(r"\b(concursos?|edital|editais|inscric\w*|banca|vagas?|auto
 MAX_DIAS = 10                  # notícia mais velha que isso não é novidade
 MAX_POR_VEZ = 3                # avisos de uma vez (o resto fica no visor)
 GUARDA_VISTAS = 400
+MAX_RESUMO = 400
 
 
 @dataclass
@@ -52,6 +53,7 @@ class Noticia:
     fonte: str
     url: str
     data: str = ""             # ISO, quando a busca informa
+    resumo: str = ""           # o trecho que a busca mostra: é o que ele conta quando você pergunta
 
     @property
     def chave(self) -> str:
@@ -158,7 +160,9 @@ class Vigia:
                     if quando is not None and quando < limite:
                         continue
                     fonte = str(r.get("source") or "").strip() or urlparse(url).netloc.removeprefix("www.")
-                    n = Noticia(concurso, titulo, fonte, url, quando.isoformat() if quando else "")
+                    resumo = re.sub(r"\s+", " ", str(r.get("body") or "")).strip()[:MAX_RESUMO]
+                    n = Noticia(concurso, titulo, fonte, url, quando.isoformat() if quando else "",
+                                resumo)
                     achadas.setdefault(n.chave, n)
         return sorted(achadas.values(), key=lambda n: n.data, reverse=True)
 
@@ -178,15 +182,28 @@ class Vigia:
                     vistos.add(n.concurso)
                     avisar.append(n)
             novas = avisar
-        recentes = [Noticia(**r) for r in self.estado["recentes"] if isinstance(r, dict)]
-        juntas = {n.chave: n for n in [*achadas, *recentes]}
+        recentes = [n for n in map(_noticia, self.estado["recentes"]) if n is not None]
+        juntas = {n.chave: n for n in [*recentes, *achadas]}   # a busca nova traz o resumo
         self.estado["recentes"] = [asdict(n) for n in
                                    sorted(juntas.values(), key=lambda n: n.data, reverse=True)[:10]]
         self._salvar()
         return novas[:MAX_POR_VEZ]
 
     def recentes(self, quantas: int = 5) -> list[Noticia]:
-        return [Noticia(**r) for r in self.estado["recentes"][:quantas] if isinstance(r, dict)]
+        return [n for n in map(_noticia, self.estado["recentes"][:quantas]) if n is not None]
+
+
+def _noticia(dados) -> Noticia | None:
+    """Uma notícia guardada no noticias.json (campo a mais ou a menos não derruba)."""
+    if not isinstance(dados, dict):
+        return None
+    campos = {k: str(v or "") for k, v in dados.items() if k in Noticia.__dataclass_fields__}
+    if not campos.get("titulo"):
+        return None
+    campos.setdefault("concurso", "prf")
+    campos.setdefault("fonte", "")
+    campos.setdefault("url", "")
+    return Noticia(**campos)
 
 
 def aviso(novas: list[Noticia]) -> str:
@@ -222,6 +239,9 @@ def resumo_para_o_cerebro(novas: list[Noticia], recentes: list[Noticia]) -> str:
         marca = " (NOVA)" if any(x.chave == n.chave for x in novas) else ""
         nome = CONCURSOS.get(n.concurso, {}).get("nome", n.concurso)
         linhas.append(f"- [{nome}] {n.titulo} ({n.fonte}, {quando}){marca}")
-    return ("Notícias recentes dos concursos (busca de notícias, títulos como saíram; conte ao aluno "
-            "o essencial e cite o site):\n" + "\n".join(linhas))
+        if n.resumo:
+            linhas.append(f"  Trecho: {n.resumo}")
+    return ("Notícias recentes dos concursos (busca de notícias, títulos e trechos como saíram; a que "
+            "você avisou está aqui. Conte ao aluno o essencial, só o que está escrito, e cite o "
+            "site):\n" + "\n".join(linhas))
 

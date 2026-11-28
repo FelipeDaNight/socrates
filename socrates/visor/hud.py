@@ -26,6 +26,7 @@ from urllib.parse import parse_qs, urlparse
 
 from . import cores
 from .painel import Painel
+from .tamanho import argumentos_de_abertura
 
 log = logging.getLogger("socrates.hud")
 
@@ -306,16 +307,21 @@ class Hud:
                     self.painel.ao_fechar()
                 return
 
-    def abrir_janela(self, largura: int = 1280, altura: int = 760) -> bool:
+    def abrir_janela(self, largura: int = 1280, altura: int = 760, tamanho: str = "normal") -> bool:
         exe = achar_navegador()
         if exe is None:
             log.warning("visor: não achei o Edge nem o Chrome")
             return False
         perfil = pasta_do_perfil()
         try:
+            janela = argumentos_de_abertura(tamanho, largura, altura)
+        except Exception as e:                   # sem a medida da tela: abre no tamanho do config
+            log.warning("visor: não medi a tela (%s)", e)
+            janela = [f"--window-size={largura},{altura}"]
+        try:
             perfil.mkdir(parents=True, exist_ok=True)
             self.navegador = subprocess.Popen(
-                [exe, f"--app={self.url}", f"--window-size={largura},{altura}",
+                [exe, f"--app={self.url}", *janela,
                  f"--user-data-dir={perfil}", "--no-first-run", "--no-default-browser-check",
                  "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
                  "--disable-backgrounding-occluded-windows", "--disable-features=Translate"],
@@ -365,7 +371,7 @@ def pasta_do_perfil() -> Path:
 
 
 def abrir(painel: Painel, largura: int = 1280, altura: int = 760, porta: int = PORTA,
-          espera: float = ESPERA_CONTATO) -> Hud | None:
+          espera: float = ESPERA_CONTATO, tamanho: str = "normal") -> Hud | None:
     """Abre o visor novo. None = não deu (sem Edge, página não carregou): use o clássico."""
     try:
         hud = Hud(painel, porta)
@@ -373,7 +379,7 @@ def abrir(painel: Painel, largura: int = 1280, altura: int = 760, porta: int = P
         log.warning("visor: servidor não subiu (%s)", e)
         return None
     hud.iniciar()
-    if not hud.abrir_janela(largura, altura):
+    if not hud.abrir_janela(largura, altura, tamanho):
         hud.parar()
         return None
     if not hud.esperar_contato(espera):

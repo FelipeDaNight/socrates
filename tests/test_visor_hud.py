@@ -203,7 +203,8 @@ def test_pagina_que_nao_carrega_tambem_volta(monkeypatch):
         def terminate(self):
             pass
     monkeypatch.setattr(hud.Hud, "abrir_janela",
-                        lambda self, largura, altura: setattr(self, "navegador", NavegadorMudo()) or True)
+                        lambda self, largura, altura, tamanho="normal":
+                        setattr(self, "navegador", NavegadorMudo()) or True)
     p = Painel()
     assert hud.abrir(p, porta=0, espera=0.3) is None
 

@@ -69,7 +69,10 @@ def test_confirmacao_expira(atualizar_falso):
 @pytest.mark.parametrize("fala,esperado", [
     ("Sim.", True), ("Pode mandar.", True), ("Isso mesmo, Sócrates", True), ("Manda!", True),
     ("Não.", False), ("Cancela", False), ("Não manda não", False),
-    ("Sim, mas muda o texto", None), ("Por favor", None), ("Qual a capital do Brasil?", None),
+    ("Sim, mas muda o texto", None), ("Qual a capital do Brasil?", None),
+    # 26/11: "Posso baixar a nova versão e reiniciar?" -> "Por favor." é sim
+    ("Por favor", True), ("Por favor, Sócrates", True), ("Por favor, não", False),
+    ("Por favor, muda o texto", None),
 ])
 def test_entende_sim_e_nao(fala, esperado):
     assert ferramentas._concorda(ferramentas._norm(fala)) is esperado

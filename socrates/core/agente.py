@@ -60,6 +60,10 @@ Como decidir:
 - Pedido de estudo guiado (aula de um tópico, questões, simulado, revisão, lacunas, "meu mapa",
   plano do dia, desempenho, o que estudou) vai para estudar, com o pedido em palavras simples.
   Mapa mental, esquema, cenários ou passo a passo de um assunto NÃO é estudar: é desenho no quadro.
+- "Hoje vai ser CTB", "hoje é Português": é o assunto de hoje. Comece a aula com estudar
+  ("me ensina CTB").
+- Notícia do concurso que VOCÊ avisou ("viu isso?", "me conta mais"): use noticias_do_concurso
+  e conte o que ela diz. Você viu, sim: foi você que avisou.
 - "Próxima", "siga", "pode passar" e parecidos: siga direto, sem perguntar de novo.
 - O microfone erra palavras. Um nome solto como "Filipe, por favor" ou "Cicco, por favor"
   quase sempre é "Explique, por favor": entenda pelo contexto, sem mudar de assunto.
@@ -98,8 +102,8 @@ Fala (sua resposta vira áudio):
   "mapa: tema" (ou "cenarios: situação", ou "fluxo: processo"); depois os ramos com "- " e os
   detalhes de cada ramo recuados com "  - ". Até 6 ramos e 3 detalhes curtos por ramo (aqui o
   limite de 10 linhas não vale). Em cenarios, cada ramo é uma condição ("Se ...") e o detalhe
-  é o que acontece; em fluxo, cada ramo é uma etapa, na ordem. Na fala, explique o desenho
-  seguindo os números dos ramos.
+  é o que acontece; em fluxo, cada ramo é uma etapa, na ordem. Número de artigo no desenho só
+  se estiver nas notas do material. Na fala, explique o desenho seguindo os números dos ramos.
 - Depois de uma ação, confirme em uma frase. Nunca diga que fez algo sem ter usado a ferramenta.
 - Se uma ferramenta responder AGUARDANDO CONFIRMAÇÃO, pergunte em uma frase se pode fazer."""
 
@@ -124,6 +128,18 @@ CORRECAO = ("(Atenção: você disse que fez uma ação, mas não usou nenhuma f
             "então ela NÃO aconteceu. Se dá para fazer com as ferramentas, use agora. Se não dá, "
             "diga com franqueza que não consegue fazer isso.)")
 HONESTO = "Não consegui fazer isso daqui: não tenho uma ferramenta para essa ação."
+# "Dei uma olhada nas notícias" sem ter pesquisado, mesmo tendo usado OUTRA ferramenta (26/11,
+# 19h: abriu o Spotify, bateu no limite antes de pesquisar, e a resposta disse que tinha olhado
+# as notícias). O _fingiu não pegava: ele só vale quando nenhuma ferramenta foi usada.
+_ALEGA_BUSCA = re.compile(r"\b(?:pesquisei|busquei|procurei|consultei|olhei|dei uma (?:olhada|olhadinha|"
+                          r"pesquisada|buscada|busca|procurada))\b.{0,40}\b(?:internet|noticias?|google|"
+                          r"web|sites?|online)\b")
+_BUSCAS = {"pesquisar_internet", "noticias_do_concurso", "buscar_no_navegador"}
+CORRECAO_BUSCA = ("(Atenção: você disse que pesquisou ou olhou notícias, mas não usou pesquisar_internet "
+                  "nem noticias_do_concurso neste pedido, então essa busca NÃO aconteceu. O que você já "
+                  "fez ({feito}) não se repete. Faça a busca agora com a ferramenta e responda com o "
+                  "que ela trouxer, citando a fonte.)")
+SEM_BUSCA = "Não consegui fazer a pesquisa agora. Se quiser, peça de novo daqui a pouco."
 ESPERA_NO_LIMITE = 3.0     # no limite grátis, espera no máximo isso e passa para o próximo cérebro
 
 # Fala que pode precisar do computador. Sem isso, as ferramentas do PC ficam de fora do
@@ -149,7 +165,8 @@ _FAMILIAS_PC = [
     (re.compile(r"\b(copi\w*|col\w*|area de transferencia)\b"),
      {"copiar_texto", "ler_area_de_transferencia"}),
     (re.compile(r"\b(bloque\w*|pasta\w*|visor|cor)\b"),
-     {"bloquear_tela", "abrir_pasta", "mudar_cor_do_visor"}),
+     {"bloquear_tela", "abrir_pasta", "mudar_cor_do_visor", "tamanho_do_visor"}),
+    (re.compile(r"\b(maximiz\w*|tela cheia|tela inteira|tela toda)\b"), {"tamanho_do_visor"}),
     (re.compile(r"\b(claude|cloud|claudio|claudia|clode|atualiz\w*|melhori\w*)\b"),
      {"pedir_ao_claude", "atualizar_socrates"}),
 ]
@@ -519,8 +536,9 @@ class Agente:
             "Depois responda citando a fonte pelo nome.",
             {"pergunta": "O que pesquisar"})
         reg(self.noticias_do_concurso,
-            "Notícias recentes do concurso da PRF e do CBMGO (edital, banca, inscrição, prova). Use "
-            "quando ele perguntar se saiu edital ou se há novidade do concurso.",
+            "Notícias recentes do concurso da PRF e do CBMGO (edital, banca, inscrição, prova), com "
+            "o trecho de cada uma. Use quando ele perguntar se saiu edital, se há novidade, ou "
+            "quiser saber mais de uma notícia que você avisou.",
             {}, {"concurso": ["prf", "cbmgo", "todos"]})
         reg(self.lembrar,
             "Guarda para sempre um fato durável sobre o aluno (data da prova, dificuldades, "
@@ -574,7 +592,7 @@ class Agente:
     async def atender(self, pedido: str, historico: list | None = None,
                       modo: str = "explicar") -> Resultado:
         from ..llm.acoes import quer_desenho
-        from ..llm.compativel_openai import ESPERA_LIMITE
+        from ..llm.compativel_openai import ESPERA_LIMITE, SAIDA_CURTA
 
         self._turno = Resultado()
         self._feitas: dict[tuple[str, str], str] = {}
@@ -583,18 +601,22 @@ class Agente:
         esquemas = self.esquemas(com_pc=self.quer_pc(pedido, historico or []), pedido=pedido,
                                  historico=historico or [])
         marca = ESPERA_LIMITE.set(ESPERA_NO_LIMITE)
+        curta = SAIDA_CURTA.set(True)          # fala curta: o Qwen do Groq cabe no limite dele
         try:
             texto = await self.cerebro.com_ferramentas(
                 msgs, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,
                 parar=lambda: self._turno.saida is not None)
             texto = _limpar(texto)
             if self._turno.saida is None and self._sem_fechamento(texto):
-                texto = await self._fechar(pedido, msgs)
+                texto = await self._fechar(pedido, msgs, esquemas)
             if self._turno.saida is None and self._fingiu(texto):
                 texto = await self._corrigir_fingimento(msgs, esquemas, texto)
+            elif self._turno.saida is None and self._fingiu_busca(texto):
+                texto = await self._corrigir_busca(msgs, esquemas, texto)
             elif self._turno.saida is None and self._recusou_a_toa(texto, esquemas):
                 texto = await self._insistir(msgs, esquemas, texto)
         finally:
+            SAIDA_CURTA.reset(curta)
             ESPERA_LIMITE.reset(marca)
         if self._turno.quadro and "[QUADRO]" in texto.upper():
             from ..visor.diagrama import ler as ler_desenho
@@ -621,6 +643,36 @@ class Agente:
         if "[quadro]" in texto.lower() and re.search(r"\b(?:coloquei|escrevi|anotei|pus)\b.{0,40}\bquadro\b", t):
             return False                     # pôr no quadro é escrever [QUADRO], e ele escreveu
         return True
+
+    def _fingiu_busca(self, texto: str) -> bool:
+        """Disse que pesquisou ou olhou notícias sem ter usado a busca neste pedido."""
+        if not texto or _BUSCAS & set(self._turno.ferramentas):
+            return False
+        return bool(_ALEGA_BUSCA.search(_norm(texto)))
+
+    async def _corrigir_busca(self, msgs: list[dict], esquemas: list[dict], texto: str) -> str:
+        log.warning("o cérebro disse que pesquisou sem pesquisar: %r", texto[:160])
+        feito = ", ".join(self._turno.ferramentas) or "nada"
+        conversa = msgs + [{"role": "assistant", "content": texto},
+                           {"role": "user", "content": CORRECAO_BUSCA.format(feito=feito)}]
+        try:
+            novo = _limpar(await self.cerebro.com_ferramentas(
+                conversa, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,
+                parar=lambda: self._turno.saida is not None))
+        except Exception as e:
+            log.warning("não consegui corrigir a busca: %s", e)
+            novo = ""
+        if self._turno.saida is not None:
+            return ""
+        buscou = bool(_BUSCAS & set(self._turno.ferramentas))
+        if (novo and not novo.startswith("Já feito nesta resposta") and not self._fingiu_busca(novo)
+                and (buscou or not self._sem_fechamento(novo))):
+            return novo                      # o resultado cru da busca já é uma resposta falada
+        # a parte que foi feita de verdade continua dita; a busca, não
+        feito_de_verdade = next((r.strip() for r in self._turno.resultados
+                                 if r.strip() and len(r) < 120 and "\n" not in r.strip()
+                                 and not r.startswith(("Erro", "AGUARDANDO"))), "")
+        return f"{feito_de_verdade} {SEM_BUSCA}".strip()
 
     def _recusou_a_toa(self, texto: str, esquemas: list[dict]) -> bool:
         """Disse que não consegue mexer no computador tendo a ferramenta na mão (uma lição
@@ -667,24 +719,48 @@ class Agente:
         return texto.startswith("Fiz o que pude") or (bool(texto) and any(
             texto == r.strip() for r in self._turno.resultados))
 
-    async def _fechar(self, pedido: str, msgs: list[dict]) -> str:
+    async def _fechar(self, pedido: str, msgs: list[dict], esquemas: list[dict] | None = None) -> str:
         """Pede só a resposta final (outro cérebro do rodízio, se preciso), com o que as
-        ferramentas já devolveram. As ações NÃO são repetidas."""
+        ferramentas já devolveram. As ações NÃO são repetidas. Se o modelo ainda quiser agir
+        (faltou parte do pedido, como a pesquisa de 26/11), ele age, com as ferramentas."""
+        from ..llm.base import ErroQuerFerramenta
+        from ..llm.rodizio import PARAR_SE_QUISER_FERRAMENTA
+
         feito = "\n---\n".join(r[:1500] for r in self._turno.resultados)[-4000:]
         pedido_final = (f"(Você já usou as ferramentas {', '.join(self._turno.ferramentas)} para este "
                         f"pedido. Resultados:\n{feito}\n) Agora responda ao aluno, falando, em até 4 "
                         f"frases, sem repetir o texto da lei que já está no quadro. Pedido: {pedido}")
         conversa = [m for m in msgs[:-1]] + [{"role": "user", "content": pedido_final}]
+        marca = PARAR_SE_QUISER_FERRAMENTA.set(True)
         try:
             texto = _limpar("".join([p async for p in self.cerebro.responder(conversa)]))
+        except ErroQuerFerramenta:
+            texto = await self._terminar(conversa, esquemas) if esquemas else ""
         except Exception as e:
             log.warning("não consegui fechar a resposta: %s", e)
             texto = ""
+        finally:
+            PARAR_SE_QUISER_FERRAMENTA.reset(marca)
         if texto:
             return texto
         if "ler_lei" in self._turno.ferramentas:
             return "Pronto, está no quadro." if self._turno.quadro else "Pronto, escrevi no Bloco de Notas."
         return "Pronto." if self._turno.ferramentas else ""
+
+    async def _terminar(self, conversa: list[dict], esquemas: list[dict]) -> str:
+        """O modelo quis agir na hora de só responder: falta parte do pedido. Faz com as
+        ferramentas (o que já foi feito não roda de novo: _executar não repete)."""
+        log.info("faltou parte do pedido: terminando com as ferramentas")
+        nota = (" Se ainda falta parte do pedido (ex.: pesquisar), faça agora com a ferramenta; o "
+                "que já foi feito não se repete.")
+        conversa = conversa[:-1] + [{"role": "user", "content": conversa[-1]["content"] + nota}]
+        try:
+            return _limpar(await self.cerebro.com_ferramentas(
+                conversa, esquemas, self._executar, max_rodadas=self.MAX_RODADAS,
+                parar=lambda: self._turno.saida is not None))
+        except Exception as e:
+            log.warning("não consegui terminar o pedido: %s", e)
+            return ""
 
     def sistema(self, modo: str = "explicar") -> str:
         """O começo do pedido, que quase não muda: persona, memória, lições, caixa do Claude.
