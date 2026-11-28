@@ -509,6 +509,9 @@ class Conversa:
             texto = re.sub(r"\s+", " ", arq.read_text(encoding="utf-8")).strip()
         except OSError:
             return ""
+        # a saudação já diz "Recado do Claude:"; o recado de 26/11 veio com isso escrito e
+        # sairia "Recado do Claude: Recado do Claude: ..."
+        texto = re.sub(r"^recado do claude\s*[:,.\-–]?\s*", "", texto, flags=re.I)
         try:
             arq.replace(arq.with_name("recado_do_claude.lido.txt"))
         except OSError:

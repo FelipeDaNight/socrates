@@ -253,3 +253,17 @@ async def test_saudacao_le_o_recado_do_claude_uma_vez(tmp_path, monkeypatch):
     assert "Recado do Claude: Agora eu reconecto o microfone sozinho." in s.voz.faladas[0]
     assert not (tmp_path / "recado_do_claude.txt").exists()
     assert (tmp_path / "recado_do_claude.lido.txt").exists()
+
+
+@pytest.mark.asyncio
+async def test_recado_que_ja_vem_com_o_titulo_nao_repete(tmp_path, monkeypatch):
+    # o recado da noite de 26/11 começava com "Recado do Claude:"
+    import socrates.core.memoria as mem
+    monkeypatch.setattr(mem, "PASTA", tmp_path)
+    (tmp_path / "recado_do_claude.txt").write_text("Recado do Claude: consertei duas coisas.",
+                                                   encoding="utf-8")
+    conversa, s, *_ = _montar()
+    conversa.cfg.voz.saudacao = True
+    await _rodar(conversa, [])
+    assert "Recado do Claude: consertei duas coisas." in s.voz.faladas[0]
+    assert s.voz.faladas[0].count("Recado do Claude") == 1

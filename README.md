@@ -671,7 +671,7 @@ socrates/
   core/memoria.py          memória do aluno, lições e ideias de melhoria (Documentos\Socrates)
   core/reflexao.py         uma vez por dia relê o registro e escreve lições e ideias para o Claude
   tts/windows.py           voz do próprio Windows: a reserva quando o Edge falha
-tests/                     1023 testes, rodam sem microfone nem internet
+tests/                     1024 testes, rodam sem microfone nem internet
 ```
 
 ## Roteiro
